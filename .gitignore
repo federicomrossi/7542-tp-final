@@ -2,6 +2,8 @@
 *.slo
 *.lo
 *.o
+*.deps
+
 
 # Compiled Dynamic libraries
 *.so
@@ -11,3 +13,10 @@
 *.lai
 *.la
 *.a
+
+# Latex Compiled files
+*.toc
+*.aux
+*.synctex.gz
+75.42-TP-Final-Grupo04-Documentacion.de.diseño.log
+75.42-TP-Final-Grupo04-Documentacion.de.usuario.log
