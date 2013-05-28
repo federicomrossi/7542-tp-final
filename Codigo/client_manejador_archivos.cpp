@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include "dirent.h"
 
 
 
@@ -19,15 +20,17 @@
 
 
 // Constructor
-ManejadorArchivos::ManejadorArchivos() { }
+ManejadorArchivos::ManejadorArchivos(const std::string& directorio) : 
+	directorio(directorio) { }
 
 
 // Destructor
 ManejadorArchivos::~ManejadorArchivos() { }
 
 
-//
-std::string ManejadorArchivos::obtenerArchivo(
+// Devuelve el contenido de un archivo en formato hexadecimal expresado
+// en una cadena de caracteres
+std::string ManejadorArchivos::obtenerContenidoArchivo(
 	const std::string& nombre_archivo) {
 	// Abrimos el archivo
 	std::ifstream archivo(nombre_archivo.c_str(), 
@@ -51,4 +54,32 @@ std::string ManejadorArchivos::obtenerArchivo(
 	delete[] contenidoTemp;
 
 	return contenidoHex;
+}
+
+
+// Devuelve una lista con los nombre de archivos que se encuentran ubicados
+// en el directorio que se encuentra administrando el manejador.
+std::list<std::string> ManejadorArchivos::obtenerArchivosDeDirectorio()
+{
+	DIR *dir;
+	struct dirent *entrada = 0;
+	std::list<std::string> listaArchivos;
+
+	if((dir = opendir (this->directorio.c_str())) != NULL) {
+		// Iteramos sobre cada objeto del directorio
+		while ((entrada = readdir (dir)) != NULL) {
+			// Salteamos directorios ocultos
+			if (entrada->d_name[0]=='.')
+				continue;
+
+			// Insertamos el nombre de archivo en la lista
+			listaArchivos.push_back(entrada->d_name);
+		}
+
+		closedir(dir);
+	} 
+	else 
+		throw "ERROR: No se ha podido abrir el directorio.";
+
+	return listaArchivos;
 }

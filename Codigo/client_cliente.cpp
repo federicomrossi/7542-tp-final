@@ -22,7 +22,11 @@
 
 // Constructor
 Cliente::Cliente(std::string nombreHost, int puerto) : 
-	puerto(puerto), nombreHost(nombreHost) { }
+	puerto(puerto), nombreHost(nombreHost) 
+{
+	// Creamos el inspector
+
+}
 
 
 // Destructor
@@ -77,9 +81,16 @@ void Cliente::ejecutar() {
 	std::cout << std::endl << std::endl << "CONTENIDO DE ARCHIVO" 
 		<< std::endl << std::endl;
 
-	ManejadorArchivos ma;
-	std::cout << ma.obtenerArchivo("cliente/archivo.txt") << std::endl 
-		<< std::endl;
+	// DEBUG
+	ManejadorArchivos ma("cliente");
+	std::cout << ma.obtenerContenidoArchivo("cliente/archivo.txt") 
+		<< std::endl << std::endl;
+
+	std::list<std::string> l = ma.obtenerArchivosDeDirectorio();
+
+	for (std::list< std::string>::iterator it = l.begin(); it != l.end(); ++it)
+    	std::cout << *it << std::endl;
+	// END DEBUG
 
 	// // Variables de procesamiento
 	// std::string instruccion;

@@ -1,22 +1,22 @@
-#ifndef COMMON_COLABLOQ_H_
-#define COMMON_COLABLOQ_H_
+#ifndef COMMON_COLA_H_
+#define COMMON_COLA_H_
 
 #include "common_mutex.h"
 #include "common_lock.h"
 #include <queue>
 
 template <class T>
-class ColaBloq {
+class Cola {
 private:
 	std::queue<T>* cola;
 	Mutex* mutex;
 public:
-	ColaBloq() {
+	Cola() {
 		this->cola = new std::queue<T>;
 		this->mutex = new Mutex;
 	};
 
-	virtual ~ColaBloq() {
+	virtual ~Cola() {
 		if (this->cola) {
 			delete(this->cola);
 			this->cola = NULL;
@@ -51,7 +51,7 @@ public:
 	T pop2() {
 		Lock lock(*this->mutex);
 		if (cola->size() == 0)
-			lock.esperar();
+			lock.wait();
 		T t = cola->front();
 		cola->pop();
 		return t;
@@ -63,4 +63,4 @@ public:
 	}
 };
 
-#endif /* COMMON_COLABLOQ_H_ */
+#endif /* COMMON_COLA_H_ */

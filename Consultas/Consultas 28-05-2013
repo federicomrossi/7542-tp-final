@@ -3,10 +3,14 @@
 #
 
 
-CONSULTA 1: ¿Qué hacer con los clientes (y sus sockets) que se encuentran inactivos durante mucho tiempo?
-RESPUESTA 1:
+C1: ¿Qué hacer con los clientes (y sus sockets) que se encuentran inactivos durante mucho tiempo?
+R1:
 
-CONSULTA 2: Para validar el login de un cliente, ¿está bien tener un objeto con mutex que valide de a uno por vez? (validar = abrir archivo de claves, buscar id_usuario, comparar contraseña)
-RESPUESTA 2:
+C2: Para validar el login de un cliente, ¿está bien tener un objeto con mutex que valide de a uno por vez? (validar = abrir archivo de claves, buscar id_usuario, comparar contraseña)
+R2:
 
-CONSULTA 3: ¿Cómo manejamos el hecho de que muchos clientes esten modificando el mismo archivo al mismo tiempo? Es decir, si uno modifica algo, y otro modifica justo la misma parte, ¿Que hacemos?
+C3: ¿Cómo manejamos el hecho de que muchos clientes esten modificando el mismo archivo al mismo tiempo? Es decir, si uno modifica algo, y otro modifica justo la misma parte, ¿Que hacemos?
+R3:
+
+C4: Cuando sensamos los nombres de archivo de los archivos que se encuentran en el directorio, ¿siempre se leen en el mismo orden?, ya que después, cuando se constata si ya fue indexado, vamos haciendo una iteración lineal de los nombres de archivo actual y de los archivos ya indexados para ver si alguno no fue indexado.
+R4:

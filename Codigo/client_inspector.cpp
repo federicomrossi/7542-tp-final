@@ -16,9 +16,25 @@
 
 
 // Constructor
-Inspector::Inspector() { }
+Inspector::Inspector() {
+
+}
 
 
 // Destructor
 Inspector::~Inspector() { }
+
+
+//
+void Inspector::iniciar() {}
+
+// 
+void Inspector::establecerIntervaloDeInspeccion(int segundos) {}
+
+//
+void Inspector::forzarInspeccion() {}
+
+// Define tareas a ejecutar en el hilo.
+// Realiza una inspección cada un intervalo predeterminado.
+void Inspector::run() {}
 

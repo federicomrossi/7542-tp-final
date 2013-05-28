@@ -8,6 +8,8 @@
 #define INSPECTOR_H
 
 #include <string>
+#include "common_thread.h"
+#include "common_cola.h"
 
 
 
@@ -16,9 +18,15 @@
  * ***************************************************************************/
 
 
-class Inspector {
+class Inspector : public Thread {
 private:
 
+	int intervalo;				// Intervalo de inspección en segundos
+	Cola< int > *eventos;		// Cola de eventos
+
+
+	// Bloquea actividades hasta que haya transcurrido el intervalo de polling
+	void alarmaDeInspeccion();
 
 public:
 
@@ -28,7 +36,18 @@ public:
 	// Destructor
 	~Inspector();
 
+	//
+	void iniciar();
 
+	// 
+	void establecerIntervaloDeInspeccion(int segundos);
+
+	//
+	void forzarInspeccion();
+
+	// Define tareas a ejecutar en el hilo.
+	// Realiza una inspección cada un intervalo predeterminado.
+	virtual void run();
 };
 
 #endif

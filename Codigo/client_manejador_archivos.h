@@ -7,7 +7,9 @@
 #ifndef MANEJADOR_ARCHIVOS_H
 #define MANEJADOR_ARCHIVOS_H
 
+
 #include <string>
+#include <list>
 
 
 
@@ -19,17 +21,23 @@
 class ManejadorArchivos {
 private:
 
+	std::string directorio;
 
 public:
 
 	// Constructor
-	ManejadorArchivos();
+	ManejadorArchivos(const std::string& directorio);
 
 	// Destructor
 	~ManejadorArchivos();
 
-	//
-	std::string obtenerArchivo(const std::string& nombre_archivo);
+	// Devuelve el contenido de un archivo en formato hexadecimal expresado
+	// en una cadena de caracteres
+	std::string obtenerContenidoArchivo(const std::string& nombre_archivo);
+
+	// Devuelve una lista con los nombre de archivos que se encuentran ubicados
+	// en el directorio que se encuentra administrando el manejador.
+	std::list<std::string> obtenerArchivosDeDirectorio(); 
 
 
 };
