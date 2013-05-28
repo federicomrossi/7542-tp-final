@@ -8,3 +8,5 @@ RESPUESTA 1:
 
 CONSULTA 2: Para validar el login de un cliente, ¿está bien tener un objeto con mutex que valide de a uno por vez? (validar = abrir archivo de claves, buscar id_usuario, comparar contraseña)
 RESPUESTA 2:
+
+CONSULTA 3: ¿Cómo manejamos el hecho de que muchos clientes esten modificando el mismo archivo al mismo tiempo? Es decir, si uno modifica algo, y otro modifica justo la misma parte, ¿Que hacemos?

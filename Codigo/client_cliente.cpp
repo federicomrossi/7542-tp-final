@@ -10,6 +10,8 @@
 #include "common_comunicador.h"
 #include "client_cliente.h"
 
+#include "client_manejador_archivos.h"
+
 
 
 
@@ -71,6 +73,13 @@ void Cliente::ejecutar() {
 	// Mensaje de log
 	std::cout << "OK" << std::endl;
 	std::cout.flush();
+
+	std::cout << std::endl << std::endl << "CONTENIDO DE ARCHIVO" 
+		<< std::endl << std::endl;
+
+	ManejadorArchivos ma;
+	std::cout << ma.obtenerArchivo("cliente/archivo.txt") << std::endl 
+		<< std::endl;
 
 	// // Variables de procesamiento
 	// std::string instruccion;

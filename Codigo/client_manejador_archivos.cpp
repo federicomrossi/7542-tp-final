@@ -22,6 +22,10 @@
 ManejadorArchivos::ManejadorArchivos() { }
 
 
+// Destructor
+ManejadorArchivos::~ManejadorArchivos() { }
+
+
 //
 std::string ManejadorArchivos::obtenerArchivo(
 	const std::string& nombre_archivo) {
