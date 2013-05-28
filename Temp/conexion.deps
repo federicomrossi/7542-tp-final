@@ -1,0 +1,5 @@
+conexion.o conexion.deps : conexion.cpp conexion.h gtkmm.h
+
+conexion.h:
+
+gtkmm.h:
