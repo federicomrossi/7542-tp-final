@@ -3,8 +3,8 @@
 #
 
 
-CONSULTA 1:
+CONSULTA 1: ¿Qué hacer con los clientes (y sus sockets) que se encuentran inactivos durante mucho tiempo?
 RESPUESTA 1:
 
-CONSULTA 2:
+CONSULTA 2: Para validar el login de un cliente, ¿está bien tener un objeto con mutex que valide de a uno por vez? (validar = abrir archivo de claves, buscar id_usuario, comparar contraseña)
 RESPUESTA 2:
