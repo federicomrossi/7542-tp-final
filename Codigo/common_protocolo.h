@@ -19,14 +19,19 @@
 
 // Constantes para los identificadores de instrucciones enviadas por el
 // cliente
-const std::string C_GET_JOB_PART = "GET-JOB-PART";
-const std::string C_POSSIBLE_KEY = "POSSIBLE-KEY";
-const std::string C_JOB_PART_FINISHED = "JOB-PART-FINISHED";
+// FORMATO DE LAS CONSTANTES: C_[instruccion]
+ const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
 
 // Constantes para los identificadores de instrucciones enviadas por el
 // servidor
-const std::string S_JOB_PART = "JOB-PART";
-const std::string S_NO_JOB_PART = "NO-JOB-PART";
+// FORMATO DE LAS CONSTANTES: S_[instruccion]
+const std::string S_LOGIN_OK = "LOGIN-OK";
+const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
+
+// Constantes para los identificadores de instrucciones comunes al servidor
+// y el cliente
+// FORMATO DE LAS CONSTANTES: COMMON_[instruccion]
+const std::string COMMON_SEND_FILE = "SEND-FILE";
 
 // Constante para caracter de fin de instrucción
 const char FIN_MENSAJE = '\n';
