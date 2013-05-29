@@ -31,7 +31,8 @@ private:
 public:
 
 	// Constructor
-	Inspector();
+	// PRE: 'intervalo' es el intervalo de inspección en segundos.
+	Inspector(int intervalo);
 
 	// Destructor
 	~Inspector();

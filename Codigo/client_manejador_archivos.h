@@ -38,8 +38,6 @@ public:
 	// Devuelve una lista con los nombre de archivos que se encuentran ubicados
 	// en el directorio que se encuentra administrando el manejador.
 	std::list<std::string> obtenerArchivosDeDirectorio(); 
-
-
 };
 
 #endif

@@ -16,9 +16,8 @@
 
 
 // Constructor
-Inspector::Inspector() {
-
-}
+// PRE: 'intervalo' es el intervalo de inspección en segundos.
+Inspector::Inspector(int intervalo) : intervalo(intervalo) { }
 
 
 // Destructor
