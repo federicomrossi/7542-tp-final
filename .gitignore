@@ -3,6 +3,8 @@
 *.lo
 *.o
 *.deps
+client
+server
 
 
 # Compiled Dynamic libraries
