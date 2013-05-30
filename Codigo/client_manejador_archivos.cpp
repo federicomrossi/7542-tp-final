@@ -14,6 +14,7 @@
 
 
 
+
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
  * ***************************************************************************/
@@ -64,12 +65,13 @@ std::list<std::string> ManejadorArchivos::obtenerArchivosDeDirectorio()
 	DIR *dir;
 	struct dirent *entrada = 0;
 	std::list<std::string> listaArchivos;
+	unsigned char esDirectorio =0x4;
 
 	if((dir = opendir (this->directorio.c_str())) != NULL) {
 		// Iteramos sobre cada objeto del directorio
 		while ((entrada = readdir (dir)) != NULL) {
-			// Salteamos directorios ocultos
-			if (entrada->d_name[0]=='.')
+			// Salteamos directorios
+			if (entrada->d_type == esDirectorio)
 				continue;
 
 			// Insertamos el nombre de archivo en la lista
@@ -81,5 +83,15 @@ std::list<std::string> ManejadorArchivos::obtenerArchivosDeDirectorio()
 	else 
 		throw "ERROR: No se ha podido abrir el directorio.";
 
+	listaArchivos.sort();
 	return listaArchivos;
 }
+
+
+
+
+
+
+
+
+

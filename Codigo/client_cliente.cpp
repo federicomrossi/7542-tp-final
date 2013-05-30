@@ -11,6 +11,9 @@
 #include "client_cliente.h"
 
 #include "client_manejador_archivos.h"
+#include "client_inspector.h"
+
+
 
 
 
@@ -83,46 +86,25 @@ void Cliente::ejecutar() {
 
 	// DEBUG
 	ManejadorArchivos ma("cliente");
-	std::cout << ma.obtenerContenidoArchivo("cliente/archivo.txt") 
+	std::cout << ma.obtenerContenidoArchivo("/run/media/federicorossi/Archivos/Webserver/www/fiuba/75.42/TP5/Servidor/archivo.txt") 
 		<< std::endl << std::endl;
 
 	std::list<std::string> l = ma.obtenerArchivosDeDirectorio();
 
 	for (std::list< std::string>::iterator it = l.begin(); it != l.end(); ++it)
     	std::cout << *it << std::endl;
+
+    l.sort();
+
+    std::cout << std::endl;
+    for (std::list< std::string>::iterator it = l.begin(); it != l.end(); ++it)
+    	std::cout << *it << std::endl;
+
+    Inspector i(1);
+    i.start();
+    i.join();
 	// END DEBUG
 
-	// // Variables de procesamiento
-	// std::string instruccion;
-	// std::string args;
-
-	// // Recibimos respuesta del servidor
-	// if(comunicador.recibir(instruccion, args) == -1) return;
-	
-	// // Caso en que no hay trabajo para realizar
-	// if(instruccion == S_NO_JOB_PART) {
-	// 	// Desconectamos el socket y salimos
-	// 	this->socket.cerrar();
-	// 	return;
-	// }
-	// else if (instruccion == S_JOB_PART) {
-	// 	// Variables auxiliares para datos
-	// 	std::string msgEncriptado, numParte;
-	// 	int numDig, claveIni, claveFin;
-	// 	std::stringstream args_stream(args);
-
-	// 	// Parseamos y obtenemos datos del argumento
-	// 	args_stream >> msgEncriptado >> numParte >> numDig >> claveIni 
-	// 		>> claveFin;
-
-	// 	// Probamos el rango de claves indicado por el servidor
-	// 	procesarClaves(msgEncriptado, numDig, claveIni, claveFin);
-
-	// 	// Avisamos al servidor la finalización del trabajo
-	// 	if(comunicador.emitir(C_JOB_PART_FINISHED, numParte) == -1) return;
-	// }
-	// else
-	// 	std::cerr << "Mensaje inválido del servidor" << std::endl;
 
 	// Mensaje de log
 	std::cout << "Cerrando conexión... ";

@@ -1,6 +1,6 @@
 //
-//  client_manejador_archivos.h
-//  CLASE MANEJADORARCHIVOS
+//  client_inspector.h
+//  CLASE INSPECTOR
 //  
 
 
@@ -9,7 +9,7 @@
 
 #include <string>
 #include "common_thread.h"
-#include "common_cola.h"
+
 
 
 
@@ -21,8 +21,7 @@
 class Inspector : public Thread {
 private:
 
-	int intervalo;				// Intervalo de inspección en segundos
-	Cola< int > *eventos;		// Cola de eventos
+	unsigned int intervalo;				// Intervalo de inspección en segundos
 
 
 	// Bloquea actividades hasta que haya transcurrido el intervalo de polling
@@ -32,18 +31,22 @@ public:
 
 	// Constructor
 	// PRE: 'intervalo' es el intervalo de inspección en segundos.
-	Inspector(int intervalo);
+	Inspector(unsigned int intervalo);
 
 	// Destructor
 	~Inspector();
 
-	//
+	// Inicia el ciclo de inspecciones
 	void iniciar();
 
-	// 
-	void establecerIntervaloDeInspeccion(int segundos);
+	// Detiene el ciclo de inspecciones
+	void detener();
 
-	//
+	// Setea los segundos de intervalo entre sucesivas inspecciones.
+	// PRE: 'segundos' es la cantidad de segundos entre inspecciones.
+	void establecerIntervaloDeInspeccion(unsigned int segundos);
+
+	// CONSIDERAR REMOVER ESTE METODO
 	void forzarInspeccion();
 
 	// Define tareas a ejecutar en el hilo.
