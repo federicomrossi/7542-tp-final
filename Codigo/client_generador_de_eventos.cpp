@@ -4,6 +4,8 @@
 //  
 
 
+#include "common_mutex.h"
+#include "common_lock.h"
 #include "client_generador_de_eventos.h"
 
 

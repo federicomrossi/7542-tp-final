@@ -8,9 +8,10 @@
 #define RECEPTOR_H
 
 #include <string>
-#include "common_thread.h"
 #include "common_cola.h"
 class Socket;
+class Thread;
+
 
 
 

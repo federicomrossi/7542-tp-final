@@ -9,8 +9,9 @@
 
 
 #include <string>
-#include "common_mutex.h"
-#include "common_lock.h"
+class Mutex;
+class Lock;
+
 
 
 

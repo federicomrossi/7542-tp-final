@@ -10,7 +10,7 @@
 #include "common_comunicador.h"
 #include "client_cliente.h"
 
-#include "client_manejador_archivos.h"
+
 #include "client_inspector.h"
 
 
@@ -64,12 +64,6 @@ void Cliente::ejecutar() {
 	// Creamos el comunicador para enviar y recibir mensajes
 	Comunicador comunicador(&this->socket);
 
-	// DEBUG
-	std::string comando;
-	while(comando != "s")
-		getline(std::cin, comando);
-	// END DEBUG
-
 	// Mensaje de log
 	std::cout << "Emitiendo mensaje inicial... ";
     std::cout.flush();
@@ -81,30 +75,18 @@ void Cliente::ejecutar() {
 	std::cout << "OK" << std::endl;
 	std::cout.flush();
 
-	std::cout << std::endl << std::endl << "CONTENIDO DE ARCHIVO" 
-		<< std::endl << std::endl;
+	int INTERVALO = 5;
+    Inspector i(INTERVALO);
+    i.iniciar();
 
-	// DEBUG
-	ManejadorArchivos ma("cliente");
-	std::cout << ma.obtenerContenidoArchivo("/run/media/federicorossi/Archivos/Webserver/www/fiuba/75.42/TP5/Servidor/archivo.txt") 
-		<< std::endl << std::endl;
-
-	std::list<std::string> l = ma.obtenerArchivosDeDirectorio();
-
-	for (std::list< std::string>::iterator it = l.begin(); it != l.end(); ++it)
-    	std::cout << *it << std::endl;
-
-    l.sort();
-
-    std::cout << std::endl;
-    for (std::list< std::string>::iterator it = l.begin(); it != l.end(); ++it)
-    	std::cout << *it << std::endl;
-
-    Inspector i(1);
-    i.start();
-    i.join();
+    // DEBUG
+	std::string comando;
+	while(comando != "s")
+		getline(std::cin, comando);
 	// END DEBUG
 
+	i.detener();
+    i.join();
 
 	// Mensaje de log
 	std::cout << "Cerrando conexión... ";

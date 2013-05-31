@@ -6,10 +6,13 @@
 
 
 #include "client_inspector.h"
+#include "client_manejador_de_archivos.h"
+#include "common_cola.h"
 #include <unistd.h>
 
+// DEBUG
 #include <iostream> // REMOVER LUEGO DE SACAR STDCOUT
-
+// END DEBUG
 
 
 
@@ -36,6 +39,9 @@ void Inspector::iniciar() {
 // Detiene el ciclo de inspecciones
 void Inspector::detener() {
 	this->stop();
+
+	// Enviamos señal para detener el intervalo de inspección
+	// [AGREGAR SIGNAL AQUI PARA DETENER EL USLEEP]
 }
 
 
@@ -60,11 +66,25 @@ void Inspector::run() {
 		// Nos detenemos hasta que suene la alarma de inspección
 		this->alarmaDeInspeccion();
 		
+		// Si se detuvo al inspector, salimos
+		if(!this->isActive()) return;
+		
 		// Realizamos la inspección
-		// DEBUG
-		std::cout << "Inspecciono" << std::endl;
-		std::cout.flush();
-		// END DEBUG
+		Cola< std::string > c;
+		ManejadorDeArchivos ma("cliente");
+		if(ma.actualizarRegistroDeArchivos(&c, &c, &c))
+		{
+			// DEBUG
+			std::cout << "Inspeccion: hubieron cambios" << std::endl;
+			std::cout.flush();
+			// END DEBUG
+		}
+		else {
+			// DEBUG
+			std::cout << "Inspeccion: no hubieron cambios" << std::endl;
+			std::cout.flush();
+			// END DEBUG
+		}
 	}
 }
 

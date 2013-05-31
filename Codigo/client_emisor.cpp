@@ -5,6 +5,7 @@
 
 
 #include "common_socket.h"
+#include "common_thread.h"
 #include "client_emisor.h"
 
 

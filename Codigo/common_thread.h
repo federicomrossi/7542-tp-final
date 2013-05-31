@@ -50,7 +50,7 @@ public:
 	// Envía una solicitud de cancelación al hilo, deteniendo abruptamente
 	// su ejecución
 	virtual void cancel();
-
+	
 	// Bloquea hasta que el hilo finalice su ejecución en caso de estar
 	// ejecutandose.
 	virtual void join();

@@ -7,7 +7,7 @@
 
 
 #include "common_thread.h"
-
+#include <signal.h>
 
 
 
