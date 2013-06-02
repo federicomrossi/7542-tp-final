@@ -29,6 +29,9 @@ Cliente::Cliente(std::string nombreHost, int puerto) :
 {
 	// Creamos el inspector
 
+	// Creamos socket
+	this->socket.crear();
+
 }
 
 
@@ -37,11 +40,8 @@ Cliente::~Cliente() {
 	this->socket.cerrar();	
 }
 
-
-// Mantiene la comunicación con el servidor.
-void Cliente::ejecutar() {
-	// Creamos socket
-	this->socket.crear();
+// Se conecta con el servidor
+int Cliente::conectar() {
 
 	// Mensaje de log
 	std::cout << "Conectando con " << this->nombreHost << " en el puerto " 
@@ -54,13 +54,112 @@ void Cliente::ejecutar() {
 	}
 	catch(char const * e) {
 		std::cerr << e << std::endl;
-		return;
+		return 0;
 	}
 
 	// Mensaje de log
 	std::cout << "CONECTADO" << std::endl;
 	std::cout.flush();
+
+	// Se conecto correctamente
+	return 1;
+}
+
+void Cliente::desconectar() {
+	// Mensaje de log
+	std::cout << "Cerrando conexión... ";
+    std::cout.flush();
+
+	// Desconectamos el socket
+	this->socket.cerrar();
+
+	// Mensaje de log
+	std::cout << "DESCONECTADO" << std::endl;
+	std::cout.flush();
+}
+
+int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
+	// Creamos el comunicador para enviar y recibir mensajes
+	Comunicador comunicador(&this->socket);
+
+	// Mensaje de log
+	std::cout << "Emitiendo mensaje inicial... ";
+    std::cout.flush();
 	
+	// Se preparan los argumentos
+	std::string mensaje = usuario + '-' + clave;	
+
+	// Enviamos petición de inicio de sesion
+	if(comunicador.emitir(C_LOGIN_REQUEST, mensaje) == -1) {
+		return -1;
+	}
+
+	// Se obtiene respuesta del servidor
+	std::string args;
+	if(comunicador.recibir(mensaje, args) == -1) {
+		return -1;
+	}
+	
+	if (mensaje == S_LOGIN_OK) {
+		std::cout << "Inicio de sesion exitoso";
+		std::cout.flush();
+		return 1;
+	}
+	if (mensaje == S_LOGIN_FAIL) {
+		std::cout << "Inicio de sesion fallo, compruebe nombre de usuario y contrasenia";
+		std::cout.flush();
+		return 0;
+	}
+	return -1;
+}
+
+int Cliente::crearUsuario(std::string &usuario, std::string &clave) {
+
+	// Creamos el comunicador para enviar y recibir mensajes
+	Comunicador comunicador(&this->socket);
+
+	// Mensaje de log
+	std::cout << "Emitiendo mensaje inicial... ";
+    std::cout.flush();
+	
+	// Se preparan los argumentos
+	std::string mensaje = usuario + '-' + clave;	
+
+	// Enviamos petición de creacion de nuevo usuario
+	if(comunicador.emitir(C_NEW_USER_REQUEST, mensaje) == -1) {
+		return -1;
+	}
+
+	// Se obtiene respuesta del servidor
+	std::string args;
+	if(comunicador.recibir(mensaje, args) == -1) {
+		return -1;
+	}
+
+	if (mensaje == S_NEW_USER_OK) {
+		std::cout << "Nuevo usuario creado";
+		std::cout.flush();
+		return 1;
+	}
+	if (mensaje == S_DUPLICATE_USER) {
+		std::cout << "El nombre de usuario se encuentra en uso, intente nuevamente";
+		std::cout.flush();
+		return 0;
+	}
+	return -1;
+}
+
+// Mantiene la comunicación con el servidor.
+void Cliente::ejecutar() {
+	// Se conecta al servidor
+	conectar();
+	// Inicia sesion
+	// Ejemplo:
+	std::string usuario = "Fiona";
+	std::string clave = "456";
+	crearUsuario(usuario, clave);
+	iniciarSesion(usuario, clave);
+
 	// Creamos el comunicador para enviar y recibir mensajes
 	Comunicador comunicador(&this->socket);
 
@@ -88,14 +187,6 @@ void Cliente::ejecutar() {
 	i.detener();
     i.join();
 
-	// Mensaje de log
-	std::cout << "Cerrando conexión... ";
-    std::cout.flush();
-
-	// Desconectamos el socket
-	this->socket.cerrar();
-
-	// Mensaje de log
-	std::cout << "DESCONECTADO" << std::endl;
-	std::cout.flush();
+	// Se desconecta del servidor
+	desconectar();
 }

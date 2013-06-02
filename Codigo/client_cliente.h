@@ -35,6 +35,19 @@ public:
 
 	// Mantiene la comunicación con el servidor.
 	void ejecutar();
+
+	/* Se conecta con el servidor. Devuelve 1 si lo logra sin problemas
+	   y 0 sino */
+	int conectar();
+
+	// Se desconecta del servidor
+	void desconectar();
+
+	// Inicia sesion con usuario existente
+	int iniciarSesion(std::string &usuario, std::string &clave);
+
+	// Crea un nuevo usuario
+	int crearUsuario(std::string &usuario, std::string &clave);
 };
 
 #endif

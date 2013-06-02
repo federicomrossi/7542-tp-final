@@ -11,6 +11,7 @@
 
 #include "common_thread.h"
 #include "common_socket.h"
+#include "server_verificador.h"
 // #include "server_controlador_de_tareas.h"
 
 
@@ -26,7 +27,10 @@ class ConexionCliente : public Thread {
 private:
 
 	Socket *socket;								// Socket de comunicación
+	Verificador* verificador;
 	// ControladorDeTareas *controlador;			// Controlador de tareas.
+
+	int inicioSesion();
 
 public:
 
@@ -35,7 +39,7 @@ public:
 	// número de cliente que se le ha sido asignado por el servidor; 'serv' es
 	// una referencia al servidor al que pertenece la conexión.
 	//ConexionCliente(Socket *s, ControladorDeTareas *controlador);
-	ConexionCliente(Socket *s);
+	ConexionCliente(Socket *s, Verificador* v);
 
 	// Destructor
 	~ConexionCliente();

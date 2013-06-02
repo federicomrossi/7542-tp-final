@@ -12,6 +12,7 @@
 #include "common_socket.h"
 #include "common_lista.h"
 #include "server_conexion_cliente.h"
+#include "server_verificador.h"
 // #include "server_controlador_de_tareas.h"
 
 
@@ -29,6 +30,10 @@ private:
 	int puerto;									// Puerto en el que se escucha.
 	Socket socket;								// Socket en el que escucha el 
 												// servidor.
+
+	// Chequea el login de los usuarios
+	Verificador* verificador;
+
 	// ControladorDeTareas *controlador;			// Controlador de tareas.
 
 	// Cierra todas las conexiones existentes con clientes y elimina todo 
