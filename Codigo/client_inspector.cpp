@@ -70,13 +70,26 @@ void Inspector::run() {
 		if(!this->isActive()) return;
 		
 		// Realizamos la inspección
-		Cola< std::string > c;
+		Cola< std::string > nuevos;
+		Cola< std::string > modificados;
+		Cola< std::string > eliminados;
+
 		ManejadorDeArchivos ma("cliente");
-		if(ma.actualizarRegistroDeArchivos(&c, &c, &c))
+		if(ma.actualizarRegistroDeArchivos(&nuevos, &modificados, &eliminados))
 		{
 			// DEBUG
 			std::cout << "Inspeccion: hubieron cambios" << std::endl;
 			std::cout.flush();
+
+			while(!nuevos.vacia())
+				std::cout << "Nuevo: " << nuevos.pop2() << std::endl;
+
+			while(!modificados.vacia())
+				std::cout << "Modificado: " << modificados.pop2() << std::endl;
+
+			while(!eliminados.vacia())
+				std::cout << "Eliminado: " << eliminados.pop2() << std::endl;
+
 			// END DEBUG
 		}
 		else {
