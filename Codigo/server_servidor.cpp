@@ -27,6 +27,9 @@ Servidor::Servidor(int puerto) : puerto(puerto) {
 	// Creamos la lista de clientes conectados
 	this->clientes = new Lista<ConexionCliente*>;
 
+	// Se crea un verificador de usuario y contrasenia
+	this->verificador = new Verificador;
+
 	// Creamos el controlador de tareas para el servidor
 	// this->controlador = new ControladorDeTareas(numDigitosClave, 
 	// 	numClientes, msg, this->claves);
@@ -40,6 +43,8 @@ Servidor::~Servidor() {
 
 	// Liberamos espacio utilizado por atributos
 	delete this->clientes;
+
+	delete (this->verificador);
 	// delete this->controlador;
 }
 
@@ -75,13 +80,16 @@ void Servidor::run() {
 	    std::cout.flush();
 		
 		// Generamos una nueva conexión para escuchate
-		ConexionCliente *conexionCLI = new ConexionCliente(socketCLI);
+		ConexionCliente *conexionCLI = new ConexionCliente(socketCLI,
+				this->verificador);
 
 		// Censamos al cliente en el servidor
 		this->clientes->insertarUltimo(conexionCLI);
 
 		// Damos la orden de que comience a ejecutarse el hilo del cliente.
 		conexionCLI->start();
+
+		// Hacer refresh de verificador
 	}
 }
 
