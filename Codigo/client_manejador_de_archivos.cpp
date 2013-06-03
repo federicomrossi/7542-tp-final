@@ -98,152 +98,84 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 
 	// Relevamos los nombres de archivos ubicados actualmente en el directorio
 	std::list<std::string> l = this->obtenerArchivosDeDirectorio();
-	std::list< std::string>::iterator it_archivoNombre = l.begin();
-	std::string nombreArchivo_reg, hashArchivo_reg;
+	std::list< std::string>::iterator it_archivoNombre;
+	std::string reg_archivoNombre, reg_archivoHash;
 
 
+	// Tomamos el primer registro
+	registro >> reg_archivoNombre >> reg_archivoHash;
 
-	while(registro >> nombreArchivo_reg >> hashArchivo_reg) {
+	// Iteramos sobre los nombres de archivos existentes en el directorio
+	for (it_archivoNombre = l.begin(); it_archivoNombre != l.end();
+		++it_archivoNombre) {
 
-		// Caso en que se ha agregado un archivo nuevo al directorio
-		while(*it_archivoNombre < nombreArchivo_reg) {
-			// Insertamos el nuevo registro
+		// Caso en el que no hay mas registros y se han agregado archivos
+		if(registro.eof()) {
+			// Registramos archivo nuevo
 			registroTmp << *it_archivoNombre << " " << 
 				Hash::funcionDeHash(*it_archivoNombre) << std::endl;
 
-			// Insertamos en cola de nuevos
+			// Insertamos archivo en cola de nuevos
 			nuevos->push(*it_archivoNombre);
-
-			huboCambio = true;
-
-			if(it_archivoNombre != l.end()) ++it_archivoNombre;
-			else break;
-		}
-
-		if(it_archivoNombre == l.end()) break;
-
-
-		// Comprobamos si se han eliminado archivos, salteando a estos mismos
-		if(*it_archivoNombre > nombreArchivo_reg) {
-			// Insertamos en cola de eliminados
-			eliminados->push(nombreArchivo_reg);
 
 			huboCambio = true;
 			continue;
 		}
 
+		// Caso en que se han eliminado archivos
+		while(*it_archivoNombre > reg_archivoNombre && !registro.eof()) {
+			// Insertamos en cola de eliminados
+			eliminados->push(reg_archivoNombre);
 
-		// Caso en que los nombres coinciden
-		if(nombreArchivo_reg == *it_archivoNombre) {
-			
-			// Caso en que el hash coincide
-			if(hashArchivo_reg == Hash::funcionDeHash(*it_archivoNombre))
-				registroTmp << nombreArchivo_reg << " " << hashArchivo_reg 
-					<< std::endl;
-			// Caso en que el hash no coincide
-			else
-			{
+			// Tomamos el registro siguiente
+			registro >> reg_archivoNombre >> reg_archivoHash;
+
+			huboCambio = true;
+		}
+
+		// Caso en el que el archivo se mantiene existente
+		if(*it_archivoNombre == reg_archivoNombre) {
+			// Corroboramos si ha sido modificado
+			if(reg_archivoHash != Hash::funcionDeHash(*it_archivoNombre)) {
+				// Actualizamos el hash del archivo
 				registroTmp << *it_archivoNombre << " " << 
 					Hash::funcionDeHash(*it_archivoNombre) << std::endl;
-				
-				// Insertamos en cola de modificados
+
+				// Insertamos archivo en cola de modificados
 				modificados->push(*it_archivoNombre);
 
 				huboCambio = true;
 			}
+			// Caso en que no ha sido modificado
+			else {
+				registroTmp << reg_archivoNombre << " " << reg_archivoHash 
+					<< std::endl;
+			}
 
-			if(it_archivoNombre != l.end()) ++it_archivoNombre;
+			// Tomamos el registro siguiente
+			registro >> reg_archivoNombre >> reg_archivoHash;
+		}
+		// Caso en el que se han agregado nuevos archivos
+		else if(*it_archivoNombre < reg_archivoNombre || registro.eof()) {
+			// Registramos archivo nuevo
+			registroTmp << *it_archivoNombre << " " << 
+				Hash::funcionDeHash(*it_archivoNombre) << std::endl;
+
+			// Insertamos archivo en cola de nuevos
+			nuevos->push(*it_archivoNombre);
+
+			huboCambio = true;
 		}
 	}
 
-	while(it_archivoNombre != l.end()) {
-		++it_archivoNombre;
-
-		// Insertamos el nuevo registro
-		registroTmp << *it_archivoNombre << " " << 
-			Hash::funcionDeHash(*it_archivoNombre) << std::endl;
-
-		// Insertamos en cola de nuevos
-		nuevos->push(*it_archivoNombre);
+	// Encolamos los últimos registros pertenecientes a archivos eliminados
+	while(!registro.eof()) {
+		eliminados->push(reg_archivoNombre);
+		registro >> reg_archivoNombre >> reg_archivoHash;
 
 		huboCambio = true;
 	}
 
-
-	// // Iteramos sobre los nombres de archivos existentes en el directorio
-	// for (it_archivoNombre = l.begin(); it_archivoNombre != l.end();
-	// 	++it_archivoNombre) {
-
-	// 	// Caso en que se ha agregado un archivo nuevo al directorio
-	// 	if((nombreArchivo_reg != "") && *it_archivoNombre < nombreArchivo_reg) {
-	// 		// Insertamos el nuevo registro
-	// 		registroTmp << *it_archivoNombre << " " << 
-	// 			Hash::funcionDeHash(*it_archivoNombre) << std::endl;
-
-	// 		std::cout << *it_archivoNombre << " " << nombreArchivo_reg << std::endl;
-
-	// 		// Insertamos en cola de nuevos
-	// 		nuevos->push(*it_archivoNombre);
-
-	// 		huboCambio = true;
-	// 	}
-
-
-	// 	// Tomamos un registro
-	// 	registro >> nombreArchivo_reg >> hashArchivo_reg;
-
-	// 	// Si no hay mas registros, insertamos los archivos faltantes al final
-	// 	if(registro.eof()) {
-	// 		registroTmp << *it_archivoNombre << " " << 
-	// 				Hash::funcionDeHash(*it_archivoNombre) << std::endl;
-
-	// 		// Insertamos en cola de nuevos
-	// 		nuevos->push(*it_archivoNombre);
-
-	// 		huboCambio = true;
-	// 		continue;
-	// 	}
-
-	// 	// Comprobamos si se han eliminado archivos, salteando a estos mismos
-	// 	while(*it_archivoNombre > nombreArchivo_reg) {
-	// 		// Insertamos en cola de eliminados
-	// 		eliminados->push(nombreArchivo_reg);
-			
-	// 		// Nos movemos al siguiente registro
-	// 		registro >> nombreArchivo_reg >> hashArchivo_reg;
-
-	// 		huboCambio = true;
-	// 	}
-
-	// 	// Caso en que los nombres coinciden
-	// 	if(nombreArchivo_reg == *it_archivoNombre) {
-			
-	// 		// Caso en que el hash coincide
-	// 		if(hashArchivo_reg == Hash::funcionDeHash(*it_archivoNombre))
-	// 			registroTmp << nombreArchivo_reg << " " << hashArchivo_reg 
-	// 				<< std::endl;
-	// 		// Caso en que el hash no coincide
-	// 		else
-	// 		{
-	// 			registroTmp << *it_archivoNombre << " " << 
-	// 				Hash::funcionDeHash(*it_archivoNombre) << std::endl;
-				
-	// 			// Insertamos en cola de modificados
-	// 			modificados->push(*it_archivoNombre);
-
-	// 			huboCambio = true;
-	// 		}
-	// 	}
-	// }
-
-	// // Si no se llegaron a procesaro todos los registros significa que
-	// // los registros restantes corresponden a archivos eliminados
-	// while(registro >> nombreArchivo_reg >> hashArchivo_reg) {
-	// 	// Insertamos en cola de eliminados
-	// 	eliminados->push(nombreArchivo_reg);
-		
-	// 	huboCambio = true;
-	// }
 
 	// Cerramos archivos
 	registro.close();

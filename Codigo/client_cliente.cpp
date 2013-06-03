@@ -83,7 +83,7 @@ int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
 	Comunicador comunicador(&this->socket);
 
 	// Mensaje de log
-	std::cout << "Emitiendo mensaje inicial... ";
+	std::cout << "Emitiendo mensaje inicial... " << std::endl;
     std::cout.flush();
 	
 	// Se preparan los argumentos
@@ -101,12 +101,12 @@ int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
 	}
 	
 	if (mensaje == S_LOGIN_OK) {
-		std::cout << "Inicio de sesion exitoso";
+		std::cout << "Inicio de sesion exitoso" << std::endl;
 		std::cout.flush();
 		return 1;
 	}
 	if (mensaje == S_LOGIN_FAIL) {
-		std::cout << "Inicio de sesion fallo, compruebe nombre de usuario y contrasenia";
+		std::cout << "Inicio de sesion fallo, compruebe nombre de usuario y contrasenia" << std::endl;
 		std::cout.flush();
 		return 0;
 	}
@@ -119,7 +119,7 @@ int Cliente::crearUsuario(std::string &usuario, std::string &clave) {
 	Comunicador comunicador(&this->socket);
 
 	// Mensaje de log
-	std::cout << "Emitiendo mensaje inicial... ";
+	std::cout << "Emitiendo mensaje inicial... " << std::endl;
     std::cout.flush();
 	
 	// Se preparan los argumentos
@@ -137,12 +137,12 @@ int Cliente::crearUsuario(std::string &usuario, std::string &clave) {
 	}
 
 	if (mensaje == S_NEW_USER_OK) {
-		std::cout << "Nuevo usuario creado";
+		std::cout << "Nuevo usuario creado" << std::endl;
 		std::cout.flush();
 		return 1;
 	}
 	if (mensaje == S_DUPLICATE_USER) {
-		std::cout << "El nombre de usuario se encuentra en uso, intente nuevamente";
+		std::cout << "El nombre de usuario se encuentra en uso, intente nuevamente" << std::endl;
 		std::cout.flush();
 		return 0;
 	}
