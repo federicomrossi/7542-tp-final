@@ -88,3 +88,34 @@ int Comunicador::recibir(std::string& instruccion, std::string& args) {
 
 	return 0;
 }
+
+
+// Recibe un mensaje
+// POST: se almacenó el mensaje recibido en 'msg'. De producirse un error,
+// 'msg' quedará vacia y se retorna -1. En caso de éxito se devuelve 0.
+int Comunicador::recibir(std::string& msg) {
+	// Variable auxiliar para armar mensaje
+	std::stringstream msg_in;
+	// Limpiamos argumentos que recibiran datos
+	msg = "";
+
+	// Recibimos de a 1 Byte hasta recibir el caractér de fin de mensaje
+	while(true) {
+		// Definimos buffer de 1 Byte
+		char bufout[1];
+
+		// Si se produce un error, devolvemos una instrucción vacía
+		if(this->socket->recibir(bufout, 1) == -1) return -1;
+		
+		// Si se recibió el caractér de fin de mensaje, salimos
+		if(bufout[0] == FIN_MENSAJE) break;
+
+		// Agregamos el caractér a los datos ya recibidos
+		msg_in << bufout[0];
+	}
+
+	// Copiamos mensaje en variable de salida
+	msg = msg_in.str();
+
+	return 0;
+}

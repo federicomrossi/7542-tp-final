@@ -82,13 +82,13 @@ void Inspector::run() {
 			std::cout.flush();
 
 			while(!nuevos.vacia())
-				std::cout << "Nuevo: " << nuevos.pop2() << std::endl;
+				std::cout << "Nuevo: " << nuevos.pop_bloqueante() << std::endl;
 
 			while(!modificados.vacia())
-				std::cout << "Modificado: " << modificados.pop2() << std::endl;
+				std::cout << "Modificado: " << modificados.pop_bloqueante() << std::endl;
 
 			while(!eliminados.vacia())
-				std::cout << "Eliminado: " << eliminados.pop2() << std::endl;
+				std::cout << "Eliminado: " << eliminados.pop_bloqueante() << std::endl;
 
 			// END DEBUG
 		}

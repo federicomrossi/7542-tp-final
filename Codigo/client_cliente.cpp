@@ -6,13 +6,12 @@
 
 #include <iostream>
 #include <sstream>
-#include "common_convertir.h"
 #include "common_comunicador.h"
+#include "common_convertir.h"
+#include "common_logger.h" 
 #include "client_cliente.h"
 
-
 #include "client_inspector.h"
-
 
 
 
@@ -24,13 +23,12 @@
 
 
 // Constructor
-Cliente::Cliente(std::string nombreHost, int puerto) : 
-	puerto(puerto), nombreHost(nombreHost) 
-{
+Cliente::Cliente(std::string nombreHost, int puerto, Logger *logger) : 
+	puerto(puerto), nombreHost(nombreHost), logger(logger) {
 	// Creamos socket
 	this->socket.crear();
 
-	// Creamos comunicador
+	// Creamos comunicador (SACAR, CREA EN EMISOR Y RECEPTOR)
 	this->com = new Comunicador(&this->socket);
 	
 	// Creamos el inspector
@@ -130,6 +128,7 @@ void Cliente::ejecutar() {
 	while(iniciarSesion(usuario, clave) != 1);
 
 	// Mensaje de log
+	this->logger->emitirLog("Se emite mensaje inicial");
 	std::cout << "Emitiendo mensaje inicial... ";
     std::cout.flush();
 	

@@ -10,6 +10,8 @@
 
 #include "common_socket.h"
 class Comunicador;
+class Logger;
+
 
 
 
@@ -25,12 +27,13 @@ private:
 	int puerto;						// Puerto de conexión.
 	std::string nombreHost;			// Nombre del host de conexión
 	Comunicador *com;				// Comunicador del cliente
+	Logger *logger;					// Logger
 
 
 public:
 
 	// Constructor
-	Cliente(std::string nombreHost, int puerto);
+	Cliente(std::string nombreHost, int puerto, Logger *logger);
 
 	// Destructor
 	~Cliente();

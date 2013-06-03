@@ -40,6 +40,7 @@
 #include <sstream>
 #include "client_cliente.h"
 #include "common_convertir.h"
+#include "common_logger.h" 
 
 
 
@@ -71,8 +72,11 @@ int main(int argc, char* argv[]) {
 	getline(argumento, sPuerto, ':');
 	puerto = Convertir::stoi(sPuerto);
 
+	// Creamos logger
+	Logger logger("cliente/.au/cliente");
+
 	// Creamos el cliente
-	Cliente cliente(nombreHost, puerto);
+	Cliente cliente(nombreHost, puerto, &logger);
 
 	// Iniciamos su ejecución
 	cliente.ejecutar();

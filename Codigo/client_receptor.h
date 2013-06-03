@@ -9,8 +9,9 @@
 
 #include <string>
 #include "common_cola.h"
-class Socket;
 class Thread;
+class Socket;
+class Comunicador;
 
 
 
@@ -23,13 +24,14 @@ class Thread;
 class Receptor : public Thread {
 private:
 
-	Socket socket;							// Socket por el que recibe datos
+	Socket *socket;							// Socket por el que recibe datos
 	Cola< std::string > entrada;			// Cola de entrada
+	Comunicador com;						// Comunicador del receptor
 
 public:
 
 	// Constructor
-	Receptor();
+	Receptor(Socket *socket);
 
 	// Destructor
 	~Receptor();

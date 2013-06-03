@@ -55,6 +55,11 @@ public:
 	// espacio. De producirse un error, 'instruccion' y 'args' queda vacíos y
 	// se retorna -1. En caso de exito se devuelve 0.
 	int recibir(std::string& instruccion, std::string& args);
+
+	// Recibe un mensaje
+	// POST: se almacenó el mensaje recibido en 'msg'. De producirse un error,
+	// 'msg' quedará vacia y se retorna -1. En caso de éxito se devuelve 0.
+	int recibir(std::string& msg);
 };
 
 #endif

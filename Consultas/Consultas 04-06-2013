@@ -5,3 +5,6 @@
 
 C1: ¿Es correcta la forma en la que interrumpimos la suspensión de nanosleep() mediante pthread_kill? Ver common_thread.cpp, lineas 22, 73 y 85.
 R1: 
+
+C2: Decidimos que el emisor, al ser detenido, termine de enviar lo que tiene en cola antes de detenerse, ¿Es correcto esto o debemos guardar la cola ante una detención y en una futura ejecución rearmarla y emitir en ese momento? Ver client_emisor.cpp, lineas 36 y 49. (Corroborar que la cola devuelve "" como mensaje al ser desbloqueada abruptamente por un signal).
+R2: 

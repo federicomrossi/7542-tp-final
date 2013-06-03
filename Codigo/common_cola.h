@@ -48,7 +48,7 @@ public:
 		return (cola->size());
 	};
 
-	T pop2() {
+	T pop_bloqueante() {
 		Lock lock(*this->mutex);
 		if (cola->size() == 0)
 			lock.wait();
@@ -60,6 +60,11 @@ public:
 	bool vacia() {
 		Lock lock(*this->mutex);
 		return(cola->empty());
+	}
+
+	void desbloquear() {
+		Lock lock(*this->mutex);
+		lock.signal();
 	}
 };
 

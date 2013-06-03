@@ -1,14 +1,24 @@
+#include <string>
 #include "common_logger.h"
 
+
+// Constantes
+namespace {
+	const std::string LOG_EXTENSION = ".log";
+}
+
+
+
+
 Logger::Logger(const std::string& nombre_archivo) {
-	this->pathArchivo = nombre_archivo + ".log";
+	this->pathArchivo = nombre_archivo + LOG_EXTENSION;
 	crearArchivo();
 	this->mutex = new Mutex;
 }
 
 Logger::Logger(const char* nombre_archivo) {
 	this->pathArchivo.assign(nombre_archivo);
-	this->pathArchivo += ".log";
+	this->pathArchivo += LOG_EXTENSION;
 	crearArchivo();
 	this->mutex = new Mutex;
 }
