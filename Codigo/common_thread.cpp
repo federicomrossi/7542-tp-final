@@ -8,6 +8,20 @@
 
 #include "common_thread.h"
 #include <signal.h>
+#include <time.h>
+
+
+
+
+/* ****************************************************************************
+ * Funciones auxiliares
+ * ***************************************************************************/
+
+// Función auxiliar que representa el manejador de la alarma, utilizado para la
+// interrupción de la suspensión de un hilo.
+void alarm_handler(int signal) { }
+
+
 
 
 
@@ -51,6 +65,25 @@ void Thread::cancel() {
 // ejecutandose.
 void Thread::join() {
 	pthread_join(this->thread, 0);
+}
+
+
+// Suspende la ejecución del hilo durante cierto intervalo de tiempo.
+// Puede ser interrumpido llamando al metodo kill().
+void Thread::sleep(unsigned int seconds) {
+	struct timespec t, t_aux;
+	t.tv_sec = seconds;
+	t.tv_nsec = 0;
+	nanosleep(&t, &t_aux);
+
+	// Registramos un manejador de alarma para poder interrumpur la suspensión
+	signal(SIGALRM, alarm_handler);
+}
+
+
+// Envía una señal  al hilo.
+void Thread::kill() {
+	pthread_kill(this->thread, SIGALRM);
 }
 
 

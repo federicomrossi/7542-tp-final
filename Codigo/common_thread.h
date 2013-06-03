@@ -58,6 +58,13 @@ public:
 	// Define tareas a ejecutar en el hilo.
 	virtual void run() = 0;
 
+	// Suspende la ejecución del hilo durante cierto intervalo de tiempo.
+	// Puede ser interrumpido llamando al metodo kill().
+	virtual void sleep(unsigned int seconds);
+
+	// Envía una señal al hilo.
+	virtual void kill();
+
 	// Verifica si el hilo se encuentra activo.
 	// POST: devuelve true si está activo o false en caso contrario.
 	bool isActive();

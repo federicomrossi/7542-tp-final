@@ -1,0 +1,7 @@
+#
+# CONSULTAS 04-06-2013
+#
+
+
+C1: ¿Es correcta la forma en la que interrumpimos la suspensión de nanosleep() mediante pthread_kill? Ver common_thread.cpp, lineas 22, 73 y 85.
+R1: 

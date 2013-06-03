@@ -41,7 +41,7 @@ void Inspector::detener() {
 	this->stop();
 
 	// Enviamos señal para detener el intervalo de inspección
-	// [AGREGAR SIGNAL AQUI PARA DETENER EL USLEEP]
+	this->kill();
 }
 
 
@@ -110,6 +110,6 @@ void Inspector::run() {
 
 // Bloquea actividades hasta que haya transcurrido el intervalo de polling
 void Inspector::alarmaDeInspeccion() {
-	usleep(1000000 * this->intervalo);
+	this->sleep(this->intervalo);
 }
 
