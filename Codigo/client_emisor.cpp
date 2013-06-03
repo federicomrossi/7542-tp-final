@@ -4,9 +4,6 @@
 //  
 
 
-#include "common_thread.h"
-#include "common_socket.h"
-#include "common_comunicador.h"
 #include "client_emisor.h"
 
 

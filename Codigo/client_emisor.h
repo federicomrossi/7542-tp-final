@@ -9,9 +9,9 @@
 
 #include <string>
 #include "common_cola.h"
-class Thread;
-class Socket;
-class Comunicador;
+#include "common_thread.h"
+#include "common_socket.h"
+#include "common_comunicador.h"
 
 
 

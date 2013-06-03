@@ -6,12 +6,17 @@
 
 #include <iostream>
 #include <sstream>
+
 #include "common_comunicador.h"
 #include "common_convertir.h"
-#include "common_logger.h" 
+#include "common_logger.h"
+
+#include "client_emisor.h"
+#include "client_receptor.h"
+#include "client_manejador_de_archivos.h"
+#include "client_inspector.h"
 #include "client_cliente.h"
 
-#include "client_inspector.h"
 
 
 
@@ -86,7 +91,7 @@ void Cliente::desconectar() {
 int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
 	
 	// Mensaje de log
-	std::cout << "Emitiendo mensaje inicial... " << std::endl;
+	std::cout << "Emitiendo solicitud de LOGIN... " << std::endl;
     std::cout.flush();
 	
 	// Se preparan los argumentos
@@ -123,10 +128,31 @@ void Cliente::ejecutar() {
 	conectar();
 
 	// Inicia sesion
-	std::string usuario = "Fiona";
-	std::string clave = "456";
-	while(iniciarSesion(usuario, clave) != 1);
+	std::string usuario;
+	std::string clave;
+	// std::string usuario = "Fiona";
+	// std::string clave = "456";
+	
+	while((usuario == "" || clave == "") || iniciarSesion(usuario, clave) != 1)
+	{
+		std::cout << "Usuario: ";
+		std::cout.flush();
+		getline(std::cin, usuario);
+		std::cout << "Contraseña: ";
+		std::cout.flush();
+		getline(std::cin, clave);
+		std::cout << std::endl;
+	}
+	// FIN Inicio sesion
 
+
+	// Creamos los modulos que hacen parte del cliente.
+	Emisor emisor(&this->socket);
+	Receptor receptor(&this->socket);
+	ManejadorDeArchivos manejadorDeArchivos("cliente");
+
+
+	// DEBUG
 	// Mensaje de log
 	this->logger->emitirLog("Se emite mensaje inicial");
 	std::cout << "Emitiendo mensaje inicial... ";
@@ -143,7 +169,7 @@ void Cliente::ejecutar() {
     Inspector i(INTERVALO);
     i.iniciar();
 
-    // DEBUG
+   
 	std::string comando;
 	while(comando != "s")
 		getline(std::cin, comando);
