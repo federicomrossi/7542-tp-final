@@ -2,14 +2,23 @@
 //  common_logger.h
 //  CLASE LOGGER
 //  
-//  Clase que [...]
+//  Clase que escribe un en un archivo de log "<Fecha> <mensaje de log>"
 //  
 
 
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <time.h>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include "common_mutex.h"
+#include "common_lock.h"
 
+namespace {
+	#define LONG_FECHA 24
+}
 
 
 
@@ -20,28 +29,30 @@
 
 class Logger {
 private:
+	Mutex* mutex;
+	std::fstream* archivo;
+	std::string pathArchivo;
 
-	
+	void crearArchivo();
 
 public:
 
-	// Constructor
-	Logger();
+	// Constructores
+	Logger(const std::string& nombre_archivo);
 
-	// Abre un archivo de log.
-	// PRE: 'nombre_archivo' es el nombre que se le dará al archivo de log, al
-	// que se le agregará la extensión ".log".
-	// POST: si el archivo no existe, se creará uno nuevo. Si ya existe
-	// no se modificará a este.
-	void abrir(const std::string& nombre_archivo);
+	Logger(const char* nombre_archivo);
+	
+	// Destructor
+	~Logger();
 
 	// Crea una nueva entrada de log.
 	// PRE: 'log' es el mensaje que se insertará en el log.
 	void emitirLog(const std::string& log);
 
 	// Limpia el archivo de log existente eliminando todas las entradas
-	// contenidas en él.
-	void limpiarLog();
+	// contenidas en él. Devuelve 0 si se eliminaron las entradas 
+	// correctamente o un valor distinto de 0 sino.
+	int limpiarLog();
 };
 
 #endif
