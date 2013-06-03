@@ -4,7 +4,6 @@
 //  
 
 
-#include "common_thread.h"
 #include "client_manejador_de_notificaciones.h"
 
 
@@ -16,7 +15,10 @@
 
 
 // Constructor
-ManejadorDeNotificaciones::ManejadorDeNotificaciones() { }
+ManejadorDeNotificaciones::ManejadorDeNotificaciones(Receptor *receptor,
+	Sincronizador *sincronizador, ReceptorDeArchivos *receptorDeArchivos) :
+	receptor(receptor), sincronizador(sincronizador), 
+	receptorDeArchivos(receptorDeArchivos) { }
 
 
 // Destructor

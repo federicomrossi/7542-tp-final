@@ -14,7 +14,10 @@
 #include "client_emisor.h"
 #include "client_receptor.h"
 #include "client_manejador_de_archivos.h"
+#include "client_sincronizador.h"
+#include "client_receptor_de_archivos.h"
 #include "client_inspector.h"
+#include "client_manejador_de_notificaciones.h"
 #include "client_cliente.h"
 
 
@@ -128,10 +131,9 @@ void Cliente::ejecutar() {
 	conectar();
 
 	// Inicia sesion
+	// DEBE REEMPLAZARSE POR EL MODULO QUE CONECTA CON LA GUI
 	std::string usuario;
 	std::string clave;
-	// std::string usuario = "Fiona";
-	// std::string clave = "456";
 	
 	while((usuario == "" || clave == "") || iniciarSesion(usuario, clave) != 1)
 	{
@@ -146,37 +148,35 @@ void Cliente::ejecutar() {
 	// FIN Inicio sesion
 
 
-	// Creamos los modulos que hacen parte del cliente.
+	// Creamos los módulos que conforman al cliente
 	Emisor emisor(&this->socket);
 	Receptor receptor(&this->socket);
 	ManejadorDeArchivos manejadorDeArchivos("cliente");
+	Sincronizador sincronizador(&manejadorDeArchivos);
+	ReceptorDeArchivos receptorDeArchivos(&manejadorDeArchivos);
+
+	int INTERVALO = 5; // CAMBIAR POR ARCHIVO DE CONFIGURACIÓN
+	Inspector inspector(&manejadorDeArchivos, INTERVALO);
+
+	ManejadorDeNotificaciones manejadorDeNotificaciones(&receptor,
+		&sincronizador, &receptorDeArchivos);
 
 
-	// DEBUG
-	// Mensaje de log
-	this->logger->emitirLog("Se emite mensaje inicial");
-	std::cout << "Emitiendo mensaje inicial... ";
-    std::cout.flush();
-	
-	// Enviamos petición de parte de trabajo
-	if(this->com->emitir(COMMON_SEND_FILE) == -1) return;
+	// Ponemos en marcha los módulos
+	inspector.iniciar();
 
-	// Mensaje de log
-	std::cout << "OK" << std::endl;
-	std::cout.flush();
 
-	int INTERVALO = 5;
-    Inspector i(INTERVALO);
-    i.iniciar();
-
-   
+	// Esperamos a que se de la indicación de finalizar el cliente
+	// DEBE REEMPLAZARSE POR MODULO QUE CONECTA CON LA GUI
 	std::string comando;
 	while(comando != "s")
 		getline(std::cin, comando);
-	// END DEBUG
+	// FIN indicación de salida
 
-	i.detener();
-    i.join();
+
+	// Detenemos los módulos
+	inspector.detener();
+	inspector.join();
 
 	// Se desconecta del servidor
 	desconectar();

@@ -17,7 +17,8 @@
 
 
 // Constructor
-ReceptorDeArchivos::ReceptorDeArchivos() { }
+ReceptorDeArchivos::ReceptorDeArchivos(ManejadorDeArchivos *unManejador) :
+	manejadorDeArchivos(unManejador) { }
 
 
 // Destructor

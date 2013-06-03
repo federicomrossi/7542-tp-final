@@ -17,7 +17,8 @@
 
 
 // Constructor
-Sincronizador::Sincronizador() { }
+Sincronizador::Sincronizador(ManejadorDeArchivos *unManejador) :
+	manejadorDeArchivos(unManejador) { }
 
 
 // Destructor

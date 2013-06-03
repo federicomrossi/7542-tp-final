@@ -9,6 +9,7 @@
 
 
 #include <string>
+#include "client_manejador_de_archivos.h"
 class Mutex;
 class Lock;
 
@@ -24,12 +25,13 @@ class Lock;
 class Sincronizador {
 private:
 
-	Mutex m;							// Mutex
+	Mutex m;										// Mutex
+	ManejadorDeArchivos *manejadorDeArchivos;		// Manejador de archivos
 
 public:
 
 	// Constructor
-	Sincronizador();
+	Sincronizador(ManejadorDeArchivos *unManejador);
 
 	// Destructor
 	~Sincronizador();

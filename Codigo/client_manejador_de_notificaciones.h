@@ -9,7 +9,10 @@
 
 
 #include <string>
-class Thread;
+#include "common_thread.h"
+#include "client_receptor.h"
+#include "client_sincronizador.h"
+#include "client_receptor_de_archivos.h"
 
 
 
@@ -21,11 +24,15 @@ class Thread;
 class ManejadorDeNotificaciones : public Thread {
 private:
 
+	Receptor *receptor;								// Receptor de mensajes
+	Sincronizador *sincronizador;					// Sincronizador
+	ReceptorDeArchivos *receptorDeArchivos;			// Receptor de archivos
 
 public:
 
 	// Constructor
-	ManejadorDeNotificaciones();
+	ManejadorDeNotificaciones(Receptor *receptor, Sincronizador *sincronizador,
+		ReceptorDeArchivos *receptorDeArchivos);
 
 	// Destructor
 	~ManejadorDeNotificaciones();

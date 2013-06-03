@@ -6,13 +6,13 @@
 
 
 #include "client_inspector.h"
-#include "client_manejador_de_archivos.h"
 #include "common_cola.h"
 #include <unistd.h>
 
 // DEBUG
 #include <iostream> // REMOVER LUEGO DE SACAR STDCOUT
 // END DEBUG
+
 
 
 
@@ -23,7 +23,8 @@
 
 // Constructor
 // PRE: 'intervalo' es el intervalo de inspección en segundos.
-Inspector::Inspector(unsigned int intervalo) : intervalo(intervalo) { }
+Inspector::Inspector(ManejadorDeArchivos *unManejador, unsigned int intervalo)
+	: manejadorDeArchivos(unManejador), intervalo(intervalo) { }
 
 
 // Destructor
@@ -74,8 +75,8 @@ void Inspector::run() {
 		Cola< std::string > modificados;
 		Cola< std::string > eliminados;
 
-		ManejadorDeArchivos ma("cliente");
-		if(ma.actualizarRegistroDeArchivos(&nuevos, &modificados, &eliminados))
+		if(this->manejadorDeArchivos->actualizarRegistroDeArchivos(&nuevos,
+			&modificados, &eliminados))
 		{
 			// DEBUG
 			std::cout << "Inspeccion: hubieron cambios" << std::endl;
