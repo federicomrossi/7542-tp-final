@@ -127,7 +127,7 @@ void Cliente::ejecutar() {
 	// Inicia sesion
 	std::string usuario = "Fiona";
 	std::string clave = "456";
-	iniciarSesion(usuario, clave);
+	while(iniciarSesion(usuario, clave) != 1);
 
 	// Mensaje de log
 	std::cout << "Emitiendo mensaje inicial... ";

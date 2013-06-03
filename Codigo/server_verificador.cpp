@@ -2,7 +2,7 @@
 
 Verificador::Verificador() {
 	this->mutex = new Mutex();
-	this->logins = new std::fstream("Users_Pass.txt", std::ios_base::in);
+	this->logins = new std::fstream("servidor/Users_Pass.txt", std::ios_base::in);
 }
 
 Verificador::~Verificador() {
@@ -28,7 +28,7 @@ int Verificador::verificarCliente(std::string &args) {
 		Lock lock(*this->mutex);
 		// Si no esta abierto el archivo, lo abre
 		if (!this->logins->is_open())
-			this->logins->open("Users_Pass.txt", std::ios_base::in);
+			this->logins->open("servidor/Users_Pass.txt", std::ios_base::in);
 		existe = this->buscarCliente(usuario, clave);
 	}
 	return existe;

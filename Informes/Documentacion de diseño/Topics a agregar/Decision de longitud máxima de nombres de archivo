@@ -1,0 +1,10 @@
+Longitud máxima de los nombre de archivos
+=========================================
+
+Se decidió utilizar el máximo permitido por los sistemas de archivos EXT
+(los mas utilizados actualmente en distribuciones GNU/Linux), que es de
+255 bytes para los nombre de archivos.
+
+Link de limites de los distintos FS:
+http://en.wikipedia.org/wiki/Comparison_of_file_systems
+

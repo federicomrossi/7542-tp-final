@@ -49,7 +49,7 @@ void ConexionCliente::run() {
 
 	// IMP: Hay que modificar lo siguiente. Se busca que cada consulta sea un cliente nuevo, 
 	// hasta que el cliente este sincronizando archivos (ahi se mantiene activo)
-	while( inicioSesion() != 1);
+	while(inicioSesion() != 1);
 
 	// Esperamos hasta recibir el mensaje correcto
 	while(instruccion != COMMON_SEND_FILE || !this->isActive())
