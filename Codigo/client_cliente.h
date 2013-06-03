@@ -9,7 +9,7 @@
 
 
 #include "common_socket.h"
-
+class Comunicador;
 
 
 
@@ -21,9 +21,11 @@
 class Cliente {
 private:
 
-	Socket socket;						// Socket con el que se comunica
-	int puerto;							// Puerto de conexión.
-	std::string nombreHost;				// Nombre del host de conexión
+	Socket socket;					// Socket con el que se comunica
+	int puerto;						// Puerto de conexión.
+	std::string nombreHost;			// Nombre del host de conexión
+	Comunicador *com;				// Comunicador del cliente
+
 
 public:
 
@@ -33,11 +35,8 @@ public:
 	// Destructor
 	~Cliente();
 
-	// Mantiene la comunicación con el servidor.
-	void ejecutar();
-
-	/* Se conecta con el servidor. Devuelve 1 si lo logra sin problemas
-	   y 0 sino */
+	// Se conecta con el servidor. 
+	// POST: Devuelve 1 si lo logra sin problemas y 0 sino
 	int conectar();
 
 	// Se desconecta del servidor
@@ -46,8 +45,8 @@ public:
 	// Inicia sesion con usuario existente
 	int iniciarSesion(std::string &usuario, std::string &clave);
 
-	// Crea un nuevo usuario
-	int crearUsuario(std::string &usuario, std::string &clave);
+	// Mantiene la comunicación con el servidor.
+	void ejecutar();
 };
 
 #endif

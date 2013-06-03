@@ -27,11 +27,13 @@
 Cliente::Cliente(std::string nombreHost, int puerto) : 
 	puerto(puerto), nombreHost(nombreHost) 
 {
-	// Creamos el inspector
-
 	// Creamos socket
 	this->socket.crear();
 
+	// Creamos comunicador
+	this->com = new Comunicador(&this->socket);
+	
+	// Creamos el inspector
 }
 
 
@@ -39,6 +41,7 @@ Cliente::Cliente(std::string nombreHost, int puerto) :
 Cliente::~Cliente() {
 	this->socket.cerrar();	
 }
+
 
 // Se conecta con el servidor
 int Cliente::conectar() {
@@ -65,6 +68,8 @@ int Cliente::conectar() {
 	return 1;
 }
 
+
+// Se desconecta del servidor
 void Cliente::desconectar() {
 	// Mensaje de log
 	std::cout << "Cerrando conexión... ";
@@ -78,10 +83,10 @@ void Cliente::desconectar() {
 	std::cout.flush();
 }
 
-int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
-	// Creamos el comunicador para enviar y recibir mensajes
-	Comunicador comunicador(&this->socket);
 
+// Inicia sesion con usuario existente
+int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
+	
 	// Mensaje de log
 	std::cout << "Emitiendo mensaje inicial... " << std::endl;
     std::cout.flush();
@@ -90,13 +95,13 @@ int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
 	std::string mensaje = usuario + '-' + clave;	
 
 	// Enviamos petición de inicio de sesion
-	if(comunicador.emitir(C_LOGIN_REQUEST, mensaje) == -1) {
+	if(this->com->emitir(C_LOGIN_REQUEST, mensaje) == -1) {
 		return -1;
 	}
 
 	// Se obtiene respuesta del servidor
 	std::string args;
-	if(comunicador.recibir(mensaje, args) == -1) {
+	if(this->com->recibir(mensaje, args) == -1) {
 		return -1;
 	}
 	
@@ -113,62 +118,23 @@ int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
 	return -1;
 }
 
-int Cliente::crearUsuario(std::string &usuario, std::string &clave) {
-
-	// Creamos el comunicador para enviar y recibir mensajes
-	Comunicador comunicador(&this->socket);
-
-	// Mensaje de log
-	std::cout << "Emitiendo mensaje inicial... " << std::endl;
-    std::cout.flush();
-	
-	// Se preparan los argumentos
-	std::string mensaje = usuario + '-' + clave;	
-
-	// Enviamos petición de creacion de nuevo usuario
-	if(comunicador.emitir(C_NEW_USER_REQUEST, mensaje) == -1) {
-		return -1;
-	}
-
-	// Se obtiene respuesta del servidor
-	std::string args;
-	if(comunicador.recibir(mensaje, args) == -1) {
-		return -1;
-	}
-
-	if (mensaje == S_NEW_USER_OK) {
-		std::cout << "Nuevo usuario creado" << std::endl;
-		std::cout.flush();
-		return 1;
-	}
-	if (mensaje == S_DUPLICATE_USER) {
-		std::cout << "El nombre de usuario se encuentra en uso, intente nuevamente" << std::endl;
-		std::cout.flush();
-		return 0;
-	}
-	return -1;
-}
 
 // Mantiene la comunicación con el servidor.
 void Cliente::ejecutar() {
 	// Se conecta al servidor
 	conectar();
+
 	// Inicia sesion
-	// Ejemplo:
 	std::string usuario = "Fiona";
 	std::string clave = "456";
-	crearUsuario(usuario, clave);
 	iniciarSesion(usuario, clave);
-
-	// Creamos el comunicador para enviar y recibir mensajes
-	Comunicador comunicador(&this->socket);
 
 	// Mensaje de log
 	std::cout << "Emitiendo mensaje inicial... ";
     std::cout.flush();
 	
 	// Enviamos petición de parte de trabajo
-	if(comunicador.emitir(COMMON_SEND_FILE) == -1) return;
+	if(this->com->emitir(COMMON_SEND_FILE) == -1) return;
 
 	// Mensaje de log
 	std::cout << "OK" << std::endl;
