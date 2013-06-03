@@ -185,9 +185,9 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 
 	// Cerramos archivos
 	registro.close();
-    registroTmp.close();
+	registroTmp.close();
 
-    // Eliminamos el registro original y convertimos el temporal en el oficial
+	// Eliminamos el registro original y convertimos el temporal en el oficial
 	remove(regNombre.c_str());
 	rename(regTmpNombre.c_str(), regNombre.c_str());
 
