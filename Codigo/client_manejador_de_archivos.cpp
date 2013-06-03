@@ -42,6 +42,9 @@ ManejadorDeArchivos::~ManejadorDeArchivos() { }
 // en una cadena de caracteres
 std::string ManejadorDeArchivos::obtenerContenidoArchivo(
 	const std::string& nombre_archivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
 	// Abrimos el archivo
 	std::ifstream archivo(nombre_archivo.c_str(), 
 		std::ios::in | std::ios::binary | std::ios::ate);
@@ -77,6 +80,9 @@ std::string ManejadorDeArchivos::obtenerContenidoArchivo(
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	Cola< std::string > *nuevos, Cola< std::string > *modificados, 
 	Cola< std::string > *eliminados) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
 	// Variables auxiliares
 	std::ifstream registro;
 	std::ofstream registroTmp;
@@ -97,7 +103,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		throw "ERROR: El registro no pudo ser abierto.";
 
 	// Relevamos los nombres de archivos ubicados actualmente en el directorio
-	std::list<std::string> l = this->obtenerArchivosDeDirectorio();
+	std::list<std::string> ld = this->obtenerArchivosDeDirectorio();
 	std::list< std::string>::iterator it_archivoNombre;
 	std::string reg_archivoNombre, reg_archivoHash;
 
@@ -106,7 +112,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	registro >> reg_archivoNombre >> reg_archivoHash;
 
 	// Iteramos sobre los nombres de archivos existentes en el directorio
-	for (it_archivoNombre = l.begin(); it_archivoNombre != l.end();
+	for (it_archivoNombre = ld.begin(); it_archivoNombre != ld.end();
 		++it_archivoNombre) {
 
 		// Caso en el que no hay mas registros y se han agregado archivos

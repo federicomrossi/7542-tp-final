@@ -1,11 +1,11 @@
 //
-//  client_generador_de_eventos.h
-//  CLASE GENERADORDEEVENTOS
+//  client_sincronizador.h
+//  CLASE SINCRONIZADOR
 //  
 
 
-#ifndef GENERADOR_DE_EVENTOS_H
-#define GENERADOR_DE_EVENTOS_H
+#ifndef SINCRONIZADOR_H
+#define SINCRONIZADOR_H
 
 
 #include <string>
@@ -21,7 +21,7 @@ class Lock;
  * ***************************************************************************/
 
 
-class GeneradorDeEventos {
+class Sincronizador {
 private:
 
 	Mutex m;							// Mutex
@@ -29,10 +29,10 @@ private:
 public:
 
 	// Constructor
-	GeneradorDeEventos();
+	Sincronizador();
 
 	// Destructor
-	~GeneradorDeEventos();
+	~Sincronizador();
 
 	// Crea el evento de envío de un archivo nuevo
 	void enviarArchivo(std::string nombreArchivo, std::string contenido);

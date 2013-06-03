@@ -1,12 +1,12 @@
 //
-//  client_generador_de_eventos.cpp
-//  CLASE GENERADORDEEVENTOS
+//  client_sincronizador.cpp
+//  CLASE SINCRONIZADOR
 //  
 
 
 #include "common_mutex.h"
 #include "common_lock.h"
-#include "client_generador_de_eventos.h"
+#include "client_sincronizador.h"
 
 
 
@@ -17,15 +17,15 @@
 
 
 // Constructor
-GeneradorDeEventos::GeneradorDeEventos() { }
+Sincronizador::Sincronizador() { }
 
 
 // Destructor
-GeneradorDeEventos::~GeneradorDeEventos() { }
+Sincronizador::~Sincronizador() { }
 
 
 // Crea el evento de envío de un archivo nuevo
-void GeneradorDeEventos::enviarArchivo(std::string nombreArchivo, std::string contenido) {
+void Sincronizador::enviarArchivo(std::string nombreArchivo, std::string contenido) {
 
 }
 
@@ -34,7 +34,7 @@ void GeneradorDeEventos::enviarArchivo(std::string nombreArchivo, std::string co
 // PRE: 'nombreArchivo' es el nombre de archivo que debe modificarse;
 // 'bloque' es el bloque del archivo que debe ser modificado; 'contenido'
 // son los datos que deben reemplazarse por los existentes.
-void GeneradorDeEventos::modificarArchivo(std::string nombreArchivo, int bloque, 
+void Sincronizador::modificarArchivo(std::string nombreArchivo, int bloque, 
 	std::string contenido) {
 
 }
@@ -42,18 +42,18 @@ void GeneradorDeEventos::modificarArchivo(std::string nombreArchivo, int bloque,
 
 // Crea el evento de eliminación de un archivo.
 // PRE: 'nombreArchivo' es el nombre de archivo que debe eliminarse.
-void GeneradorDeEventos::eliminarArchivo(std::string nombreArchivo) {
+void Sincronizador::eliminarArchivo(std::string nombreArchivo) {
 
 }
 
 
 // Crea el evento de solicitud de un archivo nuevo.
-void GeneradorDeEventos::solicitarArchivoNuevo() {
+void Sincronizador::solicitarArchivoNuevo() {
 
 }
 
 
 // Crea el evento de solicitud de modificación de un archivo.
-void GeneradorDeEventos::solicitarArchivoModificado() {
+void Sincronizador::solicitarArchivoModificado() {
 
 }
