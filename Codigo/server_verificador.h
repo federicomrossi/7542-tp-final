@@ -10,29 +10,26 @@
 namespace {
 	#define LONG_USER 128
 	#define LONG_CLAVE 128  // Long hash
-	#define TAM_BUF 256
+	#define TAM_BUF (LONG_USER + LONG_CLAVE)
 }
+
+//Nota: No se pueden utilizar '-' en el nombre de usuario por ahora
+//Mas adelante se guardara en el archivo clave + usuario (long necesaria
+// y sin requerimientos para el nombre)
 
 class Verificador {
 public:
 	std::fstream* logins;
-	std::fstream* new_logins;
 	Mutex* mutex;
 	
-	// Hay que mejorar la busqueda
-	int buscarClienteEn(std::fstream* archivo, std::string &usuario,
-			std::string &clave);
-
-	/* Hay que hacer que cada cierto tiempo se haga un merge de los archivos
-		de login. Se hacen 2 archivos, porque es bastante probable que 
-		los que recien crearon usuario se quieran conectar, entonces
-		es mas rapido buscar en un archivo chico*/
-	void mergeLogins();
+	// Busqueda secuencial
+	int buscarCliente(std::string &usuario,	std::string &clave);
 
 public:
 	Verificador();
 	virtual ~Verificador();
-	int agregarCliente(std::string &args);
+
+	// Comprueba nombre de usuario y clave de los clientes
 	int verificarCliente(std::string &args);
 };
 

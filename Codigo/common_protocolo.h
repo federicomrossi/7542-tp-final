@@ -21,15 +21,12 @@
 // cliente
 // FORMATO DE LAS CONSTANTES: C_[instruccion]
  const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
- const std::string C_NEW_USER_REQUEST = "NEW-USER-REQUEST";
 
 // Constantes para los identificadores de instrucciones enviadas por el
 // servidor
 // FORMATO DE LAS CONSTANTES: S_[instruccion]
 const std::string S_LOGIN_OK = "LOGIN-OK";
 const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
-const std::string S_DUPLICATE_USER = "DUPLICATE-USER";
-const std::string S_NEW_USER_OK = "NEW-USER-OK";
 
 // Constantes para los identificadores de instrucciones comunes al servidor
 // y el cliente

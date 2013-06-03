@@ -49,7 +49,7 @@ void ConexionCliente::run() {
 
 	// IMP: Hay que modificar lo siguiente. Se busca que cada consulta sea un cliente nuevo, 
 	// hasta que el cliente este sincronizando archivos (ahi se mantiene activo)
-	while( inicioSesion() != 2);
+	while( inicioSesion() != 1);
 
 	// Esperamos hasta recibir el mensaje correcto
 	while(instruccion != COMMON_SEND_FILE || !this->isActive())
@@ -122,35 +122,18 @@ int ConexionCliente::inicioSesion() {
 	std::cout << "Recibi: " << instruccion << std::endl;
 
 	// Se debe crear nuevo usuario
-	if (instruccion == C_NEW_USER_REQUEST) {
-		if (verificador->agregarCliente(args) == 0) {
-			// Cliente duplicado
-			comunicador.emitir(S_DUPLICATE_USER);	
-			std::cout << "Cliente duplicado" << std::endl;
-			std::cout.flush();
-			return 0;
-		}
-		else {
-			// Se creo cliente con exito
-			comunicador.emitir(S_NEW_USER_OK);
-			std::cout << "Cliente creado con exito" << std::endl;
-			std::cout.flush();
-			return 1;
-		}
-	}
-	// Verificar usuario y clave existente
-	else {
+	if (instruccion == C_LOGIN_REQUEST) {
 		if (verificador->verificarCliente(args) == 1) {  // OK
 			comunicador.emitir(S_LOGIN_OK);
 			std::cout << "Inicio de sesion OK" << std::endl;
 			std::cout.flush();	
-			return 2;
+			return 1;
 		}
 		else {
 			comunicador.emitir(S_LOGIN_FAIL);
 			std::cout << "Inicio de sesion fallo" << std::endl;
 			std::cout.flush();
-			return 3;
+			return 0;
 		}
 	}
 	return -1;
