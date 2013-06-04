@@ -4,8 +4,6 @@
 //  
 
 
-#include "common_mutex.h"
-#include "common_lock.h"
 #include "client_sincronizador.h"
 
 
@@ -17,8 +15,7 @@
 
 
 // Constructor
-Sincronizador::Sincronizador(ManejadorDeArchivos *unManejador) :
-	manejadorDeArchivos(unManejador) { }
+Sincronizador::Sincronizador(Emisor *emisor) : emisor(emisor) { }
 
 
 // Destructor
@@ -27,6 +24,8 @@ Sincronizador::~Sincronizador() { }
 
 // Crea el evento de envío de un archivo nuevo
 void Sincronizador::enviarArchivo(std::string nombreArchivo, std::string contenido) {
+	// Bloqueamos el mutex
+	Lock l(m);
 
 }
 
@@ -37,6 +36,8 @@ void Sincronizador::enviarArchivo(std::string nombreArchivo, std::string conteni
 // son los datos que deben reemplazarse por los existentes.
 void Sincronizador::modificarArchivo(std::string nombreArchivo, int bloque, 
 	std::string contenido) {
+	// Bloqueamos el mutex
+	Lock l(m);
 
 }
 
@@ -44,17 +45,23 @@ void Sincronizador::modificarArchivo(std::string nombreArchivo, int bloque,
 // Crea el evento de eliminación de un archivo.
 // PRE: 'nombreArchivo' es el nombre de archivo que debe eliminarse.
 void Sincronizador::eliminarArchivo(std::string nombreArchivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
 
 }
 
 
 // Crea el evento de solicitud de un archivo nuevo.
 void Sincronizador::solicitarArchivoNuevo() {
+	// Bloqueamos el mutex
+	Lock l(m);
 
 }
 
 
 // Crea el evento de solicitud de modificación de un archivo.
 void Sincronizador::solicitarArchivoModificado() {
-
+	// Bloqueamos el mutex
+	Lock l(m);
+	
 }

@@ -7,6 +7,7 @@
 
 #include "client_inspector.h"
 #include "common_cola.h"
+#include <string>
 #include <unistd.h>
 
 // DEBUG
@@ -84,14 +85,30 @@ void Inspector::run() {
 			std::cout << "Inspeccion: hubieron cambios" << std::endl;
 			std::cout.flush();
 
-			while(!nuevos.vacia())
-				std::cout << "Nuevo: " << nuevos.pop_bloqueante() << std::endl;
+			while(!nuevos.vacia()) {
+				// std::cout << "PASO" << std::endl;
+				std::string nuevo = nuevos.pop_bloqueante();
+				// std::string cont = this->manejadorDeArchivos->obtenerContenidoArchivo(nuevo);
+				// this->sincronizador->enviarArchivo(nuevo, 
+				// 	this->manejadorDeArchivos->obtenerContenidoArchivo(nuevo));
+				
+				std::cout << "Nuevo: " << nuevo << std::endl;
+			}
 
-			while(!modificados.vacia())
+			while(!modificados.vacia()) {
+				// std::string mod(modificados.pop_bloqueante());
+				// this->sincronizador->modificarArchivo(mod, 0, 
+				// 	this->manejadorDeArchivos->obtenerContenidoArchivo(mod));
+
 				std::cout << "Modificado: " << modificados.pop_bloqueante() << std::endl;
+			}
 
-			while(!eliminados.vacia())
+			while(!eliminados.vacia()) {
+				// std::string elim(eliminados.pop_bloqueante());
+				// this->sincronizador->eliminarArchivo(elim);
+				
 				std::cout << "Eliminado: " << eliminados.pop_bloqueante() << std::endl;
+			}
 
 			// END DEBUG
 		}

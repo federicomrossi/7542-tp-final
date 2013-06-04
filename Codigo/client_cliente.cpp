@@ -155,7 +155,7 @@ void Cliente::ejecutar() {
 	Emisor emisor(this->socket);
 	Receptor receptor(this->socket);
 	ManejadorDeArchivos manejadorDeArchivos("cliente");
-	Sincronizador sincronizador(&manejadorDeArchivos);
+	Sincronizador sincronizador(&emisor);
 	ReceptorDeArchivos receptorDeArchivos(&manejadorDeArchivos);
 
 	int INTERVALO = 5; // CAMBIAR POR ARCHIVO DE CONFIGURACIÓN
