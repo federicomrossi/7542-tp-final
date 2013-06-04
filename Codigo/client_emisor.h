@@ -36,6 +36,12 @@ public:
 	// Destructor
 	~Emisor();
 
+	// Inicia la emisión
+	void iniciar();
+
+	// Detiene la emisión
+	void detener();
+
 	// Agrega un mensaje a enviar en la cola de salida del emisor.
 	// PRE: 'mensaje' es la cadena de texto que se desea enviar
 	void ingresarMensajeDeSalida(std::string mensaje);

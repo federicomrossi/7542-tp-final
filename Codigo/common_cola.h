@@ -61,11 +61,6 @@ public:
 		Lock lock(*this->mutex);
 		return(cola->empty());
 	}
-
-	void desbloquear() {
-		Lock lock(*this->mutex);
-		lock.signal();
-	}
 };
 
 #endif /* COMMON_COLA_H_ */

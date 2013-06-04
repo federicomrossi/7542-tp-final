@@ -11,8 +11,8 @@
 
 #include "common_thread.h"
 #include "common_socket.h"
+#include "common_comunicador.h"
 #include "server_verificador.h"
-// #include "server_controlador_de_tareas.h"
 
 
 
@@ -27,10 +27,10 @@ class ConexionCliente : public Thread {
 private:
 
 	Socket *socket;								// Socket de comunicación
-	Verificador* verificador;
-	// ControladorDeTareas *controlador;			// Controlador de tareas.
+	Verificador* verificador;					// Verificador de loggin
 
-	int inicioSesion();
+	// Espera inicio sesion
+	int inicioSesion(Comunicador& comunicador);
 
 public:
 

@@ -36,6 +36,12 @@ public:
 	// Destructor
 	~Receptor();
 
+	// Inicia la recepción
+	void iniciar();
+
+	// Detiene la recepción
+	void detener();
+
 	// Permite obtener un mensaje recibido.
 	// POST: Devuelve el primer mensaje de la cola de mensajes entrantes.
 	std::string obtenerMensajeDeEntrada();

@@ -9,6 +9,9 @@
 #include "common_comunicador.h"
 #include <sstream>
 
+// DEBUG
+#include <iostream>
+// END DEBUG
 
 
 
@@ -67,16 +70,16 @@ int Comunicador::recibir(std::string& instruccion, std::string& args) {
 	// Recibimos de a 1 Byte hasta recibir el caractér de fin de mensaje
 	while(true) {
 		// Definimos buffer de 1 Byte
-		char bufout[1];
+		char bufout;
 
 		// Si se produce un error, devolvemos una instrucción vacía
-		if(this->socket->recibir(bufout, 1) == -1) return -1;
+		if(this->socket->recibir(&bufout, 1) == -1) return -1;
 		
 		// Si se recibió el caractér de fin de mensaje, salimos
-		if(bufout[0] == FIN_MENSAJE) break;
+		if(bufout == FIN_MENSAJE) break;
 
 		// Agregamos el caractér a los datos ya recibidos
-		msg_in << bufout[0];
+		msg_in << bufout;
 	}
 
 	// Paresamos instrucción y argumentos
@@ -102,16 +105,16 @@ int Comunicador::recibir(std::string& msg) {
 	// Recibimos de a 1 Byte hasta recibir el caractér de fin de mensaje
 	while(true) {
 		// Definimos buffer de 1 Byte
-		char bufout[1];
+		char bufout;
 
 		// Si se produce un error, devolvemos una instrucción vacía
-		if(this->socket->recibir(bufout, 1) == -1) return -1;
-		
+		if(this->socket->recibir(&bufout, 1) == -1) return -1;
+
 		// Si se recibió el caractér de fin de mensaje, salimos
-		if(bufout[0] == FIN_MENSAJE) break;
+		if(bufout == FIN_MENSAJE) break;
 
 		// Agregamos el caractér a los datos ya recibidos
-		msg_in << bufout[0];
+		msg_in << bufout;
 	}
 
 	// Copiamos mensaje en variable de salida

@@ -86,28 +86,41 @@ void Inspector::run() {
 			std::cout.flush();
 
 			while(!nuevos.vacia()) {
-				// std::cout << "PASO" << std::endl;
+				// Tomamos nuevo
 				std::string nuevo = nuevos.pop_bloqueante();
-				// std::string cont = this->manejadorDeArchivos->obtenerContenidoArchivo(nuevo);
-				// this->sincronizador->enviarArchivo(nuevo, 
-				// 	this->manejadorDeArchivos->obtenerContenidoArchivo(nuevo));
+
+				// Enviamos al sincronizador
+				this->sincronizador->enviarArchivo(nuevo, 
+					this->manejadorDeArchivos->obtenerContenidoArchivo(nuevo));
 				
+				// DEBUG
 				std::cout << "Nuevo: " << nuevo << std::endl;
+				// END DEBUG
 			}
 
 			while(!modificados.vacia()) {
-				// std::string mod(modificados.pop_bloqueante());
-				// this->sincronizador->modificarArchivo(mod, 0, 
-				// 	this->manejadorDeArchivos->obtenerContenidoArchivo(mod));
+				// Tomamos modificado
+				std::string mod = modificados.pop_bloqueante();
 
-				std::cout << "Modificado: " << modificados.pop_bloqueante() << std::endl;
+				// Enviamos a sincronizador
+				this->sincronizador->modificarArchivo(mod, 0, 
+					this->manejadorDeArchivos->obtenerContenidoArchivo(mod));
+
+				// DEBUG
+				std::cout << "Modificado: " << mod << std::endl;
+				// END DEBUG
 			}
 
 			while(!eliminados.vacia()) {
-				// std::string elim(eliminados.pop_bloqueante());
-				// this->sincronizador->eliminarArchivo(elim);
+				// Tomamos eliminado
+				std::string elim = eliminados.pop_bloqueante();
+
+				// Enviamos a sincronizador
+				this->sincronizador->eliminarArchivo(elim);
 				
-				std::cout << "Eliminado: " << eliminados.pop_bloqueante() << std::endl;
+				// DEBUG
+				std::cout << "Eliminado: " << elim << std::endl;
+				// END DEBUG
 			}
 
 			// END DEBUG

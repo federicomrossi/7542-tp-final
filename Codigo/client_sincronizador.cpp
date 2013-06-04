@@ -4,6 +4,8 @@
 //  
 
 
+#include <string>
+#include "common_protocolo.h"
 #include "client_sincronizador.h"
 
 
@@ -27,6 +29,12 @@ void Sincronizador::enviarArchivo(std::string nombreArchivo, std::string conteni
 	// Bloqueamos el mutex
 	Lock l(m);
 
+	// Armamos mensaje
+	std::string mensaje = COMMON_SEND_FILE + " " + nombreArchivo + " " 
+		+ contenido;
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -39,6 +47,12 @@ void Sincronizador::modificarArchivo(std::string nombreArchivo, int bloque,
 	// Bloqueamos el mutex
 	Lock l(m);
 
+	// Armamos mensaje
+	std::string mensaje = COMMON_MODIFY_FILE + " " + nombreArchivo + " " 
+		+ contenido;
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -48,6 +62,11 @@ void Sincronizador::eliminarArchivo(std::string nombreArchivo) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
+	// Armamos mensaje
+	std::string mensaje = COMMON_DELETE_FILE + " " + nombreArchivo;
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 

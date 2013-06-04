@@ -8,6 +8,12 @@
 
 
 
+namespace {
+	const std::string COLA_SALIDA_FIN = "COLA-SALIDA-FIN";
+}
+
+
+
 
 
 /* ****************************************************************************
@@ -20,23 +26,25 @@ Emisor::Emisor(Socket *socket) : socket(socket), com(socket) { }
 
 
 // Destructor
-Emisor::~Emisor() {
+Emisor::~Emisor() { }
+
+
+// Inicia la emisión
+void Emisor::iniciar() {
+	this->start();
+}
+
+
+// Detiene la emisión
+void Emisor::detener() {
 	// Detenemos hilo
 	this->stop();
 
 	// Esperamos a que se termine de emitir los mensajes de la cola
 	while(!this->salida.vacia());
 
-	// Destrabamos la cola
-	this->salida.desbloquear();
-
-	// Forzamos el cierre del socket y destrabamos espera de recepcion de datos
-	try {
-		this->socket->cerrar();
-	}
-	// Ante una eventual detención abrupta, previa a la inicialización del
-	// socket, lanzará un error que daremos por obviado.
-	catch(...) { }
+	// Destrabamos la cola encolando un mensaje de finalización detectable
+	this->salida.push(COLA_SALIDA_FIN);
 }
 
 
@@ -57,9 +65,8 @@ void Emisor::run() {
 		// Tomamos un mensaje de salida
 		std::string mensaje = this->salida.pop_bloqueante();
 
-		// Caso en que se ha desbloqueado el desencolado ante una petición
-		// de detención
-		if(this->salida.vacia() && mensaje == "") return;
+		// Corroboramos si no se ha desencolado el mensaje que marca el fin
+		if(mensaje == COLA_SALIDA_FIN) return;
 
 		// Enviamos mensaje
 		if(this->com.emitir(mensaje) == -1)

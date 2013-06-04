@@ -32,6 +32,8 @@ const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
 // y el cliente
 // FORMATO DE LAS CONSTANTES: COMMON_[instruccion]
 const std::string COMMON_SEND_FILE = "SEND-FILE";
+const std::string COMMON_MODIFY_FILE = "MODIFY-FILE";
+const std::string COMMON_DELETE_FILE = "DELETE-FILE";
 
 // Constante para caracter de fin de instrucción
 const char FIN_MENSAJE = '\n';

@@ -166,6 +166,9 @@ void Cliente::ejecutar() {
 
 
 	// Ponemos en marcha los módulos
+	receptor.iniciar();
+	emisor.iniciar();
+	manejadorDeNotificaciones.start();
 	inspector.iniciar();
 
 
@@ -180,6 +183,14 @@ void Cliente::ejecutar() {
 	// Detenemos los módulos
 	inspector.detener();
 	inspector.join();
+	manejadorDeNotificaciones.stop();
+	manejadorDeNotificaciones.join();
+	emisor.detener();
+	emisor.join();
+	receptor.detener();
+	this->socket->cerrar();
+	receptor.join();
+	std::cout << "PASO" << std::endl;
 
 	// Se desconecta del servidor
 	desconectar();

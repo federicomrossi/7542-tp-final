@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include "server_conexion_cliente.h"
-#include "common_comunicador.h"
+
 
 
 
@@ -38,55 +38,29 @@ void ConexionCliente::run() {
 	Comunicador comunicador(this->socket);
 
 	// Variables de procesamiento
-	std::string instruccion;
-	std::string args;
-	// std::stringstream msg_in;
-	// std::string msg_tarea;
+	std::string mensaje;
 
 	// Mensaje de log
 	std::cout << "Esperando mensaje del cliente... ";
     std::cout.flush();
 
+	
+	// Inicio de sesión
 	// IMP: Hay que modificar lo siguiente. Se busca que cada consulta sea un cliente nuevo, 
 	// hasta que el cliente este sincronizando archivos (ahi se mantiene activo)
-	while(inicioSesion() != 1);
+	while(this->inicioSesion(comunicador) != 1);
+	// if(this->inicioSesion(comunicador) != 1) return;
 
-	// Esperamos hasta recibir el mensaje correcto
-	while(instruccion != COMMON_SEND_FILE || !this->isActive())
-		if(comunicador.recibir(instruccion, args) == -1) return;
+	// Sincronización
+	while(this->isActive()) {
+		// Esperamos a recibir mensaje
+		if(comunicador.recibir(mensaje) == -1) break;
 
-	// Mensaje de log
-	std::cout << "RECIBIDO" << std::endl;
-    std::cout.flush();
+		std::cout << "ENTRANTE: " <<  mensaje << std::endl;
+		std::cout.flush();
+	}
 
-	// if(!this->controlador->obtenerIndicacion(msg_tarea)) {
-	// 	// No hay tarea asignada
-	// 	comunicador.emitir(msg_tarea);
-	// 	this->socket->cerrar();
-	// 	return;
-	// }
-
-	// // Enviamos la parte del trabajo correspondiente
-	// if(comunicador.emitir(msg_tarea) == -1) return;
-	
-
-	// // Nos ponemos a la espera de posibles claves o de indicación de
-	// // finalización de tarea por parte del cliente
-	// while(this->isActive()) {
-	// 	// Recibimos mensaje
-	// 	if(comunicador.recibir(instruccion, args) == -1) break;
-
-	// 	// Caso en que se recibe una posible clave
-	// 	if(instruccion == C_POSSIBLE_KEY)
-	// 		this->controlador->ingresarClave(args);
-	// 	else if (instruccion == C_JOB_PART_FINISHED) {
-	// 		this->controlador->clienteTerminoTarea();
-	// 		break;
-	// 	}
-	// }
-
-	// Cerramos conexión
-	this->socket->cerrar();
+	std::cout << "TERMINO" << std::endl;
 }
 
 
@@ -95,7 +69,7 @@ void ConexionCliente::run() {
 void ConexionCliente::detener() {
 	// Detenemos hilo
 	this->stop();
-
+	
 	// Forzamos el cierre del socket y destrabamos espera de recepcion de datos
 	try {
 		this->socket->cerrar();
@@ -105,13 +79,16 @@ void ConexionCliente::detener() {
 	catch(...) { }
 }
 
-// Metodos privados
+
+
+
+/*
+ * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
+ */
+ 
 
 // Espera inicio sesion
-int ConexionCliente::inicioSesion() {
-	// Creamos el comunicador para enviar y recibir mensajes
-	Comunicador comunicador(this->socket);
-
+int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 	// Variables de procesamiento
 	std::string instruccion;
 	std::string args;

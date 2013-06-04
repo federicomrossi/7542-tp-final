@@ -45,8 +45,11 @@ std::string ManejadorDeArchivos::obtenerContenidoArchivo(
 	// Bloqueamos el mutex
 	Lock l(m);
 
+	// Armamos la ruta hacia el archivo
+	std::string ruta = directorio + "/" + nombre_archivo;
+
 	// Abrimos el archivo
-	std::ifstream archivo(nombre_archivo.c_str(), 
+	std::ifstream archivo(ruta.c_str(), 
 		std::ios::in | std::ios::binary | std::ios::ate);
 
 	if(!archivo.is_open())

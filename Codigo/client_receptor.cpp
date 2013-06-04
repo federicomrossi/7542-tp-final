@@ -6,7 +6,7 @@
  
 #include "client_receptor.h"
 
-
+#include <iostream>
 
 
 
@@ -20,20 +20,20 @@ Receptor::Receptor(Socket *socket) : socket(socket), com(socket) { }
 
 
 // Destructor
-Receptor::~Receptor() {
+Receptor::~Receptor() { }
+
+
+// Inicia la recepción
+void Receptor::iniciar() {
+	// Iniciamos el hilo
+	this->start();
+}
+
+
+// Detiene la recepción
+void Receptor::detener() {
 	// Detenemos hilo
 	this->stop();
-
-	// Desbloqueamos la cola de salida
-	this->entrada.desbloquear();
-
-	// Forzamos el cierre del socket y destrabamos espera de recepción de datos
-	try {
-		this->socket->cerrar();
-	}
-	// Ante una eventual detención abrupta, previa a la inicialización del
-	// socket, lanzará un error que daremos por obviado.
-	catch(...) { }
 }
 
 
