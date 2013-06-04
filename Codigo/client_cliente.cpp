@@ -34,10 +34,11 @@
 Cliente::Cliente(std::string nombreHost, int puerto, Logger *logger) : 
 	puerto(puerto), nombreHost(nombreHost), logger(logger) {
 	// Creamos socket
-	this->socket.crear();
+	this->socket = new Socket();
+	this->socket->crear();
 
 	// Creamos comunicador (SACAR, CREA EN EMISOR Y RECEPTOR)
-	this->com = new Comunicador(&this->socket);
+	this->com = new Comunicador(this->socket);
 	
 	// Creamos el inspector
 }
@@ -45,7 +46,9 @@ Cliente::Cliente(std::string nombreHost, int puerto, Logger *logger) :
 
 // Destructor
 Cliente::~Cliente() {
-	this->socket.cerrar();	
+	this->socket->cerrar();
+
+	delete this->socket;
 }
 
 
@@ -59,7 +62,7 @@ int Cliente::conectar() {
 
 	try {
 		// Conectamos el socket
-		this->socket.conectar(nombreHost, puerto);
+		this->socket->conectar(nombreHost, puerto);
 	}
 	catch(char const * e) {
 		std::cerr << e << std::endl;
@@ -82,7 +85,7 @@ void Cliente::desconectar() {
     std::cout.flush();
 
 	// Desconectamos el socket
-	this->socket.cerrar();
+	this->socket->cerrar();
 
 	// Mensaje de log
 	std::cout << "DESCONECTADO" << std::endl;
@@ -149,14 +152,14 @@ void Cliente::ejecutar() {
 
 
 	// Creamos los módulos que conforman al cliente
-	Emisor emisor(&this->socket);
-	Receptor receptor(&this->socket);
+	Emisor emisor(this->socket);
+	Receptor receptor(this->socket);
 	ManejadorDeArchivos manejadorDeArchivos("cliente");
 	Sincronizador sincronizador(&manejadorDeArchivos);
 	ReceptorDeArchivos receptorDeArchivos(&manejadorDeArchivos);
 
 	int INTERVALO = 5; // CAMBIAR POR ARCHIVO DE CONFIGURACIÓN
-	Inspector inspector(&manejadorDeArchivos, INTERVALO);
+	Inspector inspector(&manejadorDeArchivos, &sincronizador, INTERVALO);
 
 	ManejadorDeNotificaciones manejadorDeNotificaciones(&receptor,
 		&sincronizador, &receptorDeArchivos);

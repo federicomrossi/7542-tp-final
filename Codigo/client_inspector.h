@@ -9,6 +9,7 @@
 
 #include <string>
 #include "common_thread.h"
+#include "client_sincronizador.h"
 #include "client_manejador_de_archivos.h"
 
 
@@ -23,6 +24,7 @@ class Inspector : public Thread {
 private:
 
 	ManejadorDeArchivos *manejadorDeArchivos;		// Manejador de archivos
+	Sincronizador *sincronizador;					// Sincronizador
 	unsigned int intervalo;							// Intervalo de inspección
 													// en segundos
 
@@ -33,7 +35,8 @@ public:
 
 	// Constructor
 	// PRE: 'intervalo' es el intervalo de inspección en segundos.
-	Inspector(ManejadorDeArchivos *unManejador, unsigned int intervalo);
+	Inspector(ManejadorDeArchivos *unManejador, Sincronizador *sincronizador,
+		unsigned int intervalo);
 
 	// Destructor
 	~Inspector();

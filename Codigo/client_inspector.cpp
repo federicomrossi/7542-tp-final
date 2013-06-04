@@ -23,8 +23,10 @@
 
 // Constructor
 // PRE: 'intervalo' es el intervalo de inspección en segundos.
-Inspector::Inspector(ManejadorDeArchivos *unManejador, unsigned int intervalo)
-	: manejadorDeArchivos(unManejador), intervalo(intervalo) { }
+Inspector::Inspector(ManejadorDeArchivos *unManejador, 
+	Sincronizador *sincronizador, unsigned int intervalo) : 
+	manejadorDeArchivos(unManejador), sincronizador(sincronizador), 
+	intervalo(intervalo) { }
 
 
 // Destructor

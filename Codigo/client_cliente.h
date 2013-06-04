@@ -23,7 +23,7 @@ class Logger;
 class Cliente {
 private:
 
-	Socket socket;					// Socket con el que se comunica
+	Socket *socket;					// Socket con el que se comunica
 	int puerto;						// Puerto de conexión.
 	std::string nombreHost;			// Nombre del host de conexión
 	Comunicador *com;				// Comunicador del cliente
