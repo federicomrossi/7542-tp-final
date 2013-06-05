@@ -33,6 +33,7 @@ void ManejadorDeNotificaciones::run() {
 		// Pide un mensaje de la cola al receptor
 		mensaje = this->receptor->obtenerMensajeDeEntrada();
 
+		// Formato de notificacion: "<'n'><Instruccion><Arg1-Arg2-Arg3..>"
 		if (mensaje[0] == 'n')  { // Es una notificacion
 			mensaje.erase(0,1);  // Se borra el identificador
 
@@ -42,6 +43,9 @@ void ManejadorDeNotificaciones::run() {
 
 			this->sincronizador->recibirNotificacion(mensaje);
 		}
+		// Formato de archivo: "<'f'><Accion><Nombre_Archivo-Archivo>"
+		// Donde 'Accion' es 'ADD' para agregar o 'DEL' para eliminar archivo
+		// del directorio local
 		else {
 			if (mensaje[0] == 'f') {  // Es un archivo
 				mensaje.erase(0,1);  // Se borra el identificador

@@ -51,6 +51,10 @@ void ConexionCliente::run() {
 	// DEBUG
 	mensaje = 'n' + S_NOTIFY_CHANGE;
 	if(comunicador.emitir(mensaje) == -1) return;
+
+	mensaje = 'f';
+	mensaje.append("ADDNOMBRE_ARCHIVO-ARCHIVO");
+	if(comunicador.emitir(mensaje) == -1) return;
 	// END DEBUG
 
 	// Sincronización

@@ -14,7 +14,9 @@
 #include "common_lock.h"
 #include "common_cola.h"
 
-
+//DEBUG
+#include <iostream>
+//END DEBUG
 
 
 
@@ -56,6 +58,12 @@ public:
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
 		Cola< std::string > *modificados, Cola< std::string > *eliminados);
+
+	// Elimina un archivo del directorio local
+	void eliminarArchivo(const std::string &nombre_archivo);
+
+	// Agrega un nuevo archivo al directorio local
+	void agregarArchivo(const std::string &nombre_archivo, const std::string &archivo);
 };
 
 #endif

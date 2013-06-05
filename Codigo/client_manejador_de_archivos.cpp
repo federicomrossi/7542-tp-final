@@ -236,3 +236,18 @@ std::list<std::string> ManejadorDeArchivos::obtenerArchivosDeDirectorio() {
 	return listaArchivos;
 }
 
+// Elimina un archivo del directorio local
+void ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo) {
+	// DEBUG
+	std::cout << "Se elimino archivo con nombre: " << nombre_archivo << std::endl;
+	//END DEBUG
+}
+
+// Agrega un nuevo archivo al directorio local
+void ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo, 
+	const std::string &archivo) {
+	// DEBUG
+	std::cout << "Se agrego archivo con nombre: " << nombre_archivo << std::endl;	
+	std::cout << "Y archivo: " << archivo << std::endl;
+	//END DEBUG
+}
