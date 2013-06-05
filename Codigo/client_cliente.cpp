@@ -39,6 +39,9 @@ Cliente::Cliente(std::string nombreHost, int puerto, Logger *logger) :
 Cliente::~Cliente() {
 	// Liberamos la memoria utilizada por el socket
 	delete this->socket;
+	
+	// Se elimina comunicador (SACAR, CREA EN EMISOR Y RECEPTOR)
+	delete this->com;
 }
 
 
@@ -189,10 +192,10 @@ void Cliente::ejecutar() {
 	// Detenemos los módulos
 	inspector.detener();
 	inspector.join();
-	manejadorDeNotificaciones.stop();
-	manejadorDeNotificaciones.join();
 	emisor.detener();
 	receptor.detener();
+	manejadorDeNotificaciones.stop();
+	manejadorDeNotificaciones.join();
 	emisor.join();
 
 	// Se desconecta del servidor

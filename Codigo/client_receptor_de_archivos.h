@@ -33,6 +33,9 @@ public:
 
 	// Destructor
 	~ReceptorDeArchivos();
+	
+	// Recibe el archivo a enviar al manejador de archivos
+	void recibirArchivo(std::string &archivo);
 };
 
 #endif

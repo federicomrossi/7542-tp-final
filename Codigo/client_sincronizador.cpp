@@ -74,7 +74,9 @@ void Sincronizador::eliminarArchivo(std::string nombreArchivo) {
 void Sincronizador::solicitarArchivoNuevo() {
 	// Bloqueamos el mutex
 	Lock l(m);
-
+	//DEBUG
+	std::cout << "Solicito archivo nuevo" << std::endl;
+	//END DEBUG
 }
 
 
@@ -82,5 +84,16 @@ void Sincronizador::solicitarArchivoNuevo() {
 void Sincronizador::solicitarArchivoModificado() {
 	// Bloqueamos el mutex
 	Lock l(m);
-	
+	//DEBUG
+	std::cout << "Solicito archivo modificado" << std::endl;
+	//END DEBUG	
+}
+
+void Sincronizador::recibirNotificacion(std::string &notificacion) {
+	if (notificacion.find(S_NOTIFY_NEW, 0) != std::string::npos)
+		this->solicitarArchivoNuevo();
+	else {
+		if (notificacion.find(S_NOTIFY_CHANGE, 0) != std::string::npos)
+			this->solicitarArchivoModificado();
+	}
 }

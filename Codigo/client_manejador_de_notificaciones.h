@@ -14,7 +14,9 @@
 #include "client_sincronizador.h"
 #include "client_receptor_de_archivos.h"
 
-
+//DEBUG
+#include <iostream>
+//FIN DEBUG
 
 /* ****************************************************************************
  * DECLARACIÓN DE LA CLASE

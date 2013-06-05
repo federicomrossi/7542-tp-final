@@ -48,6 +48,11 @@ void ConexionCliente::run() {
 	if(this->inicioSesion(comunicador) != 1) return;
 	// ACÁ FALTA AGREGAR LA SOLICITUD PARA SER REMOVIDO DE LA LISTA DE CLIENTES
 
+	// DEBUG
+	mensaje = 'n' + S_NOTIFY_CHANGE;
+	if(comunicador.emitir(mensaje) == -1) return;
+	// END DEBUG
+
 	// Sincronización
 	while(this->isActive()) {
 		// Esperamos a recibir mensaje

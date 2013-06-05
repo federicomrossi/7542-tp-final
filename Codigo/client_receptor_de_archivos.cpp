@@ -23,3 +23,9 @@ ReceptorDeArchivos::ReceptorDeArchivos(ManejadorDeArchivos *unManejador) :
 
 // Destructor
 ReceptorDeArchivos::~ReceptorDeArchivos() { }
+
+void ReceptorDeArchivos::recibirArchivo(std::string &archivo) {
+	// Debe enviar al manejador de archivos el archivo recibido
+	// Llega el archivo con 'ADD' o 'DEL' al comienzo
+	// para saber si hay que agregar o eliminar un archivo del directorio
+}

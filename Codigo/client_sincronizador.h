@@ -13,7 +13,9 @@
 #include "common_lock.h"
 #include "client_emisor.h"
 
-
+//DEBUG
+#include <iostream>
+//END DEBUG
 
 
 /* ****************************************************************************
@@ -54,6 +56,10 @@ public:
 
 	// Crea el evento de solicitud de modificación de un archivo.
 	void solicitarArchivoModificado();
+	
+	// Recibe una notificacion y a partir del contenido
+	// solicita archivo nuevo, modificado o elimina un archivo existente 
+	void recibirNotificacion(std::string &notificacion);
 };
 
 #endif

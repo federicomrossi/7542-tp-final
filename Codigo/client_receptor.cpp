@@ -10,6 +10,9 @@
 #include <iostream>
 // END DEBUG
 
+namespace {
+	const std::string COLA_SALIDA_FIN = "COLA-SALIDA-FIN";
+}
 
 
 /* ****************************************************************************
@@ -36,6 +39,12 @@ void Receptor::iniciar() {
 void Receptor::detener() {
 	// Detenemos hilo
 	this->stop();
+
+	// Destrabamos la cola encolando un mensaje de finalización detectable
+	// Con un mensaje diferente a los posibles esperados por el manejador de 
+	// notificaciones, alcanza
+	this->entrada.push(COLA_SALIDA_FIN);
+
 	this->socket->cerrar();
 }
 
