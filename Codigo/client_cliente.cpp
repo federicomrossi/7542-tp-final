@@ -32,22 +32,12 @@
 
 // Constructor
 Cliente::Cliente(std::string nombreHost, int puerto, Logger *logger) : 
-	puerto(puerto), nombreHost(nombreHost), logger(logger) {
-	// Creamos socket
-	this->socket = new Socket();
-	this->socket->crear();
-
-	// Creamos comunicador (SACAR, CREA EN EMISOR Y RECEPTOR)
-	this->com = new Comunicador(this->socket);
-	
-	// Creamos el inspector
-}
+	puerto(puerto), nombreHost(nombreHost), logger(logger) { }
 
 
 // Destructor
 Cliente::~Cliente() {
-	this->socket->cerrar();
-
+	// Liberamos la memoria utilizada por el socket
 	delete this->socket;
 }
 
@@ -130,25 +120,41 @@ int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
 
 // Mantiene la comunicación con el servidor.
 void Cliente::ejecutar() {
-	// Se conecta al servidor
-	conectar();
-
 	// Inicia sesion
 	// DEBE REEMPLAZARSE POR EL MODULO QUE CONECTA CON LA GUI
 	std::string usuario;
 	std::string clave;
 	
-	while((usuario == "" || clave == "") || iniciarSesion(usuario, clave) != 1)
-	{
-		std::cout << "Usuario: ";
+	while(true) {
+		// Solicitamos usuario y contraseña
+		std::cout << std::endl << "Usuario: ";
 		std::cout.flush();
 		getline(std::cin, usuario);
 		std::cout << "Contraseña: ";
 		std::cout.flush();
 		getline(std::cin, clave);
 		std::cout << std::endl;
+
+		// Si no se ingresa nada, volvemos a solicitar
+		if(usuario == "" || clave == "") continue;
+
+		// Creamos socket
+		this->socket = new Socket();
+		this->socket->crear();
+
+		// Creamos comunicador (SACAR, CREA EN EMISOR Y RECEPTOR)
+		this->com = new Comunicador(this->socket);
+
+		// Se conecta al servidor
+		conectar();
+
+		// Si se inició sesión con éxito, salimos y mantenemos socket activo
+		if(iniciarSesion(usuario, clave) == 1) break;
+
+		// Destruimos el socket en caso de fallar el inicio de sesión
+		desconectar();
+		delete this->socket;
 	}
-	// FIN Inicio sesion
 
 
 	// Creamos los módulos que conforman al cliente

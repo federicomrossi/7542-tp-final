@@ -44,12 +44,9 @@ void ConexionCliente::run() {
 	std::cout << "Esperando mensaje del cliente... ";
     std::cout.flush();
 
-	
-	// Inicio de sesión
-	// IMP: Hay que modificar lo siguiente. Se busca que cada consulta sea un cliente nuevo, 
-	// hasta que el cliente este sincronizando archivos (ahi se mantiene activo)
-	while(this->inicioSesion(comunicador) != 1);
-	// if(this->inicioSesion(comunicador) != 1) return;
+	// Si el inicio de sesión falló, cerramos conexión con cliente
+	if(this->inicioSesion(comunicador) != 1) return;
+	// ACÁ FALTA AGREGAR LA SOLICITUD PARA SER REMOVIDO DE LA LISTA DE CLIENTES
 
 	// Sincronización
 	while(this->isActive()) {

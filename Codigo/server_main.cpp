@@ -82,12 +82,16 @@ int main(int argc, char* argv[]) {
 	while(comando != CMD_SALIR)
 		getline(std::cin, comando);
 
+	// DEBUG
 	std::cout << "Saliendo y cerrando el servidor.." << std::endl;
+	// END DEBUG
 
 	servidor->detener();
-	std::cout << "Se detuvo el servidor.." << std::endl;
 	servidor->join();
-	std::cout << "Se hizo join" << std::endl;
+
+	// DEBUG
+	std::cout << "Se detuvo el servidor.." << std::endl;
+	// END DEBUG
 
 	// delete terminal;
 	delete servidor;
