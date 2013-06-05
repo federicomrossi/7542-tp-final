@@ -6,6 +6,10 @@
 
 #include "client_emisor.h"
 
+// DEBUG
+#include <iostream>
+// END DEBUG
+
 
 
 namespace {

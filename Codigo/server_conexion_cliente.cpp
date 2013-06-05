@@ -76,7 +76,7 @@ void ConexionCliente::detener() {
 	}
 	// Ante una eventual detención abrupta, previa a la inicialización del
 	// socket, lanzará un error que daremos por obviado.
-	catch(...) { }
+	catch(...) { } 
 }
 
 
@@ -96,7 +96,6 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 	// Se recibe la instruccion
 	if(comunicador.recibir(instruccion, args) == -1) 
 		return -1;
-	std::cout << "Recibi: " << instruccion << std::endl;
 
 	// Se debe crear nuevo usuario
 	if (instruccion == C_LOGIN_REQUEST) {

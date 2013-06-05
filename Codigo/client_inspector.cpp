@@ -44,8 +44,8 @@ void Inspector::iniciar() {
 void Inspector::detener() {
 	this->stop();
 
-	// Enviamos señal para detener el intervalo de inspección
-	this->kill();
+	// Interrumpimos el intervalo de inspección
+	this->interruptSleep();
 }
 
 

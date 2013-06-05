@@ -82,7 +82,7 @@ int Cliente::conectar() {
 void Cliente::desconectar() {
 	// Mensaje de log
 	std::cout << "Cerrando conexión... ";
-    std::cout.flush();
+   	std::cout.flush();
 
 	// Desconectamos el socket
 	this->socket->cerrar();
@@ -186,12 +186,12 @@ void Cliente::ejecutar() {
 	manejadorDeNotificaciones.stop();
 	manejadorDeNotificaciones.join();
 	emisor.detener();
-	emisor.join();
 	receptor.detener();
-	this->socket->cerrar();
-	receptor.join();
-	std::cout << "PASO" << std::endl;
+	emisor.join();
 
 	// Se desconecta del servidor
-	desconectar();
+	this->desconectar();	
+	
+	receptor.join();
+	std::cout << "PASO" << std::endl;
 }

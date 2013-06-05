@@ -68,6 +68,7 @@ int main(int argc, char* argv[]) {
 	try {
 		// Iniciamos servidor
 		servidor->iniciar();
+		std::cout << "Inicio server"<< std::endl;
 	}
 	catch(char const * e) {
 		std::cerr << e << std::endl;
@@ -76,14 +77,17 @@ int main(int argc, char* argv[]) {
 	}
 
 	std::string comando;
-	
+	std::cout << "Esperando 'q' para salir.." << std::endl;
 	// Esperamos a que se indique la finalización de la ejecución
 	while(comando != CMD_SALIR)
 		getline(std::cin, comando);
 
+	std::cout << "Saliendo y cerrando el servidor.." << std::endl;
 
 	servidor->detener();
+	std::cout << "Se detuvo el servidor.." << std::endl;
 	servidor->join();
+	std::cout << "Se hizo join" << std::endl;
 
 	// delete terminal;
 	delete servidor;

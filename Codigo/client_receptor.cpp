@@ -6,7 +6,9 @@
  
 #include "client_receptor.h"
 
+// DEBUG
 #include <iostream>
+// END DEBUG
 
 
 
@@ -34,6 +36,7 @@ void Receptor::iniciar() {
 void Receptor::detener() {
 	// Detenemos hilo
 	this->stop();
+	this->socket->cerrar();
 }
 
 

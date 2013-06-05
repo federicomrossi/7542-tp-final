@@ -25,6 +25,7 @@ private:
 	
 	pthread_t thread;		// Identificador del hilo
 	bool status;			// Estado del thread
+	bool asleep;			// Sensa si esta dormido el thread
 
 	// Ejecuta el método run().
 	// PRE: 'threadID' es un puntero al thread.
@@ -62,8 +63,11 @@ public:
 	// Puede ser interrumpido llamando al metodo kill().
 	virtual void sleep(unsigned int seconds);
 
+	// Interrumpe el sleep
+	void interruptSleep();
+
 	// Envía una señal al hilo.
-	virtual void kill();
+	//virtual void kill();
 
 	// Verifica si el hilo se encuentra activo.
 	// POST: devuelve true si está activo o false en caso contrario.

@@ -73,7 +73,7 @@ int Comunicador::recibir(std::string& instruccion, std::string& args) {
 		char bufout;
 
 		// Si se produce un error, devolvemos una instrucción vacía
-		if(this->socket->recibir(&bufout, 1) == -1) return -1;
+		if(this->socket->recibir(&bufout, 1) <= 0) return -1;
 		
 		// Si se recibió el caractér de fin de mensaje, salimos
 		if(bufout == FIN_MENSAJE) break;
@@ -108,7 +108,7 @@ int Comunicador::recibir(std::string& msg) {
 		char bufout;
 
 		// Si se produce un error, devolvemos una instrucción vacía
-		if(this->socket->recibir(&bufout, 1) == -1) return -1;
+		if(this->socket->recibir(&bufout, 1) <= 0) return -1;
 
 		// Si se recibió el caractér de fin de mensaje, salimos
 		if(bufout == FIN_MENSAJE) break;

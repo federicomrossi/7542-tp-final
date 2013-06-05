@@ -19,7 +19,7 @@
 
 // Función auxiliar que representa el manejador de la alarma, utilizado para la
 // interrupción de la suspensión de un hilo.
-void alarm_handler(int signal) { }
+//void alarm_handler(int signal) { }
 
 
 
@@ -31,7 +31,7 @@ void alarm_handler(int signal) { }
 
 
 // Constructor
-Thread::Thread() : status(false) { }
+Thread::Thread() : status(false), asleep(false) { }
 
 
 // Constructor privado
@@ -71,19 +71,23 @@ void Thread::join() {
 // Suspende la ejecución del hilo durante cierto intervalo de tiempo.
 // Puede ser interrumpido llamando al metodo kill().
 void Thread::sleep(unsigned int seconds) {
+	asleep = true;
+	unsigned int i = 0;
+	
 	struct timespec t, t_aux;
-	t.tv_sec = seconds;
-	t.tv_nsec = 0;
-	nanosleep(&t, &t_aux);
+	t.tv_sec = 0;
+	t.tv_nsec = 100000000;
 
-	// Registramos un manejador de alarma para poder interrumpur la suspensión
-	signal(SIGALRM, alarm_handler);
+	while (asleep == true && i < (seconds * 10)) {
+		nanosleep(&t, &t_aux);
+		i++;
+	}	
 }
 
 
-// Envía una señal  al hilo.
-void Thread::kill() {
-	pthread_kill(this->thread, SIGALRM);
+// Interrumpe el sleep
+void Thread::interruptSleep() {
+	asleep = false;
 }
 
 
