@@ -8,29 +8,35 @@ Verificador::Verificador() {
 Verificador::~Verificador() {
 	if (this->mutex) {
 		delete (this->mutex);
-		this->mutex = NULL;
 	}
 	if (this->logins) {
 		if (this->logins->is_open())
 			this->logins->close();
 		delete(this->logins);
-		this->logins = NULL;
 	}
 }
 
 int Verificador::verificarCliente(std::string &args, 
 	std::string& nombreUsuario) {
+	// DEBUG
 	std::cout << "Estoy verificando si existe cliente" << std::endl;
+	//END DEBUG
+	
+	// Se obtiene usuario y clave
 	int delim = args.find('-', 0);
 	std::string usuario = args.substr(0, delim);
 	std::string clave = args.substr(delim + 1, std::string::npos);
 	int existe = -1;
-	if (this->logins) {  // Lo busco en el archivo de usuarios y claves
+	
+	// Lo busco en el archivo de usuarios y claves
+	if (this->logins) {  
 		Lock lock(*this->mutex);
 		// Si no esta abierto el archivo, lo abre
 		if (!this->logins->is_open())
 			this->logins->open("servidor/Users_Pass.txt", std::ios_base::in);
 		existe = this->buscarCliente(usuario, clave);
+		// Cierra el archivo
+		this->logins->close();
 	}
 
 	// Si la validación es exitosa, almacenamos el nombre de usuario
@@ -43,29 +49,39 @@ int Verificador::verificarCliente(std::string &args,
 // Metodos privados
 
 int Verificador::buscarCliente(std::string &usuario, std::string &clave) {
-	// Va al principio
-	this->logins->seekg(0, std::ios_base::beg);
-	// Busca uno por uno si encuentra al cliente
+
 	std::string usuarioActual;
 	std::string claveActual;
 	char buffer[TAM_BUF];
 	std::string linea;
-	int delim;
+	int delim, codigo = -1;
+
+	// Va al principio del archivo
+	this->logins->seekg(0, std::ios_base::beg);
+
+	// Busca uno por uno si encuentra al cliente
 	while (!this->logins->eof()) {
-		for (int i = 0; i < TAM_BUF; i++) buffer[i] = '\0';
+		memset((void*)buffer, '\0', TAM_BUF);
+		// Lee una linea
 		this->logins->getline(buffer, TAM_BUF);
-			if (this->logins->fail())
-				return 0;
-		linea.assign(buffer);
-		delim = linea.find('-', 0);
-		usuarioActual.assign(buffer, delim);
-		claveActual = linea.substr(delim + 1, std::string::npos);
-		if (usuario.compare(usuarioActual) == 0) {
-			if (clave.compare(claveActual) == 0)
-				return 1;  // Encontre usuario y clave
-			return 2;  // Encontre usuario y no clave
+		if (!this->logins->fail()) {
+			linea.assign(buffer);
+			delim = linea.find('-', 0);
+			usuarioActual.assign(buffer, delim);
+			claveActual = linea.substr(delim + 1, std::string::npos);
+			// Compara
+			if (usuario.compare(usuarioActual) == 0) {
+				if (clave.compare(claveActual) == 0) {
+					codigo = 1;  // Encontre usuario y clave
+					break;
+				}
+				codigo = 2;  // Encontre usuario y no clave
+				break;
+			}
 		}
+		else
+			break;
 	}
-	return 0;  // No encontre ni usuario ni clave
+	return codigo;  // No encontre ni usuario ni clave
 }
 

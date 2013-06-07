@@ -43,6 +43,10 @@ void Logger::emitirLog(const std::string& log) {
 	time(&tiempo);
 	struct tm* infoTiempo;
 	infoTiempo = localtime(&tiempo);
+	// Se abre el archivo si es que no se encuentra abierto
+	if (!this->archivo->is_open())
+		this->archivo->open(pathArchivo.c_str(), std::ios_base::out | 
+			std::ios_base::app);
 	// Se va al final del archivo
 	this->archivo->seekp(0, std::ios_base::end);
 	// Se escribe en el log la fecha y luego el mensaje
@@ -50,6 +54,7 @@ void Logger::emitirLog(const std::string& log) {
 	this->archivo->put(' ');
 	this->archivo->write(log.c_str(), log.length());
 	this->archivo->put('\n');
+	this->archivo->close();
 }
 
 int Logger::limpiarLog() {
@@ -61,7 +66,7 @@ int Logger::limpiarLog() {
 	delete(this->archivo);
 	this->archivo = NULL;
 	error = remove(pathArchivo.c_str());
-	if (error == 0)
+	if (error == 0)  // Si logro eliminarlo, 
 		// Se vuelve a crear el archivo con el mismo nombre
 		crearArchivo();
 	return error;
@@ -73,12 +78,9 @@ void Logger::crearArchivo() {
 	this->archivo = new std::fstream(pathArchivo.c_str(), std::ios_base::in 
 		| std::ios_base::out | std::ios_base::app);
   	if (!archivo->is_open()) {
-		//Se crea el archivo
 		archivo->clear();
+		//Se crea el archivo
 		archivo->open(pathArchivo.c_str(), std::fstream::out);
 		archivo->close();
-    		// Se reabre para lectura
-    		archivo->open(pathArchivo.c_str(), std::ios_base::in 
-			| std::ios_base::out | std::ios_base::app);
 	}
 }
