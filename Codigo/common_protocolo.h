@@ -20,7 +20,7 @@
 // Constantes para los identificadores de instrucciones enviadas por el
 // cliente
 // FORMATO DE LAS CONSTANTES: C_[instruccion]
- const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
+const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
 
 // Constantes para los identificadores de instrucciones enviadas por el
 // servidor
@@ -39,6 +39,9 @@ const std::string COMMON_DELETE_FILE = "DELETE-FILE";
 
 // Constante para caracter de fin de instrucción
 const char FIN_MENSAJE = '\n';
+
+// Constante para hacer referencia al archivo entero
+const std::string WHOLE_FILE = "FFFF";
 
 
 #endif

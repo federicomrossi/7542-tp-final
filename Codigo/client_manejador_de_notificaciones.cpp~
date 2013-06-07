@@ -33,19 +33,19 @@ void ManejadorDeNotificaciones::run() {
 		// Pide un mensaje de la cola al receptor
 		mensaje = this->receptor->obtenerMensajeDeEntrada();
 
-		// Formato de notificacion: "<'n'><Instruccion,Arg1-Arg2-Arg3..>"
+		// Formato de notificacion: "<'n'><Instruccion><Arg1-Arg2-Arg3..>"
 		if (mensaje[0] == 'n')  { // Es una notificacion
 			mensaje.erase(0,1);  // Se borra el identificador
 
 			//DEBUG
 			std::cout << "Es notificacion" << std::endl;
 			//FIN DEBUG
-	
-			// Se envia la notificacion al sincronizador para que 
-			// realice una accion en base a ella.
+
 			this->sincronizador->recibirNotificacion(mensaje);
 		}
-		// Formato de archivo: "<'f'><Instruccion,Arg1-Arg2-Arg3..>"
+		// Formato de archivo: "<'f'><Accion><Arg1-Arg2-Arg3..>"
+		// Donde 'Accion' es 'ADD' para agregar o 'DEL' para eliminar archivo
+		// del directorio local
 		else {
 			if (mensaje[0] == 'f') {  // Es un archivo
 				mensaje.erase(0,1);  // Se borra el identificador
@@ -53,9 +53,7 @@ void ManejadorDeNotificaciones::run() {
 				//DEBUG
 				std::cout << "Es archivo" << std::endl;
 				//FIN DEBUG
-				
-				// Se envia el archivo con la accion a realizar sobre el 
-				// al receptor de archivos
+
 				this->receptorDeArchivos->recibirArchivo(mensaje);
 			}
 			else  // Con cualquier otro mensaje, frena
