@@ -18,7 +18,8 @@ Verificador::~Verificador() {
 	}
 }
 
-int Verificador::verificarCliente(std::string &args) {
+int Verificador::verificarCliente(std::string &args, 
+	std::string& nombreUsuario) {
 	std::cout << "Estoy verificando si existe cliente" << std::endl;
 	int delim = args.find('-', 0);
 	std::string usuario = args.substr(0, delim);
@@ -31,6 +32,10 @@ int Verificador::verificarCliente(std::string &args) {
 			this->logins->open("servidor/Users_Pass.txt", std::ios_base::in);
 		existe = this->buscarCliente(usuario, clave);
 	}
+
+	// Si la validación es exitosa, almacenamos el nombre de usuario
+	if(existe) nombreUsuario = usuario;
+
 	return existe;
 }
 

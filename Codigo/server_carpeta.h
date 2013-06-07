@@ -8,8 +8,9 @@
 #define CARPETA_H
 
 
-#include <list>
-#include "server_conexion_cliente.h"
+#include "common_lista.h"
+#include "server_receptor.h"
+class ConexionCliente;
 
 
 
@@ -22,10 +23,10 @@
 class Carpeta {
 private:
 
-	std::list< ConexionCliente* > listaConexiones;		// Lista de clientes
-	// Sincronizador sincronizador;						// Sincronizador
-	// Receptor receptor;									// Receptor
-	// ManejadorDeArchivos manejadorDeArchivos;			// Manejador
+	Lista< ConexionCliente* > listaConexiones;			// Lista de clientes
+	Receptor *receptor;									// Receptor
+	// Sincronizador *Sincronizadordor;						// Sincronizador
+	// ManejadorDeArchivos *manejadorDeArchivos;			// Manejador
 
 public:
 

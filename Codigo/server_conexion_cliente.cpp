@@ -20,10 +20,10 @@
 // PRE: 's' es un socket para la comunicación con el cliente; 'id' es 
 // número de cliente que se le ha sido asignado por el servidor; 'serv' es
 // una referencia al servidor al que pertenece la conexión.
-//ConexionCliente::ConexionCliente(Socket *s, ControladorDeTareas *controlador)
-//	: socket(s), controlador(controlador) { }
-ConexionCliente::ConexionCliente(Socket *s, Verificador* v) : socket(s),
-	verificador(v) {}
+ConexionCliente::ConexionCliente(Socket *s,
+	AdministradorDeClientes *adm, Verificador *v) : socket(s), 
+	nombreUsuario(""), admClientes(adm), verificador(v), 
+	habilitarRecepcion(false) { }
 
 
 // Destructor
@@ -31,6 +31,7 @@ ConexionCliente::~ConexionCliente() {
 	// Liberamos memoria utilizada por el socket
 	delete this->socket;
 }
+
 
 // Define tareas a ejecutar en el hilo.
 void ConexionCliente::run() {
@@ -47,6 +48,17 @@ void ConexionCliente::run() {
 	// Si el inicio de sesión falló, cerramos conexión con cliente
 	if(this->inicioSesion(comunicador) != 1) return;
 	// ACÁ FALTA AGREGAR LA SOLICITUD PARA SER REMOVIDO DE LA LISTA DE CLIENTES
+
+	// Nos autoregistramos en el administrador de clientes
+	this->admClientes->ingresarCliente(this->nombreUsuario, this);
+
+	// Esperamos a que se habilite la recepción, es decir, que se especifique
+	// un receptor
+	while(!habilitarRecepcion) 
+		if(!this->isActive()) return;
+
+	// Se inicia la recepción de mensajes desde el cliente
+	
 
 	// DEBUG
 	mensaje = 'n' + S_NOTIFY_CHANGE;
@@ -86,6 +98,27 @@ void ConexionCliente::detener() {
 }
 
 
+// Devuelve el nombre de usuario con el que inicio sesión el cliente.
+// POST: si aún no ha iniciado sesión, se devuelve una cadena vacía.
+std::string ConexionCliente::getNombreUsuario() {
+	return this->nombreUsuario;
+}
+
+
+// Asigna un receptor a la conexión, a quien le enviará los datos que se
+// reciban del cliente.
+// PRE: 'unReceptor' es el receptor.
+// POST: la conexión comenzará a derivar los datos llegados hacia el
+// receptor.
+void ConexionCliente::asignarReceptor(Receptor *unReceptor) {
+	this->receptor = unReceptor;
+
+	// Habilitamos la recepción de datos
+	this->habilitarRecepcion = true;
+}
+
+
+
 
 
 /*
@@ -105,12 +138,14 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 
 	// Se debe crear nuevo usuario
 	if (instruccion == C_LOGIN_REQUEST) {
-		if (verificador->verificarCliente(args) == 1) {  // OK
+		// Caso en que la verificación es correcta
+		if (verificador->verificarCliente(args, this->nombreUsuario) == 1) {  
 			comunicador.emitir(S_LOGIN_OK);
 			std::cout << "Inicio de sesion OK" << std::endl;
 			std::cout.flush();	
 			return 1;
 		}
+		// Caso en que la verificación es incorrecta
 		else {
 			comunicador.emitir(S_LOGIN_FAIL);
 			std::cout << "Inicio de sesion fallo" << std::endl;

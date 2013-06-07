@@ -10,7 +10,8 @@
 
 #include <string>
 #include <map>
-#include "server_conexion_cliente.h"
+
+class ConexionCliente;
 #include "server_carpeta.h"
 
 
@@ -24,7 +25,7 @@
 class AdministradorDeClientes {
 private:
 
-	std::map< std::string, Carpeta > carpetas;		// Diccionario de carpetas
+	std::map< std::string, Carpeta* > carpetas;		// Diccionario de carpetas
 
 public:
 

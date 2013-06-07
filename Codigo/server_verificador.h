@@ -30,7 +30,9 @@ public:
 	virtual ~Verificador();
 
 	// Comprueba nombre de usuario y clave de los clientes
-	int verificarCliente(std::string &args);
+	// POST: si la verificación es exitosa, se almacena en 'nombreUsuario' el
+	// nombre de usuario del cliente.
+	int verificarCliente(std::string &args, std::string& nombreUsuario);
 };
 
 #endif /* SERVER_VERIFICADOR_H_ */

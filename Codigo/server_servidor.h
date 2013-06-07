@@ -12,8 +12,8 @@
 #include "common_socket.h"
 #include "common_lista.h"
 #include "server_conexion_cliente.h"
+#include "server_administrador_de_clientes.h"
 #include "server_verificador.h"
-// #include "server_controlador_de_tareas.h"
 
 
 
@@ -26,19 +26,18 @@
 class Servidor : public Thread {
 private:
 
-	Lista<ConexionCliente*> *clientes;			// Lista de clientes conectados
+	// Lista<ConexionCliente*> *clientes;			// Lista de clientes conectados
 	int puerto;									// Puerto en el que se escucha.
 	Socket socket;								// Socket en el que escucha el 
 												// servidor.
-
-	// Chequea el login de los usuarios
-	Verificador* verificador;
-
-	// ControladorDeTareas *controlador;			// Controlador de tareas.
-
+	AdministradorDeClientes *admClientes;		// Administrador de clientes
+	Verificador* verificador;					// Chequea el login de los
+												// usuarios
+	
+	
 	// Cierra todas las conexiones existentes con clientes y elimina todo 
 	// registro de estos,quedando vacía la lista de clientes.
-	void cerrarConexionesConClientes();
+	// void cerrarConexionesConClientes();
 
 public:
 

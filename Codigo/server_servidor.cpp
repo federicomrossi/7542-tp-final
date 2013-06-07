@@ -25,27 +25,25 @@ namespace {
 // Constructor
 Servidor::Servidor(int puerto) : puerto(puerto) {
 	// Creamos la lista de clientes conectados
-	this->clientes = new Lista<ConexionCliente*>;
+	// this->clientes = new Lista<ConexionCliente*>;
+
+	// Creamos al administrador de clientes
+	this->admClientes = new AdministradorDeClientes;
 
 	// Se crea un verificador de usuario y contrasenia
 	this->verificador = new Verificador;
-
-	// Creamos el controlador de tareas para el servidor
-	// this->controlador = new ControladorDeTareas(numDigitosClave, 
-	// 	numClientes, msg, this->claves);
 }
 
 
 // Destructor
 Servidor::~Servidor() {
 	// Concluimos la conexión con clientes existentes
-	this->cerrarConexionesConClientes();
+	// this->cerrarConexionesConClientes();
 
 	// Liberamos espacio utilizado por atributos
-	delete this->clientes;
-
+	// delete this->clientes;
+	delete this->admClientes;
 	delete (this->verificador);
-	// delete this->controlador;
 }
 
 
@@ -81,10 +79,10 @@ void Servidor::run() {
 		
 		// Generamos una nueva conexión para escuchate
 		ConexionCliente *conexionCLI = new ConexionCliente(socketCLI,
-				this->verificador);
+				this->admClientes, this->verificador);
 
 		// Censamos al cliente en el servidor
-		this->clientes->insertarUltimo(conexionCLI);
+		// this->clientes->insertarUltimo(conexionCLI);
 
 		// Damos la orden de que comience a ejecutarse el hilo del cliente.
 		conexionCLI->start();
@@ -117,25 +115,25 @@ void Servidor::detener() {
 	catch(...) { }
 
 	// Concluimos la conexión con clientes existentes
-	this->cerrarConexionesConClientes();
+	// this->cerrarConexionesConClientes();
 }
 
 
 // Cierra todas las conexiones existentes con clientes y elimina todo 
 // registro de estos,quedando vacía la lista de clientes.
-void Servidor::cerrarConexionesConClientes() {
-	// Detenemos y liberamos espacio utilizado por cada conexión cliente,
-	// dejando vacía la lista de clientes activos.
-	while(!this->clientes->estaVacia()) {
-		// Obtenemos cliente y lo eliminamos de la lista
-		ConexionCliente *cc = this->clientes->verPrimero();
-		this->clientes->eliminarPrimero();
+// void Servidor::cerrarConexionesConClientes() {
+// 	// Detenemos y liberamos espacio utilizado por cada conexión cliente,
+// 	// dejando vacía la lista de clientes activos.
+// 	while(!this->clientes->estaVacia()) {
+// 		// Obtenemos cliente y lo eliminamos de la lista
+// 		ConexionCliente *cc = this->clientes->verPrimero();
+// 		this->clientes->eliminarPrimero();
 		
-		// Detenemos conexión con el cliente
-		cc->detener();
-		// Esperamos a que finalice
-		cc->join();
-		// Liberamos memoria
-		delete cc;
-	}
-}
+// 		// Detenemos conexión con el cliente
+// 		cc->detener();
+// 		// Esperamos a que finalice
+// 		cc->join();
+// 		// Liberamos memoria
+// 		delete cc;
+// 	}
+// }
