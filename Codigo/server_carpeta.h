@@ -10,7 +10,6 @@
 
 #include "common_lista.h"
 #include "server_receptor.h"
-// class ConexionCliente;
 #include "server_conexion_cliente.h"
 
 

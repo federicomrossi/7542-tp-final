@@ -12,7 +12,6 @@
 #include "common_thread.h"
 #include "common_socket.h"
 #include "common_comunicador.h"
-// #include "server_administrador_de_clientes.h"
 #include "server_verificador.h"
 #include "server_receptor.h"
 class AdministradorDeClientes;

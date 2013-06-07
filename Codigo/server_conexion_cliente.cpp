@@ -63,17 +63,6 @@ void ConexionCliente::run() {
 		if(!this->isActive()) return;
 
 	// Se inicia la recepción de mensajes desde el cliente
-	// DEBUG
-	std::cout << "Cliente comenzó a recibir" << std::endl;
-	mensaje = 'n' + S_NOTIFY_CHANGE;
-	if(comunicador.emitir(mensaje) == -1) return;
-
-	mensaje = 'f';
-	mensaje.append("SEND-FILE,Mi Nuevo Archivo,FFFF,Mi aburrido contenido");
-	if(comunicador.emitir(mensaje) == -1) return;
-	// END DEBUG
-
-	// Sincronización
 	while(this->isActive()) {
 		// Esperamos a recibir mensaje
 		if(comunicador.recibir(mensaje) == -1) break;

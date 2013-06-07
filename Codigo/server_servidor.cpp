@@ -79,8 +79,6 @@ void Servidor::run() {
 
 		// Damos la orden de que comience a ejecutarse el hilo del cliente.
 		conexionCLI->start();
-
-		// Hacer refresh de verificador
 	}
 }
 

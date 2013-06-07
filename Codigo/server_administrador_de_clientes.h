@@ -12,8 +12,6 @@
 #include <map>
 #include "common_thread.h"
 #include "common_cola.h"
-
-// class ConexionCliente;
 #include "server_conexion_cliente.h"
 #include "server_carpeta.h"
 
