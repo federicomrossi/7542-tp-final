@@ -78,6 +78,9 @@ void ConexionCliente::run() {
 		// Esperamos a recibir mensaje
 		if(comunicador.recibir(mensaje) == -1) break;
 
+		// Enviamos el mensaje al receptor
+		this->receptor->ingresarMensajeDeEntrada(mensaje);
+
 		std::cout << "ENTRANTE: " <<  mensaje << std::endl;
 		std::cout.flush();
 	}
