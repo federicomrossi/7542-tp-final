@@ -26,6 +26,7 @@ namespace {
 Servidor::Servidor(int puerto) : puerto(puerto) {
 	// Creamos al administrador de clientes
 	this->admClientes = new AdministradorDeClientes;
+	this->admClientes->iniciar();
 
 	// Se crea un verificador de usuario y contrasenia
 	this->verificador = new Verificador;
@@ -35,8 +36,10 @@ Servidor::Servidor(int puerto) : puerto(puerto) {
 // Destructor
 Servidor::~Servidor() {
 	// Liberamos espacio utilizado por atributos
+	this->admClientes->detener();
+	this->admClientes->join();
 	delete this->admClientes;
-	delete (this->verificador);
+	delete this->verificador;
 }
 
 
@@ -104,23 +107,3 @@ void Servidor::detener() {
 	// socket, lanzará un error que daremos por obviado.
 	catch(...) { }
 }
-
-
-// Cierra todas las conexiones existentes con clientes y elimina todo 
-// registro de estos,quedando vacía la lista de clientes.
-// void Servidor::cerrarConexionesConClientes() {
-// 	// Detenemos y liberamos espacio utilizado por cada conexión cliente,
-// 	// dejando vacía la lista de clientes activos.
-// 	while(!this->clientes->estaVacia()) {
-// 		// Obtenemos cliente y lo eliminamos de la lista
-// 		ConexionCliente *cc = this->clientes->verPrimero();
-// 		this->clientes->eliminarPrimero();
-		
-// 		// Detenemos conexión con el cliente
-// 		cc->detener();
-// 		// Esperamos a que finalice
-// 		cc->join();
-// 		// Liberamos memoria
-// 		delete cc;
-// 	}
-// }

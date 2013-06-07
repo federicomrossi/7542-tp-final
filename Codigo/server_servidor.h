@@ -32,11 +32,6 @@ private:
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
 	Verificador* verificador;					// Chequea el login de los
 												// usuarios
-	
-	
-	// Cierra todas las conexiones existentes con clientes y elimina todo 
-	// registro de estos,quedando vacía la lista de clientes.
-	// void cerrarConexionesConClientes();
 
 public:
 

@@ -43,12 +43,16 @@ void ConexionCliente::run() {
 	std::string mensaje;
 
 	// Mensaje de log
+	// DEBUG
 	std::cout << "Esperando mensaje del cliente... ";
     std::cout.flush();
+	// END DEBUG
 
 	// Si el inicio de sesión falló, cerramos conexión con cliente
-	if(this->inicioSesion(comunicador) != 1) return;
-	// ACÁ FALTA AGREGAR LA SOLICITUD PARA SER REMOVIDO DE LA LISTA DE CLIENTES
+	if(this->inicioSesion(comunicador) != 1) {
+		this->admClientes->destruirCliente(this);
+		return;
+	}
 
 	// Nos autoregistramos en el administrador de clientes
 	this->admClientes->ingresarCliente(this->nombreUsuario, this);
@@ -59,9 +63,8 @@ void ConexionCliente::run() {
 		if(!this->isActive()) return;
 
 	// Se inicia la recepción de mensajes desde el cliente
-	std::cout << "Cliente comenzó a recibir" << std::endl;
-
 	// DEBUG
+	std::cout << "Cliente comenzó a recibir" << std::endl;
 	mensaje = 'n' + S_NOTIFY_CHANGE;
 	if(comunicador.emitir(mensaje) == -1) return;
 
@@ -79,11 +82,14 @@ void ConexionCliente::run() {
 		std::cout.flush();
 	}
 
-
-	// Avisamos al administrador que la conexión debe darse de baja
+	// Avisamos al administrador que la conexión debe darse de baja y ser
+	// destruida
 	this->admClientes->darDeBajaCliente(this->nombreUsuario, this);
-
+	this->admClientes->destruirCliente(this);
+	
+	// DEBUG
 	std::cout << "TERMINO" << std::endl;
+	// END DEBUG
 }
 
 

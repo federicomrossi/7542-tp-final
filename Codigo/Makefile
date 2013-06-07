@@ -167,7 +167,7 @@ server: $(o_server_files)
 	$(LD) $(LDFLAGS) $(o_server_files) $(LOADLIBES) $(LDLIBS) -o server $(LDADD)
 
 clean:
-	@$(RM) -fv *.o client server
+	@$(RM) -fv *.o client server $(S_VGLOGFILE) $(C_VGLOGFILE)
 
 cpplint:
 	python ./cpplint.py --filter=`cat filter_options` `find -regextype posix-egrep -regex '.*\.(h|hpp|c|cpp)'`
@@ -179,61 +179,11 @@ cpplint:
 p_client:
 	./client localhost:8000	
 
-ps_basic:
-	./server 8000 tests/basic 3 5
+p_server:
+	./server 8000
 
-ps_multiple:
-	./server 8000 tests/multiple 3 5
-
-ps_nosolution:
-	./server 8000 tests/no_solution 3 5
-
-s_valgrind_basic:
-	valgrind $(S_VGFLAGS) ./server 8000 tests/basic 3 5
-
-s_valgrind_multiple:
-	valgrind $(S_VGFLAGS) ./server 8000 tests/multiple 3 5
-
-s_valgrind_nosolution:
-	valgrind $(S_VGFLAGS) ./server 8000 tests/no_solution 3 5
+s_valgrind:
+	valgrind $(S_VGFLAGS) ./server 8000
 
 c_valgrind:
 	valgrind $(C_VGFLAGS) ./client localhost:8000
-
-p1_basic: 
-	sudo chmod +x run_1.sh free_port_1.sh;./run_1.sh 127.0.0.1 $(./free_port_1.sh 10001) no-valgrind single tests/basic 3 5
-
-p1_multiple:
-	sudo chmod +x run_1.sh free_port_1.sh;./run_1.sh 127.0.0.1 $(./free_port_1.sh 10001) no-valgrind single tests/multiple 3 5
-
-p1_nosolution:
-	sudo chmod +x run_1.sh free_port_1.sh;./run_1.sh 127.0.0.1 $(./free_port_1.sh 10001) no-valgrind single tests/no_solution 3 5
-
-p2_basic:
-	sudo chmod +x run_2.sh free_port_2.sh;./run_2.sh 127.0.0.1 $(./free_port_2.sh 11001) valgrind single tests/basic 3 5
-
-p2_multiple:
-	sudo chmod +x run_2.sh free_port_2.sh;./run_2.sh 127.0.0.1 $(./free_port_2.sh 11001) valgrind single tests/multiple 3 5
-
-p2_nosolution:
-	sudo chmod +x run_2.sh free_port_2.sh;./run_2.sh 127.0.0.1 $(./free_port_2.sh 11001) valgrind single tests/no_solution 3 5
-
-p3_basic:
-	sudo chmod +x run_3.sh free_port_3.sh;./run_3.sh 127.0.0.1 $(./free_port_3.sh 12001) no-valgrind multiple tests/basic 3 5
-
-p3_multiple:
-	sudo chmod +x run_3.sh free_port_3.sh;./run_3.sh 127.0.0.1 $(./free_port_3.sh 12001) no-valgrind multiple tests/multiple 3 5
-
-p3_nosolution:
-	sudo chmod +x run_3.sh free_port_3.sh;./run_3.sh 127.0.0.1 $(./free_port_3.sh 12001) no-valgrind multiple tests/no_solution 3 5
-
-p4_basic:
-	sudo chmod +x run_4.sh free_port_4.sh;./run_4.sh 127.0.0.1 $(./free_port_4.sh 13001) valgrind multiple tests/basic 3 5
-
-p4_multiple:
-	sudo chmod +x run_4.sh free_port_4.sh;./run_4.sh 127.0.0.1 $(./free_port_4.sh 13001) valgrind multiple tests/multiple 3 5
-
-p4_nosolution:
-	sudo chmod +x run_4.sh free_port_4.sh;./run_4.sh 127.0.0.1 $(./free_port_4.sh 13001) valgrind multiple tests/no_solution 3 5
-
-pruebas_sercom: p1_basic

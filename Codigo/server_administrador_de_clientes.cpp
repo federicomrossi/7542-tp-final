@@ -12,6 +12,8 @@
 
 
 
+
+
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
  * ***************************************************************************/
@@ -49,9 +51,6 @@ void AdministradorDeClientes::darDeBajaCliente(std::string usuario,
 	// Desvinculamos la conexión de la carpeta
 	this->carpetas[usuario]->desvincularCliente(unCliente);
 
-	// Liberamos la memoria utilizada por la conexión del cliente
-	delete unCliente;
-
 	// Si la carpeta no contiene mas clientes activos, la destruimos
 	if(this->carpetas[usuario]->cantidadClientes() == 0) {
 		// Liberamos espacio usado por la carpeta
@@ -59,4 +58,46 @@ void AdministradorDeClientes::darDeBajaCliente(std::string usuario,
 		// Quitamos el registro del contenedor de carpetas
 		this->carpetas.erase(usuario);
 	}
+}
+
+
+// Da aviso al administrador de que debe destruirse un cliente
+void AdministradorDeClientes::destruirCliente(ConexionCliente *unCliente) {
+	this->conexionesMuertas.push(unCliente);
+}
+
+
+// Define tareas a ejecutar en el hilo.
+void AdministradorDeClientes::run() {
+	// Desencolamos de la cola de conexiones muertas y las destruimos
+	while(this->isActive() || !this->conexionesMuertas.vacia()) {
+		ConexionCliente *cc = this->conexionesMuertas.pop_bloqueante();
+		
+		// Si se detecta una conexión fantasma, salteamos.
+		if(cc == 0) continue;
+
+		// Detenemos conexión con el cliente
+		cc->detener();
+		// Esperamos a que finalice
+		cc->join();
+		// Liberamos memoria
+		delete cc;
+	}
+}
+
+
+// Inicia el administrador de clientes
+void AdministradorDeClientes::iniciar() {
+	// Iniciamos el hilo
+	this->start();
+}
+
+
+// Detiene el administrador de clientes
+void AdministradorDeClientes::detener() {
+	// Detenemos hilo
+	this->stop();
+
+	// Destrabamos la cola encolando una conexión fantasma.
+	this->conexionesMuertas.push(0);
 }

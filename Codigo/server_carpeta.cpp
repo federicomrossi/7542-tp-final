@@ -25,7 +25,9 @@ Carpeta::Carpeta() {
 
 
 // Destructor
-Carpeta::~Carpeta() { }
+Carpeta::~Carpeta() {
+	delete this->receptor;
+}
 
 
 // Vincula a un cliente como miembro activo del directorio

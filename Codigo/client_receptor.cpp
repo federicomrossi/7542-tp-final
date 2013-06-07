@@ -41,10 +41,9 @@ void Receptor::detener() {
 	this->stop();
 
 	// Destrabamos la cola encolando un mensaje de finalización detectable
-	// Con un mensaje diferente a los posibles esperados por el manejador de 
-	// notificaciones, alcanza
 	this->entrada.push(COLA_SALIDA_FIN);
 
+	// Cerramos el socket
 	this->socket->cerrar();
 }
 

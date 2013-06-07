@@ -10,6 +10,8 @@
 
 #include <string>
 #include <map>
+#include "common_thread.h"
+#include "common_cola.h"
 
 // class ConexionCliente;
 #include "server_conexion_cliente.h"
@@ -23,10 +25,12 @@
  * ***************************************************************************/
 
 
-class AdministradorDeClientes {
+class AdministradorDeClientes : public Thread {
 private:
 
 	std::map< std::string, Carpeta* > carpetas;		// Diccionario de carpetas
+	Cola< ConexionCliente* > conexionesMuertas;		// Cola de conexiones que
+													// deben ser destruidas
 
 public:
 
@@ -43,6 +47,18 @@ public:
 	// Da de baja a un cliente, el cual debe haber sido ingresado previamente
 	// como miembro activo del directorio al que se encuentra vinculado.
 	void darDeBajaCliente(std::string usuario, ConexionCliente *unCliente);
+
+	// Da aviso al administrador de que debe destruirse un cliente
+	void destruirCliente(ConexionCliente *unCLiente);
+
+	// Define tareas a ejecutar en el hilo.
+	virtual void run();
+
+	// Inicia el administrador de clientes
+	void iniciar();
+
+	// Detiene el administrador de clientes
+	void detener();
 };
 
 #endif
