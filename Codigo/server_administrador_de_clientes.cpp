@@ -6,6 +6,9 @@
 
 #include "server_administrador_de_clientes.h"
 
+// DEBUG
+#include <iostream>
+// END DEBUG
 
 
 
@@ -26,7 +29,13 @@ AdministradorDeClientes::~AdministradorDeClientes() { }
 // encuentra vinculado.
 void AdministradorDeClientes::ingresarCliente(std::string usuario,
 		ConexionCliente *unCliente) {
+	// Corroboramos si ya hay una carpeta activa para dicho usuario
+	// Si no existe una carpeta activa, creamos una carpeta
+	if(this->carpetas.count(usuario) == 0)
+		this->carpetas[usuario] = new Carpeta();
 
+	// Vinculamos al cliente con la carpeta
+	this->carpetas[usuario]->vincularCliente(unCliente);
 }
 
 
@@ -34,5 +43,20 @@ void AdministradorDeClientes::ingresarCliente(std::string usuario,
 // como miembro activo del directorio al que se encuentra vinculado.
 void AdministradorDeClientes::darDeBajaCliente(std::string usuario,
 		ConexionCliente *unCliente) {
+	// Si no hay una carpeta vinculada al usuario, no hacemos nada
+	if(this->carpetas.count(usuario) == 0) return;
 
+	// Desvinculamos la conexión de la carpeta
+	this->carpetas[usuario]->desvincularCliente(unCliente);
+
+	// Liberamos la memoria utilizada por la conexión del cliente
+	delete unCliente;
+
+	// Si la carpeta no contiene mas clientes activos, la destruimos
+	if(this->carpetas[usuario]->cantidadClientes() == 0) {
+		// Liberamos espacio usado por la carpeta
+		delete this->carpetas[usuario];
+		// Quitamos el registro del contenedor de carpetas
+		this->carpetas.erase(usuario);
+	}
 }

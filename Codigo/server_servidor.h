@@ -26,7 +26,6 @@
 class Servidor : public Thread {
 private:
 
-	// Lista<ConexionCliente*> *clientes;			// Lista de clientes conectados
 	int puerto;									// Puerto en el que se escucha.
 	Socket socket;								// Socket en el que escucha el 
 												// servidor.

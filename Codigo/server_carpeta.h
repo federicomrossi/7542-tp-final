@@ -10,7 +10,8 @@
 
 #include "common_lista.h"
 #include "server_receptor.h"
-class ConexionCliente;
+// class ConexionCliente;
+#include "server_conexion_cliente.h"
 
 
 
@@ -39,8 +40,11 @@ public:
 	// Vincula a un cliente como miembro activo del directorio
 	void vincularCliente(ConexionCliente *unCliente);
 
-	// Desvincula a un cliente del directorio
+	// Desvincula a un cliente del directorio.
 	void desvincularCliente(ConexionCliente *unCliente);
+
+	// Devuelve la cantidad de clientes que se encuentran activos en la carpeta
+	int cantidadClientes();
 };
 
 #endif

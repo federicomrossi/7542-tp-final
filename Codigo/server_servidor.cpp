@@ -24,9 +24,6 @@ namespace {
 
 // Constructor
 Servidor::Servidor(int puerto) : puerto(puerto) {
-	// Creamos la lista de clientes conectados
-	// this->clientes = new Lista<ConexionCliente*>;
-
 	// Creamos al administrador de clientes
 	this->admClientes = new AdministradorDeClientes;
 
@@ -37,11 +34,7 @@ Servidor::Servidor(int puerto) : puerto(puerto) {
 
 // Destructor
 Servidor::~Servidor() {
-	// Concluimos la conexión con clientes existentes
-	// this->cerrarConexionesConClientes();
-
 	// Liberamos espacio utilizado por atributos
-	// delete this->clientes;
 	delete this->admClientes;
 	delete (this->verificador);
 }
@@ -81,9 +74,6 @@ void Servidor::run() {
 		ConexionCliente *conexionCLI = new ConexionCliente(socketCLI,
 				this->admClientes, this->verificador);
 
-		// Censamos al cliente en el servidor
-		// this->clientes->insertarUltimo(conexionCLI);
-
 		// Damos la orden de que comience a ejecutarse el hilo del cliente.
 		conexionCLI->start();
 
@@ -113,9 +103,6 @@ void Servidor::detener() {
 	// Ante una eventual detención abrupta, previa a la inicialización del
 	// socket, lanzará un error que daremos por obviado.
 	catch(...) { }
-
-	// Concluimos la conexión con clientes existentes
-	// this->cerrarConexionesConClientes();
 }
 
 

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <sstream>
+#include "server_administrador_de_clientes.h"
 #include "server_conexion_cliente.h"
 
 
@@ -58,7 +59,7 @@ void ConexionCliente::run() {
 		if(!this->isActive()) return;
 
 	// Se inicia la recepción de mensajes desde el cliente
-	
+	std::cout << "Cliente comenzó a recibir" << std::endl;
 
 	// DEBUG
 	mensaje = 'n' + S_NOTIFY_CHANGE;
@@ -77,6 +78,10 @@ void ConexionCliente::run() {
 		std::cout << "ENTRANTE: " <<  mensaje << std::endl;
 		std::cout.flush();
 	}
+
+
+	// Avisamos al administrador que la conexión debe darse de baja
+	this->admClientes->darDeBajaCliente(this->nombreUsuario, this);
 
 	std::cout << "TERMINO" << std::endl;
 }

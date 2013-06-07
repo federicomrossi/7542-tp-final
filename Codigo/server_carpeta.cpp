@@ -9,6 +9,7 @@
 
 
 
+
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
  * ***************************************************************************/
@@ -37,7 +38,13 @@ void Carpeta::vincularCliente(ConexionCliente *unCliente) {
 }
 
 
-// Desvincula a un cliente del directorio
+// Desvincula a un cliente del directorio.
 void Carpeta::desvincularCliente(ConexionCliente *unCliente) {
+	this->listaConexiones.eliminar(unCliente);
+}
 
+
+// Devuelve la cantidad de clientes que se encuentran activos en la carpeta
+int Carpeta::cantidadClientes() {
+	return this->listaConexiones.tamanio();
 }

@@ -12,9 +12,10 @@
 #include "common_thread.h"
 #include "common_socket.h"
 #include "common_comunicador.h"
-#include "server_administrador_de_clientes.h"
+// #include "server_administrador_de_clientes.h"
 #include "server_verificador.h"
 #include "server_receptor.h"
+class AdministradorDeClientes;
 
 
 
@@ -33,7 +34,7 @@ private:
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
 	Verificador* verificador;					// Verificador de loggin
 	Receptor *receptor;							// Receptor a donde se envian
-												// los datos que arrivan.
+												// los datos que arri
 	bool habilitarRecepcion;					// Traba para evitar recepción
 												// hasta que se indique.
 

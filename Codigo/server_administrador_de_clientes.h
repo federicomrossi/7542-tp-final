@@ -11,7 +11,8 @@
 #include <string>
 #include <map>
 
-class ConexionCliente;
+// class ConexionCliente;
+#include "server_conexion_cliente.h"
 #include "server_carpeta.h"
 
 
