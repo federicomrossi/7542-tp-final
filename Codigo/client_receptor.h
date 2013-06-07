@@ -47,7 +47,7 @@ public:
 	std::string obtenerMensajeDeEntrada();
 
 	// Define tareas a ejecutar en el hilo.
-	// Se encarga de emitir lo que se encuentre en la cola de salida.
+	// Se encarga de recibir y guardar en la cola de entrada.
 	virtual void run();
 };
 

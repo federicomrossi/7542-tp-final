@@ -53,7 +53,7 @@ void ConexionCliente::run() {
 	if(comunicador.emitir(mensaje) == -1) return;
 
 	mensaje = 'f';
-	mensaje.append("ADDNOMBRE_ARCHIVO-ARCHIVO");
+	mensaje.append("SEND-FILE,Mi Nuevo Archivo,FFFF,Mi aburrido contenido");
 	if(comunicador.emitir(mensaje) == -1) return;
 	// END DEBUG
 

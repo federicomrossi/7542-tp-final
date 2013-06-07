@@ -54,17 +54,17 @@ void Logger::emitirLog(const std::string& log) {
 
 int Logger::limpiarLog() {
 	Lock lock(*this->mutex);
+	int error;
 	// Se cierra y se intenta eliminar el archivo
 	if (this->archivo->is_open())	
 		this->archivo->close();
 	delete(this->archivo);
 	this->archivo = NULL;
-	int error = remove(pathArchivo.c_str());
-	if (error != 0)
-		return error;
-	// Se vuelve a crear el archivo con el mismo nombre
-	crearArchivo();
-	return 0;
+	error = remove(pathArchivo.c_str());
+	if (error == 0)
+		// Se vuelve a crear el archivo con el mismo nombre
+		crearArchivo();
+	return error;
 }
 
 // Metodos privados

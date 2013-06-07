@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <stdio.h>
 #include "common_mutex.h"
 #include "common_lock.h"
 #include "common_cola.h"
@@ -59,11 +60,16 @@ public:
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
 		Cola< std::string > *modificados, Cola< std::string > *eliminados);
 
-	// Elimina un archivo del directorio local
-	void eliminarArchivo(const std::string &nombre_archivo);
+	// Elimina un archivo o un bloque de un archivo del directorio local
+	// Devuelve 0 en caso de eliminar correctamente el archivo
+	// Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE
+	int eliminarArchivo(const std::string &nombre_archivo, 
+		const std::string &num_bloque);
 
-	// Agrega un nuevo archivo al directorio local
-	void agregarArchivo(const std::string &nombre_archivo, const std::string &archivo);
+	// Agrega un nuevo archivo o un bloque al directorio 
+	// Por ahora solamente guarda archivos enteros, num_bloque = WHOLE_FILE
+	int agregarArchivo(const std::string &nombre_archivo, 
+		const std::string &num_bloque, const std::string &bloque_archivo);
 };
 
 #endif
