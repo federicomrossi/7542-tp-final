@@ -79,7 +79,18 @@ int main(int argc, char* argv[]) {
 	Cliente cliente(nombreHost, puerto, &logger);
 
 	// Iniciamos su ejecución
-	cliente.ejecutar();
+	// DEBUG
+	std::string user("belu");
+	std::string pass("123");
+	cliente.conectar(user, pass);
+	cliente.iniciarSincronizacion();
+
+	std::string comando;
+	while(comando != "s")
+		getline(std::cin, comando);
+
+	cliente.detenerSincronizacion();
+	// END DEBUG
 
 	return 0;
 }
