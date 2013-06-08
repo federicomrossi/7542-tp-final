@@ -151,7 +151,7 @@ client: $(o_client_files)
 		echo "No hay archivos de entrada para el cliente (archivos client*.$(extension))."; \
 		false; \
 	fi >&2
-	$(LD) $(LDFLAGS) $(o_client_files) $(LOADLIBES) $(LDLIBS) -o client $(LDADD)
+	$(LD) $(o_client_files) $(LDFLAGS) $(LOADLIBES) $(LDLIBS) -o client $(LDADD)
 
 clean:
 	@ $(RM) -fv *.o client $(C_VGLOGFILE)

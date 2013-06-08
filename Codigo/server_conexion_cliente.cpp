@@ -121,6 +121,12 @@ void ConexionCliente::asignarReceptor(Receptor *unReceptor) {
 }
 
 
+// Devuelve el id que identifica a la conexión.
+int ConexionCliente::id() {
+	//return *this->socket->id;
+	return 0;
+}
+
 
 
 

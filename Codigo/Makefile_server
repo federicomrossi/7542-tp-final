@@ -151,7 +151,7 @@ server: $(o_server_files)
 		echo "No hay archivos de entrada para el servidor (archivos server*.$(extension))."; \
 		false; \
 	fi >&2
-	$(LD) $(LDFLAGS) $(o_server_files) $(LOADLIBES) $(LDLIBS) -o server $(LDADD)
+	$(LD) $(o_server_files) $(LDFLAGS) $(LOADLIBES) $(LDLIBS) -o server $(LDADD)
 
 clean:
 	@ $(RM) -fv *.o server $(S_VGLOGFILE)
