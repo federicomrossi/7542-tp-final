@@ -48,7 +48,7 @@ private:
 
 
 	// Inicia sesion con usuario existente
-	int iniciarSesion(std::string &usuario, std::string &clave);
+	int iniciarSesion(std::string usuario, std::string clave);
 
 
 public:
@@ -64,7 +64,7 @@ public:
 	// que se desea conectar al servidor.
 	// POST: devuelve '-1' si falló la conexión, '0' si falló el login y '1' si
 	// se conectó y loggeó con éxito.
-	int conectar(std::string& usuario, std::string& clave);
+	int conectar(std::string usuario, std::string clave);
 
 	// Se desconecta del servidor
 	void desconectar();

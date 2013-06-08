@@ -41,7 +41,8 @@ Cliente::~Cliente() {
 // que se desea conectar al servidor.
 // POST: devuelve '-1' si falló la conexión, '0' si falló el login y '1' si
 // se conectó y loggeó con éxito.
-int Cliente::conectar(std::string& usuario, std::string& clave) {
+
+int Cliente::conectar(std::string usuario, std::string clave) {
 	// Creamos socket
 	this->socket = new Socket();
 	this->socket->crear();
@@ -213,7 +214,7 @@ void Cliente::detenerSincronizacion() {
  
 
 // Inicia sesion con usuario existente
-int Cliente::iniciarSesion(std::string &usuario, std::string &clave) {
+int Cliente::iniciarSesion(std::string usuario, std::string clave) {
 	// Creamos comunicador
 	Comunicador com(this->socket);
 
