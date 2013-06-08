@@ -1,24 +1,15 @@
-# Makefile de ejemplo para C++
+# Makefile de ejemplo para programa cliente-servidor en C/C++
+# 
+# Creado: vie abr 27 00:37:46 ART 2007
 #
-# Creado: jue abr 15 15:34:19 ART 2004
-#
-# Copyleft 2004 - Leandro Lucarella, Bajo licencia GPL [http://www.gnu.org/]
+# Copyleft 2007 - Leandro Lucarella, Bajo licencia GPL [http://www.gnu.org/]
 #
 
 # CONFIGURACION
 ################
 
-# Nombre del ejecutable.
-target = tp
-
 # Extensión de los archivos a compilar (c para C, cpp o cc o cxx para C++).
 extension = cpp
-
-# Archivos con el código fuente que componen el ejecutable. Si no se especifica,
-# toma todos los archivos con la extensión mencionada. Para especificar hay que
-# descomentar la línea (quitarle el '#' del principio).
-# NOTA: No poner cabeceras (.h).
-#fuentes = entrada.cpp
 
 # Si usa funciones de math.h, descomentá (quitale el '#' a) la siguiente línea.
 #math = si
@@ -38,12 +29,19 @@ gtkmm = si
 # Descomentar si se quiere ver como se invoca al compilador
 #verbose = si
 
+# Archivo log de Valgrind.
+S_VGLOGFILE = valgrind_server.out
+
+# Flags para el Valgrind
+S_VGFLAGS = --tool=memcheck --trace-children=yes --track-fds=yes --time-stamp=yes --num-callers=20 --error-exitcode=42 --db-attach=no --leak-check=full --leak-resolution=med --log-file=$(S_VGLOGFILE)
+
+
 
 # CONFIGURACION "AVANZADA"
 ###########################
 
 # Opciones para el compilador C/C++ en modo ansi.
-CFLAGS = -Wall -pedantic -pedantic-errors -Wno-long-long -ggdb
+CFLAGS = -Wall -Werror -pedantic -pedantic-errors -Wno-long-long -ggdb
 
 # Para que explote lo mas posible
 CFLAGS += -O3 -DNDEBUG
@@ -52,7 +50,7 @@ CFLAGS += -O3 -DNDEBUG
 CFLAGS += -ggdb -DDEBUG -fno-inline
 
 # Opciones del enlazador.
-#LDFLAGS =
+LDFLAGS =
 
 # Estandar de C a usar
 CSTD = c99
@@ -73,7 +71,7 @@ CFLAGS += $(shell pkg-config --cflags gtk+-2.0)
 LDFLAGS += $(shell pkg-config --libs gtk+-2.0)
 endif
 
-# Agrego flags y libs de GTK+ de ser necesario.
+# Agrego flags y libs de gtkmm de ser necesario.
 ifdef gtkmm
 CFLAGS += $(shell pkg-config --cflags gtkmm-3.0)
 LDFLAGS += $(shell pkg-config --libs gtkmm-3.0)
@@ -111,9 +109,6 @@ CXXFLAGS += -std=$(CXXSTD)
 LD = $(CXX)
 endif
 
-# Si no especifica archivos, tomo todos.
-fuentes ?= $(wildcard *.$(extension))
-
 occ := $(CC)
 ocxx := $(CXX)
 orm := $(RM)
@@ -127,15 +122,20 @@ RM =  @echo "  CLEAN"; $(orm)
 LD =  @echo "  LD  $@"; $(old)
 endif
 
+# Si no especifica archivos, tomo todos.
+fuentes_server ?= $(wildcard server*.$(extension))
+fuentes_common ?= $(wildcard common*.$(extension))
+
 
 # REGLAS
 #########
 
 .PHONY: all clean
 
-all: $(target)
+all: server
 
-o_files = $(patsubst %.$(extension),%.o,$(fuentes))
+o_common_files = $(patsubst %.$(extension),%.o,$(fuentes_common))
+o_server_files = $(patsubst %.$(extension),%.o,$(fuentes_server)) $(o_common_files)
 
 %.deps: %.$(extension)
 	@set -e; rm -f $@; \
@@ -145,13 +145,26 @@ o_files = $(patsubst %.$(extension),%.o,$(fuentes))
 
 -include $(o_files:.o=.deps)
 
-$(target): $(o_files)
-	@if [ -z "$(o_files)" ]; \
+server: $(o_server_files)
+	@if [ -z "$(o_server_files)" ]; \
 	then \
-		echo "No hay archivos de entrada, recuerde que la extensión debe ser '.$(extension)'."; \
+		echo "No hay archivos de entrada para el servidor (archivos server*.$(extension))."; \
 		false; \
-	fi >&2 
-	$(LD) $(LDFLAGS) $(o_files) $(LOADLIBS) $(LDLIBS) -o $(target) $(LDFLAGS)
-clean:
-	$(RM) $(o_files) $(o_files:.o=.deps) $(target)
+	fi >&2
+	$(LD) $(LDFLAGS) $(o_server_files) $(LOADLIBES) $(LDLIBS) -o server $(LDADD)
 
+clean:
+	@ $(RM) -fv *.o server $(S_VGLOGFILE)
+
+cpplint:
+	python ./cpplint.py --filter=`cat filter_options` `find -regextype posix-egrep -regex '.*\.(h|hpp|c|cpp)'`
+	
+
+# PRUEBAS
+###################################################################
+
+p_server:
+	./server 8000
+
+s_valgrind:
+	valgrind $(S_VGFLAGS) ./server 8000

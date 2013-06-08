@@ -9,9 +9,6 @@
 
 
 #include "common_socket.h"
-class Comunicador;
-class Logger;
-
 #include "client_emisor.h"
 #include "client_receptor.h"
 #include "client_manejador_de_archivos.h"
@@ -19,6 +16,8 @@ class Logger;
 #include "client_receptor_de_archivos.h"
 #include "client_inspector.h"
 #include "client_manejador_de_notificaciones.h"
+class Comunicador;
+
 
 
 
@@ -34,8 +33,8 @@ private:
 	Socket *socket;					// Socket con el que se comunica
 	int puerto;						// Puerto de conexión.
 	std::string nombreHost;			// Nombre del host de conexión
+	std::string directorio;			// Directorio que será sincronizado
 	bool estadoConexion;			// Censa si se encuentra conectado
-	Logger *logger;					// Logger
 
 	//Atributos de módulos
 	Emisor *emisor;
@@ -54,7 +53,7 @@ private:
 public:
 
 	// Constructor
-	Cliente(std::string nombreHost, int puerto, Logger *logger);
+	Cliente(std::string nombreHost, int puerto, std::string directorio);
 
 	// Destructor
 	~Cliente();
@@ -71,8 +70,15 @@ public:
 
 	// Inicializa la sincronización del cliente con el servidor.
 	// PRE: debe ejecutarse previamente el método conectar(). De lo contrario,
-	// no se inicializará la sincronización.
-	void iniciarSincronizacion();
+	// no se inicializará la sincronización. 'intervaloPolling' es el intervalo
+	// de polling que se desea al inicializar la sincronización.
+	void iniciarSincronizacion(int intervaloPolling);
+
+	// Permite cambiar el intervalo de polling estando en curso la
+	// sincronización.
+	// PRE: debe haber sido iniciada la sincronización. 'intervalo' es el
+	// intervalo de polling expresado en segundos.
+	void cambiarIntervaloPolling(unsigned int intervalo);
 
 	// Detiene la sincronización y se desconecta del servidor.
 	// PRE: previamente debió haberse iniciado la sincronización.

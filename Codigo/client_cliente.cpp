@@ -6,11 +6,8 @@
 
 #include <iostream>
 #include <sstream>
-
 #include "common_comunicador.h"
 #include "common_convertir.h"
-#include "common_logger.h"
-
 #include "client_cliente.h"
 
 
@@ -24,9 +21,9 @@
 
 
 // Constructor
-Cliente::Cliente(std::string nombreHost, int puerto, Logger *logger) : 
-	puerto(puerto), nombreHost(nombreHost), estadoConexion(false),
-	logger(logger) { }
+Cliente::Cliente(std::string nombreHost, int puerto, std::string directorio) :
+	puerto(puerto), nombreHost(nombreHost), directorio(directorio),
+	estadoConexion(false) { }
 
 
 // Destructor
@@ -41,7 +38,6 @@ Cliente::~Cliente() {
 // que se desea conectar al servidor.
 // POST: devuelve '-1' si falló la conexión, '0' si falló el login y '1' si
 // se conectó y loggeó con éxito.
-
 int Cliente::conectar(std::string usuario, std::string clave) {
 	// Creamos socket
 	this->socket = new Socket();
@@ -110,68 +106,41 @@ void Cliente::desconectar() {
 // Inicializa la sincronización del cliente con el servidor.
 // PRE: debe ejecutarse previamente el método conectar(). De lo contrario,
 // no se inicializará la sincronización.
-void Cliente::iniciarSincronizacion() {
-	// DEBUG
-	// // Inicia sesion
-	// // DEBE REEMPLAZARSE POR EL MODULO QUE CONECTA CON LA GUI
-	// std::string usuario;
-	// std::string clave;
-	
-	// while(true) {
-	// 	// Solicitamos usuario y contraseña
-	// 	std::cout << std::endl << "Usuario: ";
-	// 	std::cout.flush();
-	// 	getline(std::cin, usuario);
-	// 	std::cout << "Contraseña: ";
-	// 	std::cout.flush();
-	// 	getline(std::cin, clave);
-	// 	std::cout << std::endl;
-
-	// 	// Si no se ingresa nada, volvemos a solicitar
-	// 	if(usuario == "" || clave == "") continue;
-
-	// 	// Se conecta al servidor
-	// 	if(conectar(usuario, clave) == 1) break;
-	// }
-	// END DEBUG
-
-
+void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Si la conexión no se encuentra activa, no hacemos nada
 	if(!estadoConexion) return;
-
 
 	// Creamos los módulos que conforman al cliente
 	this->emisor = new Emisor(this->socket);
 	this->receptor = new Receptor(this->socket);
-	this->manejadorDeArchivos = new ManejadorDeArchivos("cliente");
+	this->manejadorDeArchivos = new ManejadorDeArchivos(this->directorio);
 	this->sincronizador = new Sincronizador(emisor);
 	this->receptorDeArchivos = new ReceptorDeArchivos(manejadorDeArchivos);
-
-	int INTERVALO = 5; // CAMBIAR POR ARCHIVO DE CONFIGURACIÓN
 	this->inspector = new Inspector(manejadorDeArchivos, sincronizador,
-		INTERVALO);
-
+		intervaloPolling);
 	this->manejadorDeNotificaciones = new ManejadorDeNotificaciones(receptor,
 		sincronizador, receptorDeArchivos);
-
 
 	// Ponemos en marcha los módulos
 	this->receptor->iniciar();
 	this->emisor->iniciar();
 	this->manejadorDeNotificaciones->start();
 	this->inspector->iniciar();
+}
 
 
-	// DEBUG
-	// // Esperamos a que se de la indicación de finalizar el cliente
-	// // DEBE REEMPLAZARSE POR MODULO QUE CONECTA CON LA GUI
-	// std::string comando;
-	// while(comando != "s")
-	// 	getline(std::cin, comando);
-	// // FIN indicación de salida
-
-	// this->detenerSincronizacion();
-	// END DEBUG
+// Permite cambiar el intervalo de polling estando en curso la
+// sincronización.
+// PRE: debe haber sido iniciada la sincronización. 'intervalo' es el
+// intervalo de polling expresado en segundos.
+void Cliente::cambiarIntervaloPolling(unsigned int intervalo) {
+	try {
+		this->inspector->establecerIntervaloDeInspeccion(intervalo);
+	}
+	catch (...) {
+		std::cerr << "ERROR: Debe inicializarse la sincronización" 
+			<< std::endl;
+	}
 }
 
 

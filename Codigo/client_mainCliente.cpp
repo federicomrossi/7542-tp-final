@@ -21,10 +21,11 @@
 #include <string>
 #include <sstream>
 
-#include "client_mainCliente.h"
-#include "client_cliente.h"
 #include "common_convertir.h"
 #include "common_logger.h" 
+#include "client_mainCliente.h"
+#include "client_cliente.h"
+#include "client_configuracion.h"
 
 
 
@@ -34,31 +35,31 @@
  * ***************************************************************************/
 
 
-MainCliente :: MainCliente(){
-	
-	
-}
+MainCliente :: MainCliente() { }
+
 
 int MainCliente :: conectar(string user, string pass) {
 		
-		// Creamos logger~
-		Logger logger("cliente/.au/cliente");
+	// Creamos objeto para obtener la configuración
+	Configuracion config;
 
-		// Creamos el cliente
-		std :: string nombreHost = "127.0.0.1";
-		int puerto = 8000;
-		Cliente cliente(nombreHost, puerto, &logger);
-	
-		// Iniciamos su conexion
-		int result = cliente.conectar(user,pass);
-	
-		if (result == 1) {
-			cliente.iniciarSincronizacion();
-			cout << "se inicia sincro"<<endl;
-			return 1;
-		}		
+	// Creamos el cliente
+	Cliente cliente(config.obtenerHost(), config.obtenerPuerto(),
+		config.obtenerDirectorio());
+
+	// Iniciamos su conexion
+	int result = cliente.conectar(user, pass);
+
+	if (result == 1) {
+		cliente.iniciarSincronizacion(config.obtenerIntervaloDePolling());
+		cout << "se inicia sincro"<<endl;
+		return 1;
+	}		
 	//Falta validar salida erronea
+
+	return 0;
 }
+
 
 MainCliente :: ~MainCliente() {
 
