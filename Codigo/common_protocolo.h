@@ -31,7 +31,7 @@ const std::string C_FILE_REQUEST = "FILE-REQUEST";
 // FORMATO DE LAS CONSTANTES: S_[instruccion]
 const std::string S_LOGIN_OK = "LOGIN-OK";
 const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
-const std::string S_FILES_LIST = "FILE-LIST";
+const std::string S_FILES_LIST = "FILES-LIST";
 const std::string S_NOTIFY_CHANGE = "FILE-CHANGED";
 const std::string S_NOTIFY_NEW = "NEW-FILE";
 
