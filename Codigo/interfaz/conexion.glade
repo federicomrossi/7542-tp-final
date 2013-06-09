@@ -11,6 +11,7 @@
     <property name="window_position">center-always</property>
     <property name="default_width">400</property>
     <property name="default_height">400</property>
+    <property name="icon">imagenes/logo_au.png</property>
     <signal name="destroy" handler="gtk_main_quit" swapped="no"/>
     <child>
       <object class="GtkBox" id="box1">
@@ -161,5 +162,12 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkStatusIcon" id="trayIcon">
+    <property name="pixbuf">logo_au.png</property>
+    <property name="file">logo_au.png</property>
+    <property name="stock">icono</property>
+    <property name="has_tooltip">True</property>
+    <property name="tooltip_text" translatable="yes">Archivos Ubicuos</property>
   </object>
 </interface>

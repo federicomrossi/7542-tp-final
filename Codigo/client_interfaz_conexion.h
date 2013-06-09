@@ -23,7 +23,8 @@ private:
 	Gtk::Button *botonSalir;			// Botón Salir
 	Gtk::Entry 	*usuarioTextBox;		// Textbox de nombre de usuario
 	Gtk::Entry  *passTextBox;			// Textbox de la contraseña de usuario
-
+	//Glib::RefPtr<Gtk::StatusIcon> icono;		// IconTray de programa
+	GtkStatusIcon *icono;
 	// Atributos del modelo
 	Cliente *cliente;					// Cliente a través del cual se conecta
 

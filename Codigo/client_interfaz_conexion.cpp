@@ -9,11 +9,16 @@ Conexion::Conexion(Cliente *cliente) : cliente(cliente) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 	
+	
+	
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/conexion.glade");
+	this->icono = gtk_status_icon_new_from_icon_name("trayIcon");
+	gtk_status_icon_set_from_file(this->icono,"logo_au.png");
+	
 
 	refBuilder->get_widget("conexion", this->main); // linkeo el form
-
+	
 	refBuilder->get_widget("usuarioTxt", this->usuarioTextBox);
 	refBuilder->get_widget("passTxt", this->passTextBox);
 
@@ -51,6 +56,7 @@ void Conexion::on_buttonConectar_clicked() {
 	if(r == 1) {
 		cliente->iniciarSincronizacion(config.obtenerIntervaloDePolling());
 		this->lblError->set_text("");
+		
 	}
 	else if(r == 0) {
 		// Mostramos mensaje de error en ventana
