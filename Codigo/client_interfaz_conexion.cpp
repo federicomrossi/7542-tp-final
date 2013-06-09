@@ -57,6 +57,9 @@ void Conexion::on_buttonConectar_clicked() {
 		this->lblError->set_text("Usuario y/o contraseña inválidos");
 		this->lblError->set_visible(true);
 
+		// Borramos el contenido del password para ser nuevamente escrito
+		this->passTextBox->set_text("");
+
 		// Habilitamos objetos de la ventana
 		this->botonConectar->set_sensitive(true);
 		this->usuarioTextBox->set_sensitive(true);
