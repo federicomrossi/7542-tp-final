@@ -11,8 +11,9 @@
 #include "common_lista.h"
 #include "server_receptor.h"
 #include "server_emisor.h"
-#include "server_conexion_cliente.h"
+#include "server_sincronizador.h"
 #include "server_manejador_de_archivos.h"
+#include "server_conexion_cliente.h"
 
 
 
@@ -28,7 +29,7 @@ private:
 	Lista< ConexionCliente* > listaConexiones;			// Lista de clientes
 	Receptor *receptor;									// Receptor
 	Emisor *emisor;										// Emisor
-	// Sincronizador *Sincronizadordor;					// Sincronizador
+	Sincronizador *sincronizador;						// Sincronizador
 	ManejadorDeArchivos *manejadorDeArchivos;			// Manejador
 
 public:

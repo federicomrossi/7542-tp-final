@@ -23,19 +23,32 @@ Carpeta::Carpeta() {
 	// Creamos el emisor que enviará mensajes a los clientes
 	this->emisor = new Emisor(&this->listaConexiones);
 
-	// Creamos el sincronizador
-
 	// Se crea el manejador de archivos
 	// DEBUG: Modificar path
-//	std::string path = "/server/";
-//	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
+	std::string path = "server";
+	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
+
+	// Creamos el sincronizador
+	this->sincronizador = new Sincronizador(this->receptor, this->emisor,
+		this->manejadorDeArchivos);
+
+	// Iniciamos los hilos
+	this->emisor->iniciar();
+	this->sincronizador->start();
 }
 
 
 // Destructor
 Carpeta::~Carpeta() {
+	// Detenemos módulos
+	this->sincronizador->stop();
+	this->emisor->detener();
+
+	// Liberamos memoria utilizada
 	delete this->receptor;
 	delete this->emisor;
+	delete this->manejadorDeArchivos;
+	delete this->sincronizador;
 }
 
 
