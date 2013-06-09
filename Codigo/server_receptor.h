@@ -9,6 +9,7 @@
 
 
 #include <string>
+#include <utility>
 #include "common_cola.h"
 #include "common_mutex.h"
 #include "common_lock.h"
@@ -24,9 +25,9 @@
 class Receptor {
 private:
 
-	Cola< std::string > entrada;			// Cola de entrada
-	Mutex me;								// Mutex de entrada
-	Mutex ms;								// Mutex de salida
+	Cola< std::pair < int, std::string > > entrada;			// Cola de entrada
+	Mutex me;												// Mutex de entrada
+	Mutex ms;												// Mutex de salida
 
 public:
 
@@ -37,15 +38,18 @@ public:
 	~Receptor();
 
 	// Ingresa un mensaje de entrada en el receptor
-	// PRE: 'msg' es la cadena que contiene el mensaje de entrada.
-	void ingresarMensajeDeEntrada(std::string msg);
+	// PRE: 'id' es el identificador de quien ingresa el mensaje; 'msg' es la 
+	// cadena que contiene el mensaje de entrada.
+	void ingresarMensajeDeEntrada(int id, std::string msg);
 
 	// Permite obtener un mensaje recibido.
-	// POST: Devuelve el primer mensaje de la cola de mensajes entrantes. Al
-	// destruir al receptor se devuelve una cadena vacía para permitir seguir
-	// con el flujo del programa a los usuarios que se encuentren bloqueados
-	// por el método.
-	std::string obtenerMensajeDeEntrada();
+	// POST: devuelve un objeto pair con el primer mensaje de la cola de
+	// mensajes entrantes. En el objeto pair, el primer miembro contiene el
+	// identificador de quien envió el mensaje y el segundo miembro contiene
+	// el mensaje. Al destruir al receptor se devuelve una cadena vacía para 
+	// permitir seguir con el flujo del programa a los usuarios que se 
+	// encuentren bloqueados por el método.
+	std::pair < int, std::string > obtenerMensajeDeEntrada();
 };
 
 #endif

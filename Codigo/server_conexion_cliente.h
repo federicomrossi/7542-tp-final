@@ -52,6 +52,9 @@ public:
 	// Destructor
 	~ConexionCliente();
 
+	// Devuelve el id que identifica a la conexión.
+	int id();
+
 	// Define tareas a ejecutar en el hilo.
 	virtual void run();
 
@@ -69,9 +72,6 @@ public:
 	// POST: la conexión comenzará a derivar los datos llegados hacia el
 	// receptor.
 	void asignarReceptor(Receptor *unReceptor);
-
-	// Devuelve el id que identifica a la conexión.
-	int id();
 };
 
 #endif
