@@ -36,5 +36,8 @@ int main (int argc, char** argv) {
 	Conexion ventanaConexion(cli);
 	ventanaConexion.correr();
 
+	// Liberamos memoria usada por el cliente
+	delete cli;
+
 	return 0;
 }
