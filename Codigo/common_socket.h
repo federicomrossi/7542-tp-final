@@ -57,6 +57,11 @@ public:
 	// POST: lanza una excepción si no se logra llevar a cabo la creación.	
 	void crear();
 
+	// Devuelve el ID del socket.
+	// PRE: para considerarse válido, debe haberse creado previamente el
+	// socket.
+	int obtenerID();
+
 	// Conecta el socket a una dirección y puerto destino.
 	// PRE: 'hostDestino' es una cadena que contiene el nombre del host o la
 	// dirección IP a la que se desea conectar; 'puertoDestino' es el puerto 

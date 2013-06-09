@@ -34,6 +34,12 @@ ConexionCliente::~ConexionCliente() {
 }
 
 
+// Devuelve el id que identifica a la conexión.
+int ConexionCliente::id() {
+	return this->socket->obtenerID();
+}
+
+
 // Define tareas a ejecutar en el hilo.
 void ConexionCliente::run() {
 	// Creamos el comunicador para enviar y recibir mensajes
@@ -68,7 +74,7 @@ void ConexionCliente::run() {
 		if(comunicador.recibir(mensaje) == -1) break;
 
 		// Enviamos el mensaje al receptor
-		this->receptor->ingresarMensajeDeEntrada(mensaje);
+		this->receptor->ingresarMensajeDeEntrada(this->id(), mensaje);
 
 		std::cout << "ENTRANTE: " <<  mensaje << std::endl;
 		std::cout.flush();
@@ -120,12 +126,6 @@ void ConexionCliente::asignarReceptor(Receptor *unReceptor) {
 	this->habilitarRecepcion = true;
 }
 
-
-// Devuelve el id que identifica a la conexión.
-int ConexionCliente::id() {
-	//return *this->socket->id;
-	return 0;
-}
 
 
 
