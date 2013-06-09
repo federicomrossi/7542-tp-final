@@ -11,10 +11,11 @@
 #include <string>
 #include <utility>
 #include "common_cola.h"
+#include "common_lista.h"
 #include "common_thread.h"
 #include "common_mutex.h"
 #include "common_lock.h"
-
+#include "server_conexion_cliente.h"
 
 
 
@@ -27,12 +28,15 @@ class Emisor : public Thread {
 private:
 
 	Cola< std::pair < int, std::string > > salida;			// Cola de salida
+	Lista< ConexionCliente* > *listaConexiones;				// Conexiones
 	Mutex m;												// Mutex
 
 public:
 
 	// Constructor
-	Emisor();
+	// PRE: 'listaConexiones' es la lista de conexiones de clientes sobre las
+	// que se realizan las emisiones.
+	Emisor(Lista< ConexionCliente* > *listaConexiones);
 
 	// Destructor
 	~Emisor();

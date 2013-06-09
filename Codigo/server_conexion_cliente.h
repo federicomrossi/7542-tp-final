@@ -72,6 +72,11 @@ public:
 	// POST: la conexión comenzará a derivar los datos llegados hacia el
 	// receptor.
 	void asignarReceptor(Receptor *unReceptor);
+
+	// Envia un mensaje al cliente.
+	// PRE: 'mensaje' es la cadena que desea enviarse.
+	// POST: lanza una excepción si el socket no se encuentra activo.
+	void enviarMensaje(std::string& mensaje);
 };
 
 #endif

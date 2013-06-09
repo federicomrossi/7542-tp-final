@@ -42,7 +42,7 @@ int ConexionCliente::id() {
 
 // Define tareas a ejecutar en el hilo.
 void ConexionCliente::run() {
-	// Creamos el comunicador para enviar y recibir mensajes
+	// Creamos el comunicador para recibir mensajes
 	Comunicador comunicador(this->socket);
 
 	// Variables de procesamiento
@@ -124,6 +124,22 @@ void ConexionCliente::asignarReceptor(Receptor *unReceptor) {
 
 	// Habilitamos la recepción de datos
 	this->habilitarRecepcion = true;
+}
+
+
+// Envia un mensaje al cliente.
+// PRE: 'mensaje' es la cadena que desea enviarse.
+// POST: lanza una excepción si el socket no se encuentra activo.
+void ConexionCliente::enviarMensaje(std::string& mensaje) {
+	// Corroboramos que el socket esté activo
+	if(!this->socket->estaActivo())
+		throw "ERROR: No se pudo emitir mensaje a cliente.";
+
+	// Creamos el comunicador para enviar mensajes
+	Comunicador comunicador(this->socket);
+
+	// Enviamos el mensaje
+	comunicador.emitir(mensaje);
 }
 
 

@@ -20,6 +20,9 @@ Carpeta::Carpeta() {
 	// Creamos el receptor que recibirá los mensajes entrantes
 	this->receptor = new Receptor();
 
+	// Creamos el emisor que enviará mensajes a los clientes
+	this->emisor = new Emisor(&this->listaConexiones);
+
 	// Creamos el sincronizador
 
 	// Se crea el manejador de archivos
@@ -32,6 +35,7 @@ Carpeta::Carpeta() {
 // Destructor
 Carpeta::~Carpeta() {
 	delete this->receptor;
+	delete this->emisor;
 }
 
 
