@@ -31,14 +31,32 @@ Sincronizador::Sincronizador(Receptor *receptor, Emisor *emisor,
 Sincronizador::~Sincronizador() { }
 
 
+// Inicia el sincronizador.
+void Sincronizador::iniciar() {
+	this->start();
+}
+
+
+// Detiene al sincronizador.
+void Sincronizador::detener() {
+	// Detenemos thread
+	this->stop();
+
+	// Insertamos mensaje fantasma para poder destrabar la recepción.
+	this->receptor->ingresarMensajeDeEntrada(0, "");
+}
+
+
 // Define tareas a ejecutar en el hilo.
 // Toma los mensajes que van llegando, los procesa y responde a clientes.
 void Sincronizador::run() {
-	
+	// Procesamos mensajes entrantes
 	while (this->isActive()) {
 		// Solicitamos un mensaje de entrada al receptor
 		std::pair < int, std::string > mensaje;
 		mensaje = this->receptor->obtenerMensajeDeEntrada();
+
+		if(!this->isActive()) break;
 
 		// Tomamos instrucción y sus argumentos
 		std::string instruccion, args;
@@ -52,7 +70,7 @@ void Sincronizador::run() {
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
 		}
 		else if(instruccion == COMMON_SEND_FILE) {
-			
+
 		}
 		else if(instruccion == COMMON_MODIFY_FILE) {
 

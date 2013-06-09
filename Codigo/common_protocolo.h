@@ -23,6 +23,7 @@
 // cliente
 // FORMATO DE LAS CONSTANTES: C_[instruccion]
 const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
+const std::string C_GET_FILES_LIST = "GET-FILES-LIST";
 const std::string C_FILE_REQUEST = "FILE-REQUEST";
 
 // Constantes para los identificadores de instrucciones enviadas por el
@@ -30,6 +31,7 @@ const std::string C_FILE_REQUEST = "FILE-REQUEST";
 // FORMATO DE LAS CONSTANTES: S_[instruccion]
 const std::string S_LOGIN_OK = "LOGIN-OK";
 const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
+const std::string S_FILES_LIST = "FILE-LIST";
 const std::string S_NOTIFY_CHANGE = "FILE-CHANGED";
 const std::string S_NOTIFY_NEW = "NEW-FILE";
 

@@ -8,11 +8,6 @@
 
 
 
-namespace {
-	const std::string COLA_MENSAJE_FIN = "";
-}
-
-
 
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
@@ -24,10 +19,7 @@ Receptor::Receptor() { }
 
 
 // Destructor
-Receptor::~Receptor() {
-	// Destrabamos la cola encolando un mensaje de finalización detectable
-	this->ingresarMensajeDeEntrada(0, COLA_MENSAJE_FIN);
-}
+Receptor::~Receptor() { }
 
 
 // Ingresa un mensaje de entrada en el receptor
