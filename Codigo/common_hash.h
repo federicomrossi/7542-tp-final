@@ -12,6 +12,8 @@
 
 #include <iostream>
 #include <string.h>
+#include "common_sha1.h"
+#include "common_convertir.h"
 
 
 
@@ -25,6 +27,10 @@ public:
 
 	// Aplica la función de hash al string entrante
 	static std::string funcionDeHash(std::string cadena);
+
+
+	// Aplica la función de hash al char* entrante
+	static std::string funcionDeHash(const char* cadena, int longitud);
 };
 
 

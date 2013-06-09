@@ -136,7 +136,7 @@ int Socket::enviar(const void* dato, int longDato) {
 	// Cantidad de bytes que faltan enviar
 	int bytesRestantes = longDato;
 	// Variable auxiliar
-	int n;
+	int n = 0;
 
 	while(bytesRestantes > 0) {
 		// Realizamos envío de bytes
