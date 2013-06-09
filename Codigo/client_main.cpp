@@ -20,16 +20,21 @@
 
 
 
-#include "client_conexion.h"
 #include <iostream>
+#include "client_interfaz_conexion.h"
+#include "client_cliente.h"
 
-using namespace std;
 
 
 int main (int argc, char** argv) {
 	// Iniciamos interfaz de la ventana principal
 	Gtk::Main kit(argc, argv);
-	conexion a;
-	a.correr();
+
+	// Creamos el cliente
+	Cliente *cli = new Cliente;
+	
+	Conexion ventanaConexion(cli);
+	ventanaConexion.correr();
+
 	return 0;
 }

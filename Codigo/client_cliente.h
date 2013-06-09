@@ -53,14 +53,24 @@ private:
 public:
 
 	// Constructor
-	Cliente(std::string nombreHost, int puerto, std::string directorio);
+	Cliente();
 
 	// Destructor
 	~Cliente();
 
+	// Establece el nombre de host al que se conectará el cliente.
+	void especificarNombreHost(std::string nombreHost);
+
+	// Establece el puerto del host al que se conectará el cliente
+	void especificarPuerto(int puerto);
+
+	// Establece el directorio que sincronizará el cliente
+	void especificarDirectorio(std::string directorio);
+
 	// Realiza la conexión inicial con el servidor.
 	// PRE: 'usuario' y 'clave' son el nombre de usuario y contraseña con el 
-	// que se desea conectar al servidor.
+	// que se desea conectar al servidor. Debe haberse especificado el nombre 
+	// de host, puerto y directorio.
 	// POST: devuelve '-1' si falló la conexión, '0' si falló el login y '1' si
 	// se conectó y loggeó con éxito.
 	int conectar(std::string usuario, std::string clave);
@@ -69,9 +79,10 @@ public:
 	void desconectar();
 
 	// Inicializa la sincronización del cliente con el servidor.
-	// PRE: debe ejecutarse previamente el método conectar(). De lo contrario,
-	// no se inicializará la sincronización. 'intervaloPolling' es el intervalo
-	// de polling que se desea al inicializar la sincronización.
+	// PRE: debe ejecutarse previamente el método conectar() y debe haberse
+	// también especificado el nombre de host, puerto y directorio. De lo 
+	// contrario, no se inicializará la sincronización. 'intervaloPolling' es 
+	// el intervalo de polling que se desea al inicializar la sincronización.
 	void iniciarSincronizacion(int intervaloPolling);
 
 	// Permite cambiar el intervalo de polling estando en curso la

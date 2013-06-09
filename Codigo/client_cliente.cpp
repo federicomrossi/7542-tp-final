@@ -21,9 +21,7 @@
 
 
 // Constructor
-Cliente::Cliente(std::string nombreHost, int puerto, std::string directorio) :
-	puerto(puerto), nombreHost(nombreHost), directorio(directorio),
-	estadoConexion(false) { }
+Cliente::Cliente() : estadoConexion(false) { }
 
 
 // Destructor
@@ -33,9 +31,28 @@ Cliente::~Cliente() {
 }
 
 
+// Establece el nombre de host al que se conectará el cliente.
+void Cliente::especificarNombreHost(std::string nombreHost) {
+	this->nombreHost = nombreHost;
+}
+
+
+// Establece el puerto del host al que se conectará el cliente
+void Cliente::especificarPuerto(int puerto) {
+	this->puerto = puerto;
+}
+
+
+// Establece el directorio que sincronizará el cliente
+void Cliente::especificarDirectorio(std::string directorio) {
+	this->directorio = directorio;
+}
+
+
 // Realiza la conexión inicial con el servidor.
 // PRE: 'usuario' y 'clave' son el nombre de usuario y contraseña con el 
-// que se desea conectar al servidor.
+// que se desea conectar al servidor. Debe haberse especificado el nombre 
+// de host, puerto y directorio.
 // POST: devuelve '-1' si falló la conexión, '0' si falló el login y '1' si
 // se conectó y loggeó con éxito.
 int Cliente::conectar(std::string usuario, std::string clave) {
@@ -104,8 +121,10 @@ void Cliente::desconectar() {
 
 
 // Inicializa la sincronización del cliente con el servidor.
-// PRE: debe ejecutarse previamente el método conectar(). De lo contrario,
-// no se inicializará la sincronización.
+// PRE: debe ejecutarse previamente el método conectar() y debe haberse
+// también especificado el nombre de host, puerto y directorio. De lo 
+// contrario, no se inicializará la sincronización. 'intervaloPolling' es 
+// el intervalo de polling que se desea al inicializar la sincronización.
 void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Si la conexión no se encuentra activa, no hacemos nada
 	if(!estadoConexion) return;
