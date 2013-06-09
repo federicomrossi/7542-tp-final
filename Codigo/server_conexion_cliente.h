@@ -33,7 +33,7 @@ private:
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
 	Verificador* verificador;					// Verificador de loggin
 	Receptor *receptor;							// Receptor a donde se envian
-												// los datos que arri
+												// los datos que arrivan
 	bool habilitarRecepcion;					// Traba para evitar recepción
 												// hasta que se indique.
 

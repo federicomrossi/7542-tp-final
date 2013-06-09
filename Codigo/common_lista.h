@@ -155,7 +155,7 @@ Tipo Lista< Tipo >::operator[] (const size_t indice) {
 		
 	// Creamos iterador y nos posicionamos en el índice deseado
 	typename std::list< Tipo >::const_iterator it = this->lista.begin();
-	for(size_t i = 0; i++ <= indice; it++);
+	for(size_t i = 0; i < indice; i++) ++it;
 
 	return *it;
 }

@@ -9,6 +9,8 @@
 #ifndef PROTOCOLO_H
 #define PROTOCOLO_H
 
+#include <string>
+
 
 
 
@@ -21,6 +23,7 @@
 // cliente
 // FORMATO DE LAS CONSTANTES: C_[instruccion]
 const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
+const std::string C_FILE_REQUEST = "FILE-REQUEST";
 
 // Constantes para los identificadores de instrucciones enviadas por el
 // servidor
@@ -31,8 +34,10 @@ const std::string S_NOTIFY_CHANGE = "FILE-CHANGED";
 const std::string S_NOTIFY_NEW = "NEW-FILE";
 
 // Constantes para los identificadores de instrucciones comunes al servidor
-// y el cliente
+// y al cliente
 // FORMATO DE LAS CONSTANTES: COMMON_[instruccion]
+const std::string COMMON_MSG_IS_NOTIFICATION = "n";
+const std::string COMMON_MSG_IS_FILE = "f";
 const std::string COMMON_SEND_FILE = "SEND-FILE";
 const std::string COMMON_MODIFY_FILE = "MODIFY-FILE";
 const std::string COMMON_DELETE_FILE = "DELETE-FILE";
