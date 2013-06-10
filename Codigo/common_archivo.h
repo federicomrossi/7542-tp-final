@@ -32,6 +32,11 @@ public:
 
 	// Constructor
 	Archivo(std::string nombreDeArchivo);
+
+	// Ctor copia
+	Archivo(const Archivo &a);
+
+	Archivo();
 	
 	// Destructor
 	~Archivo();
@@ -50,6 +55,8 @@ public:
 
 	// Devuelve la última fecha de modificación del archivo.
 	std::string obtenerFechaDeModificacion();
+
+	Archivo operator=(Archivo a);
 };
 
 #endif

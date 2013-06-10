@@ -12,6 +12,11 @@
 // Constructor
 Archivo::Archivo(std::string nombreDeArchivo) : nombre(nombreDeArchivo) { }
 
+// Ctor copia
+Archivo::Archivo(const Archivo &a) : nombre(a.nombre), hash(a.hash), 
+	fechaModificacion(a.fechaModificacion) { }
+
+Archivo::Archivo() {}
 
 // Destructor
 Archivo::~Archivo() { }
@@ -45,3 +50,12 @@ std::string Archivo::obtenerHash() {
 std::string Archivo::obtenerFechaDeModificacion() {
 	return this->fechaModificacion;
 }
+
+Archivo Archivo::operator=(Archivo a) {
+	Archivo b;
+	b.nombre = a.nombre;
+	b.hash = a.hash;
+	b.fechaModificacion = a.fechaModificacion;
+	return b;
+}
+
