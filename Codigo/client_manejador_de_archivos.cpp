@@ -31,27 +31,11 @@ namespace {
 
 // Constructor
 ManejadorDeArchivos::ManejadorDeArchivos(const std::string& directorio) : 
-	directorio(directorio), inicializoRegistro(false) { }
+	directorio(directorio) { }
 
 
 // Destructor
 ManejadorDeArchivos::~ManejadorDeArchivos() { }
-
-
-// 
-void ManejadorDeArchivos::inicializarRegistroDeArchivos(
-	std::string listaDeArchivos) {
-
-	// Seteamos el flag de inicialización del registro
-	this->inicializoRegistro = true;
-}
-
-
-// Comprueba si se inicializó el registro de archivos.
-// POST: devuelve true si se inicializó o false en caso contrario.
-bool ManejadorDeArchivos::seInicializoRegistroDeArchivos() {
-	return this->inicializoRegistro;
-}
 
 
 // Devuelve el contenido de un archivo en formato hexadecimal expresado
@@ -87,6 +71,7 @@ std::string ManejadorDeArchivos::obtenerContenidoArchivo(
 
 	return contenidoHex;
 }
+
 
 
 // Actualiza el registro local de archivos.
@@ -214,43 +199,81 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 }
 
 
+// Metodo para la descarga de archivos inicial desde el servidor
+// Recibe la lista de archivos que se encuentran en el servidor, compara con la que 
+// se encuentra localmente y devuelve una lista con los archivos que se deben 
+// pedir al server.
+// * Faltantes: lista de archivos que se deben pedir
+// * Sobrantes: lista de archivos que se deben enviar
+void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista, 
+	Lista<Archivo>* faltantes, Lista<Archivo>* sobrantes) {
+	
+	if (!lista->estaVacia()) {
+		std::string nombre_archivo, hash_archivo, fecha_archivo;
 
+		// Bloqueamos el mutex
+		Lock l(m);
 
-/*
- *  IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
- */
+		// Variables auxiliares
+		std::ifstream registro;
+		bool debeLeer = true;
 
+		// Armamos ruta de archivo
+		std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
+			+ ARCHIVO_REG_ARCHIVOS;
 
-// Devuelve una lista con los nombre de archivos (ordenados 
-// alfabeticamente) que se encuentran ubicados en el directorio 
-// administrado por el manejador.
-std::list<std::string> ManejadorDeArchivos::obtenerArchivosDeDirectorio() {
-	// Variables auxiliares
-	DIR *dir;
-	struct dirent *entrada = 0;
-	std::list<std::string> listaArchivos;
-	unsigned char esDirectorio =0x4;
+		// Abrimos el registro 
+		registro.open(regNombre.c_str(), std::ios::in);
 
-	// Abrimos directorio y procesamos si fue exitosa la apertura
-	if((dir = opendir (this->directorio.c_str())) != NULL) {
-		// Iteramos sobre cada objeto del directorio
-		while ((entrada = readdir (dir)) != NULL) {
-			// Salteamos directorios
-			if (entrada->d_type == esDirectorio)
-				continue;
+		// Verificamos si la apertura fue exitosa
+		if(!registro.is_open()) 
+			throw "ERROR: El registro no pudo ser abierto.";
 
-			// Insertamos el nombre de archivo en la lista
-			listaArchivos.push_back(entrada->d_name);
+		int i = 0, tamLista = lista->tamanio();
+		while (i < tamLista && !registro.eof()) {
+			if (debeLeer)
+				// Tomamos un registro
+				registro >> nombre_archivo >> hash_archivo >> fecha_archivo;
+			else
+				// Vuelve a setear en verdadero la lectura
+				debeLeer = true;
+
+			// Se toma un elemento de la lista
+			Archivo archivo((*lista)[i]);
+
+			// Si el nombre_archivo de la lista es > al del del archivo, se eliminan hasta ese nombre 
+				// los archivos del lado del cliente
+			if (nombre_archivo > archivo.obtenerNombre())
+				this->eliminarArchivo(archivo.obtenerNombre(), WHOLE_FILE);
+
+			// Si el nombre_archivo de la lista es == al del archivo, compara fechas
+			else if (nombre_archivo == archivo.obtenerNombre()) {
+				// Si fecha_archivo de la lista <(menos actual) a la del archivo, 
+				// se deberia enviar archivo
+				if (fecha_archivo < archivo.obtenerFechaDeModificacion())
+					sobrantes->insertarUltimo(archivo);
+				
+				// Sino, se deberia sobre escribir en cliente (se pide el archivo)
+				else
+					faltantes->insertarUltimo(archivo);
+				i++;
+			}
+			// Si nombre_archivo de la lista es < al del archivo, se deben pedir archivos hasta ese nombre
+			else {
+				while (nombre_archivo < archivo.obtenerNombre()) {
+					faltantes->insertarUltimo(archivo);
+					i++;
+					if (i < (int)lista->tamanio())
+						Archivo archivo((*lista)[i]);
+				}
+				// Se debe saltear una vuelta de lectura en
+				debeLeer = false;
+			}
 		}
-
-		closedir(dir);
-	} 
-	else 
-		throw "ERROR: No se ha podido abrir el directorio.";
-
-	listaArchivos.sort();
-	return listaArchivos;
+		registro.close();
+	}
 }
+
 
 // Elimina un archivo o un bloque de un archivo del directorio local
 // Devuelve 0 en caso de eliminar correctamente el archivo
@@ -317,4 +340,40 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 	//END DEBUG
 
 	return cod_error;
+}
+
+/*
+ *  IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
+ */
+
+
+// Devuelve una lista con los nombre de archivos (ordenados 
+// alfabeticamente) que se encuentran ubicados en el directorio 
+// administrado por el manejador.
+std::list<std::string> ManejadorDeArchivos::obtenerArchivosDeDirectorio() {
+	// Variables auxiliares
+	DIR *dir;
+	struct dirent *entrada = 0;
+	std::list<std::string> listaArchivos;
+	unsigned char esDirectorio =0x4;
+
+	// Abrimos directorio y procesamos si fue exitosa la apertura
+	if((dir = opendir (this->directorio.c_str())) != NULL) {
+		// Iteramos sobre cada objeto del directorio
+		while ((entrada = readdir (dir)) != NULL) {
+			// Salteamos directorios
+			if (entrada->d_type == esDirectorio)
+				continue;
+
+			// Insertamos el nombre de archivo en la lista
+			listaArchivos.push_back(entrada->d_name);
+		}
+
+		closedir(dir);
+	} 
+	else 
+		throw "ERROR: No se ha podido abrir el directorio.";
+
+	listaArchivos.sort();
+	return listaArchivos;
 }

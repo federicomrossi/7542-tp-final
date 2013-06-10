@@ -52,8 +52,8 @@ void Actualizador::ejecutarActualizacion() {
 	// Procesamos lista de archivos del servidor comparándola con el directorio
 	// local
 	Lista< Archivo > listaArchivosFaltantes, listaArchivosParaEnviar;
-	// this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaArchivos,
-	// 	&listaArchivosFaltantes, &listaArchivosParaEnviar);
+	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaArchivos,
+		&listaArchivosFaltantes, &listaArchivosParaEnviar);
 
 	// Realizamos la petición de envío y espera de recepción de archivos
 	// faltantes
@@ -71,8 +71,13 @@ void Actualizador::ejecutarActualizacion() {
 			this->parserMensaje(msg, instruccion, args);
 		}
 
+		// Parseamos el archivo
 		Archivo a;
 		this->parserArchivo(args, &a);
+
+		// Almacenamos el nuevo archivo
+		this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
+			a.obtenerNumBloque(), a.obtenerBloque());
 	}
 }
 
@@ -103,19 +108,23 @@ void Actualizador::parserMensaje(const std::string& msg,
 
 // Parsea los datos de un archivo
 // PRE: 'args' es la cadena que contiene los datos separados por una coma: 
-// [NOMBRE],[HASH],[FECHA_MODIFICACION]; 'archivo' es un puntero al objeto
-// Archivo en donde se almacenarán dichos datos.
+// [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero al 
+// objeto Archivo en donde se almacenarán dichos datos.
 void Actualizador::parserArchivo(const std::string args, Archivo *archivo) {
 	std::stringstream argsTemp(args);
 
 	// Variables auxiliares
-	std::string nombre, hash, fecha;
+	std::string nombre, numBloque, bloque, hash, fecha;
 
 	getline(argsTemp, nombre, COMMON_FILE_PARAMETER_DELIMITER);
+	getline(argsTemp, numBloque, COMMON_FILE_PARAMETER_DELIMITER);
+	getline(argsTemp, bloque, COMMON_FILE_PARAMETER_DELIMITER);
 	getline(argsTemp, hash, COMMON_FILE_PARAMETER_DELIMITER);
 	getline(argsTemp, fecha, COMMON_FILE_PARAMETER_DELIMITER);
 
 	archivo->asignarNombre(nombre);
+	archivo->asignarNumBloque(numBloque);
+	archivo->asignarBloque(bloque);
 	archivo->asignarHash(hash);
 	archivo->asignarFechaDeModificacion(fecha);
 }

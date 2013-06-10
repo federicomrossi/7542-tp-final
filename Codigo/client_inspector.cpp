@@ -65,12 +65,6 @@ void Inspector::forzarInspeccion() {
 // Define tareas a ejecutar en el hilo.
 // Realiza una inspección cada un intervalo predeterminado.
 void Inspector::run() {
-	// Esperamos a que se inicialice el registro de archivos
-	while(!this->manejadorDeArchivos->seInicializoRegistroDeArchivos())
-		// Si se detuvo al inspector, salimos
-		if(!this->isActive()) return;
-
-
 	// Inspeccionamos cada cierto intervalo hasta detener hilo
 	while(this->isActive()) {
 		// Nos detenemos hasta que suene la alarma de inspección

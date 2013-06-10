@@ -14,6 +14,11 @@
 #include "common_mutex.h"
 #include "common_lock.h"
 #include "common_cola.h"
+#include "common_lista.h"
+#include "common_archivo.h"
+
+// DEBUG: Debe buscarse otra lugar para la constante WHOLE_FILE
+#include "common_protocolo.h"
 
 //DEBUG
 #include <iostream>
@@ -31,8 +36,6 @@ private:
 
 	std::string directorio;				// Directorio sobre el cual se trabaja
 	Mutex m;							// Mutex
-	bool inicializoRegistro;			// Flag que sensa si se inicializó el
-										// registro de archivos.
 
 
 	// Devuelve una lista con los nombre de archivos (ordenados 
@@ -48,13 +51,6 @@ public:
 	// Destructor
 	~ManejadorDeArchivos();
 
-	// 
-	void inicializarRegistroDeArchivos(std::string listaDeArchivos);
-
-	// Comprueba si se inicializó el registro de archivos.
-	// POST: devuelve true si se inicializó o false en caso contrario.
-	bool seInicializoRegistroDeArchivos();
-
 	// Devuelve el contenido de un archivo en formato hexadecimal expresado
 	// en una cadena de caracteres
 	std::string obtenerContenidoArchivo(const std::string& nombre_archivo);
@@ -68,6 +64,15 @@ public:
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
 		Cola< std::string > *modificados, Cola< std::string > *eliminados);
+
+	// Metodo para la descarga de archivos inicial desde el servidor
+	// Recibe la lista de archivos que se encuentran en el servidor, compara con la que 
+	// se encuentra localmente y devuelve una lista con los archivos que se deben 
+	// pedir al server.
+	// * Faltantes: lista de archivos que se deben pedir
+	// * Sobrantes: lista de archivos que se deben enviar
+	void obtenerListaDeActualizacion(Lista<Archivo>* lista, Lista<Archivo>* faltantes,
+		Lista<Archivo>* sobrantes);
 
 	// Elimina un archivo o un bloque de un archivo del directorio local
 	// Devuelve 0 en caso de eliminar correctamente el archivo
