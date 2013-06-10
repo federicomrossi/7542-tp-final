@@ -31,10 +31,16 @@ private:
 public:
 
 	// Constructor
+	Archivo();
+
+	// Constructor
 	Archivo(std::string nombreDeArchivo);
-	
+
 	// Destructor
 	~Archivo();
+
+	// Asigna un nombre al archivo
+	void asignarNombre(std::string nombre);
 
 	// Actualiza el hash del archivo
 	void asignarHash(std::string hash);

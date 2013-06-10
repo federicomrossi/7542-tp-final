@@ -10,11 +10,20 @@
 
 
 // Constructor
+Archivo::Archivo() { }
+
+// Constructor
 Archivo::Archivo(std::string nombreDeArchivo) : nombre(nombreDeArchivo) { }
 
 
 // Destructor
 Archivo::~Archivo() { }
+
+
+// Asigna un nombre al archivo
+void Archivo::asignarNombre(std::string nombre) {
+	this->nombre = nombre;
+}
 
 
 // Actualiza el hash del archivo
