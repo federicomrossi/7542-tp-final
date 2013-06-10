@@ -8,8 +8,10 @@
 #include "common_hash.h"
 #include <string>
 #include <stdio.h>
+#include <list>
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 
 
@@ -45,8 +47,10 @@ public:
 	int agregarArchivo(const std::string &nombre_archivo, 
 		const std::string &num_bloque, const std::string &bloque_archivo, std::string &hash);
 
-	// Devuelve la lista de archivos que se encuentran en el servidor
-	std::string obtenerListaDeArchivos();
+	// Devuelve una lista con los nombre de archivos (ordenados 
+	// alfabeticamente) que se encuentran ubicados en el directorio 
+	// administrado por el manejador.
+	std::list< std::pair<std::string, std::string> > obtenerArchivosDeDirectorio();
 };
 
 #endif /* MANEJADOR_DE_ARCHIVOS_H */

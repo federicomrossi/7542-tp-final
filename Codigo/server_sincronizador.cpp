@@ -70,10 +70,31 @@ void Sincronizador::run() {
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
 		}
 		else if (instruccion == C_GET_FILES_LIST) {	
-			// Pide la lista de archivos que tiene el server y se la envia al cliente
+			// Se crea el mensaje de respuesta
 			std::string respuesta = S_FILES_LIST + " ";
-			std::string lista = this->manejadorDeArchivos->obtenerListaDeArchivos();
-			respuesta.append(lista);
+			
+			// Pide la lista de archivos que tiene el server
+			std::list< std::pair<std::string, std::string> > lista = 
+				this->manejadorDeArchivos->obtenerArchivosDeDirectorio();
+			std::string lista_string;
+			std::pair<std::string, std::string> aux;
+
+			// Se guarda la lista en un string
+			while (!lista.empty()) {
+				aux = lista.front();
+				lista_string.append(aux.first);
+				lista_string.append(" ");
+				lista_string.append(aux.second);
+				lista_string.append(" ");
+				lista.pop_front();
+			}
+
+			// Se agrega la lista al mensaje de respuesta
+			respuesta.append(lista_string);
+
+			std::cout << "Lista de archivos: " << lista_string << std::endl;
+			
+			// Se envia la respuesta al cliente
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
