@@ -77,16 +77,16 @@ void Sincronizador::run() {
 			Lista<Archivo>* lista = new Lista<Archivo>;
 			this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
 			std::string lista_string;
-			Archivo aux;
-
+			
 			// Se guarda la lista en un string
 			while (!lista->estaVacia()) {
-				aux = lista->verPrimero();
-				lista_string.append(aux.obtenerNombre());
+				// Archivo aux;
+				// aux = lista->verPrimero();
+				lista_string.append(lista->verPrimero().obtenerNombre());
 				lista_string.append(" ");
-				lista_string.append(aux.obtenerHash());
+				lista_string.append(lista->verPrimero().obtenerHash());
 				lista_string.append(" ");
-				lista_string.append(aux.obtenerFechaDeModificacion());
+				lista_string.append(lista->verPrimero().obtenerFechaDeModificacion());
 				lista_string.append(" ");
 				lista->eliminarPrimero();
 			}

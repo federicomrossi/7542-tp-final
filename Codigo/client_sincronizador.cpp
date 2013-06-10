@@ -17,13 +17,7 @@
 
 
 // Constructor
-Sincronizador::Sincronizador(Emisor *emisor) : emisor(emisor) {
-	// Armamos mensaje inicial solicitando lista de archivos del servidor.
-	std::string mensaje = C_GET_FILES_LIST;
-
-	// Enviamos mensaje al emisor
-	this->emisor->ingresarMensajeDeSalida(mensaje);
-}
+Sincronizador::Sincronizador(Emisor *emisor) : emisor(emisor) { }
 
 
 // Destructor

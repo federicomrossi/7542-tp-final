@@ -34,6 +34,13 @@ Actualizador::~Actualizador() { }
 
 // Inicia la recepción
 void Actualizador::ejecutarActualizacion() {
+
+	// Mensaje de log
+	std::cout << "Actualizando directorio... " << std::endl;
+   	std::cout.flush();
+	std::cout << "Solicitando lista de archivos del servidor... " << std::endl;
+   	std::cout.flush();
+
 	// Solicitamos la lista de archivos del servidor
 	this->emisor->ingresarMensajeDeSalida(C_GET_FILES_LIST);
 
@@ -45,6 +52,12 @@ void Actualizador::ejecutarActualizacion() {
 		this->parserMensaje(msg, instruccion, args);
 	}
 
+	// Mensaje de log
+	std::cout << "Se recibió lista de archivos del servidor... " << args << std::endl;
+   	std::cout.flush();
+	std::cout << "Procesando lista de archivos... " << std::endl;
+   	std::cout.flush();
+
 	// Parseamos la lista de archivos enviada por el servidor
 	Lista< Archivo > listaArchivos;
 	this->parserArchivos(args, &listaArchivos);
@@ -55,30 +68,40 @@ void Actualizador::ejecutarActualizacion() {
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaArchivos,
 		&listaArchivosFaltantes, &listaArchivosParaEnviar);
 
-	// Realizamos la petición de envío y espera de recepción de archivos
-	// faltantes
-	for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
-		// Emisión de la petición de archivo
-		std::string mensaje = C_FILE_REQUEST + " " + 
-			listaArchivosFaltantes[i].obtenerNombre();
-		this->emisor->ingresarMensajeDeSalida(mensaje);
 
-		std::string instruccion, args;
+	// Mensaje de log
+	std::cout << "LISTA FALTANTES: " << listaArchivosFaltantes.tamanio() << std::endl;
+	std::cout << "LISTA A ENVIAR: " << listaArchivosParaEnviar.tamanio() << std::endl;
+   	std::cout.flush();
+
+	// // Realizamos la petición de envío y espera de recepción de archivos
+	// // faltantes
+	// for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
+	// 	// Emisión de la petición de archivo
+	// 	std::string mensaje = C_FILE_REQUEST + " " + 
+	// 		listaArchivosFaltantes[i].obtenerNombre();
+	// 	this->emisor->ingresarMensajeDeSalida(mensaje);
+
+	// 	std::string instruccion, args;
 		
-		// Esperamos a recibir el archivo
-		while(instruccion != COMMON_SEND_FILE) {
-			std::string msg = this->receptor->obtenerMensajeDeEntrada();
-			this->parserMensaje(msg, instruccion, args);
-		}
+	// 	// Esperamos a recibir el archivo
+	// 	while(instruccion != COMMON_SEND_FILE) {
+	// 		std::string msg = this->receptor->obtenerMensajeDeEntrada();
+	// 		this->parserMensaje(msg, instruccion, args);
+	// 	}
 
-		// Parseamos el archivo
-		Archivo a;
-		this->parserArchivo(args, &a);
+	// 	// Parseamos el archivo
+	// 	Archivo a;
+	// 	this->parserArchivo(args, &a);
 
-		// Almacenamos el nuevo archivo
-		this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
-			a.obtenerNumBloque(), a.obtenerBloque());
-	}
+	// 	// Almacenamos el nuevo archivo
+	// 	this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
+	// 		a.obtenerNumBloque(), a.obtenerBloque());
+	// }
+
+	// Mensaje de log
+	std::cout << "Fin de la actualización... " << std::endl;
+   	std::cout.flush();
 }
 
 

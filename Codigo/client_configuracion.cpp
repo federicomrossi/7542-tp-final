@@ -39,7 +39,7 @@ std::string Configuracion::obtenerDirectorio() {
 
 // Devuelve el host del servidor.
 std::string Configuracion::obtenerHost() {
-	return "186.58.232.93";
+	return "127.0.0.1";
 }
 
 
