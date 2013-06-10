@@ -11,7 +11,7 @@
 
 
 #include <string>
-
+#include "common_convertir.h"
 
 
 
@@ -76,7 +76,24 @@ public:
 	// Devuelve la última fecha de modificación del archivo.
 	std::string obtenerFechaDeModificacion();
 
-	Archivo operator=(Archivo a);
+	/** Definicion de operadores **/
+	// Operador asignacion
+	void operator=(const Archivo& a);
+
+	// Operador mayor: compara nombres de archivo en minuscula
+	// Si son iguales, compara con nombres reales y como en la tabla ascii
+	// (por ej 'a' > 'A')
+	bool operator>(const Archivo& a); 
+
+	// Operador menor: compara nombres de archivo en minuscula
+	// Si son iguales, compara con nombres reales y como en la tabla ascii
+	// (por ej 'a' > 'A')
+	bool operator<(const Archivo& a);
+
+	// Operador igual: compara nombres de archivo en minuscula 
+	// Si son iguales, compara con nombres reales y como en la tabla ascii
+	// (por ej 'a' > 'A')
+	bool operator==(const Archivo& a);
 };
 
 #endif

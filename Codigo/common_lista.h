@@ -55,6 +55,9 @@ public:
 	// Devuelve la cantidad de elementos contenidos en la lista.
 	size_t tamanio();
 
+	// Ordena los elementos de la lista (deben poder ser comparables)
+	void ordenar();
+
 	// Verifica si una lista se encuentra vacía.
 	// POST: Devuelve verdadero si la lista se encuentra vacía o falso en 
 	// caso contrario.
@@ -125,6 +128,12 @@ template <typename Tipo >
 size_t Lista< Tipo >::tamanio() {
 	Lock l(m);
 	return this->lista.size();
+}
+
+template <typename Tipo >
+void Lista< Tipo >::ordenar() {
+	Lock l(m);
+	this->lista.sort();
 }
 
 

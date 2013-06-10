@@ -207,7 +207,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 // * Sobrantes: lista de archivos que se deben enviar
 void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista, 
 	Lista<Archivo>* faltantes, Lista<Archivo>* sobrantes) {
-	
+
 	if (!lista->estaVacia()) {
 		std::string nombre_archivo, hash_archivo, fecha_archivo;
 
@@ -230,25 +230,32 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista,
 			throw "ERROR: El registro no pudo ser abierto.";
 
 		int i = 0, tamLista = lista->tamanio();
-		while (i < tamLista && !registro.eof()) {
-			if (debeLeer)
+		while (i < tamLista && !registro.eof() && i < 10) {
+			if (debeLeer) {
 				// Tomamos un registro
 				registro >> nombre_archivo >> hash_archivo >> fecha_archivo;
-			else
+				std::cout << "Lei del archivo: " << nombre_archivo << hash_archivo << fecha_archivo << std::endl;
+			}
+			else {
 				// Vuelve a setear en verdadero la lectura
 				debeLeer = true;
+				std::cout << "No lei, porque no debia leer" << std::endl;
+			}
 
 			// Se toma un elemento de la lista
 			Archivo archivo((*lista)[i]);
 
-			// Si el nombre_archivo de la lista es > al del del archivo, se eliminan hasta ese nombre 
+			// Si el nombre archivo de la lista es > al del del archivo, se eliminan hasta ese nombre 
 				// los archivos del lado del cliente
-			if (nombre_archivo > archivo.obtenerNombre())
+			if (archivo.obtenerNombre() > nombre_archivo) {
+				std::cout << "Comparacion: "<< nombre_archivo << " > " << archivo.obtenerNombre() << std::endl;
 				this->eliminarArchivo(archivo.obtenerNombre(), WHOLE_FILE);
+			}
 
 			// Si el nombre_archivo de la lista es == al del archivo, compara fechas
-			else if (nombre_archivo == archivo.obtenerNombre()) {
-				// Si fecha_archivo de la lista <(menos actual) a la del archivo, 
+			else if (archivo.obtenerNombre() == nombre_archivo) {
+				std::cout << "Comparacion: "<< nombre_archivo << " == " << archivo.obtenerNombre() << std::endl;
+/*				// Si fecha_archivo de la lista <(menos actual) a la del archivo, 
 				// se deberia enviar archivo
 				if (fecha_archivo < archivo.obtenerFechaDeModificacion())
 					sobrantes->insertarUltimo(archivo);
@@ -256,11 +263,12 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista,
 				// Sino, se deberia sobre escribir en cliente (se pide el archivo)
 				else
 					faltantes->insertarUltimo(archivo);
-				i++;
+*/				i++;
 			}
 			// Si nombre_archivo de la lista es < al del archivo, se deben pedir archivos hasta ese nombre
 			else {
-				while (nombre_archivo < archivo.obtenerNombre()) {
+				std::cout <<"Comparacion: "<< nombre_archivo << " < " << archivo.obtenerNombre() << std::endl;
+				while (archivo.obtenerNombre() < nombre_archivo && i < (int)lista->tamanio()) {
 					faltantes->insertarUltimo(archivo);
 					i++;
 					if (i < (int)lista->tamanio())
@@ -272,6 +280,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista,
 		}
 		registro.close();
 	}
+
 }
 
 
@@ -280,7 +289,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista,
 // Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque) {
-
+/*
 	std::fstream archivo;
 	int cod_error = 0;
 
@@ -292,19 +301,20 @@ int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo,
 		archivo.close();
 		cod_error = remove(nombre_archivo.c_str());
 	}
-
+*/
 	// DEBUG
 	std::cout << "Se elimino archivo con nombre: " << nombre_archivo << std::endl;
 	//END DEBUG
 
-	return cod_error;
+//	return cod_error;
+	return 0;
 }
 
 // Agrega un nuevo archivo o un bloque al directorio local
 // Por ahora solamente agrega archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque, const std::string &bloque_archivo) {
-	
+/*	
 	std::fstream archivo;
 	int cod_error = 0;
 
@@ -334,12 +344,13 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 		// Se cierra el archivo
 		archivo.close();	
 	}
-
+*/
 	// DEBUG
 	std::cout << "Se agrego archivo con nombre: " << nombre_archivo << std::endl;	
 	//END DEBUG
 
-	return cod_error;
+//	return cod_error;
+	return 0;
 }
 
 /*

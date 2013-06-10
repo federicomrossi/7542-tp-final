@@ -80,13 +80,12 @@ void Sincronizador::run() {
 			
 			// Se guarda la lista en un string
 			while (!lista->estaVacia()) {
-				// Archivo aux;
-				// aux = lista->verPrimero();
-				lista_string.append(lista->verPrimero().obtenerNombre());
+				Archivo aux(lista->verPrimero());
+				lista_string.append(aux.obtenerNombre());
 				lista_string.append(" ");
-				lista_string.append(lista->verPrimero().obtenerHash());
+				lista_string.append(aux.obtenerHash());
 				lista_string.append(" ");
-				lista_string.append(lista->verPrimero().obtenerFechaDeModificacion());
+				lista_string.append(aux.obtenerFechaDeModificacion());
 				lista_string.append(" ");
 				lista->eliminarPrimero();
 			}

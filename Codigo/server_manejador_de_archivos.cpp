@@ -119,5 +119,9 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchi
 	else 
 		throw "ERROR: No se ha podido abrir el directorio.";
 
+	//DEBUG
+	std::cout << "Se ordenan los archivos " << std::endl;
+	listaArchivos->ordenar();
+
 }
 

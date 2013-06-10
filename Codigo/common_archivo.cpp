@@ -90,11 +90,60 @@ std::string Archivo::obtenerFechaDeModificacion() {
 	return this->fechaModificacion;
 }
 
-Archivo Archivo::operator=(Archivo a) {
-	Archivo b;
-	b.nombre = a.nombre;
-	b.hash = a.hash;
-	b.fechaModificacion = a.fechaModificacion;
-	return b;
+// Operador asignacion
+void Archivo::operator=(const Archivo& a) {
+	this->nombre = a.nombre;
+	this->hash = a.hash;
+	this->fechaModificacion = a.fechaModificacion;
 }
 
+// Operador mayor: compara nombres de archivo en minuscula
+// Si son iguales, compara con nombres reales y como en la tabla ascii
+// (por ej 'a' > 'A')
+bool Archivo::operator>(const Archivo& a) {
+	std::string nombreMinuscula = Convertir::toLowercase(this->nombre);
+	std::string nombreAComparar = Convertir::toLowercase(a.nombre);
+
+	bool esMayor;
+
+	if (nombreMinuscula == nombreAComparar)  // Analizo el caso real entonces
+		esMayor = (this->nombre > a.nombre);
+	else 	
+		esMayor = (nombreMinuscula > nombreAComparar);
+
+	return esMayor;
+}
+
+// Operador menor: compara nombres de archivo en minuscula
+// Si son iguales, compara con nombres reales y como en la tabla ascii
+// (por ej 'a' > 'A')
+bool Archivo::operator<(const Archivo& a) {
+	std::string nombreMinuscula = Convertir::toLowercase(this->nombre);
+	std::string nombreAComparar = Convertir::toLowercase(a.nombre);
+
+	bool esMenor;
+
+	if (nombreMinuscula == nombreAComparar)  // Analizo el caso real entonces
+		esMenor = (this->nombre < a.nombre);
+	else 	
+		esMenor = (nombreMinuscula < nombreAComparar);
+
+	return esMenor;
+}
+
+// Operador igual: compara nombres de archivo en minuscula 
+// Si son iguales, compara con nombres reales y como en la tabla ascii
+// (por ej 'a' > 'A')
+bool Archivo::operator==(const Archivo& a) {
+	std::string nombreMinuscula = Convertir::toLowercase(this->nombre);
+	std::string nombreAComparar = Convertir::toLowercase(a.nombre);
+
+	bool esIgual = false;
+
+	if (nombreMinuscula == nombreAComparar) {
+		if (this->nombre == a.nombre)
+			esIgual = true;
+	}
+	
+	return esIgual;
+}
