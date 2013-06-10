@@ -116,6 +116,9 @@ std::string ManejadorDeArchivos::obtenerListaDeArchivos() {
 	} 
 	else 
 		throw "ERROR: No se ha podido abrir el directorio.";
+	// DEBUG
+	std::cout << "Lista de arcihvos en sever: " <<listaArchivos << std::endl;
+	//END DEBUG
 
 	return listaArchivos;
 }

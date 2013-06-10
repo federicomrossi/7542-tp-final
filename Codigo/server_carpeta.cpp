@@ -25,7 +25,7 @@ Carpeta::Carpeta() {
 
 	// Se crea el manejador de archivos
 	// DEBUG: Modificar path
-	std::string path = "server";
+	std::string path = "servidor";
 	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
 
 	// Creamos el sincronizador
