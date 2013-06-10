@@ -74,29 +74,42 @@ void Actualizador::ejecutarActualizacion() {
 	std::cout << "LISTA A ENVIAR: " << listaArchivosParaEnviar.tamanio() << std::endl;
    	std::cout.flush();
 
-	// // Realizamos la petición de envío y espera de recepción de archivos
-	// // faltantes
-	// for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
-	// 	// Emisión de la petición de archivo
-	// 	std::string mensaje = C_FILE_REQUEST + " " + 
-	// 		listaArchivosFaltantes[i].obtenerNombre();
-	// 	this->emisor->ingresarMensajeDeSalida(mensaje);
+	// Realizamos la petición de envío y espera de recepción de archivos
+	// faltantes
+	for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
+		// int obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo);
+		// Emisión de la petición de archivo
+		std::string mensaje = C_FILE_REQUEST + " " + 
+			listaArchivosFaltantes[i].obtenerNombre();
+		std::cout << "PIDO: " <<  mensaje << std::endl;
+		this->emisor->ingresarMensajeDeSalida(mensaje);
 
-	// 	std::string instruccion, args;
+		std::string instruccion, args;
 		
-	// 	// Esperamos a recibir el archivo
-	// 	while(instruccion != COMMON_SEND_FILE) {
-	// 		std::string msg = this->receptor->obtenerMensajeDeEntrada();
-	// 		this->parserMensaje(msg, instruccion, args);
-	// 	}
+		// Esperamos a recibir el archivo
+		while(instruccion != COMMON_SEND_FILE) {
+			std::string msg = this->receptor->obtenerMensajeDeEntrada();
+			this->parserMensaje(msg, instruccion, args);
+		}
 
-	// 	// Parseamos el archivo
-	// 	Archivo a;
-	// 	this->parserArchivo(args, &a);
+		// Parseamos el archivo
+		Archivo a;
+		this->parserArchivo(args, &a);
 
-	// 	// Almacenamos el nuevo archivo
-	// 	this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
-	// 		a.obtenerNumBloque(), a.obtenerBloque());
+		// Almacenamos el nuevo archivo
+		this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
+			a.obtenerNumBloque(), a.obtenerBloque());
+	}
+
+	// for(size_t i = 0; i < listaArchivosParaEnviar.tamanio(); i++) {
+	// 	// Emisión de la petición de archivo
+	// 	std::string mensaje = COMMON_SEND_FILE + " " + 
+	// 		listaArchivosFaltantes[i].obtenerNombre() + " " +
+	// 		listaArchivosFaltantes[i].obtenerNumBloque() + " " +
+	// 		listaArchivosFaltantes[i].obtenerBloque() + " " +
+	// 		listaArchivosFaltantes[i].obtenerHash() + " " +
+	// 		listaArchivosFaltantes[i].obtenerFechaDeModificacion();
+	// 	this->emisor->ingresarMensajeDeSalida(mensaje);
 	// }
 
 	// Mensaje de log
