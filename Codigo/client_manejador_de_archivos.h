@@ -31,6 +31,8 @@ private:
 
 	std::string directorio;				// Directorio sobre el cual se trabaja
 	Mutex m;							// Mutex
+	bool inicializoRegistro;			// Flag que sensa si se inicializó el
+										// registro de archivos.
 
 
 	// Devuelve una lista con los nombre de archivos (ordenados 
@@ -45,6 +47,13 @@ public:
 
 	// Destructor
 	~ManejadorDeArchivos();
+
+	// 
+	void inicializarRegistroDeArchivos(std::string listaDeArchivos);
+
+	// Comprueba si se inicializó el registro de archivos.
+	// POST: devuelve true si se inicializó o false en caso contrario.
+	bool seInicializoRegistroDeArchivos();
 
 	// Devuelve el contenido de un archivo en formato hexadecimal expresado
 	// en una cadena de caracteres

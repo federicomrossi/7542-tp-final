@@ -31,11 +31,27 @@ namespace {
 
 // Constructor
 ManejadorDeArchivos::ManejadorDeArchivos(const std::string& directorio) : 
-	directorio(directorio) { }
+	directorio(directorio), inicializoRegistro(false) { }
 
 
 // Destructor
 ManejadorDeArchivos::~ManejadorDeArchivos() { }
+
+
+// 
+void ManejadorDeArchivos::inicializarRegistroDeArchivos(
+	std::string listaDeArchivos) {
+
+	// Seteamos el flag de inicialización del registro
+	this->inicializoRegistro = true;
+}
+
+
+// Comprueba si se inicializó el registro de archivos.
+// POST: devuelve true si se inicializó o false en caso contrario.
+bool ManejadorDeArchivos::seInicializoRegistroDeArchivos() {
+	return this->inicializoRegistro;
+}
 
 
 // Devuelve el contenido de un archivo en formato hexadecimal expresado
