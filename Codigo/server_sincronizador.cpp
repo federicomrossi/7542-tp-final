@@ -69,13 +69,20 @@ void Sincronizador::run() {
 			std::string msg_salida = COMMON_SEND_FILE + " ";
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
 		}
-		else if(instruccion == COMMON_SEND_FILE) {
+		else if (instruccion == C_GET_FILES_LIST) {	
+			// Pide la lista de archivos que tiene el server y se la envia al cliente
+			std::string respuesta = S_FILES_LIST + " ";
+			std::string lista = this->manejadorDeArchivos->obtenerListaDeArchivos();
+			respuesta.append(lista);
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+		}
+		else if (instruccion == COMMON_SEND_FILE) {
 
 		}
-		else if(instruccion == COMMON_MODIFY_FILE) {
+		else if (instruccion == COMMON_MODIFY_FILE) {
 
 		}
-		else if(instruccion == COMMON_DELETE_FILE) {
+		else if (instruccion == COMMON_DELETE_FILE) {
 			// Eliminamos archivo en carpeta del servidor
 			std::string archivo = args;
 			std::string num_bloque = "0";

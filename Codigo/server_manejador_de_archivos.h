@@ -44,6 +44,9 @@ public:
 	// Devuelve el hash del archivo
 	int agregarArchivo(const std::string &nombre_archivo, 
 		const std::string &num_bloque, const std::string &bloque_archivo, std::string &hash);
+
+	// Devuelve la lista de archivos que se encuentran en el servidor
+	std::string obtenerListaDeArchivos();
 };
 
 #endif /* MANEJADOR_DE_ARCHIVOS_H */

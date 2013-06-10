@@ -1,5 +1,7 @@
-#include "server_manejador_de_archivos.h"
 
+#include "server_manejador_de_archivos.h"
+#include <stdlib.h>
+#include "dirent.h"
 
 
 
@@ -86,3 +88,35 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 
 	return cod_error;
 }
+
+// Devuelve la lista de archivos que se encuentran en el servidor
+std::string ManejadorDeArchivos::obtenerListaDeArchivos() {
+	// Variables auxiliares
+	DIR *dir;
+	struct dirent *entrada = 0;
+	std::string listaArchivos;
+	unsigned char esDirectorio =0x4;
+
+	// Abrimos directorio y procesamos si fue exitosa la apertura
+	if((dir = opendir (this->directorio.c_str())) != NULL) {
+		// Iteramos sobre cada objeto del directorio
+		while ((entrada = readdir (dir)) != NULL) {
+			// Salteamos directorios
+			if (entrada->d_type == esDirectorio)
+				continue;
+
+			// Insertamos el nombre de archivo en la lista y su hash
+			listaArchivos.append(entrada->d_name);
+			listaArchivos.append(" ");
+			listaArchivos.append(Hash::funcionDeHash(entrada->d_name, strlen(entrada->d_name)));
+			listaArchivos.append("\n");
+		}
+
+		closedir(dir);
+	} 
+	else 
+		throw "ERROR: No se ha podido abrir el directorio.";
+
+	return listaArchivos;
+}
+
