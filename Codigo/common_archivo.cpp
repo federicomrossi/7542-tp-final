@@ -13,6 +13,10 @@
 Archivo::Archivo() { }
 
 
+Archivo::Archivo(char* nombreDeArchivo) {
+	nombre.assign(nombreDeArchivo);
+}
+
 // Constructor
 Archivo::Archivo(std::string nombreDeArchivo) : nombre(nombreDeArchivo) { }
 

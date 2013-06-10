@@ -6,12 +6,12 @@
 #include "common_mutex.h"
 #include "common_lock.h"
 #include "common_hash.h"
+#include "common_lista.h"
+#include "common_archivo.h"
 #include <string>
 #include <stdio.h>
-#include <list>
 #include <iostream>
 #include <fstream>
-#include <utility>
 
 
 
@@ -47,10 +47,9 @@ public:
 	int agregarArchivo(const std::string &nombre_archivo, 
 		const std::string &num_bloque, const std::string &bloque_archivo, std::string &hash);
 
-	// Devuelve una lista con los nombre de archivos (ordenados 
-	// alfabeticamente) que se encuentran ubicados en el directorio 
+	// Devuelve una lista con los archivos que se encuentran ubicados en el directorio 
 	// administrado por el manejador.
-	std::list< std::pair<std::string, std::string> > obtenerArchivosDeDirectorio();
+	void obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos);
 };
 
 #endif /* MANEJADOR_DE_ARCHIVOS_H */

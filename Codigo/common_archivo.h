@@ -35,6 +35,8 @@ public:
 	// Constructor
 	Archivo();
 
+	Archivo(char* nombreDeArchivo);
+
 	// Constructor
 	Archivo(std::string nombreDeArchivo);
 

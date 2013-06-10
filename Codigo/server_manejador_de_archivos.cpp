@@ -91,11 +91,10 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 
 // Devuelve una lista con los nombre de archivos y sus hashes correspondientes
 // que se encuentran ubicados en el directorio administrado por el manejador.
-std::list< std::pair<std::string, std::string> > ManejadorDeArchivos::obtenerArchivosDeDirectorio() {
+void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos) {
 	// Variables auxiliares
 	DIR *dir;
 	struct dirent *entrada = 0;
-	std::list< std::pair<std::string, std::string> > listaArchivos;
 	unsigned char esDirectorio =0x4;
 
 	// Abrimos directorio y procesamos si fue exitosa la apertura
@@ -106,11 +105,13 @@ std::list< std::pair<std::string, std::string> > ManejadorDeArchivos::obtenerArc
 			if (entrada->d_type == esDirectorio)
 				continue;
 
-			// Insertamos el nombre de archivo en la lista
+			// Insertamos el archivo en la lista
+			Archivo archivo(entrada->d_name);
 			std::string hash_archivo = Hash::funcionDeHash(entrada->d_name, strlen(entrada->d_name));
-			std::string nombre_archivo = entrada->d_name;
-			std::pair<std::string, std::string> dupla (nombre_archivo, hash_archivo);
-			listaArchivos.push_back(dupla);
+			archivo.asignarHash(hash_archivo);
+			// DEBUG: Hardcode!
+			archivo.asignarFechaDeModificacion("1");
+			listaArchivos->insertarUltimo(archivo);
 		}
 
 		closedir(dir);
@@ -118,6 +119,5 @@ std::list< std::pair<std::string, std::string> > ManejadorDeArchivos::obtenerArc
 	else 
 		throw "ERROR: No se ha podido abrir el directorio.";
 
-	return listaArchivos;
 }
 

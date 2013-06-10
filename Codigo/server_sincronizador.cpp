@@ -74,25 +74,30 @@ void Sincronizador::run() {
 			std::string respuesta = S_FILES_LIST + " ";
 			
 			// Pide la lista de archivos que tiene el server
-			std::list< std::pair<std::string, std::string> > lista = 
-				this->manejadorDeArchivos->obtenerArchivosDeDirectorio();
+			Lista<Archivo>* lista = new Lista<Archivo>;
+			this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
 			std::string lista_string;
-			std::pair<std::string, std::string> aux;
+			Archivo aux;
 
 			// Se guarda la lista en un string
-			while (!lista.empty()) {
-				aux = lista.front();
-				lista_string.append(aux.first);
+			while (!lista->estaVacia()) {
+				aux = lista->verPrimero();
+				lista_string.append(aux.obtenerNombre());
 				lista_string.append(" ");
-				lista_string.append(aux.second);
+				lista_string.append(aux.obtenerHash());
 				lista_string.append(" ");
-				lista.pop_front();
+				lista_string.append(aux.obtenerFechaDeModificacion());
+				lista_string.append(" ");
+				lista->eliminarPrimero();
 			}
+			delete(lista);
 
 			// Se agrega la lista al mensaje de respuesta
 			respuesta.append(lista_string);
 
+			// DEBUG
 			std::cout << "Lista de archivos: " << lista_string << std::endl;
+			//END DEBUG
 			
 			// Se envia la respuesta al cliente
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
