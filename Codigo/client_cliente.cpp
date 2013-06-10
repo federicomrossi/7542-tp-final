@@ -129,10 +129,13 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Si la conexión no se encuentra activa, no hacemos nada
 	if(!estadoConexion) return;
 
-	// Creamos los módulos que conforman al cliente
+	// Creamos los módulos primarios
 	this->emisor = new Emisor(this->socket);
 	this->receptor = new Receptor(this->socket);
 	this->manejadorDeArchivos = new ManejadorDeArchivos(this->directorio);
+	
+	//
+
 	this->sincronizador = new Sincronizador(emisor);
 	this->receptorDeArchivos = new ReceptorDeArchivos(manejadorDeArchivos);
 	this->inspector = new Inspector(manejadorDeArchivos, sincronizador,
