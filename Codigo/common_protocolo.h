@@ -34,6 +34,7 @@ const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
 const std::string S_FILES_LIST = "FILES-LIST";
 const std::string S_NOTIFY_CHANGE = "FILE-CHANGED";
 const std::string S_NOTIFY_NEW = "NEW-FILE";
+const std::string S_NO_SUCH_FILE = "NO-SUCH-FILE";
 
 // Constantes para los identificadores de instrucciones comunes al servidor
 // y al cliente

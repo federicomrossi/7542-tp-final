@@ -77,20 +77,24 @@ void Actualizador::ejecutarActualizacion() {
 	// Realizamos la petición de envío y espera de recepción de archivos
 	// faltantes
 	for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
-		// int obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo);
 		// Emisión de la petición de archivo
 		std::string mensaje = C_FILE_REQUEST + " " + 
 			listaArchivosFaltantes[i].obtenerNombre();
 		std::cout << "PIDO: " <<  mensaje << std::endl;
 		this->emisor->ingresarMensajeDeSalida(mensaje);
 
-		std::string instruccion, args;
+		std::string instr, args;
 		
 		// Esperamos a recibir el archivo
-		while(instruccion != COMMON_SEND_FILE) {
+		while(instr != COMMON_SEND_FILE && instr != S_NO_SUCH_FILE) {
 			std::string msg = this->receptor->obtenerMensajeDeEntrada();
-			this->parserMensaje(msg, instruccion, args);
+			this->parserMensaje(msg, instr, args);
+			std::cout << "RESPONDIO ANTE PETICION: " << instr << " " << args << std::endl;
 		}
+
+
+		// Si el servidor notifica que ya no existe el archivo, salteamos
+		if(instr == S_NO_SUCH_FILE) continue;
 
 		// Parseamos el archivo
 		Archivo a;
@@ -98,7 +102,7 @@ void Actualizador::ejecutarActualizacion() {
 
 		// Almacenamos el nuevo archivo
 		this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
-			a.obtenerNumBloque(), a.obtenerBloque());
+			"WHOLE_FILE", a.obtenerBloque());
 	}
 
 	// for(size_t i = 0; i < listaArchivosParaEnviar.tamanio(); i++) {

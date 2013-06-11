@@ -65,8 +65,23 @@ void Sincronizador::run() {
 
 		// Caso en que un cliente solicita un archivo
 		if(instruccion == C_FILE_REQUEST) {
-			// Armamos mensaje y lo enviamos al cliente que realizó solicitud
-			std::string msg_salida = COMMON_SEND_FILE + " ";
+			Archivo a;
+			std::string msg_salida;
+
+			// Buscamos el archivo en el directorio y armamos mensaje
+			if(!this->manejadorDeArchivos->obtenerArchivo(args, a)){
+				msg_salida = S_NO_SUCH_FILE + " " + args;
+				std::cout << "NO EXISTE ARCHIVO: " << msg_salida << std::endl;
+			}
+			else{
+				msg_salida = COMMON_SEND_FILE + " " + a.obtenerNombre()
+					+ " " + a.obtenerNumBloque() + " " + a.obtenerBloque() 
+					+ " " + a.obtenerHash() + " " 
+					+ a.obtenerFechaDeModificacion();
+				std::cout << "EXISTE ARCHIVO: " << msg_salida << std::endl;
+			}
+
+			// Enviamos mensaje al cliente que realizó solicitud
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
 		}
 		else if (instruccion == C_GET_FILES_LIST) {	
