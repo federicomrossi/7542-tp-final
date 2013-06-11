@@ -30,7 +30,7 @@ public:
 	static std::string uitoh(uint8_t *a, size_t size);
 
 	// Convierte un string de contenido hexadecimal a un unsigned int
-	static uint8_t* htoui(std::string& s);
+	static uint8_t* htoui(const std::string& s);
 
 	// Convierte un string en un integer
 	static int stoi(const std::string& s);

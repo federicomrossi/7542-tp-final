@@ -44,7 +44,7 @@ std::string Convertir::uitoh(uint8_t *a, size_t size) {
 
 
 // Convierte un string de contenido hexadecimal a un unsigned int
-uint8_t* Convertir::htoui(std::string& s) {
+uint8_t* Convertir::htoui(const std::string& s) {
 	uint8_t *a = new uint8_t[s.size() / 2];
 	int j = 0;
 

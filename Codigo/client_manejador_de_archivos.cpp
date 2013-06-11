@@ -464,8 +464,12 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 	}
 
 	if (cod_error == 0) {
+
+		// Se convierte el archivo de hexa a char nuevamente
+		std::string bloque_uint = (char*)Convertir::htoui(bloque_archivo);
+
 		// Se escribe el contenido en el archivo
-		archivo.write(bloque_archivo.c_str(), bloque_archivo.length());
+		archivo.write(bloque_uint.c_str(), bloque_uint.length());
 	
 		// Se cierra el archivo
 		archivo.close();	
