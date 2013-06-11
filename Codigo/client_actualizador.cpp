@@ -212,6 +212,3 @@ void Actualizador::parserArchivos(const std::string& listaDeArchivos,
 		lista->insertarUltimo(a);
 	}
 }
-
-
-

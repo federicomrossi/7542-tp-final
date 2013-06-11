@@ -51,7 +51,6 @@ public:
 	~Configuracion();
 
 	// Devuelve el valor especifico que se necesita
-
 	std::string getInfo(std :: string &cadena);
 
 	// Devuelve el directorio en el que se desea sincronizar.

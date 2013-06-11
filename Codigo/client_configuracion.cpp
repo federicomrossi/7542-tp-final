@@ -33,7 +33,7 @@ Configuracion::Configuracion() {
 Configuracion::~Configuracion() { }
 
 
-
+// Devuelve el valor especifico que se necesita
 std::string Configuracion::getInfo(std :: string &cadena) {
 	string val;
 	unsigned pos = cadena.find(CONFIG_SEPARATOR);         // position of "=" in cadena
@@ -44,7 +44,8 @@ std::string Configuracion::getInfo(std :: string &cadena) {
 // Devuelve el directorio en el que se desea sincronizar.
 std::string Configuracion::obtenerDirectorio() {
 	string* cadena = new string();
-	this->Archivo = new ArchivoTexto ("Settings.txt",0);
+	this->Archivo = new ArchivoTexto (CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,0);
 	bool estado = false;
 	while(estado == (this->Archivo->leerLinea(*cadena, '\n', CONFIG_P_DIR)));
 	string result = getInfo(*cadena);
@@ -56,7 +57,8 @@ std::string Configuracion::obtenerDirectorio() {
 // Devuelve el host del servidor.
 std::string Configuracion::obtenerHost() {
 	string* cadena = new string();
-	this->Archivo = new ArchivoTexto ("Settings.txt",0);
+	this->Archivo = new ArchivoTexto (CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,0);
 	bool estado = false;
 	while(estado == (this->Archivo->leerLinea(*cadena, '\n', CONFIG_P_HOST)));
 	string result = getInfo(*cadena);
@@ -69,7 +71,8 @@ std::string Configuracion::obtenerHost() {
 // Devuelve el puerto del servidor.
 int Configuracion::obtenerPuerto() {
 	string* cadena = new string();
-	this->Archivo = new ArchivoTexto ("Settings.txt",0);
+	this->Archivo = new ArchivoTexto (CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,0);
 	bool estado = false;
 	while(estado == (this->Archivo->leerLinea(*cadena, '\n', CONFIG_P_PORT)));
 	string result = getInfo(*cadena);
@@ -81,7 +84,8 @@ int Configuracion::obtenerPuerto() {
 // Devuelve el intervalo de polling en segundos.
 int Configuracion::obtenerIntervaloDePolling() {
 	string* cadena = new string();
-	this->Archivo = new ArchivoTexto ("Settings.txt",0);
+	this->Archivo = new ArchivoTexto (CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,0);
 	bool estado = false;
 	while(estado == (this->Archivo->leerLinea(*cadena, '\n', CONFIG_P_POLL)));
 	string result = getInfo(*cadena);
@@ -92,7 +96,8 @@ int Configuracion::obtenerIntervaloDePolling() {
 
 void Configuracion::guardarCambios(string host,string puerto,string dir, string polling) {
 
-	this->Archivo = new ArchivoTexto("Settings.txt",1);
+	this->Archivo = new ArchivoTexto(CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,1);
 	string* aux = new string();
 	*aux += "#SETTINGS USER";
 	*aux += '\n';

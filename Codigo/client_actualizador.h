@@ -65,8 +65,6 @@ public:
 
 	// Inicia la actualización del directorio
 	void ejecutarActualizacion();
-
-
 };
 
 #endif

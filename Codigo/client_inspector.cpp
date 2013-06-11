@@ -137,6 +137,7 @@ void Inspector::run() {
 
 
 
+
 /*
  * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
