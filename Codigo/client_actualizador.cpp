@@ -146,27 +146,34 @@ void Actualizador::parserMensaje(const std::string& msg,
 }
 
 
+
 // Parsea los datos de un archivo
 // PRE: 'args' es la cadena que contiene los datos separados por una coma: 
 // [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero al 
 // objeto Archivo en donde se almacenarán dichos datos.
-void Actualizador::parserArchivo(const std::string args, Archivo *archivo) {
-	std::stringstream argsTemp(args);
+void Actualizador::parserArchivo(const std::string argumentos, Archivo *archivo) {
 
-	// Variables auxiliares
-	std::string nombre, numBloque, bloque, hash, fecha;
+	// El mensaje viene en el formato "<Nombre,Numero_Bloque,Bloque,Hash,Fecha>"
+	// Divididos por una ','
+	std::string args[5];
+	std::string aux;
+	std::string msj = argumentos;
+	int i;
+	int delim = 0;
+	
+	// Se parsea el mensaje
+	for (i = 0; i < 5; i++) {
+		delim = msj.find(COMMON_DELIMETER);
+		aux = msj.substr(0, delim);
+		msj.erase(0, delim + 1);
+		args[i].assign(aux.c_str());
+	}	
 
-	getline(argsTemp, nombre, COMMON_FILE_PARAMETER_DELIMITER);
-	getline(argsTemp, numBloque, COMMON_FILE_PARAMETER_DELIMITER);
-	getline(argsTemp, bloque, COMMON_FILE_PARAMETER_DELIMITER);
-	getline(argsTemp, hash, COMMON_FILE_PARAMETER_DELIMITER);
-	getline(argsTemp, fecha, COMMON_FILE_PARAMETER_DELIMITER);
-
-	archivo->asignarNombre(nombre);
-	archivo->asignarNumBloque(numBloque);
-	archivo->asignarBloque(bloque);
-	archivo->asignarHash(hash);
-	archivo->asignarFechaDeModificacion(fecha);
+	archivo->asignarNombre(args[0]);
+	archivo->asignarNumBloque(args[1]);
+	archivo->asignarBloque(args[2]);
+	archivo->asignarHash(args[3]);
+	archivo->asignarFechaDeModificacion(args[4]);
 }
 
 
@@ -176,16 +183,27 @@ void Actualizador::parserArchivo(const std::string args, Archivo *archivo) {
 // en la que se almacenarán los objetos de tipo Archivo producto del parseo.
 void Actualizador::parserArchivos(const std::string& listaDeArchivos, 
 	Lista< Archivo > *lista) {
-	std::stringstream listaTemp(listaDeArchivos);
-
-	// Variables auxiliares
-	std::string nombre, hash, fecha;
 	
+	// Variables auxiliares
+	std::string args[3];
+	std::string aux;
+	std::string msj = listaDeArchivos;
+	int i;
+	int delim = 0;
+	
+
 	// Creamos archivo y lo insertamos en la lista
-	while(listaTemp >> nombre >> hash >> fecha) {
-		Archivo a(nombre);
-		a.asignarHash(hash);
-		a.asignarFechaDeModificacion(fecha);
+	while(!msj.empty()) {	
+		// Se parsea el mensaje
+		for (i = 0; i < 3; i++) {
+			delim = msj.find(COMMON_DELIMETER);
+			aux = msj.substr(0, delim);
+			msj.erase(0, delim + 1);
+			args[i].assign(aux.c_str());
+		}
+		Archivo a(args[0]);
+		a.asignarHash(args[1]);
+		a.asignarFechaDeModificacion(args[2]);
 		lista->insertarUltimo(a);
 	}
 }
