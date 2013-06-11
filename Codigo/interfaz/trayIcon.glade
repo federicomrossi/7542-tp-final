@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkStatusIcon" id="statusicon">
+    <property name="pixbuf">logo_au.png</property>
+    <property name="file">logo_au.png</property>
+    <property name="has_tooltip">True</property>
+    <property name="tooltip_text" translatable="yes">AU - Archivos Ubicuos</property>
+  </object>
+</interface>

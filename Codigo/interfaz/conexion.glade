@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkAction" id="action1"/>
   <object class="GtkWindow" id="conexion">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -164,12 +163,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkStatusIcon" id="trayIcon">
-    <property name="pixbuf">logo_au.png</property>
-    <property name="file">logo_au.png</property>
-    <property name="stock">icono</property>
-    <property name="has_tooltip">True</property>
-    <property name="tooltip_text" translatable="yes">Archivos Ubicuos</property>
   </object>
 </interface>

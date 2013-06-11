@@ -7,6 +7,7 @@
 #ifndef CONFIGURACION_H
 #define CONFIGURACION_H
 
+#include "client_archivoTexto.h"
 
 // CONSTANTES
 namespace {
@@ -39,7 +40,7 @@ namespace {
 
 class Configuracion {
 private:
-
+	ArchivoTexto* Archivo;
 
 public:
 
@@ -48,6 +49,10 @@ public:
 
 	// Destructor
 	~Configuracion();
+
+	// Devuelve el valor especifico que se necesita
+
+	std::string getInfo(std :: string &cadena);
 
 	// Devuelve el directorio en el que se desea sincronizar.
 	std::string obtenerDirectorio();
@@ -60,18 +65,10 @@ public:
 
 	// Devuelve el intervalo de polling en segundos.
 	int obtenerIntervaloDePolling();
+	
+	// Guarda cambios realizados sobre la configuracion.
+	void guardarCambios(string host,string puerto,string dir, string polling);
 
-	// Actualiza el directorio en el que se desea sincronizar.
-	void asignarDirectorio(std::string directorio);
-
-	// Actualiza el host del servidor.
-	void asignarHost(std::string host);
-
-	// Actualiza el puerto del servidor.
-	void asignarPuerto(int puerto);
-
-	// Actualiza el intervalo de polling, el cual debe estar en segundos.
-	void asignarIntervaloDePolling(int intervalo);
 };
 
 #endif

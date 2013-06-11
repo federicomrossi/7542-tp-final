@@ -23,6 +23,7 @@
 #include <iostream>
 #include "client_interfaz_conexion.h"
 #include "client_cliente.h"
+#include "client_interfaz_trayIcon.h"
 
 
 
@@ -35,6 +36,11 @@ int main (int argc, char** argv) {
 	
 	Conexion ventanaConexion(cli);
 	ventanaConexion.correr();
+	
+	
+	
+	//TrayIcon trayConectado(cli);
+	//trayConectado.correr();
 
 	// Liberamos memoria usada por el cliente
 	delete cli;
