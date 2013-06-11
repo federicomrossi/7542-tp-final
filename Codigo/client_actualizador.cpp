@@ -68,19 +68,12 @@ void Actualizador::ejecutarActualizacion() {
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaArchivos,
 		&listaArchivosFaltantes, &listaArchivosParaEnviar);
 
-
-	// Mensaje de log
-	std::cout << "LISTA FALTANTES: " << listaArchivosFaltantes.tamanio() << std::endl;
-	std::cout << "LISTA A ENVIAR: " << listaArchivosParaEnviar.tamanio() << std::endl;
-   	std::cout.flush();
-
 	// Realizamos la petición de envío y espera de recepción de archivos
 	// faltantes
 	for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
 		// Emisión de la petición de archivo
 		std::string mensaje = C_FILE_REQUEST + " " + 
 			listaArchivosFaltantes[i].obtenerNombre();
-		std::cout << "PIDO: " <<  mensaje << std::endl;
 		this->emisor->ingresarMensajeDeSalida(mensaje);
 
 		std::string instr, args;
@@ -89,7 +82,6 @@ void Actualizador::ejecutarActualizacion() {
 		while(instr != COMMON_SEND_FILE && instr != S_NO_SUCH_FILE) {
 			std::string msg = this->receptor->obtenerMensajeDeEntrada();
 			this->parserMensaje(msg, instr, args);
-			std::cout << "RESPONDIO ANTE PETICION: " << instr << " " << args << std::endl;
 		}
 
 
@@ -115,6 +107,10 @@ void Actualizador::ejecutarActualizacion() {
 	// 		listaArchivosFaltantes[i].obtenerFechaDeModificacion();
 	// 	this->emisor->ingresarMensajeDeSalida(mensaje);
 	// }
+
+	// Mensaje de log
+	std::cout << "Actualizando registro de archivos locales... " << std::endl;
+   	std::cout.flush();
 
 	// Actualizamos el registro de archivos
 	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
@@ -209,7 +205,7 @@ void Actualizador::parserArchivos(const std::string& listaDeArchivos,
 			msj.erase(0, delim + 1);
 			args[i].assign(aux.c_str());
 		}
-		std::cout << "Mensaje parseado: " << args[0] << " " << args[1] << " " << args[2] << std::endl;
+
 		Archivo a(args[0]);
 		a.asignarHash(args[1]);
 		a.asignarFechaDeModificacion(args[2]);

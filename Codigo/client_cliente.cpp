@@ -148,11 +148,11 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	this->inspector = new Inspector(manejadorDeArchivos, sincronizador,
 		intervaloPolling);
 	this->manejadorDeNotificaciones = new ManejadorDeNotificaciones(receptor,
-		sincronizador, receptorDeArchivos);
+		inspector, receptorDeArchivos);
 
 	// Ponemos en marcha los módulos
-	this->manejadorDeNotificaciones->start();
 	this->inspector->iniciar();
+	this->manejadorDeNotificaciones->start();
 }
 
 
