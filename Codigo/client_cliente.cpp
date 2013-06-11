@@ -8,9 +8,8 @@
 #include <sstream>
 #include "common_comunicador.h"
 #include "common_convertir.h"
+#include "client_actualizador.h"
 #include "client_cliente.h"
-
-
 
 
 
@@ -129,22 +128,31 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Si la conexión no se encuentra activa, no hacemos nada
 	if(!estadoConexion) return;
 
-	// Creamos los módulos que conforman al cliente
+	// Creamos los módulos primarios
 	this->emisor = new Emisor(this->socket);
 	this->receptor = new Receptor(this->socket);
 	this->manejadorDeArchivos = new ManejadorDeArchivos(this->directorio);
+	
+	// Ponemos en marcha los módulos
+	this->receptor->iniciar();
+	this->emisor->iniciar();
+
+	// Iniciamos la actualización del directorio local
+	Actualizador actualizador(this->emisor, this->receptor,
+		this->manejadorDeArchivos);
+	actualizador.ejecutarActualizacion();
+
+	// Creamos los módulos para la sincronización en tiempo real
 	this->sincronizador = new Sincronizador(emisor);
 	this->receptorDeArchivos = new ReceptorDeArchivos(manejadorDeArchivos);
 	this->inspector = new Inspector(manejadorDeArchivos, sincronizador,
 		intervaloPolling);
 	this->manejadorDeNotificaciones = new ManejadorDeNotificaciones(receptor,
-		sincronizador, receptorDeArchivos);
+		inspector, receptorDeArchivos);
 
 	// Ponemos en marcha los módulos
-	this->receptor->iniciar();
-	this->emisor->iniciar();
-	this->manejadorDeNotificaciones->start();
 	this->inspector->iniciar();
+	this->manejadorDeNotificaciones->start();
 }
 
 

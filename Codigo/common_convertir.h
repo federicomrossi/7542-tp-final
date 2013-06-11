@@ -12,8 +12,7 @@
 
 #include <string.h>
 #include <stdint.h>
-
-
+#include <ctype.h>
 
 
 /* ****************************************************************************
@@ -38,6 +37,9 @@ public:
 
 	// Convierte un integer en un string
 	static std::string itos(const int i);
+
+	// Convierte un string en un string en minusculas
+	static std::string toLowercase(const std::string &s);
 };
 
 

@@ -75,3 +75,17 @@ std::string Convertir::itos(const int i) {
     s << i;
     return s.str();
 }
+
+// Convierte un string en un string en minusculas
+std::string Convertir::toLowercase(const std::string &s) {
+	std::string d;
+	int i;
+	for (i = 0; i < (int)s.length(); i++) {
+		if (isalpha(s[i]))
+			d += (char)tolower(s[i]);
+		else
+			d += s[i];
+	}
+	return d;
+}
+

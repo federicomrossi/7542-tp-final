@@ -23,6 +23,7 @@
 // cliente
 // FORMATO DE LAS CONSTANTES: C_[instruccion]
 const std::string C_LOGIN_REQUEST = "LOGIN-REQUEST";
+const std::string C_GET_FILES_LIST = "GET-FILES-LIST";
 const std::string C_FILE_REQUEST = "FILE-REQUEST";
 
 // Constantes para los identificadores de instrucciones enviadas por el
@@ -30,8 +31,10 @@ const std::string C_FILE_REQUEST = "FILE-REQUEST";
 // FORMATO DE LAS CONSTANTES: S_[instruccion]
 const std::string S_LOGIN_OK = "LOGIN-OK";
 const std::string S_LOGIN_FAIL = "LOGIN-FAIL";
+const std::string S_FILES_LIST = "FILES-LIST";
 const std::string S_NOTIFY_CHANGE = "FILE-CHANGED";
 const std::string S_NOTIFY_NEW = "NEW-FILE";
+const std::string S_NO_SUCH_FILE = "NO-SUCH-FILE";
 
 // Constantes para los identificadores de instrucciones comunes al servidor
 // y al cliente
@@ -41,12 +44,10 @@ const std::string COMMON_MSG_IS_FILE = "f";
 const std::string COMMON_SEND_FILE = "SEND-FILE";
 const std::string COMMON_MODIFY_FILE = "MODIFY-FILE";
 const std::string COMMON_DELETE_FILE = "DELETE-FILE";
+const std::string COMMON_DELIMITER = ",";
 
 // Constante para caracter de fin de instrucción
 const char FIN_MENSAJE = '\n';
-
-// Constante para hacer referencia al archivo entero
-const std::string WHOLE_FILE = "FFFF";
 
 
 #endif

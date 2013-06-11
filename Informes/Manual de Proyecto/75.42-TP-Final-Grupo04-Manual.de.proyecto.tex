@@ -1,0 +1,291 @@
+\documentclass{article}
+
+%% PAQUETES
+
+% Paquetes generales
+\usepackage[margin=2cm, paperwidth=210mm, paperheight=297mm]{geometry}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+
+% Paquetes para estilos
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{colortbl}
+\usepackage{color}
+\usepackage{color}
+\usepackage{upquote}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+
+% Paquetes extras
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{color}
+
+%% Fin PAQUETES
+
+
+% Definición de preferencias para la impresión de código fuente.
+%% Colores
+\definecolor{gray99}{gray}{.99}
+\definecolor{gray95}{gray}{.95}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray50}{gray}{.50}
+\definecolor{keywords_blue}{rgb}{0.13,0.13,1}
+\definecolor{comments_green}{rgb}{0,0.5,0}
+\definecolor{strings_red}{rgb}{0.9,0,0}
+
+%% Caja de código
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFont{style_labelfont}{\color{black}\textbf}
+\DeclareCaptionFont{style_textfont}{\it\color{black}}
+\DeclareCaptionFormat{listing}{\colorbox{gray95}{\parbox{16.78cm}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=style_labelfont,textfont=style_textfont}
+
+\lstset{
+	aboveskip = {1.5\baselineskip},
+	backgroundcolor = \color{gray99},
+	basicstyle = \ttfamily\footnotesize,
+	breakatwhitespace = true,   
+	breaklines = true,
+	captionpos = t,
+	columns = fixed,
+	commentstyle = \color{comments_green},
+	escapeinside = {\%*}{*)}, 
+	extendedchars = true,
+	frame = lines,
+	keywordstyle = \color{keywords_blue}\bfseries,
+	language = Oz,                       
+	numbers = left,
+	numbersep = 5pt,
+	numberstyle = \tiny\ttfamily\color{gray50},
+	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	rulecolor = \color{gray75},
+	showspaces = false,
+	showstringspaces = false, 
+	showtabs = false,
+	stepnumber = 1,
+	stringstyle = \color{strings_red},                                    
+	tabsize = 2,
+	title = \null, % Default value: title=\lstname
+	upquote = true,                  
+}
+
+%% FIGURAS
+\captionsetup[figure]{labelfont=bf,textfont=it}
+%% TABLAS
+\captionsetup[table]{labelfont=bf,textfont=it}
+
+% COMANDOS
+
+%% Titulo de las cajas de código
+\renewcommand{\lstlistingname}{Código}
+%% Titulo de las figuras
+\renewcommand{\figurename}{Figura}
+%% Titulo de las tablas
+\renewcommand{\tablename}{Tabla}
+%% Referencia a los códigos
+\newcommand{\refcode}[1]{\textit{Código \ref{#1}}}
+%% Referencia a las imagenes
+\newcommand{\refimage}[1]{\textit{Imagen \ref{#1}}}
+
+
+\begin{document}
+\pagenumbering{roman}
+\setcounter{page}{5}
+
+
+
+% TÍTULO, AUTORES Y FECHA
+\begin{titlepage}
+	\vspace*{\fill}
+	\begin{center}
+		\Large 75.42 Taller de Programación I \\
+		\Huge TP N°5: Archivos Ubicuos \\
+		\bigskip\huge\textit{Grupo 04} \\
+		\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+		\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
+		\medskip\huge\textit{``Manual de Proyecto''} \\
+		\date{}
+	\end{center}
+	\vspace*{\fill}
+\end{titlepage}
+\newpage
+
+
+
+
+% ÍNDICE
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+
+
+
+% INTEGRANTES
+\section{Ingregrantes}
+
+	El grupo se encuentra conformado por los siguientes alumnos:
+	\smallskip
+
+	\begin{itemize}
+	\itemsep=5pt \topsep=0pt \partopsep=0pt \parskip=0pt \parsep=0pt
+
+		\item Belén Beltran (91718) - \textit{belubeltran@gmail.com}
+		\item Fiona Gonzalez Lisella (91454) - \textit{dynamo89@gmail.com}
+		\item Federico Martín Rossi (92086) - \textit{federicomrossi@gmail.com}
+
+	\end{itemize}	
+\bigskip
+
+
+
+
+% ENUNCIADO
+\section{Enunciado}
+	
+	Se propone realizar un servicio similar al del conocido producto \textit{DropBox}\cite{DROPBOX}, que se denominará \textit{Archivos Ubicuos (AU)}. Este servicio debe permitir que los distintos usuarios tengan, cada uno en su computadora, un directorio (que a los fines de la aplicación se denominará ``directorio de AU'') cuyo contenido debe sincronizarse automáticamente con el directorio de AU del usuario enotras computadoras.
+\bigskip
+
+
+
+% ENUNCIADO - Descripción general
+\subsection{Descripción general}
+\smallskip
+
+	El servicio estará compuesto por las siguientes aplicaciones:
+	\smallskip
+
+	\begin{itemize}
+	\itemsep=8pt \topsep=0pt \partopsep=0pt \parskip=0pt \parsep=0pt
+
+		\item \textbf{Aplicación cliente}: corre en las computadoras de los usuarios. Debe contar con la posibilidad de configurar el acceso al servicio de AU (usuario y contraseña) así como también el directorio que se sincronizará. Dado que para este desarrollo no se contará con un host fijo de contacto para el servidor, se permitirá además configurar el IP del servidor al que el cliente debe conectarse.De acuerdo a las decisiones de arquitectura que realice el grupo, también se deberán configurar números de puertos, intervalo de polling, etc. La aplicación deberá contar con una pequeña interfaz gráfica para efectuar estas configuraciones, y deberá soportar su persistencia en disco;
+
+		\item \textbf{Aplicación servidor}: corre en una computadora determinada. Se encarga de mantener el registro de usuarios, de computadoras de dichos usuarios con sus estados de conexión, y de archivos. Además, almacena una copia de los mismos, para que cuando se conecta un cliente pueda sincronizarse. Esta aplicación debe permitir la realización de configuraciones (tales como puertos, ruta donde almacenar archivos) en un archivo del tipo properties que se ubicará en un lugar previamente conocido;
+
+		\item \textbf{Aplicación monitor}: corre en la misma computadora que la aplicación servidor y permite realizar las mismas configuraciones que se encuentran en el archivo de properties del servidor en forma gráfica, y generar un gráfico de cantidad de bytes almacenados en función del tiempo (actualizado cada un período a determinar por el grupo). Además, contiene la funcionalidad necesaria para gestionar altas, bajas y modificaciones de los usuarios que acceden al servicio.
+
+	\end{itemize}
+\bigskip
+
+
+
+% ENUNCIADO - Restricciones
+\subsection{Restricciones}
+\smallskip
+
+	Cada usuario podrá tener un solo directorio de AU en una computadora determinada. La ruta a este directorio, así como las credenciales de autenticación en el servicio, se almacenarán según criterio del grupo.
+	\par
+	Las aplicaciones deben tener un mecanismo de logging (\textit{log4cpp}, \textit{syslog} o similar) que permita conocer los eventos más relevantes que han sucedido para una eventual sesión de debugging o una auditoría sobre las acciones realizadas.
+	\par
+	La detección de cambios respecto de la copia almacenada en el servidor es una tarea compleja, razón por la cual, el grupo podrá realizar propuestas al respecto, aunque como condición inicial se espera que se base en un algoritmo de hashing conocido (tal como \textit{MD5} o \textit{SHA} -  DropBox emplea \textit{SHA256} como parte de su técnica de almacenamiento), con posibles optimizaciones en base a nombre, fecha, tamaño, etc.
+	\par
+	Para esta versión del servicio no se requieren funcionalidades de carpetas compartidas, encriptación de los archivos propiamente dichos, transferencia peertopeer entre clientes, ni posibilidad de ver historial de archivos. Por otro lado, si se requiere el particionamiento de archivos en bloques, además de que debe considerarse que si un cliente se desconecta en medio de la transferencia de un archivo, el resultado debe ser consistente.
+\bigskip
+
+
+
+% ENUNCIADO - Características opcionales
+\subsection{Características opcionales}
+\smallskip
+
+	Sólo se requiere sincronizar el usuario actualmente logueado en la computadora (y se puede asumir que será solo uno). No se requiere almacenar subdirectorios en forma recursiva (puede asumirse que todos los archivos se encontrarán a nivel del directorio de au), aunque es un agregado opcional que puede implementarse (podría utilizarse el path completo como nombre del archivo en las comunicaciones e índices).
+	\par
+	El grupo deberá proponer el modo de ejecución de la aplicación cliente. En caso de decidir opcionalmente la generación de un daemon (para por ejemplo iniciar automáticamente el cliente junto con el sistema), debe darse la opción alternativa de ejecución manual a fines de facilitar que los ayudantes correctores eviten alterar las configuraciones de sus computadoras de prueba.
+\bigskip
+
+
+
+
+% DIVISION DE TAREAS
+\section{División de tareas}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+
+% EVOLUCIÓN DEL PROYECTO
+\section{Evolución del proyecto}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+
+% INCONVENIENTES ENCONTRADOS
+\section{Inconvenientes encontrados}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+
+% ANALISIS DE PUNTOS PENDIENTES
+\section{Análisis de puntos pendientes}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+
+% HERRAMIENTAS
+\section{Herramientas}
+
+	A continuación se listan las herramientas auxiliares que han sido utilizadas a lo largo de la realización del proyecto:
+	\smallskip
+
+	\begin{itemize}
+	\itemsep=8pt \topsep=0pt \partopsep=0pt \parskip=0pt \parsep=0pt
+
+		\item \textbf{GIT}\footnote{Se ha utilizado el servicio de control de versiones \textit{GitHub}\cite{GITHUB}. Puede accederse al repositorio del grupo ingresando en\\ \url{https://github.com/federicomrossi/7542-tp-final-grupo04}.}, controlador de versiones (\url{http://git-scm.com/});
+
+		\item \textbf{Glade}, editor de interfaz gráfica (\url{http://glade.gnome.org/});
+
+		\item \textbf{Sublime Text 2}, editor de texto (\url{http://www.sublimetext.com/2});
+
+		\item \textbf{Gedit}, editor de texto (\url{http://projects.gnome.org/gedit/});
+
+		\item \textbf{Valgrind}, herramienta de depuración de problemas de memoria y rendimiento de programas \\(\url{http://www.valgrind.org/});
+
+		\item \textbf{GNU Debugger}, depurador estándar para el compilador GNU (\url{http://www.gnu.org/software/gdb/});
+
+		\item \textbf{LaTeX}, sistema de composición de textos (\url{http://www.latex-project.org/}).
+
+	\end{itemize}	
+
+\bigskip
+
+
+
+
+% CONCLUSIONES
+\section{Conclusiones}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+% Referencias
+\begin{thebibliography}{99}
+
+	\bibitem{DROPBOX} DropBox, \url{http://www.dropbox.com/}
+	\bibitem{GITHUB} GitHub, \url{https://github.com/}
+	
+	\end{thebibliography}
+
+
+\end{document}

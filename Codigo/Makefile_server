@@ -33,7 +33,7 @@ gtkmm = si
 S_VGLOGFILE = valgrind_server.out
 
 # Flags para el Valgrind
-S_VGFLAGS = --tool=memcheck --trace-children=yes --track-fds=yes --time-stamp=yes --num-callers=20 --error-exitcode=42 --db-attach=no --leak-check=full --leak-resolution=med --log-file=$(S_VGLOGFILE)
+S_VGFLAGS = --tool=memcheck --trace-children=yes --track-fds=yes --time-stamp=yes --num-callers=20 --error-exitcode=42 --db-attach=no --leak-check=full --leak-resolution=med --leak-check=full --show-reachable=yes --log-file=$(S_VGLOGFILE)
 
 
 

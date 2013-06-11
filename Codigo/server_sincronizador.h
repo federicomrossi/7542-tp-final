@@ -45,6 +45,12 @@ public:
 	// Destructor
 	~Sincronizador();
 
+	// Inicia el sincronizador.
+	void iniciar();
+
+	// Detiene al sincronizador.
+	void detener();
+
 	// Define tareas a ejecutar en el hilo.
 	// Toma los mensajes que van llegando, los procesa y responde a clientes.
 	virtual void run();

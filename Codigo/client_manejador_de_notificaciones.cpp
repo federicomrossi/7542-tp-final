@@ -16,8 +16,8 @@
 
 // Constructor
 ManejadorDeNotificaciones::ManejadorDeNotificaciones(Receptor *receptor,
-	Sincronizador *sincronizador, ReceptorDeArchivos *receptorDeArchivos) :
-	receptor(receptor), sincronizador(sincronizador), 
+	Inspector *inspector, ReceptorDeArchivos *receptorDeArchivos) :
+	receptor(receptor), inspector(inspector), 
 	receptorDeArchivos(receptorDeArchivos) { }
 
 
@@ -43,7 +43,7 @@ void ManejadorDeNotificaciones::run() {
 	
 			// Se envia la notificacion al sincronizador para que 
 			// realice una accion en base a ella.
-			this->sincronizador->recibirNotificacion(mensaje);
+			// this->sincronizador->recibirNotificacion(mensaje);
 		}
 		// Formato de archivo: "<'f'><Instruccion,Arg1-Arg2-Arg3..>"
 		else {

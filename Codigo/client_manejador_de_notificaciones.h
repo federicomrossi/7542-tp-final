@@ -11,12 +11,14 @@
 #include <string>
 #include "common_thread.h"
 #include "client_receptor.h"
-#include "client_sincronizador.h"
+#include "client_inspector.h"
 #include "client_receptor_de_archivos.h"
 
 //DEBUG
 #include <iostream>
 //FIN DEBUG
+
+
 
 /* ****************************************************************************
  * DECLARACIÓN DE LA CLASE
@@ -27,13 +29,13 @@ class ManejadorDeNotificaciones : public Thread {
 private:
 
 	Receptor *receptor;								// Receptor de mensajes
-	Sincronizador *sincronizador;					// Sincronizador
+	Inspector *inspector;							// Inspector
 	ReceptorDeArchivos *receptorDeArchivos;			// Receptor de archivos
 
 public:
 
 	// Constructor
-	ManejadorDeNotificaciones(Receptor *receptor, Sincronizador *sincronizador,
+	ManejadorDeNotificaciones(Receptor *receptor, Inspector *inspector,
 		ReceptorDeArchivos *receptorDeArchivos);
 
 	// Destructor

@@ -1,0 +1,5 @@
+Casos particulares de sincronización
+=========================================
+
+- En la actualización inicial, si el usuario pide un archivo que no tenia, y en ese lapso, otro cliente lo borró, entonces el servidor, en vez de responder con SEND-FILE debe responder con la instrucción NO-SUCH-FILE [nombre] para que se siga de largo en el proceso de actualización.
+

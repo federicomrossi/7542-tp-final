@@ -25,7 +25,7 @@ Carpeta::Carpeta() {
 
 	// Se crea el manejador de archivos
 	// DEBUG: Modificar path
-	std::string path = "server";
+	std::string path = "servidor";
 	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
 
 	// Creamos el sincronizador
@@ -34,21 +34,24 @@ Carpeta::Carpeta() {
 
 	// Iniciamos los hilos
 	this->emisor->iniciar();
-	this->sincronizador->start();
+	this->sincronizador->iniciar();
 }
 
 
 // Destructor
 Carpeta::~Carpeta() {
 	// Detenemos módulos
-	this->sincronizador->stop();
+	this->sincronizador->detener();
+	this->sincronizador->join();
+	
 	this->emisor->detener();
+	this->emisor->join();
 
 	// Liberamos memoria utilizada
+	delete this->sincronizador;
 	delete this->receptor;
 	delete this->emisor;
 	delete this->manejadorDeArchivos;
-	delete this->sincronizador;
 }
 
 

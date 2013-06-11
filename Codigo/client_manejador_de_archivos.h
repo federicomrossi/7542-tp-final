@@ -14,6 +14,17 @@
 #include "common_mutex.h"
 #include "common_lock.h"
 #include "common_cola.h"
+#include "common_lista.h"
+#include "common_archivo.h"
+#include "common_protocolo.h"
+
+
+namespace {
+	// Constante para hacer referencia al archivo entero
+	const std::string WHOLE_FILE = "FFFF";
+}
+
+
 
 //DEBUG
 #include <iostream>
@@ -38,6 +49,10 @@ private:
 	// administrado por el manejador.
 	std::list<std::string> obtenerArchivosDeDirectorio(); 
 
+	// Devuelve una lista con los archivos (ordenados por nombre) que se encuentran 
+	// ubicados en el directorio administrado por el manejador.
+	void obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos);
+
 public:
 
 	// Constructor
@@ -50,6 +65,10 @@ public:
 	// en una cadena de caracteres
 	std::string obtenerContenidoArchivo(const std::string& nombre_archivo);
 
+	// Devuelve un archivo que se localiza en el directorio
+	// De no existir, devuelve un codigo de error = 0
+	bool obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo);
+
 	// Actualiza el registro local de archivos.
 	// PRE: 'nuevos', 'modificados' y 'eliminados' son punteros a cola donde
 	// se insertarán los nombres de archivo correspondientes a la situación
@@ -59,6 +78,19 @@ public:
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
 		Cola< std::string > *modificados, Cola< std::string > *eliminados);
+
+	// Actualiza el registro local de archivos.
+	// POST: se devuelve 'false' si se produjeron cambios en el registro o
+	// 'true' en su defecto; esto evita tener que revisar las colas para
+	// comprobar cambios.
+	bool actualizarRegistroDeArchivos();
+
+	// Recibe una lista de archivos, compara con la que se encuentra localmente 
+	// * Lista: lista de archivos con la cual se compara
+	// * Faltantes: lista de archivos que no estan en el dir local
+	// * Sobrantes: lista de archivos que no estan en la lista
+	void obtenerListaDeActualizacion(Lista<Archivo>* listaExterna, Lista<Archivo>* faltantes,
+		Lista<Archivo>* sobrantes);
 
 	// Elimina un archivo o un bloque de un archivo del directorio local
 	// Devuelve 0 en caso de eliminar correctamente el archivo
@@ -70,6 +102,10 @@ public:
 	// Por ahora solamente guarda archivos enteros, num_bloque = WHOLE_FILE
 	int agregarArchivo(const std::string &nombre_archivo, 
 		const std::string &num_bloque, const std::string &bloque_archivo);
+
+	// Devuelve el hash del archivo con nombre especificado por parametros
+	// De no existir, se devuelve un string vacio
+	std::string obtenerHashArchivo(const std::string &nombre_archivo);
 };
 
 #endif

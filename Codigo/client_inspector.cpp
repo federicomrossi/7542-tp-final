@@ -72,6 +72,7 @@ void Inspector::run() {
 		
 		// Si se detuvo al inspector, salimos
 		if(!this->isActive()) return;
+
 		
 		// Realizamos la inspección
 		Cola< std::string > nuevos;
