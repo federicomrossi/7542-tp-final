@@ -32,6 +32,13 @@ private:
 	Inspector *inspector;							// Inspector
 	ReceptorDeArchivos *receptorDeArchivos;			// Receptor de archivos
 
+	// Parsea el mensaje separando la instruccion de sus argumentos.
+	// PRE: 'msg' es el mensaje que desea parsearse; 'instruccion' y 'args' son
+	// referencias a variables en donde se desea almacenar la instruccion y sus
+	// argumentos respectivamente.
+	void parserMensaje(const std::string& msg, std::string& instruccion,
+		std::string& args);
+
 public:
 
 	// Constructor

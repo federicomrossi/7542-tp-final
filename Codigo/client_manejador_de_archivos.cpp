@@ -412,10 +412,10 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* listaExter
 // Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque) {
-
 	std::fstream archivo;
 	int cod_error = 0;
 
+	// Armamos ruta del archivo
 	std::string ruta = this->directorio + "/" + nombre_archivo;
 
 	// Busca el archivo y si lo encuentra, lo borra
@@ -438,10 +438,10 @@ int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo,
 // Por ahora solamente agrega archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque, const std::string &bloque_archivo) {
-	
 	std::fstream archivo;
 	int cod_error = 0;
 
+	// Armamos ruta del archivo
 	std::string ruta = this->directorio + "/" + nombre_archivo;
 
 	// Intenta abrir el archivo 

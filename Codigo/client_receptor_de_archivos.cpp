@@ -49,6 +49,16 @@ void ReceptorDeArchivos::recibirArchivo(std::string &mensaje) {
 	}
 }
 
+
+// Se encarga de procesar la eliminación de un archivo
+void ReceptorDeArchivos::eliminarArchivo(std::string& nombreArchivo) {
+	this->manejadorDeArchivos->eliminarArchivo(nombreArchivo, WHOLE_FILE);
+}
+
+
+
+
+
 /* Metodos privados */
 
 void ReceptorDeArchivos::parsearMensaje(const std::string &mensaje, std::string &accion,
@@ -76,4 +86,7 @@ void ReceptorDeArchivos::parsearMensaje(const std::string &mensaje, std::string 
 		args[i]->assign(aux.c_str());
 	}
 }
+
+
+
 

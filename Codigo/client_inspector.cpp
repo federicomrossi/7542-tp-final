@@ -56,12 +56,6 @@ void Inspector::establecerIntervaloDeInspeccion(unsigned int segundos) {
 }
 
 
-// CONSIDERAR REMOVER ESTE METODO
-void Inspector::forzarInspeccion() {
-
-}
-
-
 // Define tareas a ejecutar en el hilo.
 // Realiza una inspección cada un intervalo predeterminado.
 void Inspector::run() {
@@ -136,6 +130,36 @@ void Inspector::run() {
 }
 
 
+// Se encarga de corroborar si existe o no un archivo, y en caso de existir
+// corrobora si hay diferencias entre el pasado por parámetro y el que se
+// encuentra localmente.
+// En caso de no existir el archivo, se encarga de realizar la petición del
+// mismo, mientras que si existe pero es una versión vieja, se encarga de
+// realizar la petición del bloque necesario para su actualización hacia
+// la versión mas reciente.
+// PRE: 'archivo' es un Archivo que contiene los datos del archivo a
+// comparar con el local.
+void Inspector::inspeccionarArchivo(Archivo *archivo) {
+	// Objetos auxiliares
+	Archivo archivoTemp;
+
+	// Corroboramos si existe el archivo
+	if(!this->manejadorDeArchivos->obtenerArchivo(archivo->obtenerNombre(),
+		archivoTemp)) {
+		// Si no existe, lo solicitamos al servidor
+		std::string a = archivo->obtenerNombre();
+		this->sincronizador->solicitarArchivoNuevo(a);
+		return;
+	}
+
+	// Como existe, corroboramos si el local es el mas reciente, es decir,
+	// igual al pasado por parámetro
+
+	// [ INSERTAR CODIGO ]
+}
+
+
+
 
 
 /*
@@ -147,4 +171,3 @@ void Inspector::run() {
 void Inspector::alarmaDeInspeccion() {
 	this->sleep(this->intervalo);
 }
-

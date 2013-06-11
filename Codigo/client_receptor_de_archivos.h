@@ -46,6 +46,9 @@ public:
 	// Formato de archivo: "<Instruccion,Nombre_Archivo,Numero_Bloque,Bloque_Archivo>".
 	// Para hacer referencia a todo el archivo, Numero_Bloque = WHOLE_FILE
 	void recibirArchivo(std::string &mensaje);
+
+	// Se encarga de procesar la eliminación de un archivo
+	void eliminarArchivo(std::string& nombreArchivo);
 };
 
 #endif

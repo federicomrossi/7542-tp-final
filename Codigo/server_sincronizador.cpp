@@ -151,9 +151,7 @@ void Sincronizador::run() {
 		}
 		else if (instruccion == COMMON_DELETE_FILE) {
 			// Eliminamos archivo en carpeta del servidor
-			std::string archivo = args;
-			std::string num_bloque = WHOLE_FILE;
-			this->manejadorDeArchivos->eliminarArchivo(archivo, num_bloque);
+			this->manejadorDeArchivos->eliminarArchivo(args, WHOLE_FILE);
 
 			// Enviamos notificación a clientes de que se eliminó archivo
 			std::string msg_salida;

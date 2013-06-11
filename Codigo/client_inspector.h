@@ -51,12 +51,20 @@ public:
 	// PRE: 'segundos' es la cantidad de segundos entre inspecciones.
 	void establecerIntervaloDeInspeccion(unsigned int segundos);
 
-	// CONSIDERAR REMOVER ESTE METODO
-	void forzarInspeccion();
-
 	// Define tareas a ejecutar en el hilo.
 	// Realiza una inspección cada un intervalo predeterminado.
 	virtual void run();
+
+	// Se encarga de corroborar si existe o no un archivo, y en caso de existir
+	// corrobora si hay diferencias entre el pasado por parámetro y el que se
+	// encuentra localmente.
+	// En caso de no existir el archivo, se encarga de realizar la petición del
+	// mismo, mientras que si existe pero es una versión vieja, se encarga de
+	// realizar la petición del bloque necesario para su actualización hacia
+	// la versión mas reciente.
+	// PRE: 'archivo' es un Archivo que contiene los datos del archivo a
+	// comparar con el local.
+	void inspeccionarArchivo(Archivo *archivo);
 };
 
 #endif

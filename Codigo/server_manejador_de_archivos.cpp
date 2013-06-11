@@ -75,17 +75,19 @@ bool ManejadorDeArchivos::obtenerArchivo(const std::string &nombre_archivo, Arch
 // Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque) {
-
 	std::fstream archivo;
 	int cod_error = 0;
 
+	// Armamos ruta del archivo
+	std::string ruta = this->directorio + "/" + nombre_archivo;
+
 	// Busca el archivo y si lo encuentra, lo borra
-	archivo.open(nombre_archivo.c_str(), std::ios_base::in);
+	archivo.open(ruta.c_str(), std::ios_base::in);
 	if (!archivo.is_open())  // No existe el archivo a eliminar
 		cod_error = 1;
 	else {  
 		archivo.close();
-		cod_error = remove(nombre_archivo.c_str());
+		cod_error = remove(ruta.c_str());
 	}
 
 	// DEBUG
@@ -100,23 +102,25 @@ int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo,
 // Devuelve el hash del archivo
 int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque, const std::string &bloque_archivo, std::string &hash) {
-	
 	std::fstream archivo;
 	int cod_error = 0;
 
+	// Armamos ruta del archivo
+	std::string ruta = this->directorio + "/" + nombre_archivo;
+
 	// Intenta abrir el archivo 
-	archivo.open(nombre_archivo.c_str(), std::ios_base::in | std::ios_base::out 
+	archivo.open(ruta.c_str(), std::ios_base::in | std::ios_base::out 
 		| std::ios_base::app);
 
 	if (!archivo.is_open()) {  // El archivo no existe
 		archivo.clear();
 
 		//crea el archivo
-		archivo.open(nombre_archivo.c_str(), std::fstream::out);
+		archivo.open(ruta.c_str(), std::fstream::out);
 		archivo.close();
 
 		// Vuelve a abrir el archivo
-		archivo.open(nombre_archivo.c_str(), std::ios_base::in | std::ios_base::out 
+		archivo.open(ruta.c_str(), std::ios_base::in | std::ios_base::out 
 			| std::ios_base::app);
 		
 		if (!archivo.is_open()) // No se pudo crear el archivo

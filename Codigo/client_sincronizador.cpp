@@ -25,7 +25,7 @@ Sincronizador::~Sincronizador() { }
 
 
 // Crea el evento de envío de un archivo nuevo
-void Sincronizador::enviarArchivo(std::string nombreArchivo, std::string contenido) {
+void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string contenido) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -42,7 +42,7 @@ void Sincronizador::enviarArchivo(std::string nombreArchivo, std::string conteni
 // PRE: 'nombreArchivo' es el nombre de archivo que debe modificarse;
 // 'bloque' es el bloque del archivo que debe ser modificado; 'contenido'
 // son los datos que deben reemplazarse por los existentes.
-void Sincronizador::modificarArchivo(std::string nombreArchivo, int bloque, 
+void Sincronizador::modificarArchivo(std::string& nombreArchivo, int bloque, 
 	std::string contenido) {
 	// Bloqueamos el mutex
 	Lock l(m);
@@ -58,7 +58,7 @@ void Sincronizador::modificarArchivo(std::string nombreArchivo, int bloque,
 
 // Crea el evento de eliminación de un archivo.
 // PRE: 'nombreArchivo' es el nombre de archivo que debe eliminarse.
-void Sincronizador::eliminarArchivo(std::string nombreArchivo) {
+void Sincronizador::eliminarArchivo(std::string& nombreArchivo) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -71,9 +71,16 @@ void Sincronizador::eliminarArchivo(std::string nombreArchivo) {
 
 
 // Crea el evento de solicitud de un archivo nuevo.
-void Sincronizador::solicitarArchivoNuevo() {
+void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 	// Bloqueamos el mutex
 	Lock l(m);
+
+	// Armamos mensaje
+	std::string mensaje = C_FILE_REQUEST + " " + nombreArchivo;
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
+
 	//DEBUG
 	std::cout << "Solicito archivo nuevo" << std::endl;
 	//END DEBUG
@@ -84,16 +91,18 @@ void Sincronizador::solicitarArchivoNuevo() {
 void Sincronizador::solicitarArchivoModificado() {
 	// Bloqueamos el mutex
 	Lock l(m);
+
 	//DEBUG
 	std::cout << "Solicito archivo modificado" << std::endl;
 	//END DEBUG	
 }
 
-void Sincronizador::recibirNotificacion(std::string &notificacion) {
-	if (notificacion.find(S_NOTIFY_NEW, 0) != std::string::npos)
-		this->solicitarArchivoNuevo();
-	else {
-		if (notificacion.find(S_NOTIFY_CHANGE, 0) != std::string::npos)
-			this->solicitarArchivoModificado();
-	}
-}
+
+// void Sincronizador::recibirNotificacion(std::string &notificacion) {
+// 	if (notificacion.find(S_NOTIFY_NEW, 0) != std::string::npos)
+// 		this->solicitarArchivoNuevo();
+// 	else {
+// 		if (notificacion.find(S_NOTIFY_CHANGE, 0) != std::string::npos)
+// 			this->solicitarArchivoModificado();
+// 	}
+// }
