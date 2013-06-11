@@ -107,6 +107,12 @@ void Sincronizador::run() {
 			Lista<Archivo>* lista = new Lista<Archivo>;
 			this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
 			std::string lista_string;
+
+			// Insertamos como cabecera de los argumentos la cantidad de
+			// archivos
+			int cantArchivos = lista->tamanio();
+			respuesta.append(Convertir::itos(cantArchivos));
+			if(cantArchivos > 0) respuesta.append(COMMON_DELIMITER);
 			
 			// Se guarda la lista en un string
 			while (!lista->estaVacia()) {
@@ -138,7 +144,7 @@ void Sincronizador::run() {
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
-			
+
 		}
 		else if (instruccion == COMMON_MODIFY_FILE) {
 
