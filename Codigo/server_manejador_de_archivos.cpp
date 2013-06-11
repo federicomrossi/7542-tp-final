@@ -18,6 +18,58 @@ ManejadorDeArchivos::ManejadorDeArchivos(const std::string& directorio) :
 // Destructor
 ManejadorDeArchivos::~ManejadorDeArchivos() { }
 
+// Devuelve el contenido de un archivo en formato hexadecimal expresado
+// en una cadena de caracteres
+std::string ManejadorDeArchivos::obtenerContenidoArchivo(
+	const std::string& nombre_archivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
+	// Armamos la ruta hacia el archivo
+	std::string ruta = directorio + "/" + nombre_archivo;
+
+	// Abrimos el archivo
+	std::ifstream archivo(ruta.c_str(), 
+		std::ios::in | std::ios::binary | std::ios::ate);
+
+	if(!archivo.is_open())
+		throw "ERROR: Archivo de entrada inválido.";
+
+	std::ifstream::pos_type size;
+	uint8_t * contenidoTemp;
+
+	// Almacenamos momentaneamente el contenido del archivo original
+	size = archivo.tellg();
+	contenidoTemp = new uint8_t[size];
+	archivo.seekg(0, std::ios::beg);
+	archivo.read((char*)contenidoTemp, size);
+	archivo.close();
+
+	// Convertimos el contenido a hexadecimal
+	std::string contenidoHex(Convertir::uitoh(contenidoTemp, size));
+	delete[] contenidoTemp;
+
+	return contenidoHex;
+}
+
+// Devuelve un archivo que se localiza en el directorio
+// De no existir, devuelve un codigo de error = 0
+bool ManejadorDeArchivos::obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo) {
+	bool sinError = true;
+	std::string hash_archivo = obtenerHashArchivo(nombre_archivo);
+	if (hash_archivo.empty())
+		sinError = false;
+	else {
+		archivo.asignarNombre(nombre_archivo);
+		archivo.asignarNumBloque("WHOLE_FILE");
+		archivo.asignarBloque(this->obtenerContenidoArchivo(nombre_archivo));
+		archivo.asignarHash(hash_archivo);
+		archivo.asignarFechaDeModificacion("1");
+	}
+	return sinError;
+}
+
+
 // Elimina un archivo o un bloque de un archivo del directorio local
 // Devuelve 0 en caso de eliminar correctamente el archivo
 // Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE

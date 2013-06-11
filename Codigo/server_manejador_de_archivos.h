@@ -35,6 +35,14 @@ public:
 	// Destructor
 	~ManejadorDeArchivos();
 
+	// Devuelve el contenido de un archivo en formato hexadecimal expresado
+	// en una cadena de caracteres
+	std::string obtenerContenidoArchivo(const std::string& nombre_archivo);
+
+	// Devuelve un archivo que se localiza en el directorio
+	// De no existir, devuelve un codigo de error = 0
+	bool obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo);
+
 	// Elimina un archivo o un bloque de un archivo del directorio local
 	// Devuelve 0 en caso de eliminar correctamente el archivo
 	// Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE
