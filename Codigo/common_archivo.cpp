@@ -125,8 +125,9 @@ bool Archivo::operator<(const Archivo& a) {
 
 	if (nombreMinuscula == nombreAComparar)  // Analizo el caso real entonces
 		esMenor = (this->nombre < a.nombre);
-	else 	
+	else {
 		esMenor = (nombreMinuscula < nombreAComparar);
+	}
 
 	return esMenor;
 }

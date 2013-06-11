@@ -43,6 +43,10 @@ private:
 	// administrado por el manejador.
 	std::list<std::string> obtenerArchivosDeDirectorio(); 
 
+	// Devuelve una lista con los archivos (ordenados por nombre) que se encuentran 
+	// ubicados en el directorio administrado por el manejador.
+	void obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos);
+
 public:
 
 	// Constructor
@@ -55,6 +59,10 @@ public:
 	// en una cadena de caracteres
 	std::string obtenerContenidoArchivo(const std::string& nombre_archivo);
 
+	// Devuelve un archivo que se localiza en el directorio
+	// De no existir, devuelve un codigo de error = 0
+	bool obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo);
+
 	// Actualiza el registro local de archivos.
 	// PRE: 'nuevos', 'modificados' y 'eliminados' son punteros a cola donde
 	// se insertarán los nombres de archivo correspondientes a la situación
@@ -65,13 +73,11 @@ public:
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
 		Cola< std::string > *modificados, Cola< std::string > *eliminados);
 
-	// Metodo para la descarga de archivos inicial desde el servidor
-	// Recibe la lista de archivos que se encuentran en el servidor, compara con la que 
-	// se encuentra localmente y devuelve una lista con los archivos que se deben 
-	// pedir al server.
-	// * Faltantes: lista de archivos que se deben pedir
-	// * Sobrantes: lista de archivos que se deben enviar
-	void obtenerListaDeActualizacion(Lista<Archivo>* lista, Lista<Archivo>* faltantes,
+	// Recibe una lista de archivos, compara con la que se encuentra localmente 
+	// * Lista: lista de archivos con la cual se compara
+	// * Faltantes: lista de archivos que no estan en el dir local
+	// * Sobrantes: lista de archivos que no estan en la lista
+	void obtenerListaDeActualizacion(Lista<Archivo>* listaExterna, Lista<Archivo>* faltantes,
 		Lista<Archivo>* sobrantes);
 
 	// Elimina un archivo o un bloque de un archivo del directorio local
@@ -84,6 +90,10 @@ public:
 	// Por ahora solamente guarda archivos enteros, num_bloque = WHOLE_FILE
 	int agregarArchivo(const std::string &nombre_archivo, 
 		const std::string &num_bloque, const std::string &bloque_archivo);
+
+	// Devuelve el hash del archivo con nombre especificado por parametros
+	// De no existir, se devuelve un string vacio
+	std::string obtenerHashArchivo(const std::string &nombre_archivo);
 };
 
 #endif

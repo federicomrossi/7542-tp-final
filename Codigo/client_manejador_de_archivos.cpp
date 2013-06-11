@@ -72,7 +72,19 @@ std::string ManejadorDeArchivos::obtenerContenidoArchivo(
 	return contenidoHex;
 }
 
-
+// Devuelve un archivo que se localiza en el directorio
+// De no existir, devuelve un codigo de error = 0
+bool ManejadorDeArchivos::obtenerArchivo(const std::string &nombre_archivo, Archivo& archivo) {
+	bool sinError = true;
+	std::string hash_archivo = obtenerHashArchivo(nombre_archivo);
+	if (hash_archivo.empty())
+		sinError = false;
+	else {
+		archivo.asignarHash(hash_archivo);
+		archivo.asignarFechaDeModificacion("1");
+	}
+	return sinError;
+}
 
 // Actualiza el registro local de archivos.
 // PRE: 'nuevos', 'modificados' y 'eliminados' son punteros a cola donde
@@ -123,7 +135,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		if(registro.eof()) {
 			// Registramos archivo nuevo
 			registroTmp << *it_archivoNombre << " " << 
-				Hash::funcionDeHash(*it_archivoNombre) << std::endl;
+				obtenerHashArchivo(*it_archivoNombre) << std::endl;
 
 			// Insertamos archivo en cola de nuevos
 			nuevos->push(*it_archivoNombre);
@@ -146,10 +158,10 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		// Caso en el que el archivo se mantiene existente
 		if(*it_archivoNombre == reg_archivoNombre) {
 			// Corroboramos si ha sido modificado
-			if(reg_archivoHash != Hash::funcionDeHash(*it_archivoNombre)) {
+			if(reg_archivoHash != obtenerHashArchivo(*it_archivoNombre)) {
 				// Actualizamos el hash del archivo
 				registroTmp << *it_archivoNombre << " " << 
-					Hash::funcionDeHash(*it_archivoNombre) << std::endl;
+					obtenerHashArchivo(*it_archivoNombre) << std::endl;
 
 				// Insertamos archivo en cola de modificados
 				modificados->push(*it_archivoNombre);
@@ -169,7 +181,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		else if(*it_archivoNombre < reg_archivoNombre || registro.eof()) {
 			// Registramos archivo nuevo
 			registroTmp << *it_archivoNombre << " " << 
-				Hash::funcionDeHash(*it_archivoNombre) << std::endl;
+				obtenerHashArchivo(*it_archivoNombre) << std::endl;
 
 			// Insertamos archivo en cola de nuevos
 			nuevos->push(*it_archivoNombre);
@@ -199,87 +211,94 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 }
 
 
-// Metodo para la descarga de archivos inicial desde el servidor
-// Recibe la lista de archivos que se encuentran en el servidor, compara con la que 
-// se encuentra localmente y devuelve una lista con los archivos que se deben 
-// pedir al server.
-// * Faltantes: lista de archivos que se deben pedir
-// * Sobrantes: lista de archivos que se deben enviar
-void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* lista, 
+// Recibe una lista de archivos, compara con la que se encuentra localmente 
+// * ListaExterna: lista de archivos con la cual se compara
+// * Faltantes: lista de archivos que no estan en el dir local
+// * Sobrantes: lista de archivos que no estan en la lista
+void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* listaExterna, 
 	Lista<Archivo>* faltantes, Lista<Archivo>* sobrantes) {
 
-	if (!lista->estaVacia()) {
-		std::string nombre_archivo, hash_archivo, fecha_archivo;
+	if (!listaExterna->estaVacia()) {
 
 		// Bloqueamos el mutex
 		Lock l(m);
 
 		// Variables auxiliares
-		std::ifstream registro;
-		bool debeLeer = true;
+		Lista<Archivo> listaLocal;
 
-		// Armamos ruta de archivo
-		std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
-			+ ARCHIVO_REG_ARCHIVOS;
+		// Se obtiene la lista de archivos
+		obtenerArchivosDeDirectorio(&listaLocal);
 
-		// Abrimos el registro 
-		registro.open(regNombre.c_str(), std::ios::in);
+		// Iterador para la lista a comparar y su tamanio
+		int it_s = 0; 
+		int tamLista_s = listaExterna->tamanio();
+		// Iterador para la lista local del cliente y su tamanio
+		int it_c = 0;
+		int tamLista_c = listaLocal.tamanio();
 
-		// Verificamos si la apertura fue exitosa
-		if(!registro.is_open()) 
-			throw "ERROR: El registro no pudo ser abierto.";
+		// Se buscan diferencias y similitudes entre ambas listas
+		while ((it_s < tamLista_s) && (it_c < tamLista_c)) {  // Mientras no haya terminado alguna lista
+			
+			// Se toma un elemento de cada lista
+			Archivo externo((*listaExterna)[it_s]);
+			Archivo local(listaLocal[it_c]);
 
-		int i = 0, tamLista = lista->tamanio();
-		while (i < tamLista && !registro.eof() && i < 10) {
-			if (debeLeer) {
-				// Tomamos un registro
-				registro >> nombre_archivo >> hash_archivo >> fecha_archivo;
-				std::cout << "Lei del archivo: " << nombre_archivo << hash_archivo << fecha_archivo << std::endl;
-			}
-			else {
-				// Vuelve a setear en verdadero la lectura
-				debeLeer = true;
-				std::cout << "No lei, porque no debia leer" << std::endl;
-			}
-
-			// Se toma un elemento de la lista
-			Archivo archivo((*lista)[i]);
-
-			// Si el nombre archivo de la lista es > al del del archivo, se eliminan hasta ese nombre 
+			// Si el nombre archivo de la lista es > al nombre del local, se eliminan hasta ese nombre 
 				// los archivos del lado del cliente
-			if (archivo.obtenerNombre() > nombre_archivo) {
-				std::cout << "Comparacion: "<< nombre_archivo << " > " << archivo.obtenerNombre() << std::endl;
-				this->eliminarArchivo(archivo.obtenerNombre(), WHOLE_FILE);
+			if (externo > local) {
+				std::cout << "Comparacion: "<< externo.obtenerNombre() << " > " << local.obtenerNombre() << std::endl;
+				this->eliminarArchivo(local.obtenerNombre(), WHOLE_FILE);
+				it_c++;
 			}
 
-			// Si el nombre_archivo de la lista es == al del archivo, compara fechas
-			else if (archivo.obtenerNombre() == nombre_archivo) {
-				std::cout << "Comparacion: "<< nombre_archivo << " == " << archivo.obtenerNombre() << std::endl;
-/*				// Si fecha_archivo de la lista <(menos actual) a la del archivo, 
-				// se deberia enviar archivo
-				if (fecha_archivo < archivo.obtenerFechaDeModificacion())
-					sobrantes->insertarUltimo(archivo);
+			// Si el nombre archivo de la lista es == al nombre del local, compara hash y despues fecha
+			else if (externo == local) {
+				std::cout << "Comparacion: "<< externo.obtenerNombre() << " == " << local.obtenerNombre() << std::endl;
+				// Si el hash es igual, no se hace nada
+				// Si el hash es diferente, se comparan fechas a ver cual es el mas actual
+				if (externo.obtenerHash() != local.obtenerHash()) {
+/*					// Si fecha_archivo de la lista <(menos actual) a la del archivo, 
+					// se deberia enviar archivo
+					if (externo.obtenerFechaDeModificacion() < local.obtenerFechaDeModificacion())
+						sobrantes->insertarUltimo(local);
 				
-				// Sino, se deberia sobre escribir en cliente (se pide el archivo)
-				else
-					faltantes->insertarUltimo(archivo);
-*/				i++;
+					// Sino, se deberia sobre escribir en cliente (se pide el archivo)
+					else
+						faltantes->insertarUltimo(externo);
+*/				}
+				// Avanzo en ambas listas
+				it_s++;
+				it_c++;
 			}
-			// Si nombre_archivo de la lista es < al del archivo, se deben pedir archivos hasta ese nombre
+			// Si nombre archivo de la lista es < al del archivo, se deben pedir archivos hasta ese nombre
 			else {
-				std::cout <<"Comparacion: "<< nombre_archivo << " < " << archivo.obtenerNombre() << std::endl;
-				while (archivo.obtenerNombre() < nombre_archivo && i < (int)lista->tamanio()) {
-					faltantes->insertarUltimo(archivo);
-					i++;
-					if (i < (int)lista->tamanio())
-						Archivo archivo((*lista)[i]);
+				std::cout <<"Comparacion: "<< externo.obtenerNombre() << " < " << local.obtenerNombre() << std::endl;
+				while (externo < local && it_s < tamLista_s) {
+					externo = (*listaExterna)[it_s];
+					faltantes->insertarUltimo(externo);
+					it_s++;
 				}
-				// Se debe saltear una vuelta de lectura en
-				debeLeer = false;
+			}
+		}  // Fin de comparacion
+		// Si quedan elementos en la lista con la cual se compara
+		if (it_s < tamLista_s) {  // Quedan elementos por agregar al dir local
+			for (int i = it_s; i < tamLista_s; i++) {
+				Archivo externo((*listaExterna)[i]);
+				faltantes->insertarUltimo(externo);
+				it_s++;
 			}
 		}
-		registro.close();
+		// Si quedan elementos en la lista del dir local
+		if (it_c < tamLista_c) {  // Quedan elementos 
+			for (int i = it_c; i < tamLista_c; i++) {
+				Archivo local(listaLocal[i]);
+				this->eliminarArchivo(local.obtenerNombre(), WHOLE_FILE);
+				it_c++;
+			}
+		}
 	}
+	//DEBUG
+	std::cout << "Termino comparacion en actualizacion.. " << std::endl;
 
 }
 
@@ -353,6 +372,43 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 	return 0;
 }
 
+// Devuelve el hash del archivo con nombre especificado por parametros
+// De no existir, se devuelve un string vacio
+std::string ManejadorDeArchivos::obtenerHashArchivo(const std::string &nombre_archivo) {
+	
+	std::ifstream archivo;
+
+	// DEBUG
+	std::string nombre = this->directorio + "/" + nombre_archivo;
+
+	std::string hash_archivo;
+
+	// Intenta abrir el archivo 
+	archivo.open(nombre.c_str(), std::ios_base::in);
+
+	if (archivo.is_open()) {  // El archivo existe
+		// Se obtiene la longitud del archivo
+		archivo.seekg(0, archivo.end);
+		int longArchivo = archivo.tellg();
+		archivo.seekg(0, archivo.beg);
+
+		// Se lee el archivo completo
+		char* buffer = new char[longArchivo];
+		archivo.getline(buffer, longArchivo);
+
+		// Se calcula el hash del archvio
+		hash_archivo = Hash::funcionDeHash(buffer, longArchivo);
+	
+		// Se cierra el archivo
+		archivo.close();	
+
+		// Se borra el buffer de entrada
+		delete(buffer);
+	}
+
+	return hash_archivo;
+}
+
 /*
  *  IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
@@ -387,4 +443,42 @@ std::list<std::string> ManejadorDeArchivos::obtenerArchivosDeDirectorio() {
 
 	listaArchivos.sort();
 	return listaArchivos;
+}
+
+// Devuelve una lista con los archivos (ordenados por nombre) que se encuentran 
+// ubicados en el directorio administrado por el manejador.
+void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos) {
+	// Variables auxiliares
+	DIR *dir;
+	struct dirent *entrada = 0;
+	unsigned char esDirectorio =0x4;
+
+	// Abrimos directorio y procesamos si fue exitosa la apertura
+	if((dir = opendir (this->directorio.c_str())) != NULL) {
+		// Iteramos sobre cada objeto del directorio
+		while ((entrada = readdir (dir)) != NULL) {
+			// Salteamos directorios
+			if (entrada->d_type == esDirectorio)
+				continue;
+
+			// Insertamos el archivo en la lista
+			std::string nombre_archivo = entrada->d_name;
+			Archivo archivo(nombre_archivo);
+			std::string hash_archivo = obtenerHashArchivo(nombre_archivo);
+			archivo.asignarHash(obtenerHashArchivo(nombre_archivo));
+			// DEBUG: Hardcode!
+			archivo.asignarFechaDeModificacion("1");
+			if (!hash_archivo.empty())  // Se obtuvo un string vacio si no existia el archivo
+				listaArchivos->insertarUltimo(archivo);
+		}
+
+		closedir(dir);
+	} 
+	else 
+		throw "ERROR: No se ha podido abrir el directorio.";
+
+	//DEBUG
+	std::cout << "Se ordenan los archivos " << std::endl;
+	listaArchivos->ordenar();
+
 }

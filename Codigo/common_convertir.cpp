@@ -81,10 +81,10 @@ std::string Convertir::toLowercase(const std::string &s) {
 	std::string d;
 	int i;
 	for (i = 0; i < (int)s.length(); i++) {
-		if (isalpha(s[i]) != 0)
-			d[i] = (char)tolower(s[i]);
+		if (isalpha(s[i]))
+			d += (char)tolower(s[i]);
 		else
-			d[i] = s[i];
+			d += s[i];
 	}
 	return d;
 }

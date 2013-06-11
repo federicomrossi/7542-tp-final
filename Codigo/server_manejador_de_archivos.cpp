@@ -80,7 +80,7 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 	}
 
 	// Se guarda el hash del archivo
-	hash = Hash::funcionDeHash(bloque_archivo);
+	hash = obtenerHashArchivo(bloque_archivo);
 
 	// DEBUG
 	std::cout << "Se agrego archivo con nombre: " << nombre_archivo << std::endl;	
@@ -89,8 +89,8 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 	return cod_error;
 }
 
-// Devuelve una lista con los nombre de archivos y sus hashes correspondientes
-// que se encuentran ubicados en el directorio administrado por el manejador.
+// Devuelve una lista con los archivos (ordenados por nombre) que se encuentran 
+// ubicados en el directorio administrado por el manejador.
 void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos) {
 	// Variables auxiliares
 	DIR *dir;
@@ -107,7 +107,9 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchi
 
 			// Insertamos el archivo en la lista
 			Archivo archivo(entrada->d_name);
-			std::string hash_archivo = Hash::funcionDeHash(entrada->d_name, strlen(entrada->d_name));
+			//DEBUG: Hacer overload de metodo obtenerHashArchivo con char*
+			std::string nombre_archivo = entrada->d_name;
+			std::string hash_archivo = obtenerHashArchivo(nombre_archivo);
 			archivo.asignarHash(hash_archivo);
 			// DEBUG: Hardcode!
 			archivo.asignarFechaDeModificacion("1");
@@ -125,3 +127,39 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchi
 
 }
 
+// Devuelve el hash del archivo con nombre especificado por parametros
+// De no existir, se devuelve un string vacio
+std::string ManejadorDeArchivos::obtenerHashArchivo(const std::string &nombre_archivo) {
+	
+	std::ifstream archivo;
+
+	// DEBUG
+	std::string nombre = this->directorio + "/" + nombre_archivo;
+
+	std::string hash_archivo;
+
+	// Intenta abrir el archivo 
+	archivo.open(nombre.c_str(), std::ios_base::in);
+
+	if (archivo.is_open()) {  // El archivo existe
+		// Se obtiene la longitud del archivo
+		archivo.seekg(0, archivo.end);
+		int longArchivo = archivo.tellg();
+		archivo.seekg(0, archivo.beg);
+
+		// Se lee el archivo completo
+		char* buffer = new char[longArchivo];
+		archivo.getline(buffer, longArchivo);
+
+		// Se calcula el hash del archvio
+		hash_archivo = Hash::funcionDeHash(buffer, longArchivo);
+	
+		// Se cierra el archivo
+		archivo.close();	
+
+		// Se borra el buffer de entrada
+		delete(buffer);
+	}
+
+	return hash_archivo;
+}
