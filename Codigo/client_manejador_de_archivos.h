@@ -79,6 +79,12 @@ public:
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
 		Cola< std::string > *modificados, Cola< std::string > *eliminados);
 
+	// Actualiza el registro local de archivos.
+	// POST: se devuelve 'false' si se produjeron cambios en el registro o
+	// 'true' en su defecto; esto evita tener que revisar las colas para
+	// comprobar cambios.
+	bool actualizarRegistroDeArchivos();
+
 	// Recibe una lista de archivos, compara con la que se encuentra localmente 
 	// * Lista: lista de archivos con la cual se compara
 	// * Faltantes: lista de archivos que no estan en el dir local

@@ -102,7 +102,7 @@ void Actualizador::ejecutarActualizacion() {
 
 		// Almacenamos el nuevo archivo
 		this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
-			"WHOLE_FILE", a.obtenerBloque());
+			WHOLE_FILE, a.obtenerBloque());
 	}
 
 	// for(size_t i = 0; i < listaArchivosParaEnviar.tamanio(); i++) {
@@ -115,6 +115,9 @@ void Actualizador::ejecutarActualizacion() {
 	// 		listaArchivosFaltantes[i].obtenerFechaDeModificacion();
 	// 	this->emisor->ingresarMensajeDeSalida(mensaje);
 	// }
+
+	// Actualizamos el registro de archivos
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
 
 	// Mensaje de log
 	std::cout << "Fin de la actualización... " << std::endl;

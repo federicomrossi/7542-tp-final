@@ -211,6 +211,110 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 }
 
 
+// Actualiza el registro local de archivos.
+// POST: se devuelve 'false' si se produjeron cambios en el registro o
+// 'true' en su defecto; esto evita tener que revisar las colas para
+// comprobar cambios.
+bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
+	// Variables auxiliares
+	std::ifstream registro;
+	std::ofstream registroTmp;
+	bool huboCambio = false;
+
+	// Armamos rutas de archivos
+	std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+	std::string regTmpNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS + "~";
+
+	// Abrimos el registro original y el registro temporal
+	registro.open(regNombre.c_str(), std::ios::in);
+	registroTmp.open(regTmpNombre.c_str(), std::ios::app);
+
+	// Verificamos si la apertura fue exitosa
+	if(!registro.is_open() || !registroTmp.is_open()) 
+		throw "ERROR: El registro no pudo ser abierto.";
+
+	// Relevamos los nombres de archivos ubicados actualmente en el directorio
+	std::list<std::string> ld = this->obtenerArchivosDeDirectorio();
+	std::list< std::string>::iterator it_archivoNombre;
+	std::string reg_archivoNombre, reg_archivoHash;
+
+
+	// Tomamos el primer registro
+	registro >> reg_archivoNombre >> reg_archivoHash;
+
+	// Iteramos sobre los nombres de archivos existentes en el directorio
+	for (it_archivoNombre = ld.begin(); it_archivoNombre != ld.end();
+		++it_archivoNombre) {
+
+		// Caso en el que no hay mas registros y se han agregado archivos
+		if(registro.eof()) {
+			// Registramos archivo nuevo
+			registroTmp << *it_archivoNombre << " " << 
+				obtenerHashArchivo(*it_archivoNombre) << std::endl;
+
+			huboCambio = true;
+			continue;
+		}
+
+		// Caso en que se han eliminado archivos
+		while(*it_archivoNombre > reg_archivoNombre && !registro.eof()) {
+			// Tomamos el registro siguiente
+			registro >> reg_archivoNombre >> reg_archivoHash;
+
+			huboCambio = true;
+		}
+
+		// Caso en el que el archivo se mantiene existente
+		if(*it_archivoNombre == reg_archivoNombre) {
+			// Corroboramos si ha sido modificado
+			if(reg_archivoHash != obtenerHashArchivo(*it_archivoNombre)) {
+				// Actualizamos el hash del archivo
+				registroTmp << *it_archivoNombre << " " << 
+					obtenerHashArchivo(*it_archivoNombre) << std::endl;
+
+				huboCambio = true;
+			}
+			// Caso en que no ha sido modificado
+			else {
+				registroTmp << reg_archivoNombre << " " << reg_archivoHash 
+					<< std::endl;
+			}
+
+			// Tomamos el registro siguiente
+			registro >> reg_archivoNombre >> reg_archivoHash;
+		}
+		// Caso en el que se han agregado nuevos archivos
+		else if(*it_archivoNombre < reg_archivoNombre || registro.eof()) {
+			// Registramos archivo nuevo
+			registroTmp << *it_archivoNombre << " " << 
+				obtenerHashArchivo(*it_archivoNombre) << std::endl;
+
+			huboCambio = true;
+		}
+	}
+
+	// Encolamos los últimos registros pertenecientes a archivos eliminados
+	while(!registro.eof()) {
+		registro >> reg_archivoNombre >> reg_archivoHash;
+
+		huboCambio = true;
+	}
+
+
+	// Cerramos archivos
+	registro.close();
+	registroTmp.close();
+
+	// Eliminamos el registro original y convertimos el temporal en el oficial
+	remove(regNombre.c_str());
+	rename(regTmpNombre.c_str(), regNombre.c_str());
+
+	return huboCambio;
+}
+
+
 // Recibe una lista de archivos, compara con la que se encuentra localmente 
 // * ListaExterna: lista de archivos con la cual se compara
 // * Faltantes: lista de archivos que no estan en el dir local
@@ -308,37 +412,40 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista<Archivo>* listaExter
 // Por ahora solamente borra archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::eliminarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque) {
-/*
+
 	std::fstream archivo;
 	int cod_error = 0;
 
+	std::string ruta = this->directorio + "/" + nombre_archivo;
+
 	// Busca el archivo y si lo encuentra, lo borra
-	archivo.open(nombre_archivo.c_str(), std::ios_base::in);
+	archivo.open(ruta.c_str(), std::ios_base::in);
 	if (!archivo.is_open())  // No existe el archivo a eliminar
 		cod_error = 1;
 	else {  
 		archivo.close();
-		cod_error = remove(nombre_archivo.c_str());
+		cod_error = remove(ruta.c_str());
 	}
-*/
+
 	// DEBUG
 	std::cout << "Se elimino archivo con nombre: " << nombre_archivo << std::endl;
 	//END DEBUG
 
-//	return cod_error;
-	return 0;
+	return cod_error;
 }
 
 // Agrega un nuevo archivo o un bloque al directorio local
 // Por ahora solamente agrega archivos enteros, num_bloque = WHOLE_FILE
 int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo, 
 	const std::string &num_bloque, const std::string &bloque_archivo) {
-/*	
+	
 	std::fstream archivo;
 	int cod_error = 0;
 
+	std::string ruta = this->directorio + "/" + nombre_archivo;
+
 	// Intenta abrir el archivo 
-	archivo.open(nombre_archivo.c_str(), std::ios_base::in | std::ios_base::out 
+	archivo.open(ruta.c_str(), std::ios_base::in | std::ios_base::out 
 		| std::ios_base::app);
 
 	if (!archivo.is_open()) {  // El archivo no existe
@@ -363,7 +470,7 @@ int ManejadorDeArchivos::agregarArchivo(const std::string &nombre_archivo,
 		// Se cierra el archivo
 		archivo.close();	
 	}
-*/
+
 	// DEBUG
 	std::cout << "Se agrego archivo con nombre: " << nombre_archivo << std::endl;	
 	//END DEBUG
