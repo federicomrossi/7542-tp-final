@@ -47,13 +47,14 @@ void ManejadorDeNotificaciones::run() {
 		// Caso en que se notifica la existencia de un nuevo archivo
 		if(instruccion == S_NOTIFY_NEW) {
 			// Derivamos al inspector
-			this->inspector->inspeccionarArchivo(0);
+			this->inspector->inspeccionarExisteArchivo(args);
 		}
 		else if(instruccion == S_NOTIFY_CHANGE) {
 			// Derivamos al inspector
 		}
 		else if(instruccion == COMMON_SEND_FILE) {
 			// Derivamos al receptor de archivos
+			this->receptorDeArchivos->recibirArchivo(mensaje);
 		}
 		else if(instruccion == COMMON_MODIFY_FILE) {
 			// Derivamos al receptor de archivos

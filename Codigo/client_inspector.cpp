@@ -160,6 +160,20 @@ void Inspector::inspeccionarArchivo(Archivo *archivo) {
 
 
 
+//
+void Inspector::inspeccionarExisteArchivo(std::string nombreArchivo) {
+	// Objetos auxiliares
+	Archivo archivoTemp;
+
+	// Corroboramos si existe el archivo
+	if(this->manejadorDeArchivos->obtenerArchivo(nombreArchivo,
+		archivoTemp)) return;
+
+	// Si no existe, lo solicitamos al servidor
+	this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
+}
+
+
 
 
 /*

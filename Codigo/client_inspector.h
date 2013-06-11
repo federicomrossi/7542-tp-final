@@ -65,6 +65,10 @@ public:
 	// PRE: 'archivo' es un Archivo que contiene los datos del archivo a
 	// comparar con el local.
 	void inspeccionarArchivo(Archivo *archivo);
+
+
+	//
+	void inspeccionarExisteArchivo(std::string nombreArchivo);
 };
 
 #endif

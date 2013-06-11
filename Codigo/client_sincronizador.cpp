@@ -30,8 +30,20 @@ void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string conten
 	Lock l(m);
 
 	// Armamos mensaje
-	std::string mensaje = COMMON_SEND_FILE + " " + nombreArchivo + " " 
-		+ contenido;
+	// DEBUG: pasar parametros reales
+	std::string mensaje;
+	mensaje.append(COMMON_SEND_FILE);
+	mensaje.append(" ");
+	mensaje.append(nombreArchivo);
+	mensaje.append(COMMON_DELIMITER);
+	mensaje.append("WHOLE_FILE");
+	mensaje.append(COMMON_DELIMITER);
+	mensaje.append(contenido);
+	mensaje.append(COMMON_DELIMITER);
+	mensaje.append("HASH");
+	mensaje.append(COMMON_DELIMITER);
+	mensaje.append("FECHA");
+	// END DEBUG
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);

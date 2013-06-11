@@ -144,7 +144,22 @@ void Sincronizador::run() {
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
+			Archivo a;
+			this->parserArchivo(args, &a);
 
+			// Agregamos el archivo en el servidor
+			std::string nombre = a.obtenerNombre();
+			std::string bloque = a.obtenerBloque();
+			std::string hash = a.obtenerHash();
+			this->manejadorDeArchivos->agregarArchivo(nombre, WHOLE_FILE, 
+				bloque, hash);
+
+			// Enviamos notificación a clientes de que se agregó archivo
+			std::string msg_salida;
+			msg_salida.append(S_NOTIFY_NEW);
+			msg_salida.append(" ");
+			msg_salida.append(a.obtenerNombre());
+			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
 		}
 		else if (instruccion == COMMON_MODIFY_FILE) {
 
@@ -186,4 +201,34 @@ void Sincronizador::parserMensaje(const std::string& msg,
 
 	// Eliminamos el espacio inicial sobrante de los argumentos
 	if(args != "") args.erase(0, 1);
+}
+
+
+// Parsea los datos de un archivo
+// PRE: 'args' es la cadena que contiene los datos separados por una coma: 
+// [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero 
+// al objeto Archivo en donde se almacenarán dichos datos.
+void Sincronizador::parserArchivo(const std::string argumentos, Archivo *archivo) {
+
+	// El mensaje viene en el formato "<Nombre,Numero_Bloque,Bloque,Hash,Fecha>"
+	// Divididos por una ','
+	std::string args[5];
+	std::string aux;
+	std::string msj = argumentos;
+	int i;
+	int delim = 0;
+	
+	// Se parsea el mensaje
+	for (i = 0; i < 5; i++) {
+		delim = msj.find(COMMON_DELIMITER);
+		aux = msj.substr(0, delim);
+		msj.erase(0, delim + 1);
+		args[i].assign(aux.c_str());
+	}	
+
+	archivo->asignarNombre(args[0]);
+	archivo->asignarNumBloque(args[1]);
+	archivo->asignarBloque(args[2]);
+	archivo->asignarHash(args[3]);
+	archivo->asignarFechaDeModificacion(args[4]);
 }

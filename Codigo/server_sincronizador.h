@@ -36,6 +36,12 @@ private:
 	void parserMensaje(const std::string& msg, std::string& instruccion,
 		std::string& args);
 
+	// Parsea los datos de un archivo
+	// PRE: 'args' es la cadena que contiene los datos separados por una coma: 
+	// [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero 
+	// al objeto Archivo en donde se almacenarán dichos datos.
+	void parserArchivo(const std::string argumentos, Archivo *archivo);
+
 public:
 
 	// Constructor
