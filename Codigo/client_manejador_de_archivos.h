@@ -16,9 +16,15 @@
 #include "common_cola.h"
 #include "common_lista.h"
 #include "common_archivo.h"
-
-// DEBUG: Debe buscarse otra lugar para la constante WHOLE_FILE
 #include "common_protocolo.h"
+
+
+namespace {
+	// Constante para hacer referencia al archivo entero
+	const std::string WHOLE_FILE = "FFFF";
+}
+
+
 
 //DEBUG
 #include <iostream>

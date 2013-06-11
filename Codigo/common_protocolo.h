@@ -44,13 +44,10 @@ const std::string COMMON_MSG_IS_FILE = "f";
 const std::string COMMON_SEND_FILE = "SEND-FILE";
 const std::string COMMON_MODIFY_FILE = "MODIFY-FILE";
 const std::string COMMON_DELETE_FILE = "DELETE-FILE";
-const char COMMON_DELIMITER = ',';
+const std::string COMMON_DELIMITER = ",";
 
 // Constante para caracter de fin de instrucción
 const char FIN_MENSAJE = '\n';
-
-// Constante para hacer referencia al archivo entero
-const std::string WHOLE_FILE = "FFFF";
 
 
 #endif

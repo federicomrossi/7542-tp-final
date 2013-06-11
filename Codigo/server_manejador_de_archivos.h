@@ -15,6 +15,13 @@
 
 
 
+namespace {
+	// Constante para hacer referencia al archivo entero
+	const std::string WHOLE_FILE = "FFFF";
+}
+
+
+
 
 /* ****************************************************************************
  * DECLARACIÓN DE LA CLASE
@@ -64,4 +71,4 @@ public:
 	std::string obtenerHashArchivo(const std::string &nombre_archivo);
 };
 
-#endif /* MANEJADOR_DE_ARCHIVOS_H */
+#endif
