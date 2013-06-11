@@ -163,7 +163,7 @@ void Actualizador::parserArchivo(const std::string argumentos, Archivo *archivo)
 	
 	// Se parsea el mensaje
 	for (i = 0; i < 5; i++) {
-		delim = msj.find(COMMON_DELIMETER);
+		delim = msj.find(COMMON_DELIMITER);
 		aux = msj.substr(0, delim);
 		msj.erase(0, delim + 1);
 		args[i].assign(aux.c_str());
@@ -188,19 +188,25 @@ void Actualizador::parserArchivos(const std::string& listaDeArchivos,
 	std::string args[3];
 	std::string aux;
 	std::string msj = listaDeArchivos;
-	int i;
+	int i, j, cantArchivos = 0;
 	int delim = 0;
-	
+
+	// Se busca la cantidad de archivos
+	delim = msj.find(COMMON_DELIMITER);
+	aux = msj.substr(0, delim);
+	msj.erase(0, delim + 1);
+	cantArchivos = Convertir::stoi(aux);
 
 	// Creamos archivo y lo insertamos en la lista
-	while(!msj.empty()) {	
+	for (j = 0; j < cantArchivos; j++)  {	
 		// Se parsea el mensaje
 		for (i = 0; i < 3; i++) {
-			delim = msj.find(COMMON_DELIMETER);
+			delim = msj.find(COMMON_DELIMITER);
 			aux = msj.substr(0, delim);
 			msj.erase(0, delim + 1);
 			args[i].assign(aux.c_str());
 		}
+		std::cout << "Mensaje parseado: " << args[0] << " " << args[1] << " " << args[2] << std::endl;
 		Archivo a(args[0]);
 		a.asignarHash(args[1]);
 		a.asignarFechaDeModificacion(args[2]);
