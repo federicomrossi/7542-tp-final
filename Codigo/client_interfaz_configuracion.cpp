@@ -2,6 +2,7 @@
 #include <string>
 
 #include "client_interfaz_configuracion.h"
+#include "common_convertir.h"
 
 
 
@@ -36,15 +37,22 @@ IConfiguracion::IConfiguracion(Configuracion *config) {
 
 void IConfiguracion::on_buttonGuardar_clicked() {
 
-	// obtengo cada valor almacenado en los textBox
-	//Validamos?¿?¿?¿?¿?¿ no
-	//this->config->guardarCambios(string unHost, string unPuerto, string unDir, string polling);
+	//obtengo cada valor almacenado en los textBox
+	
+	string unHost = this->host->get_text();
+	string unPuerto = this->puerto->get_text();
+	string unDir = this->directorio->get_text();
+	string unPolling = this->iPolling->get_text();
+	
+	this->config->guardarCambios(unHost, unPuerto, unDir, unPolling);
+
+	this->main->hide();
 		
 }
 
 void IConfiguracion::on_buttonCancelar_clicked() {
 	// No hago nada, retorno sin cambios en el archivo de settings.
-	Gtk::Main::quit();
+	this->main->hide();
 
 }
 
@@ -52,12 +60,19 @@ void IConfiguracion::on_buttonCancelar_clicked() {
 void IConfiguracion::correr() {
 	
 	//cargo los textBox con info
+	string auxPuerto = Convertir::itos(this->config->obtenerPuerto());
+	string auxPolling = Convertir::itos(this->config->obtenerIntervaloDePolling());
+	
 	this->host->set_text(this->config->obtenerHost()); 
-	//this->puerto->set_text(this->config->obtenerPuerto()); // hay q ver como lo pasamos!!!!!!
-	//this->directorio->set_text((string)this->config->obtenerDirectorio());
-	//this->iPolling->set_text(this->config->obtenerIntervaloDePolling());
+	this->puerto->set_text(auxPuerto); 
+	this->directorio->set_text(this->config->obtenerDirectorio());
+	this->iPolling->set_text(auxPolling);
+	
 	//Muestro configuracion actual
 	Gtk::Main::run(*main);
+	
+			
+	
 }
 
 IConfiguracion::~IConfiguracion() { }

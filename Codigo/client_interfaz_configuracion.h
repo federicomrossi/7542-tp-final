@@ -27,6 +27,7 @@ private:
 	Gtk::Entry  *directorio;	
 	Gtk::Entry  *iPolling;
 
+
 	Configuracion* config;		
 	
 	

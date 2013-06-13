@@ -10,6 +10,7 @@
 
 #include "gtkmm.h"
 #include "client_cliente.h"
+#include "client_interfaz_configuracion.h"
 
 
 
@@ -17,21 +18,34 @@ class Conexion : public Gtk::Window {
 private:
 
 	// Atributos de la interfaz
-	Gtk::Window* main;					// Ventana
-	Gtk::Label	*lblError;				// Etiqueta de error
-	Gtk::Button *botonConectar;			// Botón Conectar
-	Gtk::Button *botonSalir;			// Botón Salir
-	Gtk::Entry 	*usuarioTextBox;		// Textbox de nombre de usuario
-	Gtk::Entry  *passTextBox;			// Textbox de la contraseña de usuario
+	Gtk::Window* main;				// Ventana Conexion
+	
+	Gtk::Label  *lblError;			// Etiqueta de error
+	Gtk::Button *botonConectar;		// Botón Conectar
+	Gtk::Button *botonSalir;		// Botón Salir
+	Gtk::Entry  *usuarioTextBox;		// Textbox de nombre de usuario
+	Gtk::Entry  *passTextBox;		// Textbox de la contraseña de usuario
+
+	//Atributos del menu
+	Gtk::ImageMenuItem *menuPref;
+	Gtk::ImageMenuItem *menuSalir;
+
+
+
 	//Glib::RefPtr<Gtk::StatusIcon> icono;		// IconTray de programa
 	//GtkStatusIcon *icono;
+
+
 	// Atributos del modelo
+
+
 	Cliente *cliente;					// Cliente a través del cual se conecta
+	Configuracion *clienteConfig;
 
 public:
 
 	// Constructor
-	Conexion(Cliente *cliente);
+	Conexion(Cliente *cliente, Configuracion* config);
 
 	// Destructor
 	virtual ~Conexion();
@@ -43,6 +57,9 @@ protected:
 
 	void on_buttonConectar_clicked();
 	void on_buttonSalir_clicked();
+	void on_menuPref_activate();
+	void on_menuSalir_activate();
+
 };
 
 #endif /* CONEXION_H_ */

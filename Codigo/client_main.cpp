@@ -33,17 +33,20 @@ int main (int argc, char** argv) {
 
 	// Creamos el cliente
 	Cliente *cli = new Cliente;
-	
-	Conexion ventanaConexion(cli);
+	// Creamos la configuracion del cliente
+	Configuracion* configs = new Configuracion();
+	// ventana principal del programa
+	Conexion ventanaConexion(cli,configs);
 	ventanaConexion.correr();
-	
 	
 	
 	//TrayIcon trayConectado(cli);
 	//trayConectado.correr();
 
-	// Liberamos memoria usada por el cliente
+	// Liberamos toda la memoria
+	delete configs;
 	delete cli;
+	
 
 	return 0;
 }

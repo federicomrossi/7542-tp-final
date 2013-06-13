@@ -3,13 +3,11 @@
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkWindow" id="main">
     <property name="can_focus">False</property>
-    <property name="type">popup</property>
     <property name="title" translatable="yes">Configuracion</property>
-    <property name="window_position">center</property>
+    <property name="window_position">center-on-parent</property>
     <property name="default_width">440</property>
     <property name="default_height">351</property>
     <property name="destroy_with_parent">True</property>
-    <property name="icon">logo_au.png</property>
     <child>
       <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
@@ -60,9 +58,10 @@
           <object class="GtkEntry" id="host">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="max_length">4</property>
             <property name="invisible_char">•</property>
+            <property name="activates_default">True</property>
             <property name="width_chars">1</property>
+            <property name="overwrite_mode">True</property>
             <property name="progress_pulse_step">0.10000000149011612</property>
           </object>
           <packing>
@@ -77,6 +76,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">•</property>
+            <property name="overwrite_mode">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -90,6 +90,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">•</property>
+            <property name="overwrite_mode">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -116,30 +117,6 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
           <object class="GtkButton" id="cancelar">
             <property name="label" translatable="yes">Cancelar</property>
             <property name="visible">True</property>
@@ -157,7 +134,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="polling">
+          <object class="GtkLabel" id="lpolling">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Intervalo de Polling</property>
@@ -170,10 +147,11 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="pollin">
+          <object class="GtkEntry" id="polling">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="invisible_char">•</property>
+            <property name="overwrite_mode">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -181,6 +159,30 @@
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
     </child>

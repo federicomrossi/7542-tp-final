@@ -5,32 +5,35 @@
 
 
 
-Conexion::Conexion(Cliente *cliente) : cliente(cliente) {
+Conexion::Conexion(Cliente *cliente, Configuracion* config) : cliente(cliente), clienteConfig(config) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
-	
-	
+
 	
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/conexion.glade");
-	//this->icono = gtk_status_icon_new_from_icon_name("trayIcon");
+	//this->icono = gtk_status_icon_new_from_icon_nGtkImageMenuItemame("trayIcon");
 	//gtk_status_icon_set_from_file(this->icono,"logo_au.png");
 	
 
 	refBuilder->get_widget("conexion", this->main); // linkeo el form
-	
+		
 	refBuilder->get_widget("usuarioTxt", this->usuarioTextBox);
 	refBuilder->get_widget("passTxt", this->passTextBox);
 
 	refBuilder->get_widget("conectar", this->botonConectar);
 	refBuilder->get_widget("lblError", this->lblError);
-
+	refBuilder->get_widget("preferencias", this->menuPref);
+	refBuilder->get_widget("msalir", this->menuSalir);
 
 	this->botonConectar->signal_clicked().connect(sigc::mem_fun(*this, &Conexion::on_buttonConectar_clicked)); 
 	refBuilder->get_widget("Salir", this->botonSalir);
 	this->botonSalir->signal_clicked().connect(sigc::mem_fun(*this, &Conexion::on_buttonSalir_clicked));
+	this->menuPref->signal_activate().connect(sigc::mem_fun(*this, &Conexion::on_menuPref_activate));
+	this->menuSalir->signal_activate().connect(sigc::mem_fun(*this, &Conexion::on_menuSalir_activate));
 
 	main->show_all_children();
+
 }
 
 
@@ -56,6 +59,7 @@ void Conexion::on_buttonConectar_clicked() {
 	if(r == 1) {
 		cliente->iniciarSincronizacion(config.obtenerIntervaloDePolling());
 		this->lblError->set_text("");
+		this->menuPref->set_sensitive(false);
 		
 		
 		
@@ -86,6 +90,22 @@ void Conexion::on_buttonConectar_clicked() {
 }
 
 void Conexion::on_buttonSalir_clicked() {
+	Gtk::Main::quit();
+
+}
+
+void Conexion::on_menuPref_activate() {
+
+	
+	IConfiguracion ventanaSettings(this->clienteConfig);
+	ventanaSettings.correr();
+	this->main->set_sensitive(true);
+	
+	
+}
+
+void Conexion::on_menuSalir_activate() {
+
 	Gtk::Main::quit();
 
 }
