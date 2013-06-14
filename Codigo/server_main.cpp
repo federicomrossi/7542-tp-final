@@ -56,13 +56,7 @@ namespace {
 
 
 int main(int argc, char* argv[]) {
-	// Corroboramos cantidad de argumentos
-	// if(argc != 5) {
-	// 	std::cerr << "ERROR: cantidad incorrecta de argumentos." << std::endl;
-	// 	return 1;
-	// }
 
-	// Creamos el servidor
 	Servidor *servidor = new Servidor();
 
 	try {
