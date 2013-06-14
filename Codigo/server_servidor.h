@@ -36,7 +36,7 @@ private:
 public:
 
 	// Constructor
-	Servidor(int puerto);
+	Servidor();
 
 	// Destructor
 	~Servidor();
@@ -47,7 +47,7 @@ public:
 
 	// Inicia la ejecución del servidor. No debe utilizarse el método start()
 	// para iniciar. En caso de error lanza una excepción.
-	void iniciar();
+	void iniciar(int puerto);
 
 	// Detiene la ejecución del servidor. No debe utilizarse el método stop()
 	// para detener.

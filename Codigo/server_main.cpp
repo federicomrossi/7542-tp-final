@@ -63,11 +63,11 @@ int main(int argc, char* argv[]) {
 	// }
 
 	// Creamos el servidor
-	Servidor *servidor = new Servidor(atoi(argv[1]));
+	Servidor *servidor = new Servidor();
 
 	try {
 		// Iniciamos servidor
-		servidor->iniciar();
+		servidor->iniciar(atoi(argv[1]));
 		std::cout << "Inicio server"<< std::endl;
 	}
 	catch(char const * e) {

@@ -23,7 +23,7 @@ namespace {
 
 
 // Constructor
-Servidor::Servidor(int puerto) : puerto(puerto) {
+Servidor::Servidor() {
 	// Creamos al administrador de clientes
 	this->admClientes = new AdministradorDeClientes;
 	this->admClientes->iniciar();
@@ -85,7 +85,10 @@ void Servidor::run() {
 
 // Inicia la ejecución del servidor. No debe utilizarse el método start()
 // para iniciar. En caso de error lanza una excepción.
-void Servidor::iniciar() {
+void Servidor::iniciar(int puerto) {
+	// Guardamos el puerto
+	this->puerto = puerto;
+
 	// Iniciamos hilo de ejecución
 	this->start();
 }
