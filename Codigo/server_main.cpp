@@ -38,8 +38,11 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-#include "server_servidor.h"
 #include "server_interfaz_principal.h"
+#include "server_configuracion.h"
+#include "server_servidor.h"
+
+
 
 
 
@@ -56,33 +59,21 @@ namespace {
  * ***************************************************************************/
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
+	// Iniciamos interfaz de la ventana principal
+	Gtk::Main kit(argc, argv);
 
 	Servidor *servidor = new Servidor();
 	Configuracion* configs = new Configuracion();
+		
 	
-	MenuPrincipal ventana = MenuPrincipal(servidor,configs);
+	MenuPrincipal ventana(servidor,configs);
+	ventana.correr();
 	
 	
 	
 
-	try {
-		// Iniciamos servidor
-		servidor->iniciar(atoi(argv[1]));
-		std::cout << "Inicio server"<< std::endl;
-	}
-	catch(char const * e) {
-		std::cerr << e << std::endl;
-		delete servidor;
-		return 1;
-	}
-
-	std::string comando;
-	std::cout << "Esperando 'q' para salir.." << std::endl;
-	// Esperamos a que se indique la finalización de la ejecución
-	while(comando != CMD_SALIR)
-		getline(std::cin, comando);
-
+	
 	// DEBUG
 	std::cout << "Saliendo y cerrando el servidor.." << std::endl;
 	// END DEBUG

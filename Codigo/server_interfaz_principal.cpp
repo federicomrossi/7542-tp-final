@@ -55,6 +55,12 @@ MenuPrincipal::MenuPrincipal(Servidor *servidor, Configuracion *config) : servid
 
 
 void MenuPrincipal::on_buttonIniciar_clicked() {
+	// Iniciamos servidor -> falta validar que pasa si arranca mal el servidor!!!!
+	
+		this->servidor->iniciar(this->serverConfig->obtenerPuerto());
+		std::cout << "Inicio server"<< std::endl;
+	
+	
 }
 
 void MenuPrincipal::on_buttonSalir_clicked() {
