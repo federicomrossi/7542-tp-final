@@ -1,6 +1,6 @@
 
 
-#include "client_archivoTexto.h"
+#include "common_archivoTexto.h"
 
 using namespace std;
 

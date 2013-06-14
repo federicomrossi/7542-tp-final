@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="btnimagen">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">emblem-shared</property>
+  </object>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="icon_name">preferences-desktop</property>
   </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="stock">gtk-quit</property>
   </object>
   <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="icon_name">user-info</property>
   </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="icon_name">baobab</property>
   </object>
   <object class="GtkImage" id="image5">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="icon_name">drakmenustyle</property>
   </object>
   <object class="GtkImage" id="image6">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-missing-image</property>
+    <property name="icon_name">help-faq</property>
   </object>
-  <object class="GtkWindow" id="ventanaServerPrincipal">
+  <object class="GtkWindow" id="main">
     <property name="width_request">209</property>
     <property name="height_request">235</property>
+    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">AU - Aplicación servidor</property>
     <property name="resizable">False</property>
@@ -63,7 +69,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitem_configuracion">
+                      <object class="GtkImageMenuItem" id="mi_configuracion">
                         <property name="label">Configuración</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -78,7 +84,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem_salir">
+                      <object class="GtkImageMenuItem" id="mi_salir">
                         <property name="label">Salir</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -101,7 +107,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem_admUsers">
+                      <object class="GtkImageMenuItem" id="mi_admUsers">
                         <property name="label">Administrar usuarios</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -116,7 +122,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem_estadisticas">
+                      <object class="GtkImageMenuItem" id="mi_estadisticas">
                         <property name="label">Ver estadísticas</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -125,7 +131,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem_log">
+                      <object class="GtkImageMenuItem" id="mi_log">
                         <property name="label">Ver log</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -148,7 +154,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem_manual">
+                      <object class="GtkImageMenuItem" id="mi_manual">
                         <property name="label">Manual de usuario</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -157,7 +163,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem_ayuda">
+                      <object class="GtkImageMenuItem" id="mi_ayuda">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -340,6 +346,7 @@
                             <property name="receives_default">True</property>
                             <property name="halign">end</property>
                             <property name="margin_bottom">5</property>
+                            <property name="image">btnimagen</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>

@@ -1,5 +1,5 @@
 //
-//  client_archivoTexto.h
+//  common_archivoTexto.h
 //  CLASE ARCHIVOTEXTO
 //  
 

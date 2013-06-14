@@ -5,7 +5,7 @@
 
 
 
-Conexion::Conexion(Cliente *cliente, Configuracion* config) : cliente(cliente), clienteConfig(config) {
+Conexion::Conexion(Cliente *cliente, Configuracion* clienteConfig) : cliente(cliente), clienteConfig(clienteConfig) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 
@@ -25,9 +25,10 @@ Conexion::Conexion(Cliente *cliente, Configuracion* config) : cliente(cliente), 
 	refBuilder->get_widget("lblError", this->lblError);
 	refBuilder->get_widget("preferencias", this->menuPref);
 	refBuilder->get_widget("msalir", this->menuSalir);
+	refBuilder->get_widget("Salir", this->botonSalir);
 
 	this->botonConectar->signal_clicked().connect(sigc::mem_fun(*this, &Conexion::on_buttonConectar_clicked)); 
-	refBuilder->get_widget("Salir", this->botonSalir);
+	
 	this->botonSalir->signal_clicked().connect(sigc::mem_fun(*this, &Conexion::on_buttonSalir_clicked));
 	this->menuPref->signal_activate().connect(sigc::mem_fun(*this, &Conexion::on_menuPref_activate));
 	this->menuSalir->signal_activate().connect(sigc::mem_fun(*this, &Conexion::on_menuSalir_activate));
@@ -43,12 +44,11 @@ void Conexion::on_buttonConectar_clicked() {
 	this->usuarioTextBox->set_sensitive(false);
 	this->passTextBox->set_sensitive(false);
 	
-	// Creamos objeto para obtener la configuración
-	Configuracion config;
+	// Obtenemos la configuracion actual del cliente
 
-	cliente->especificarNombreHost(config.obtenerHost());
-	cliente->especificarPuerto(config.obtenerPuerto());
-	cliente->especificarDirectorio(config.obtenerDirectorio());
+	cliente->especificarNombreHost(this->clienteConfig->obtenerHost());
+	cliente->especificarPuerto(this->clienteConfig->obtenerPuerto());
+	cliente->especificarDirectorio(this->clienteConfig->obtenerDirectorio());
 
 	std::string user = this->usuarioTextBox->get_text();
 	std::string pass = this->passTextBox->get_text();
@@ -57,7 +57,7 @@ void Conexion::on_buttonConectar_clicked() {
 	int r = cliente->conectar(user, pass);
 
 	if(r == 1) {
-		cliente->iniciarSincronizacion(config.obtenerIntervaloDePolling());
+		cliente->iniciarSincronizacion((this->clienteConfig->obtenerIntervaloDePolling()));
 		this->lblError->set_text("");
 		this->menuPref->set_sensitive(false);
 		

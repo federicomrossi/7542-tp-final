@@ -45,7 +45,7 @@ private:
 public:
 
 	// Constructor
-	Conexion(Cliente *cliente, Configuracion* config);
+	Conexion(Cliente *cliente, Configuracion* clienteConfig);
 
 	// Destructor
 	virtual ~Conexion();

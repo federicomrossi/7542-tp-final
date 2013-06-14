@@ -38,6 +38,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include "server_interfaz_principal.h"
 #include "server_servidor.h"
 
 
@@ -55,19 +56,21 @@ namespace {
  * ***************************************************************************/
 
 
-int main(int argc, char* argv[]) {
-	// Corroboramos cantidad de argumentos
-	// if(argc != 5) {
-	// 	std::cerr << "ERROR: cantidad incorrecta de argumentos." << std::endl;
-	// 	return 1;
-	// }
+int main(int argc, char** argv) {
+	
+	// Iniciamos interfaz de la ventana principal
+	Gtk::Main kit(argc, argv);
 
 	// Creamos el servidor
-	Servidor *servidor = new Servidor(atoi(argv[1]));
+	Servidor *servidor = new Servidor();
+	Configuracion* configs = new Configuracion();
 
+	MenuPrincipal ventanaPrincipal(servidor,configs);
+	ventanaPrincipal.correr();
+	
 	try {
 		// Iniciamos servidor
-		servidor->iniciar();
+		servidor->iniciar(configs->obtenerPuerto());
 		std::cout << "Inicio server"<< std::endl;
 	}
 	catch(char const * e) {
@@ -94,6 +97,7 @@ int main(int argc, char* argv[]) {
 	// END DEBUG
 
 	// delete terminal;
+	delete configs;
 	delete servidor;
 
 	return 0;
