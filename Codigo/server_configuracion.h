@@ -53,7 +53,7 @@ public:
 	int obtenerPuerto();
 	
 	// Guarda cambios realizados sobre la configuracion.
-	void guardarCambios(string host,string puerto,string dir, string polling);
+	void guardarCambios(string puerto);
 
 };
 

@@ -48,7 +48,7 @@ int Configuracion::obtenerPuerto() {
 	return Convertir:: stoi(result);
 }
 
-void Configuracion::guardarCambios(string host,string puerto,string dir, string polling) {
+void Configuracion::guardarCambios(string puerto) {
 
 	this->Archivo = new ArchivoTexto(CONFIG_DIR + CONFIG_FILENAME + 
 		CONFIG_FILE_EXT,1);

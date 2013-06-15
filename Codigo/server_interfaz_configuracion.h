@@ -1,5 +1,5 @@
 //
-//  client_interfaz_iconfiguracion.h
+//  server_interfaz_configuracion.h
 //  CLASE INTERFAZ DE CONFIGURACION
 //  
 
@@ -8,7 +8,7 @@
 #define ICONFIGURACION_H_
 
 
-#include "client_configuracion.h"
+#include "server_configuracion.h"
 #include "gtkmm.h"
 
 
@@ -22,14 +22,11 @@ private:
 					
 	Gtk::Button *botonGuardar;			
 	Gtk::Button *botonCancelar;			
-	Gtk::Entry  *host;	
+	
 	Gtk::Entry  *puerto;
-	Gtk::Entry  *directorio;	
-	Gtk::Entry  *iPolling;
-
-
+	
 	Configuracion* config;	
-	int flag; // Indica si el cliente esta conectado	
+	int flag; // Indica si el servidor esta conectado	
 	
 	
 public:

@@ -11,7 +11,7 @@ Conexion::Conexion(Cliente *cliente, Configuracion* clienteConfig) : cliente(cli
 
 	
 	// Cargamos elementos
-	refBuilder->add_from_file("./interfaz/conexion.glade");
+	refBuilder->add_from_file("./interfaz/client_conexion.glade");
 	//this->icono = gtk_status_icon_new_from_icon_nGtkImageMenuItemame("trayIcon");
 	//gtk_status_icon_set_from_file(this->icono,"logo_au.png");
 	
@@ -54,17 +54,14 @@ void Conexion::on_buttonConectar_clicked() {
 	std::string pass = this->passTextBox->get_text();
 	
 	// Iniciamos conexión
-	int r = cliente->conectar(user, pass);
+	this->estadoConexion = cliente->conectar(user, pass);
 
-	if(r == 1) {
+	if(this->estadoConexion == 1) {
 		cliente->iniciarSincronizacion((this->clienteConfig->obtenerIntervaloDePolling()));
 		this->lblError->set_text("");
-		this->menuPref->set_sensitive(false);
-		
-		
 		
 	}
-	else if(r == 0) {
+	else if(this->estadoConexion == 0) {
 		// Mostramos mensaje de error en ventana
 		this->lblError->set_text("Usuario y/o contraseña inválidos");
 		this->lblError->set_visible(true);
@@ -77,7 +74,7 @@ void Conexion::on_buttonConectar_clicked() {
 		this->usuarioTextBox->set_sensitive(true);
 		this->passTextBox->set_sensitive(true);
 	}
-	else if(r == -1) {
+	else if(this->estadoConexion == -1) {
 		// Mostramos mensaje de error en ventana
 		this->lblError->set_text("Falló la conexión con el servidor.");
 		this->lblError->set_visible(true);
@@ -96,8 +93,7 @@ void Conexion::on_buttonSalir_clicked() {
 
 void Conexion::on_menuPref_activate() {
 
-	
-	IConfiguracion ventanaSettings(this->clienteConfig);
+	IConfiguracion ventanaSettings(this->clienteConfig, this->estadoConexion);
 	ventanaSettings.correr();
 	this->main->set_sensitive(true);
 	

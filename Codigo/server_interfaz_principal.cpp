@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "server_interfaz_principal.h"
+#include "server_interfaz_configuracion.h"
 
 
 
@@ -59,6 +60,9 @@ void MenuPrincipal::on_buttonIniciar_clicked() {
 
 		if(this->estado->get_text() == "Desconectado") {
 			this->servidor->iniciar(this->serverConfig->obtenerPuerto());
+
+			// si sale todo bien deberia setear el flag en 1 
+			this->flag = 1;
 			std::cout << "Inicio server"<< std::endl;
 			this->estado->set_text("Conectado   ");
 			this->botonIniciar->set_label("Detener");
@@ -69,6 +73,7 @@ void MenuPrincipal::on_buttonIniciar_clicked() {
 
 		if ((this->estado->get_text()) == "Conectado   ") {
 			this->servidor->detener();
+			this->flag = 0;    // indica estado desconecado
 			this->estado->set_text("Desconectado");
 			this->botonIniciar->set_label("Iniciar");
 
@@ -81,15 +86,21 @@ void MenuPrincipal::on_buttonSalir_clicked() {
 
 }
 
-
-
 void MenuPrincipal::on_buttonConfiguracion_clicked() {
 
 	
 }
 
 // Acciones del menu
-void MenuPrincipal::on_menuConfiguracion_activate(){}
+void MenuPrincipal::on_menuConfiguracion_activate() {
+	
+	this->main->set_sensitive(false);
+	IConfiguracion ventanaConfiguracion(this->serverConfig,this->flag);
+	ventanaConfiguracion.correr();
+	this->main->set_sensitive(true);
+	
+
+}
 
 void MenuPrincipal::on_menuAdminUsers_activate(){} 
 void MenuPrincipal::on_menuEstadisticas_activate(){}
@@ -102,6 +113,7 @@ void MenuPrincipal::on_menuSalir_activate() {
 }
 
 void MenuPrincipal::correr(){
+	this->main->set_sensitive(true);
 	Gtk::Main::run(*main);
 }
 

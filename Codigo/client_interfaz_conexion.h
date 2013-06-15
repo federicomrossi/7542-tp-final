@@ -41,6 +41,7 @@ private:
 
 	Cliente *cliente;					// Cliente a través del cual se conecta
 	Configuracion *clienteConfig;
+	int estadoConexion;
 
 public:
 
