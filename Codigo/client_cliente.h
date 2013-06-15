@@ -16,6 +16,7 @@
 #include "client_receptor_de_archivos.h"
 #include "client_inspector.h"
 #include "client_manejador_de_notificaciones.h"
+#include "common_protocolo.h"
 class Comunicador;
 
 

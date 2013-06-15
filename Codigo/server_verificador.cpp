@@ -23,7 +23,7 @@ int Verificador::verificarCliente(std::string &args,
 	//END DEBUG
 	
 	// Se obtiene usuario y clave
-	int delim = args.find('-', 0);
+	int delim = args.find(COMMON_DELIMITER, 0);
 	std::string usuario = args.substr(0, delim);
 	std::string clave = args.substr(delim + 1, std::string::npos);
 	int existe = -1;
@@ -66,7 +66,7 @@ int Verificador::buscarCliente(std::string &usuario, std::string &clave) {
 		this->logins->getline(buffer, TAM_BUF);
 		if (!this->logins->fail()) {
 			linea.assign(buffer);
-			delim = linea.find('-', 0);
+			delim = linea.find(COMMON_DELIMITER, 0);
 			usuarioActual.assign(buffer, delim);
 			claveActual = linea.substr(delim + 1, std::string::npos);
 			// Compara
