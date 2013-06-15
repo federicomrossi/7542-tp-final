@@ -56,11 +56,24 @@ MenuPrincipal::MenuPrincipal(Servidor *servidor, Configuracion *config) : servid
 
 void MenuPrincipal::on_buttonIniciar_clicked() {
 	// Iniciamos servidor -> falta validar que pasa si arranca mal el servidor!!!!
-	
-		this->servidor->iniciar(this->serverConfig->obtenerPuerto());
-		std::cout << "Inicio server"<< std::endl;
-	
-	
+
+		if(this->estado->get_text() == "Desconectado") {
+			this->servidor->iniciar(this->serverConfig->obtenerPuerto());
+			std::cout << "Inicio server"<< std::endl;
+			this->estado->set_text("Conectado   ");
+			this->botonIniciar->set_label("Detener");
+
+			// Falta actualizar la cantidad de usuarios conectados y las carpetas activas
+			return;
+		} 
+
+		if ((this->estado->get_text()) == "Conectado   ") {
+			this->servidor->detener();
+			this->estado->set_text("Desconectado");
+			this->botonIniciar->set_label("Iniciar");
+
+			return;
+		}
 }
 
 void MenuPrincipal::on_buttonSalir_clicked() {
@@ -93,4 +106,3 @@ void MenuPrincipal::correr(){
 }
 
 MenuPrincipal::~MenuPrincipal() { }
-

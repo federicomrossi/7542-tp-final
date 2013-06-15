@@ -45,7 +45,7 @@
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
     <property name="default_width">440</property>
-    <property name="default_height">250</property>
+    <property name="default_height">617</property>
     <child>
       <object class="GtkBox" id="box1">
         <property name="visible">True</property>
@@ -229,7 +229,7 @@
                         <property name="halign">start</property>
                         <property name="margin_right">71</property>
                         <property name="row_spacing">2</property>
-                        <property name="column_spacing">25</property>
+                        <property name="column_spacing">22</property>
                         <child>
                           <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
@@ -312,6 +312,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Desconectado</property>
+                            <property name="justify">center</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
                             </attributes>
