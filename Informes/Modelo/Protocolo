@@ -1,0 +1,24 @@
+# Constantes para los identificadores de instrucciones enviadas por el
+# cliente
+LOGIN-REQUEST [usuario],[contraseña]
+GET-FILES-LIST
+FILE-REQUEST [nombre_archivo]
+
+# Constantes para los identificadores de instrucciones enviadas por el
+# servidor
+LOGIN-OK
+LOGIN-FAIL
+FILES-LIST [nombre_archivo_1],[hash_1],...,[nombre_archivo_N],[hash_N]
+FILE-CHANGED [nombre_archivo],[num_bloque],[hash]
+NEW-FILE [nombre_archivo]
+NO-SUCH-FILE
+
+# Constantes para los identificadores de instrucciones comunes al servidor
+# y al cliente
+SEND-FILE [nombre_archivo],[contenido],¿[hash]?
+MODIFY-FILE [nombre_archivo],[num_bloque],[contenido_bloque]
+DELETE-FILE [nombre_archivo]
+,
+
+# Constante para caracter de fin de instrucción
+\n
