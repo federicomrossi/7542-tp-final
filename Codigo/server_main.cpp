@@ -63,29 +63,15 @@ int main(int argc, char** argv) {
 	// Iniciamos interfaz de la ventana principal
 	Gtk::Main kit(argc, argv);
 
+	// Creamos módulos utilizados
 	Servidor *servidor = new Servidor();
 	Configuracion* configs = new Configuracion();
 		
-	
-	MenuPrincipal ventana(servidor,configs);
+	// Abrimos ventana principal
+	MenuPrincipal ventana(servidor, configs);
 	ventana.correr();
-	
-	
-	
 
-	
-	// DEBUG
-	std::cout << "Saliendo y cerrando el servidor.." << std::endl;
-	// END DEBUG
-
-	servidor->detener();
-	servidor->join();
-
-	// DEBUG
-	std::cout << "Se detuvo el servidor.." << std::endl;
-	// END DEBUG
-
-	// delete terminal
+	// Liberamos memoria utilizada
 	delete configs;
 	delete servidor;
 

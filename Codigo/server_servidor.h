@@ -29,6 +29,7 @@ private:
 	int puerto;									// Puerto en el que se escucha.
 	Socket socket;								// Socket en el que escucha el 
 												// servidor.
+	bool activo;								// Estado del seridor
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
 	Verificador* verificador;					// Chequea el login de los
 												// usuarios
@@ -46,12 +47,19 @@ public:
 	virtual void run();
 
 	// Inicia la ejecución del servidor. No debe utilizarse el método start()
-	// para iniciar. En caso de error lanza una excepción.
-	void iniciar(int puerto);
+	// para iniciar.
+	// POST: si se inició correctamente el servidor devuelve true, y en caso
+	// contrario devuelve false
+	bool iniciar(int puerto);
 
 	// Detiene la ejecución del servidor. No debe utilizarse el método stop()
 	// para detener.
 	void detener();
+
+	// Comprueba si el servidor se encuentra activo.
+	// POST: devuelve true si el servidor se encuentra iniciado y en ejecución
+	// o false si se encuentra detenido.
+	bool estaActivo();
 };
 
 #endif

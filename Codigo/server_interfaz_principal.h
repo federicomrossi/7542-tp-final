@@ -45,9 +45,6 @@ private:
 
 	Servidor *servidor;
 	Configuracion *serverConfig;
-	int flag;
-
-
 	
 public:
 
