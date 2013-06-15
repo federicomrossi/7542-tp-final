@@ -60,6 +60,8 @@ void MenuPrincipal::on_buttonIniciar_clicked() {
 	if(!this->servidor->estaActivo()) {
 		// Actualizamos interfaz
 		this->botonIniciar->set_sensitive(false);
+		this->botonConfiguracion->set_sensitive(false);
+		this->menuConfiguracion->set_sensitive(false);
 		this->estado->set_text("Conectando");
 
 		// Iniciamos servidor
@@ -67,6 +69,8 @@ void MenuPrincipal::on_buttonIniciar_clicked() {
 			// Falló la conexión, volvemos al estado anterior de la interfaz
 			this->estado->set_text("Desconectado");
 			this->botonIniciar->set_sensitive(true);
+			this->botonConfiguracion->set_sensitive(true);
+			this->menuConfiguracion->set_sensitive(true);
 
 			// Enviamos a log
 			std::cout << "ERROR: No ha sido posible iniciar el servidor." 
@@ -102,6 +106,8 @@ void MenuPrincipal::on_buttonIniciar_clicked() {
 		this->botonIniciar->set_label("Iniciar");
 		this->estado->set_text("Desconectado");
 		this->botonIniciar->set_sensitive(true);
+		this->botonConfiguracion->set_sensitive(true);
+		this->menuConfiguracion->set_sensitive(true);
 
 		// DEBUG
 		std::cout << "Server detenido"<< std::endl;
@@ -127,8 +133,11 @@ void MenuPrincipal::on_buttonSalir_clicked() {
 }
 
 void MenuPrincipal::on_buttonConfiguracion_clicked() {
-
-	
+	this->main->set_sensitive(false);
+	IConfiguracion ventanaConfiguracion(this->serverConfig, 
+		this->servidor->estaActivo());
+	ventanaConfiguracion.correr();
+	this->main->set_sensitive(true);
 }
 
 // Acciones del menu
