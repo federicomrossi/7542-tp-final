@@ -274,23 +274,6 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="lblClientesConectados">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">0</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">1</property>
-                            <property name="width">1</property>
-                            <property name="height">1</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkLabel" id="lblCarpetasActivas">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -308,11 +291,30 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="lblEstado">
+                          <object class="GtkLabel" id="lblClientesConectados">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">0</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                            <property name="width">1</property>
+                            <property name="height">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lblEstado">
+                            <property name="width_request">110</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">Desconectado</property>
-                            <property name="justify">center</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
                             </attributes>
