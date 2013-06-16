@@ -69,6 +69,34 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 	listaArchivos->ordenar();
 }
 
+// Devuelve una lista con los archivos (ordenados por nombre) que se 
+// encuentran ubicados en el registro administrado por el manejador.
+
+void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair <std::string, std::string > >* listaArchivos) {
+	Lock l(m);
+
+	// variables auxiliares
+	std::string nombre, hash;	
+
+	// Armamos ruta del registro
+	std::string registro = this->directorio + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+	
+	// se abre el archivo
+	std::ifstream archivo(registro.c_str(), std::ios_base::in);
+
+	// Se leen y guardan los nombres de archivos + hash en la lista
+	archivo >> nombre >> hash;
+	while (!archivo.eof()) {
+		std::pair<std::string, std::string> par(nombre, hash);
+		listaArchivos->insertarUltimo(par);
+		archivo >> nombre >> hash;
+	}
+
+	// Se cierra el archivo
+	archivo.close();
+}
+
 
 // Agrega un nuevo archivo al directorio.
 // PRE: 'nombreArchivo' es el nombre del archivo nuevo; 'contenido' es el
@@ -157,6 +185,18 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 
 
 
+// Recibe una lista de archivos, compara con la que se encuentra localmente 
+// * ListaExterna: lista de archivos con la cual se compara
+// * Faltantes: lista de archivos que no estan en el dir local
+// * Sobrantes: lista de archivos que no estan en la lista que se deben eliminar del dir local
+void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista< std::pair< std::string, std::pair< std::string, 
+	int > > >* listaExterna, Lista< std::pair< std::string, Cola<int> > >* faltantes, 
+	Lista<std::string>* sobrantes) {
+	// La primer lista contiene nombre, hash y cantidad de bloques (en ese orden)
+	// La segunda tiene hash y una cola de numeros de bloque
+
+	
+}
 
 // DE AQUI EN ADELANTE CONSIDERAR MODIFICACIONES
 

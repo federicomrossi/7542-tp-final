@@ -20,7 +20,7 @@ public:
 		std::string& instruccion, std::string& args);
 
 	// Parsea el mensaje separando los argumentos y los devuelve en una lista
-	// en el orden en que se leyeron
+	// en el orden en que se leyeron. Si el mensaje esta vacio, no se modifica la lista
 	static void parserArgumentos(const std::string &msg, 
 		Lista<std::string>* args, char delim);
 

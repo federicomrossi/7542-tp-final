@@ -16,6 +16,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <utility>
+
 
 
 
@@ -23,8 +25,6 @@ namespace {
 	// Constante que define el tamaño de los bloques de archivos.
 	const int TAMANIO_BLOQUE = 8;
 }
-
-
 
 
 /* ****************************************************************************
@@ -49,6 +49,10 @@ public:
 	// Devuelve una lista con los archivos (ordenados por nombre) que se 
 	// encuentran ubicados en el directorio administrado por el manejador.
 	void obtenerArchivosDeDirectorio(Lista<std::string>* listaArchivos);
+
+	// Devuelve una lista con los archivos (ordenados por nombre) que se 
+	// encuentran ubicados en el registro administrado por el manejador.
+	void obtenerArchivosDeRegistro(Lista< std::pair<std::string, std::string> >* listaArchivos);
 
 	// Agrega un nuevo archivo al directorio.
 	// PRE: 'nombreArchivo' es el nombre del archivo nuevo; 'contenido' es el
@@ -99,6 +103,12 @@ public:
 		const std::string hash);
 
 
+	// Recibe una lista de archivos, compara con la que se encuentra localmente 
+	// * ListaExterna: lista de archivos con la cual se compara
+	// * Faltantes: lista de archivos que no estan en el dir local
+	// * Sobrantes: lista de archivos que no estan en la lista que se deben eliminar del dir local
+	void obtenerListaDeActualizacion(Lista< std::pair< std::string, std::pair< std::string, int > > >* listaExterna,
+		Lista< std::pair< std::string, Cola<int> > >* faltantes, Lista<std::string>* sobrantes);
 
 
 
