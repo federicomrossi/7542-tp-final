@@ -60,7 +60,7 @@ void Sincronizador::modificarArchivo(std::string& nombreArchivo, int bloque,
 	Lock l(m);
 
 	// Armamos mensaje
-	std::string mensaje = COMMON_MODIFY_FILE + " " + nombreArchivo + " " 
+	std::string mensaje = C_MODIFY_FILE + " " + nombreArchivo + " " 
 		+ contenido;
 
 	// Enviamos mensaje al emisor

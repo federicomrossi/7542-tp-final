@@ -10,7 +10,11 @@
 #include <string>
 #include "common_thread.h"
 #include "client_sincronizador.h"
-#include "client_manejador_de_archivos.h"
+#include "common_manejador_de_archivos.h"
+
+// DEBUG
+#include "common_archivo.h"
+// END DEBUG
 
 
 

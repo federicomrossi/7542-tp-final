@@ -12,7 +12,7 @@
 #include "server_receptor.h"
 #include "server_emisor.h"
 #include "server_sincronizador.h"
-#include "server_manejador_de_archivos.h"
+#include "common_manejador_de_archivos.h"
 #include "server_conexion_cliente.h"
 
 

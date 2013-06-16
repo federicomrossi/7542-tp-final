@@ -183,8 +183,9 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchi
 
 	//DEBUG
 	std::cout << "Se ordenan los archivos " << std::endl;
-	listaArchivos->ordenar();
+	// END DEBUG
 
+	listaArchivos->ordenar();
 }
 
 // Devuelve el hash del archivo con nombre especificado por parametros

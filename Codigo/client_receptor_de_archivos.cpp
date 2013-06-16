@@ -40,11 +40,11 @@ void ReceptorDeArchivos::recibirArchivo(std::string &mensaje) {
 	parsearMensaje(mensaje, accion, nombre_archivo, num_bloque, bloque_archivo);
 
 	if (accion.find(COMMON_SEND_FILE) == 0) {
-		this->manejadorDeArchivos->agregarArchivo(nombre_archivo, num_bloque, bloque_archivo);
+		this->manejadorDeArchivos->agregarArchivo(nombre_archivo, bloque_archivo);
 	}
 	else {
 		if (accion.find(COMMON_DELETE_FILE) == 0) {
-			this->manejadorDeArchivos->eliminarArchivo(nombre_archivo, num_bloque);
+			this->manejadorDeArchivos->eliminarArchivo(nombre_archivo);
 		}
 	}
 }
@@ -52,7 +52,7 @@ void ReceptorDeArchivos::recibirArchivo(std::string &mensaje) {
 
 // Se encarga de procesar la eliminación de un archivo
 void ReceptorDeArchivos::eliminarArchivo(std::string& nombreArchivo) {
-	this->manejadorDeArchivos->eliminarArchivo(nombreArchivo, WHOLE_FILE);
+	this->manejadorDeArchivos->eliminarArchivo(nombreArchivo);
 }
 
 

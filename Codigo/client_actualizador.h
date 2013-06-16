@@ -13,7 +13,7 @@
 #include "common_lista.h"
 #include "client_emisor.h"
 #include "client_receptor.h"
-#include "client_manejador_de_archivos.h"
+#include "common_manejador_de_archivos.h"
 
 
 
@@ -44,15 +44,15 @@ private:
 	// PRE: 'args' es la cadena que contiene los datos separados por una coma: 
 	// [NOMBRE],[HASH],[FECHA_MODIFICACION]; 'archivo' es un puntero al objeto
 	// Archivo en donde se almacenarán dichos datos.
-	void parserArchivo(const std::string args, Archivo *archivo);
+	//void parserArchivo(const std::string args, Archivo *archivo);
 
 	// Parsea la lista de archivos.
 	// PRE: 'listaDeArchivos' es una lista que contiene datos de archivos 
 	// agrupados en orden: nombre, hash, fecha; 'lista' es una lista de 
 	// Archivos en la que se almacenarán los objetos de tipo Archivo producto
 	// del parseo.
-	void parserArchivos(const std::string& listaDeArchivos, 
-		Lista< Archivo > *lista);
+	//void parserArchivos(const std::string& listaDeArchivos, 
+	//	Lista< Archivo > *lista);
 
 public:
 

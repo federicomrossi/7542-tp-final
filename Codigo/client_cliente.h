@@ -9,9 +9,9 @@
 
 
 #include "common_socket.h"
+#include "common_manejador_de_archivos.h"
 #include "client_emisor.h"
 #include "client_receptor.h"
-#include "client_manejador_de_archivos.h"
 #include "client_sincronizador.h"
 #include "client_receptor_de_archivos.h"
 #include "client_inspector.h"

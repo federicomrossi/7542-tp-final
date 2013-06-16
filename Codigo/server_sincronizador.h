@@ -11,7 +11,7 @@
 #include "common_thread.h"
 #include "server_emisor.h"
 #include "server_receptor.h"
-#include "server_manejador_de_archivos.h"
+#include "common_manejador_de_archivos.h"
 
 
 
@@ -40,7 +40,7 @@ private:
 	// PRE: 'args' es la cadena que contiene los datos separados por una coma: 
 	// [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero 
 	// al objeto Archivo en donde se almacenarán dichos datos.
-	void parserArchivo(const std::string argumentos, Archivo *archivo);
+	// void parserArchivo(const std::string argumentos, Archivo *archivo);
 
 public:
 

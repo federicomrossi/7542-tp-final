@@ -3,21 +3,24 @@
 LOGIN-REQUEST [usuario],[contraseña]
 GET-FILES-LIST
 FILE-REQUEST [nombre_archivo]
+FILE-PARTS-REQUEST [nombre_archivo],[num_bloque_i],[num_bloque_i+1],...,[num_bloque_N]
+MODIFY-FILE [nombre_archivo],[num_bloque_1],[contenido_bloque_1],[hash_1],....,[num_bloque_N],[contenido_bloque_N],[hash_N]
 
 # Constantes para los identificadores de instrucciones enviadas por el
 # servidor
 LOGIN-OK
 LOGIN-FAIL
-FILES-LIST [nombre_archivo_1],[hash_1],...,[nombre_archivo_N],[hash_N]
-FILE-CHANGED [nombre_archivo],[num_bloque],[hash]
+FILES-LIST [cant_archivos],[nombre_archivo_1],[hash_1],[cant_bloques_1],...,[nombre_archivo_N],[hash_N],[cant_bloques_N]
+FILE-CHANGED [nombre_archivo_1],[num_bloque_1],[hash_1],...,[num_bloque_N],[hash_N]
 NEW-FILE [nombre_archivo]
 NO-SUCH-FILE
+CORRUPT-MESSAGE
 
 # Constantes para los identificadores de instrucciones comunes al servidor
 # y al cliente
-SEND-FILE [nombre_archivo],[contenido],¿[hash]?
-MODIFY-FILE [nombre_archivo],[num_bloque],[contenido_bloque]
+SEND-FILE [nombre_archivo],[contenido]
 DELETE-FILE [nombre_archivo]
+FILE-PARTS [nombre_archivo],[num_bloque_i],[contenido_i],[num_bloque_i+1],[contenido_i+1],...,[num_bloque_N],[contenido_N]
 ,
 
 # Constante para caracter de fin de instrucción

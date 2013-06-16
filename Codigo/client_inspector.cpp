@@ -86,7 +86,7 @@ void Inspector::run() {
 
 				// Enviamos al sincronizador
 				this->sincronizador->enviarArchivo(nuevo, 
-					this->manejadorDeArchivos->obtenerContenidoArchivo(nuevo));
+					this->manejadorDeArchivos->obtenerContenido(nuevo));
 				
 				// DEBUG
 				std::cout << "Nuevo: " << nuevo << std::endl;
@@ -99,7 +99,7 @@ void Inspector::run() {
 
 				// Enviamos a sincronizador
 				this->sincronizador->modificarArchivo(mod, 0, 
-					this->manejadorDeArchivos->obtenerContenidoArchivo(mod));
+					this->manejadorDeArchivos->obtenerContenido(mod));
 
 				// DEBUG
 				std::cout << "Modificado: " << mod << std::endl;
@@ -141,16 +141,16 @@ void Inspector::run() {
 // comparar con el local.
 void Inspector::inspeccionarArchivo(Archivo *archivo) {
 	// Objetos auxiliares
-	Archivo archivoTemp;
+	// Archivo archivoTemp;
 
-	// Corroboramos si existe el archivo
-	if(!this->manejadorDeArchivos->obtenerArchivo(archivo->obtenerNombre(),
-		archivoTemp)) {
-		// Si no existe, lo solicitamos al servidor
-		std::string a = archivo->obtenerNombre();
-		this->sincronizador->solicitarArchivoNuevo(a);
-		return;
-	}
+	// // Corroboramos si existe el archivo
+	// if(!this->manejadorDeArchivos->obtenerArchivo(archivo->obtenerNombre(),
+	// 	archivoTemp)) {
+	// 	// Si no existe, lo solicitamos al servidor
+	// 	std::string a = archivo->obtenerNombre();
+	// 	this->sincronizador->solicitarArchivoNuevo(a);
+	// 	return;
+	// }
 
 	// Como existe, corroboramos si el local es el mas reciente, es decir,
 	// igual al pasado por parámetro
@@ -166,8 +166,8 @@ void Inspector::inspeccionarExisteArchivo(std::string nombreArchivo) {
 	Archivo archivoTemp;
 
 	// Corroboramos si existe el archivo
-	if(this->manejadorDeArchivos->obtenerArchivo(nombreArchivo,
-		archivoTemp)) return;
+	// if(this->manejadorDeArchivos->obtenerArchivo(nombreArchivo,
+	// 	archivoTemp)) return;
 
 	// Si no existe, lo solicitamos al servidor
 	this->sincronizador->solicitarArchivoNuevo(nombreArchivo);

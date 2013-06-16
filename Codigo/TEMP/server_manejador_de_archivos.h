@@ -62,8 +62,8 @@ public:
 	int agregarArchivo(const std::string &nombre_archivo, 
 		const std::string &num_bloque, const std::string &bloque_archivo, std::string &hash);
 
-	// Devuelve una lista con los archivos (ordenados por nombre) que se encuentran 
-	// ubicados en el directorio administrado por el manejador.
+	// Devuelve una lista con los archivos (ordenados por nombre) que se 
+	// encuentran ubicados en el directorio administrado por el manejador.
 	void obtenerArchivosDeDirectorio(Lista<Archivo>* listaArchivos);
 
 	// Devuelve el hash del archivo con nombre especificado por parametros

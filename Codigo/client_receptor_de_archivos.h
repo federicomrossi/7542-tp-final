@@ -9,7 +9,7 @@
 
 
 #include <string>
-#include "client_manejador_de_archivos.h"
+#include "common_manejador_de_archivos.h"
 #include "common_protocolo.h"
 class Mutex;
 class Lock;

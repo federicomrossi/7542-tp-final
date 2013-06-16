@@ -15,6 +15,7 @@
 
 
 
+
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
  * ***************************************************************************/
@@ -65,115 +66,115 @@ void Sincronizador::run() {
 
 		// Caso en que un cliente solicita un archivo
 		if(instruccion == C_FILE_REQUEST) {
-			Archivo a;
-			std::string msg_salida;
+			// Archivo a;
+			// std::string msg_salida;
 
-			// Buscamos el archivo en el directorio y armamos mensaje
-			if(!this->manejadorDeArchivos->obtenerArchivo(args, a)){
-				// Armamos mensaje
-				msg_salida.append(S_NO_SUCH_FILE);
-				msg_salida.append(" ");
-				msg_salida.append(args);
-				std::cout << "NO EXISTE ARCHIVO: " << msg_salida << std::endl;
-			}
-			else{
-				// Armamos mensaje
-				msg_salida.append(COMMON_SEND_FILE);
-				msg_salida.append(" ");
-				msg_salida.append(a.obtenerNombre());
-				msg_salida.append(COMMON_DELIMITER);
-				msg_salida.append(a.obtenerNumBloque());
-				msg_salida.append(COMMON_DELIMITER);
-				msg_salida.append(a.obtenerBloque());
-				msg_salida.append(COMMON_DELIMITER);
-				msg_salida.append(a.obtenerHash());
-				msg_salida.append(COMMON_DELIMITER);
-				msg_salida.append(a.obtenerFechaDeModificacion());
+			// // Buscamos el archivo en el directorio y armamos mensaje
+			// if(!this->manejadorDeArchivos->obtenerArchivo(args, a)){
+			// 	// Armamos mensaje
+			// 	msg_salida.append(S_NO_SUCH_FILE);
+			// 	msg_salida.append(" ");
+			// 	msg_salida.append(args);
+			// 	std::cout << "NO EXISTE ARCHIVO: " << msg_salida << std::endl;
+			// }
+			// else{
+			// 	// Armamos mensaje
+			// 	msg_salida.append(COMMON_SEND_FILE);
+			// 	msg_salida.append(" ");
+			// 	msg_salida.append(a.obtenerNombre());
+			// 	msg_salida.append(COMMON_DELIMITER);
+			// 	msg_salida.append(a.obtenerNumBloque());
+			// 	msg_salida.append(COMMON_DELIMITER);
+			// 	msg_salida.append(a.obtenerBloque());
+			// 	msg_salida.append(COMMON_DELIMITER);
+			// 	msg_salida.append(a.obtenerHash());
+			// 	msg_salida.append(COMMON_DELIMITER);
+			// 	msg_salida.append(a.obtenerFechaDeModificacion());
 
-				std::cout << "EXISTE ARCHIVO: " << msg_salida << std::endl;
-			}
+			// 	std::cout << "EXISTE ARCHIVO: " << msg_salida << std::endl;
+			// }
 
-			// Enviamos mensaje al cliente que realizó solicitud
-			this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
+			// // Enviamos mensaje al cliente que realizó solicitud
+			// this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
 		}
 		// Caso en que el cliente solicita la lista de archivos del servidor
 		else if (instruccion == C_GET_FILES_LIST) {	
-			// Se crea el mensaje de respuesta
-			std::string respuesta;
-			respuesta.append(S_FILES_LIST);
-			respuesta.append(" ");
+			// // Se crea el mensaje de respuesta
+			// std::string respuesta;
+			// respuesta.append(S_FILES_LIST);
+			// respuesta.append(" ");
 			
-			// Pide la lista de archivos que tiene el server
-			Lista<Archivo>* lista = new Lista<Archivo>;
-			this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
-			std::string lista_string;
+			// // Pide la lista de archivos que tiene el server
+			// Lista<Archivo>* lista = new Lista<Archivo>;
+			// this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
+			// std::string lista_string;
 
-			// Insertamos como cabecera de los argumentos la cantidad de
-			// archivos
-			int cantArchivos = lista->tamanio();
-			respuesta.append(Convertir::itos(cantArchivos));
-			if(cantArchivos > 0) respuesta.append(COMMON_DELIMITER);
+			// // Insertamos como cabecera de los argumentos la cantidad de
+			// // archivos
+			// int cantArchivos = lista->tamanio();
+			// respuesta.append(Convertir::itos(cantArchivos));
+			// if(cantArchivos > 0) respuesta.append(COMMON_DELIMITER);
 			
-			// Se guarda la lista en un string
-			while (!lista->estaVacia()) {
-				Archivo aux(lista->verPrimero());
-				lista_string.append(aux.obtenerNombre());
-				lista_string.append(COMMON_DELIMITER);
-				lista_string.append(aux.obtenerHash());
-				lista_string.append(COMMON_DELIMITER);
-				lista_string.append(aux.obtenerFechaDeModificacion());
+			// // Se guarda la lista en un string
+			// while (!lista->estaVacia()) {
+			// 	Archivo aux(lista->verPrimero());
+			// 	lista_string.append(aux.obtenerNombre());
+			// 	lista_string.append(COMMON_DELIMITER);
+			// 	lista_string.append(aux.obtenerHash());
+			// 	lista_string.append(COMMON_DELIMITER);
+			// 	lista_string.append(aux.obtenerFechaDeModificacion());
 				
-				// Eliminamos de la lista
-				lista->eliminarPrimero();
+			// 	// Eliminamos de la lista
+			// 	lista->eliminarPrimero();
 
-				// Separamos del proximo archivo que se liste
-				if(!lista->estaVacia()) 
-					lista_string.append(COMMON_DELIMITER);
-			}
+			// 	// Separamos del proximo archivo que se liste
+			// 	if(!lista->estaVacia()) 
+			// 		lista_string.append(COMMON_DELIMITER);
+			// }
 
-			delete(lista);
+			// delete(lista);
 
-			// Se agrega la lista al mensaje de respuesta
-			respuesta.append(lista_string);
+			// // Se agrega la lista al mensaje de respuesta
+			// respuesta.append(lista_string);
 
-			// DEBUG
-			std::cout << "Lista de archivos: " << lista_string << std::endl;
-			//END DEBUG
+			// // DEBUG
+			// std::cout << "Lista de archivos: " << lista_string << std::endl;
+			// //END DEBUG
 			
-			// Se envia la respuesta al cliente
-			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+			// // Se envia la respuesta al cliente
+			// this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
-			Archivo a;
-			this->parserArchivo(args, &a);
+			// Archivo a;
+			// this->parserArchivo(args, &a);
 
-			// Agregamos el archivo en el servidor
-			std::string nombre = a.obtenerNombre();
-			std::string bloque = a.obtenerBloque();
-			std::string hash = a.obtenerHash();
-			this->manejadorDeArchivos->agregarArchivo(nombre, WHOLE_FILE, 
-				bloque, hash);
+			// // Agregamos el archivo en el servidor
+			// std::string nombre = a.obtenerNombre();
+			// std::string bloque = a.obtenerBloque();
+			// std::string hash = a.obtenerHash();
+			// this->manejadorDeArchivos->agregarArchivo(nombre, WHOLE_FILE, 
+			// 	bloque, hash);
 
-			// Enviamos notificación a clientes de que se agregó archivo
-			std::string msg_salida;
-			msg_salida.append(S_NOTIFY_NEW);
-			msg_salida.append(" ");
-			msg_salida.append(a.obtenerNombre());
-			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
+			// // Enviamos notificación a clientes de que se agregó archivo
+			// std::string msg_salida;
+			// msg_salida.append(S_NOTIFY_NEW);
+			// msg_salida.append(" ");
+			// msg_salida.append(a.obtenerNombre());
+			// this->emisor->ingresarMensajeDeSalida(0, msg_salida);
 		}
-		else if (instruccion == COMMON_MODIFY_FILE) {
+		else if (instruccion == C_MODIFY_FILE) {
 
 		}
 		else if (instruccion == COMMON_DELETE_FILE) {
-			// Eliminamos archivo en carpeta del servidor
-			this->manejadorDeArchivos->eliminarArchivo(args, WHOLE_FILE);
+			// // Eliminamos archivo en carpeta del servidor
+			// this->manejadorDeArchivos->eliminarArchivo(args, WHOLE_FILE);
 
-			// Enviamos notificación a clientes de que se eliminó archivo
-			std::string msg_salida;
-			msg_salida.append(COMMON_DELETE_FILE);
-			msg_salida.append(" ");
-			msg_salida.append(args);
-			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
+			// // Enviamos notificación a clientes de que se eliminó archivo
+			// std::string msg_salida;
+			// msg_salida.append(COMMON_DELETE_FILE);
+			// msg_salida.append(" ");
+			// msg_salida.append(args);
+			// this->emisor->ingresarMensajeDeSalida(0, msg_salida);
 		}
 	}
 }
@@ -204,31 +205,43 @@ void Sincronizador::parserMensaje(const std::string& msg,
 }
 
 
-// Parsea los datos de un archivo
-// PRE: 'args' es la cadena que contiene los datos separados por una coma: 
-// [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero 
-// al objeto Archivo en donde se almacenarán dichos datos.
-void Sincronizador::parserArchivo(const std::string argumentos, Archivo *archivo) {
+// Implementar parser generico de argumentos
 
-	// El mensaje viene en el formato "<Nombre,Numero_Bloque,Bloque,Hash,Fecha>"
-	// Divididos por una ','
-	std::string args[5];
-	std::string aux;
-	std::string msj = argumentos;
-	int i;
-	int delim = 0;
+
+
+
+
+
+
+// BORRAR PARSERS DE ACA PARA ABAJO!!!!
+//////////////////////////////////////////////////////////////////
+
+
+// // Parsea los datos de un archivo
+// // PRE: 'args' es la cadena que contiene los datos separados por una coma: 
+// // [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero 
+// // al objeto Archivo en donde se almacenarán dichos datos.
+// void Sincronizador::parserArchivo(const std::string argumentos, Archivo *archivo) {
+
+// 	// El mensaje viene en el formato "<Nombre,Numero_Bloque,Bloque,Hash,Fecha>"
+// 	// Divididos por una ','
+// 	std::string args[5];
+// 	std::string aux;
+// 	std::string msj = argumentos;
+// 	int i;
+// 	int delim = 0;
 	
-	// Se parsea el mensaje
-	for (i = 0; i < 5; i++) {
-		delim = msj.find(COMMON_DELIMITER);
-		aux = msj.substr(0, delim);
-		msj.erase(0, delim + 1);
-		args[i].assign(aux.c_str());
-	}	
+// 	// Se parsea el mensaje
+// 	for (i = 0; i < 5; i++) {
+// 		delim = msj.find(COMMON_DELIMITER);
+// 		aux = msj.substr(0, delim);
+// 		msj.erase(0, delim + 1);
+// 		args[i].assign(aux.c_str());
+// 	}	
 
-	archivo->asignarNombre(args[0]);
-	archivo->asignarNumBloque(args[1]);
-	archivo->asignarBloque(args[2]);
-	archivo->asignarHash(args[3]);
-	archivo->asignarFechaDeModificacion(args[4]);
-}
+// 	archivo->asignarNombre(args[0]);
+// 	archivo->asignarNumBloque(args[1]);
+// 	archivo->asignarBloque(args[2]);
+// 	archivo->asignarHash(args[3]);
+// 	archivo->asignarFechaDeModificacion(args[4]);
+// }
