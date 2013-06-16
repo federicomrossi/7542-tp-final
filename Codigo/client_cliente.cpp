@@ -219,7 +219,7 @@ int Cliente::iniciarSesion(std::string usuario, std::string clave) {
     std::cout.flush();
 	
 	// Se preparan los argumentos
-	std::string mensaje = usuario + '-' + clave;	
+	std::string mensaje = usuario + COMMON_DELIMITER + clave;	
 
 	// Enviamos petición de inicio de sesion
 	if(com.emitir(C_LOGIN_REQUEST, mensaje) == -1) {

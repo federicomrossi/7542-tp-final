@@ -6,6 +6,7 @@
 #include <cstring>
 #include "common_mutex.h"
 #include "common_lock.h"
+#include "common_protocolo.h"
 
 namespace {
 	#define LONG_USER 128
