@@ -55,6 +55,9 @@ void Socket::crear() {
 	if((this->sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		throw "ERROR: No se ha podido crear el socket.";
 
+	//DEBUG
+	std::cout << "SOCKET N°: " << sockfd << std::endl;
+
 	// Cambiamos el estado del socket
 	this->activo = true;
 }
@@ -114,6 +117,9 @@ void Socket::escuchar(int maxConexiones, int puerto, std::string ip) {
 Socket* Socket::aceptar() {
 	unsigned sin_size = sizeof(struct sockaddr_in);
 	int sCliente = accept(sockfd, (struct sockaddr *)&destinoDir, &sin_size);
+
+	//DEBUG
+	std::cout << "SOCKET-CLIENTE N°: " << sCliente << std::endl;
 
 	// Corroboramos si no se cerró el socket
 	if(!this->estaActivo()) return 0;
