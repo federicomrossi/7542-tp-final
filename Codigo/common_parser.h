@@ -21,8 +21,8 @@ public:
 
 	// Parsea el mensaje separando los argumentos y los devuelve en una lista
 	// en el orden en que se leyeron
-	static void parserArgumentos(const std::string &msg, Lista<std::string>* args,
-		char delim);
+	static void parserArgumentos(const std::string &msg, 
+		Lista<std::string>* args, char delim);
 
 };
 

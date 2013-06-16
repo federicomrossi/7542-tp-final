@@ -6,7 +6,21 @@
 
 #include "common_manejador_de_archivos.h"
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "dirent.h"
+
+
+
+
+namespace {
+	// Constantes para los nombres de directorio
+	const std::string DIR_AU = ".au";
+
+	// Constantes para los nombres de archivo
+	const std::string ARCHIVO_REG_ARCHIVOS = ".reg_archivos";
+}
+
 
 
 
@@ -147,6 +161,30 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 // DE AQUI EN ADELANTE CONSIDERAR MODIFICACIONES
 
 
+
+// Crea un archivo de registro.
+// POST: devuelve true si se realizó la creación con éxito o false en su
+// defecto. Si ya se encuentra existente también devuelve false.
+bool ManejadorDeArchivos::crearRegistroDeArchivos() {
+	// Comprobamos si existia previamente el archivo
+	if(this->existeRegistroDeArchivos()) return false;
+
+	// Armamos ruta del registro
+	std::string registro = this->directorio + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+
+	// Creamos la carpeta que contiene los registros
+	mkdir((this->directorio + DIR_AU).c_str(), S_IRWXU | S_IRWXG | S_IROTH |
+		S_IXOTH);
+
+	// Creamos el registro
+	std::ofstream archivo;
+	archivo.open(registro.c_str(), std::ios::out);
+
+	return true;
+}
+
+
 // Actualiza el registro local de archivos.
 // PRE: 'nuevos', 'modificados' y 'eliminados' son punteros a cola donde
 // se insertarán los nombres de archivo correspondientes a la situación
@@ -161,6 +199,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	return false;
 }
 
+
 // Actualiza el registro local de archivos.
 // POST: se devuelve 'false' si se produjeron cambios en el registro o
 // 'true' en su defecto; esto evita tener que revisar las colas para
@@ -169,3 +208,24 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
 
 	return false;
 }
+
+
+// Comprueba si existe el registro de archivos.
+// POST: devuelve true si existe o false en su defecto.
+bool ManejadorDeArchivos::existeRegistroDeArchivos() {
+	// Armamos ruta del registro
+	std::string registro = this->directorio + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+
+	// Tratamos de abrir el archivo
+	std::ifstream archivo;
+	archivo.open(registro.c_str());
+
+	// Si no se abrió retornamos false
+	if(!archivo.good()) return false;
+
+	// Si se abrió, lo cerramos y retornamos true
+	archivo.close();
+	return true;
+}
+

@@ -106,6 +106,13 @@ public:
 	// DE ARCHIVOS. LAS FIRMAS SIGUIENTES ESTAN SUJETAS A MODIFICACIONES
 	////////////////////////////////////////////////////////////////////
 
+
+	// Crea un archivo de registro.
+	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.
+	// POST: devuelve true si se realizó la creación con éxito o false en su
+	// defecto.
+	bool crearRegistroDeArchivos();
+
 	// Actualiza el registro local de archivos.
 	// PRE: 'nuevos', 'modificados' y 'eliminados' son punteros a cola donde
 	// se insertarán los nombres de archivo correspondientes a la situación
@@ -121,6 +128,11 @@ public:
 	// 'true' en su defecto; esto evita tener que revisar las colas para
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos();
+
+	// Comprueba si existe cierto registro de archivos.
+	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.
+	// POST: devuelve true si existe o false en su defecto.
+	bool existeRegistroDeArchivos();
 };
 
 #endif
