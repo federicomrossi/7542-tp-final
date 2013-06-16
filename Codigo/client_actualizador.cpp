@@ -35,28 +35,28 @@ Actualizador::~Actualizador() { }
 // Inicia la recepción
 void Actualizador::ejecutarActualizacion() {
 
-	// // Mensaje de log
-	// std::cout << "Actualizando directorio... " << std::endl;
- //   	std::cout.flush();
-	// std::cout << "Solicitando lista de archivos del servidor... " << std::endl;
- //   	std::cout.flush();
+	// Mensaje de log
+	std::cout << "Actualizando directorio... " << std::endl;
+   	std::cout.flush();
+	std::cout << "Solicitando lista de archivos del servidor... " << std::endl;
+   	std::cout.flush();
 
-	// // Solicitamos la lista de archivos del servidor
-	// this->emisor->ingresarMensajeDeSalida(C_GET_FILES_LIST);
+	// Solicitamos la lista de archivos del servidor
+	this->emisor->ingresarMensajeDeSalida(C_GET_FILES_LIST);
 
-	// std::string instruccion, args;
+	std::string instruccion, args;
 
-	// // Esperamos a recibir la lista de archivos desde el servidor
-	// while(instruccion != S_FILES_LIST) {
-	// 	std::string msg = this->receptor->obtenerMensajeDeEntrada();
-	// 	this->parserMensaje(msg, instruccion, args);
-	// }
+	// Esperamos a recibir la lista de archivos desde el servidor
+	while(instruccion != S_FILES_LIST) {
+		std::string msg = this->receptor->obtenerMensajeDeEntrada();
+		this->parserMensaje(msg, instruccion, args);
+	}
 
-	// // Mensaje de log
-	// std::cout << "Se recibió lista de archivos del servidor... " << args << std::endl;
- //   	std::cout.flush();
-	// std::cout << "Procesando lista de archivos... " << std::endl;
- //   	std::cout.flush();
+	// Mensaje de log
+	std::cout << "Se recibió lista de archivos del servidor... " << args << std::endl;
+   	std::cout.flush();
+	std::cout << "Procesando lista de archivos... " << std::endl;
+   	std::cout.flush();
 
 	// // Parseamos la lista de archivos enviada por el servidor
 	// Lista< Archivo > listaArchivos;

@@ -7,6 +7,7 @@
 #include <sstream> 
 #include <utility>
 #include "common_protocolo.h"
+#include "common_convertir.h"
 #include "server_sincronizador.h"
 
 // DEBUG
@@ -64,8 +65,55 @@ void Sincronizador::run() {
 		parserMensaje(mensaje.second, instruccion, args);
 
 
+		// Caso en que el cliente solicita la lista de archivos del servidor
+		if (instruccion == C_GET_FILES_LIST) {	
+			// Se crea el mensaje de respuesta
+			std::string respuesta;
+			respuesta.append(S_FILES_LIST);
+			respuesta.append(" ");
+			
+			// Pide la lista de archivos que tiene el server
+			Lista<std::string>* lista = new Lista<std::string>;
+			this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
+
+			// Insertamos como cabecera de los argumentos la cantidad de
+			// archivos
+			int cantArchivos = lista->tamanio();
+			respuesta.append(Convertir::itos(cantArchivos));
+			if(cantArchivos > 0) respuesta.append(COMMON_DELIMITER);
+			
+			// Se guarda la lista en un string
+			while (!lista->estaVacia()) {
+				std::string nombreArchivo = lista->verPrimero();
+				std::string hashArchivo;
+				int cantBloques = this->manejadorDeArchivos->obtenerHash(
+					nombreArchivo, hashArchivo);
+
+				respuesta.append(nombreArchivo);
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(hashArchivo);
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(Convertir::itos(cantBloques));
+				
+				// Eliminamos de la lista
+				lista->eliminarPrimero();
+
+				// Separamos del próximo archivo que se liste
+				if(!lista->estaVacia()) 
+					respuesta.append(COMMON_DELIMITER);
+			}
+
+			delete(lista);
+
+			// DEBUG
+			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
+			//END DEBUG
+			
+			// Se envia la respuesta al cliente
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+		}
 		// Caso en que un cliente solicita un archivo
-		if(instruccion == C_FILE_REQUEST) {
+		else if(instruccion == C_FILE_REQUEST) {
 			// Archivo a;
 			// std::string msg_salida;
 
@@ -96,53 +144,6 @@ void Sincronizador::run() {
 
 			// // Enviamos mensaje al cliente que realizó solicitud
 			// this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
-		}
-		// Caso en que el cliente solicita la lista de archivos del servidor
-		else if (instruccion == C_GET_FILES_LIST) {	
-			// // Se crea el mensaje de respuesta
-			// std::string respuesta;
-			// respuesta.append(S_FILES_LIST);
-			// respuesta.append(" ");
-			
-			// // Pide la lista de archivos que tiene el server
-			// Lista<Archivo>* lista = new Lista<Archivo>;
-			// this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
-			// std::string lista_string;
-
-			// // Insertamos como cabecera de los argumentos la cantidad de
-			// // archivos
-			// int cantArchivos = lista->tamanio();
-			// respuesta.append(Convertir::itos(cantArchivos));
-			// if(cantArchivos > 0) respuesta.append(COMMON_DELIMITER);
-			
-			// // Se guarda la lista en un string
-			// while (!lista->estaVacia()) {
-			// 	Archivo aux(lista->verPrimero());
-			// 	lista_string.append(aux.obtenerNombre());
-			// 	lista_string.append(COMMON_DELIMITER);
-			// 	lista_string.append(aux.obtenerHash());
-			// 	lista_string.append(COMMON_DELIMITER);
-			// 	lista_string.append(aux.obtenerFechaDeModificacion());
-				
-			// 	// Eliminamos de la lista
-			// 	lista->eliminarPrimero();
-
-			// 	// Separamos del proximo archivo que se liste
-			// 	if(!lista->estaVacia()) 
-			// 		lista_string.append(COMMON_DELIMITER);
-			// }
-
-			// delete(lista);
-
-			// // Se agrega la lista al mensaje de respuesta
-			// respuesta.append(lista_string);
-
-			// // DEBUG
-			// std::cout << "Lista de archivos: " << lista_string << std::endl;
-			// //END DEBUG
-			
-			// // Se envia la respuesta al cliente
-			// this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
 			// Archivo a;

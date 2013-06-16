@@ -102,6 +102,7 @@ bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
 int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo, 
 	std::string& hashArchivo) {
 
+	hashArchivo = "UNHASH";
 	return 0;
 }
 
