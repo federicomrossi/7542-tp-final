@@ -7,6 +7,7 @@
 #include <sstream> 
 #include <utility>
 #include "common_protocolo.h"
+#include "common_parser.h"
 #include "common_convertir.h"
 #include "server_sincronizador.h"
 
@@ -62,7 +63,7 @@ void Sincronizador::run() {
 
 		// Tomamos instrucción y sus argumentos
 		std::string instruccion, args;
-		parserMensaje(mensaje.second, instruccion, args);
+		Parser::parserInstruccion(mensaje.second, instruccion, args);
 
 
 		// Caso en que el cliente solicita la lista de archivos del servidor
@@ -179,70 +180,3 @@ void Sincronizador::run() {
 		}
 	}
 }
-
-
-
-
-
-/*
- * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
- */
-
-
-// Parsea el mensaje separando la instruccion de sus argumentos.
-// PRE: 'msg' es el mensaje que desea parsearse; 'instruccion' y 'args' son
-// referencias a variables en donde se desea almacenar la instruccion y sus
-// argumentos respectivamente.
-void Sincronizador::parserMensaje(const std::string& msg, 
-	std::string& instruccion, std::string& args) {
-	std::stringstream msgTemp(msg);
-
-	// Tomamos la instrucción
-	msgTemp >> instruccion;
-	getline(msgTemp, args);
-
-	// Eliminamos el espacio inicial sobrante de los argumentos
-	if(args != "") args.erase(0, 1);
-}
-
-
-// Implementar parser generico de argumentos
-
-
-
-
-
-
-
-// BORRAR PARSERS DE ACA PARA ABAJO!!!!
-//////////////////////////////////////////////////////////////////
-
-
-// // Parsea los datos de un archivo
-// // PRE: 'args' es la cadena que contiene los datos separados por una coma: 
-// // [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero 
-// // al objeto Archivo en donde se almacenarán dichos datos.
-// void Sincronizador::parserArchivo(const std::string argumentos, Archivo *archivo) {
-
-// 	// El mensaje viene en el formato "<Nombre,Numero_Bloque,Bloque,Hash,Fecha>"
-// 	// Divididos por una ','
-// 	std::string args[5];
-// 	std::string aux;
-// 	std::string msj = argumentos;
-// 	int i;
-// 	int delim = 0;
-	
-// 	// Se parsea el mensaje
-// 	for (i = 0; i < 5; i++) {
-// 		delim = msj.find(COMMON_DELIMITER);
-// 		aux = msj.substr(0, delim);
-// 		msj.erase(0, delim + 1);
-// 		args[i].assign(aux.c_str());
-// 	}	
-
-// 	archivo->asignarNombre(args[0]);
-// 	archivo->asignarNumBloque(args[1]);
-// 	archivo->asignarBloque(args[2]);
-// 	archivo->asignarHash(args[3]);
-// 	archivo->asignarFechaDeModificacion(args[4]);
-// }

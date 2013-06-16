@@ -4,8 +4,12 @@
 //  
 
 
-#include <sstream> 
+#include <sstream>
+#include <utility>
 #include "common_protocolo.h"
+#include "common_parser.h"
+#include "common_convertir.h"
+#include "common_cola.h"
 #include "client_actualizador.h"
 
 // DEBUG
@@ -52,7 +56,7 @@ void Actualizador::ejecutarActualizacion() {
 	// Esperamos a recibir la lista de archivos desde el servidor
 	while(instruccion != S_FILES_LIST) {
 		std::string msg = this->receptor->obtenerMensajeDeEntrada();
-		this->parserMensaje(msg, instruccion, args);
+		Parser::parserInstruccion(msg, instruccion, args);
 	}
 
 	// Mensaje de log
@@ -61,15 +65,47 @@ void Actualizador::ejecutarActualizacion() {
 	std::cout << "Procesando lista de archivos... " << std::endl;
    	std::cout.flush();
 
-	// // Parseamos la lista de archivos enviada por el servidor
-	// Lista< Archivo > listaArchivos;
-	// this->parserArchivos(args, &listaArchivos);
+	// Parseamos la lista de archivos enviada por el servidor
+	Lista< std::string > listaArgumentos;
+	Parser::parserArgumentos(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
-	// // Procesamos lista de archivos del servidor comparándola con el directorio
-	// // local
-	// Lista< Archivo > listaArchivosFaltantes, listaArchivosParaEnviar;
-	// this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaArchivos,
-	// 	&listaArchivosFaltantes, &listaArchivosParaEnviar);
+	// Obtenemos la cantidad de archivos envió el servidor, de acuerdo al
+	// protocolo
+	int cantidadArchivos = Convertir::stoi(listaArgumentos.verPrimero());
+	listaArgumentos.eliminarPrimero();
+
+	// Armamos lista de pares para poder procesar en manejador de archivos
+	Lista< std::pair< std::string, std::pair< std::string, int > > >
+		listaServidor;
+
+	for(int i = 0; i < cantidadArchivos; i++) {
+		// Tomamos nombre de archivo
+		std::string nombreArchivo = listaArgumentos.verPrimero();
+		listaArgumentos.eliminarPrimero();
+		// Tomamos hash de archivo
+		std::string hashArchivo = listaArgumentos.verPrimero();
+		listaArgumentos.eliminarPrimero();
+		// Tomamos cantidad de bloques de archivo
+		int cantBloquesArchivo = Convertir::stoi(listaArgumentos.verPrimero());
+		listaArgumentos.eliminarPrimero();
+
+		// Formamos el par con la información necesaria del archivo
+		std::pair< std::string, int > infoArchivo;
+		infoArchivo = std::make_pair(hashArchivo, cantBloquesArchivo);
+
+		std::pair< std::string, std::pair< std::string, int > > archivo;
+		archivo = std::make_pair(nombreArchivo, infoArchivo);
+
+		listaServidor.insertarUltimo(archivo);
+	}
+
+	// Procesamos lista de archivos del servidor comparándola con el directorio
+	// local y obteniendo las actualizaciones pertinentes
+	Lista< std::pair< std::string, Cola< int > > > listaFaltantes;
+	Lista< std::string > listaSobrantes;
+
+	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
+		&listaFaltantes, listaSobrantes);
 
 	// // Realizamos la petición de envío y espera de recepción de archivos
 	// // faltantes
@@ -111,110 +147,3 @@ void Actualizador::ejecutarActualizacion() {
 	// std::cout << "Fin de la actualización... " << std::endl;
  //   	std::cout.flush();
 }
-
-
-
-
-/*
- * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
- */
-
-
-// Parsea el mensaje separando la instruccion de sus argumentos.
-// PRE: 'msg' es el mensaje que desea parsearse; 'instruccion' y 'args' son
-// referencias a variables en donde se desea almacenar la instruccion y sus
-// argumentos respectivamente.
-void Actualizador::parserMensaje(const std::string& msg, 
-	std::string& instruccion, std::string& args) {
-	std::stringstream msgTemp(msg);
-
-	// Tomamos la instrucción
-	msgTemp >> instruccion;
-	getline(msgTemp, args);
-
-	// Eliminamos el espacio inicial sobrante de los argumentos
-	if(args != "") args.erase(0, 1);
-}
-
-
-// Implementar parser generico de argumentos
-
-
-
-
-
-
-
-
-// BORRAR PARSERS DE ACA PARA ABAJO!!!!
-//////////////////////////////////////////////////////////////////
-
-
-
-
-// // Parsea los datos de un archivo
-// // PRE: 'args' es la cadena que contiene los datos separados por una coma: 
-// // [NOMBRE],[NUM_BLOQUE],[BLOQUE],[HASH],[FECHA]; 'archivo' es un puntero al 
-// // objeto Archivo en donde se almacenarán dichos datos.
-// void Actualizador::parserArchivo(const std::string argumentos, Archivo *archivo) {
-
-// 	// El mensaje viene en el formato "<Nombre,Numero_Bloque,Bloque,Hash,Fecha>"
-// 	// Divididos por una ','
-// 	std::string args[5];
-// 	std::string aux;
-// 	std::string msj = argumentos;
-// 	int i;
-// 	int delim = 0;
-	
-// 	// Se parsea el mensaje
-// 	for (i = 0; i < 5; i++) {
-// 		delim = msj.find(COMMON_DELIMITER);
-// 		aux = msj.substr(0, delim);
-// 		msj.erase(0, delim + 1);
-// 		args[i].assign(aux.c_str());
-// 	}	
-
-// 	archivo->asignarNombre(args[0]);
-// 	archivo->asignarNumBloque(args[1]);
-// 	archivo->asignarBloque(args[2]);
-// 	archivo->asignarHash(args[3]);
-// 	archivo->asignarFechaDeModificacion(args[4]);
-// }
-
-
-// // Parsea la lista de archivos.
-// // PRE: 'listaDeArchivos' es una lista que contiene datos de archivos 
-// // agrupados en orden: nombre, hash, fecha; 'lista' es una lista de Archivos
-// // en la que se almacenarán los objetos de tipo Archivo producto del parseo.
-// void Actualizador::parserArchivos(const std::string& listaDeArchivos, 
-// 	Lista< Archivo > *lista) {
-	
-// 	// Variables auxiliares
-// 	std::string args[3];
-// 	std::string aux;
-// 	std::string msj = listaDeArchivos;
-// 	int i, j, cantArchivos = 0;
-// 	int delim = 0;
-
-// 	// Se busca la cantidad de archivos
-// 	delim = msj.find(COMMON_DELIMITER);
-// 	aux = msj.substr(0, delim);
-// 	msj.erase(0, delim + 1);
-// 	cantArchivos = Convertir::stoi(aux);
-
-// 	// Creamos archivo y lo insertamos en la lista
-// 	for (j = 0; j < cantArchivos; j++)  {	
-// 		// Se parsea el mensaje
-// 		for (i = 0; i < 3; i++) {
-// 			delim = msj.find(COMMON_DELIMITER);
-// 			aux = msj.substr(0, delim);
-// 			msj.erase(0, delim + 1);
-// 			args[i].assign(aux.c_str());
-// 		}
-
-// 		Archivo a(args[0]);
-// 		a.asignarHash(args[1]);
-// 		a.asignarFechaDeModificacion(args[2]);
-// 		lista->insertarUltimo(a);
-// 	}
-// }

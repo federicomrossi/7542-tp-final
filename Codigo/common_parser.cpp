@@ -29,7 +29,6 @@ void Parser::parserArgumentos(const std::string &msg, Lista<std::string>* args,
 
 	while(d != std::string::npos){
 		d = m.find(delim);
-		std::cout << m.substr(0, d) << std::endl;
 		args->insertarUltimo(m.substr(0, d));
 		m.erase(0, d+1);
 	}
