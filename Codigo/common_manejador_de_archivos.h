@@ -44,6 +44,10 @@ private:
 	// Separa de una linea el nombre y el hash
 	void separarNombreYHash(char* linea, std::string& nombre, std::string &hash);
 
+	// Devuelve un string de caracteres alfanumericos aleatorios de 
+	// tamanio 'longitud'
+	void randomString(std::string &s, int longitud);
+
 public:
 
 	// Constructor
@@ -73,6 +77,11 @@ public:
 	// PRE: 'nombreArchivo' es el nombre de archivo.
 	// POST: devuelve true si se eliminó con éxito o false en su defecto.
 	bool eliminarArchivo(const std::string& nombreArchivo);
+
+	// Guarda modificaciones de bloques en un archivo, dejandolo de menor o mayor
+	// tamanio segun corresponda
+	void modificarArchivo(std::string& nombreArchivo, int cantBloquesDelArchivo, 
+		Lista< std::pair< int, std::string > >& listaBloquesAReemplazar);
 
 	// Devuelve el hash del archivo, el cual se encuentra conformado
 	// por los hashes de cada bloque concatenados.

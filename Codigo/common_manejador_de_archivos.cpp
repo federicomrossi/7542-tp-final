@@ -182,6 +182,49 @@ bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
 }
 
 
+// Guarda modificaciones de bloques en un archivo, dejandolo de menor o mayor
+// tamanio segun corresponda
+void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo, 
+	int cantBloquesDelArchivo, Lista< std::pair< int, std::string > >& 
+	listaBloquesAReemplazar) {
+
+/*	// Var auxiliares
+	std::fstream archivo;
+	std::fstream temp;
+	std::string aux, nombreArchivoTemp = "KDSF988G98G9S8ASDF8D8F78E78D8F787D8F7Q~";
+	
+	// Abre un archivo 
+	archivo.open(nombreArchivo.c_str(), std::ios_base::in);	
+
+	// Si no existe, error
+	if (!archivo.is_open())
+		throw "ERROR: Archivo no existe.";
+
+
+	// Sino, se cfrea el otro
+	temp.open(nombreArchivoTemp.c_str(), std::ios_base::out);
+	if (!temp.is_open())
+		throw "ERROR: No se pudo crear arcihvo.";
+
+	// se cierra y vuelve a abrir para escribir
+	temp.close();
+	temp.open(nombreArchivoTemp.c_str(), std::ios_base::out | 
+		std::ios_base::app);
+
+	// Se va al principio del archivo
+	archivo.seekg(0, std::ios_base::beg);
+
+	// Se copian los bloques que no fueron modificados
+	int numBloque = listaBloquesAReemplazar.verPrimero().first;
+	for (int i = 0; i < numBloque; i++) {
+		aux = obtenerContenido(nombreArchivo);
+		archivo.write((char*)Convertir::htoui(aux), aux.length()/2);
+	}
+
+*/	// Se compara
+}
+
+
 // Devuelve el hash del archivo, el cual se encuentra conformado
 // por los hashes de cada bloque concatenados.
 // PRE: 'nombreArchivo' es el nombre de archivo, 'hashArchivo' es
@@ -518,4 +561,19 @@ void ManejadorDeArchivos::separarNombreYHash(char* linea, std::string& nombre,
 
 		hash = l.substr(delim + 1);
 	}
+}
+
+
+
+// Devuelve un string de caracteres alfanumericos aleatorios de 
+// tamanio 'longitud'
+void ManejadorDeArchivos::randomString(std::string &s, int longitud) {
+	// Tabla de caracteres posibles
+	char alphanumerico[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	// Se randomiza el set
+	srand(time(NULL));
+	int tamanio = sizeof(alphanumerico) - 1;
+
+	for (int i = 0; i < longitud; ++i) 
+		s[i] = alphanumerico[rand() % tamanio];
 }
