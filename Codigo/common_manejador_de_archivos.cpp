@@ -19,6 +19,9 @@ namespace {
 
 	// Constantes para los nombres de archivo
 	const std::string ARCHIVO_REG_ARCHIVOS = ".reg_archivos";
+
+	// Tamanio buffer lectura
+	#define TAM_BUF 2048
 }
 
 
@@ -79,6 +82,7 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 
 	// variables auxiliares
 	std::string nombre, hash;
+	char buffer[TAM_BUF];
 	
 
 	// Armamos ruta del registro
@@ -90,16 +94,20 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 
 	if (archivo.is_open()) {
 		// Se leen y guardan los nombres de archivos + hash en la lista
-		archivo >> nombre >> hash;
+		archivo.getline(buffer, TAM_BUF);		
+		separarNombreYHash(buffer, nombre, hash);
 		while (!archivo.eof()) {
 			std::pair<std::string, std::string> par(nombre, hash);
 			listaArchivos->insertarUltimo(par);
-			archivo >> nombre >> hash;
+			archivo.getline(buffer, TAM_BUF);		
+			separarNombreYHash(buffer, nombre, hash);
 		}
 
 		// Se cierra el archivo
 		archivo.close();
 	}
+
+	listaArchivos->ordenar();
 }
 
 
@@ -161,8 +169,41 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 // o si es cero, se devuelve el contenido completo del archivo.
 std::string ManejadorDeArchivos::obtenerContenido(
 	const std::string& nombreArchivo, int numBloque) {
+/*	// Bloqueamos el mutex
+	Lock l(m);
 
-	return "";
+	// Armamos la ruta hacia el archivo
+	std::string ruta = this->directorio + "/" + nombre_archivo;
+
+	// Abrimos el archivo
+	std::ifstream archivo(ruta.c_str(), 
+		std::ios::in | std::ios::binary | std::ios::ate);
+
+	if(!archivo.is_open())
+		throw "ERROR: Archivo de entrada inválido.";
+
+	std::ifstream::pos_type size;
+	uint8_t * contenidoTemp;
+
+	// Almacenamos momentaneamente el contenido del archivo original
+	size = archivo.tellg();
+	int posicion;
+	if (num_bloque == 0)
+		posicion = 0;
+	else
+		posicion = TAMANIO_BLOQUE * (num_bloque - 1) + 1;
+	if (posicion < size)
+		archivo.seekg(0, posicion);
+	contenidoTemp = new uint8_t[size - posicion];
+	archivo.read((char*)contenidoTemp, size - posicion);
+	archivo.close();
+
+	// Convertimos el contenido a hexadecimal
+	std::string contenidoHex(Convertir::uitoh(contenidoTemp, size));
+	delete[] contenidoTemp;
+
+	return contenidoHex;
+*/	return "";
 }
 
 
@@ -365,4 +406,29 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 	// Si se abrió, lo cerramos y retornamos true
 	archivo.close();
 	return true;
+}
+
+
+// Separa de una linea el nombre y el hash
+void ManejadorDeArchivos::separarNombreYHash(char* linea, std::string& nombre,
+	std::string &hash) {
+
+	// Variable auxiliar
+	std::string l;
+	l.append(linea);
+
+	// Se limpian las variables
+	nombre.clear();
+	hash.clear();
+	
+	// Se separa si hay contenido
+	if (!l.empty()) {
+		// Se busca el ultimo espacio
+		int delim = l.find_last_of(' ');
+
+		// Se guarda nombre y hash por separado
+		nombre = l.substr(0, delim);
+
+		hash = l.substr(delim + 1);
+	}
 }
