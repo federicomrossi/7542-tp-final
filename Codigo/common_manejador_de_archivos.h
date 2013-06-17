@@ -17,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include <utility>
+#include <math.h>
 
 
 
@@ -41,8 +42,7 @@ private:
 	Mutex m;							// Mutex
 
 	// Separa de una linea el nombre y el hash
-	void separarNombreYHash(char* linea, std::string& nombre, 
-		std::string& hash);
+	void separarNombreYHash(char* linea, std::string& nombre, std::string &hash);
 
 public:
 
@@ -65,9 +65,8 @@ public:
 	// PRE: 'nombreArchivo' es el nombre del archivo nuevo; 'contenido' es el
 	// contenido del archivo nuevo expresado en formato hexadecimal como una
 	// cadena.
-	// POST: devuelve true si se agregó el archivo con éxito o false en caso
-	// contrario
-	bool agregarArchivo(const std::string& nombreArchivo, 
+	// Tira una excepcion si no logra crear un archivo nuevo
+	void agregarArchivo(const std::string& nombreArchivo, 
 		const std::string& contenido);
 
 	// Elimina un archivo del directorio.
@@ -121,8 +120,11 @@ public:
 		Lista<std::string>* sobrantes);
 
 	// Devuelve las diferencias que existen entre 2 archivos
-	void obtenerColaDiferencias(std::string nombre, int cantBloques, 
+	void obtenerListaDiferencias(std::string nombre, int cantBloques, 
 		Lista<int>* diferencias);
+
+	// Devuelve la cantidad de bloques de un archivo
+	int obtenerCantBloques(const std::string &nombreArchivo);
 
 	// Crea un archivo de registro.
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.

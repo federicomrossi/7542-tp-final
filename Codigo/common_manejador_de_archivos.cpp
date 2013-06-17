@@ -117,10 +117,44 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 // cadena.
 // POST: devuelve true si se agregó el archivo con éxito o false en caso
 // contrario
-bool ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo, 
+void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo, 
 	const std::string& contenido) {
+	// Variables auxiliares
+	std::fstream archivo;
 
-	return 0;
+	// Armamos ruta del archivo
+	std::string ruta = this->directorio + "/" + nombreArchivo;
+
+	// Intenta abrir el archivo 
+	archivo.open(ruta.c_str(), std::ios_base::out | std::ios_base::app);
+
+	if (!archivo.is_open()) {  // El archivo no existe
+		archivo.clear();
+
+		//crea el archivo
+		archivo.open(nombreArchivo.c_str(), std::fstream::out);
+		archivo.close();
+
+		// Vuelve a abrir el archivo
+		archivo.open(nombreArchivo.c_str(), std::ios_base::out | std::ios_base::app);
+		
+		if (!archivo.is_open()) // No se pudo crear el archivo
+			throw "ERROR: Archivo nuevo no pudo ser creado.";
+	}
+
+	// Se convierte el archivo de hexa a char nuevamente
+	std::string archivoBin = (char*)Convertir::htoui(contenido);
+
+	// Se escribe el contenido en el archivo
+	archivo.write(archivoBin.c_str(), archivoBin.length());
+
+	// Se cierra el archivo
+	archivo.close();
+
+	// DEBUG
+	std::cout << "Se agrego archivo con nombre: " << nombreArchivo << std::endl;	
+	//END DEBUG
+
 }
 
 
@@ -169,11 +203,11 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 // o si es cero, se devuelve el contenido completo del archivo.
 std::string ManejadorDeArchivos::obtenerContenido(
 	const std::string& nombreArchivo, int numBloque) {
-/*	// Bloqueamos el mutex
+	// Bloqueamos el mutex
 	Lock l(m);
 
 	// Armamos la ruta hacia el archivo
-	std::string ruta = this->directorio + "/" + nombre_archivo;
+	std::string ruta = this->directorio + "/" + nombreArchivo;
 
 	// Abrimos el archivo
 	std::ifstream archivo(ruta.c_str(), 
@@ -182,28 +216,43 @@ std::string ManejadorDeArchivos::obtenerContenido(
 	if(!archivo.is_open())
 		throw "ERROR: Archivo de entrada inválido.";
 
-	std::ifstream::pos_type size;
+	// Variables auxiliares
+	int size;
 	uint8_t * contenidoTemp;
+	int inicio, fin;
 
 	// Almacenamos momentaneamente el contenido del archivo original
 	size = archivo.tellg();
-	int posicion;
-	if (num_bloque == 0)
-		posicion = 0;
-	else
-		posicion = TAMANIO_BLOQUE * (num_bloque - 1) + 1;
-	if (posicion < size)
-		archivo.seekg(0, posicion);
-	contenidoTemp = new uint8_t[size - posicion];
-	archivo.read((char*)contenidoTemp, size - posicion);
+	if (numBloque == 0) {
+		inicio = 0;
+		fin = size;
+	}
+	else {
+		inicio = TAMANIO_BLOQUE * (numBloque - 1);
+		fin = inicio + TAMANIO_BLOQUE;
+	}
+	if (inicio < fin) {
+		// Se posiciona en el bloque correspondiente
+		archivo.seekg(inicio);
+
+		// Se crea e inicializa una variable contenedora
+		contenidoTemp = new uint8_t[fin - inicio];
+		memset(contenidoTemp, '\0', fin - inicio);
+
+		// se lee del archivo
+		archivo.read((char*)contenidoTemp, fin - inicio);
+
+		// Convertimos el contenido a hexadecimal
+		std::string contenidoHex(Convertir::uitoh((uint8_t*)contenidoTemp, (size_t)(fin - inicio)));
+
+		// se devuelve el contenido
+		delete[] contenidoTemp;
+		return contenidoHex;
+	}
+
 	archivo.close();
 
-	// Convertimos el contenido a hexadecimal
-	std::string contenidoHex(Convertir::uitoh(contenidoTemp, size));
-	delete[] contenidoTemp;
-
-	return contenidoHex;
-*/	return "";
+	return "";
 }
 
 
@@ -229,6 +278,38 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 	return false;
 }
 
+
+// Devuelve la cantidad de bloques de un archivo
+// Si no existe el archivo, devuelve -1
+int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
+	// Armamos la ruta hacia el archivo
+	std::string ruta = this->directorio + "/" + nombreArchivo;
+
+	// Variables auxiliares	
+	int longitud, cantBloques = -1;
+
+	// Se busca el archivo
+	std::fstream archivo;
+
+	// Se abre el archivo
+	archivo.open(ruta.c_str(), std::ios_base::in | std::ios_base::binary 
+		| std::ios_base::ate);
+
+	// Si no existe, se devuelve -1
+	if (archivo.is_open()) {
+		// Se obtiene longitud archivo
+		longitud = archivo.tellg();
+
+		// Se calcula cantBloques
+		cantBloques = floor((double)(longitud/TAMANIO_BLOQUE));
+		
+		if (longitud % TAMANIO_BLOQUE > 0)
+			cantBloques++;
+	}
+	
+	// Se devuelve la cantidad de bloques
+	return(cantBloques);
+}
 
 // Recibe una lista de archivos, compara con la que se encuentra localmente 
 // * ListaExterna: lista de archivos con la cual se compara
@@ -296,7 +377,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 				//DEBUG
 				std::cout <<"Hashes distintos" << std::endl;
 				Lista<int> num_bloques;
-				obtenerColaDiferencias(externo.first, externo.second.second,
+				obtenerListaDiferencias(externo.first, externo.second.second,
 					&num_bloques);
 				std::pair< std::string, Lista<int> > nom_num_bloques = 
 					std::make_pair(externo.first, num_bloques);
@@ -335,7 +416,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 }
 
 // Devuelve las diferencias que existen entre 2 archivos
-void ManejadorDeArchivos::obtenerColaDiferencias(std::string nombre, 
+void ManejadorDeArchivos::obtenerListaDiferencias(std::string nombre, 
 	int cantBloques, Lista<int>* diferencias) {
 	diferencias->insertarUltimo(0);
 }
@@ -409,20 +490,19 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 }
 
 
-
-
 /*
  * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
 
 
+
+
 // Separa de una linea el nombre y el hash
 void ManejadorDeArchivos::separarNombreYHash(char* linea, std::string& nombre,
-	std::string& hash) {
+	std::string &hash) {
 
 	// Variable auxiliar
-	std::string l;
-	l.append(linea);
+	std::string l = linea;
 
 	// Se limpian las variables
 	nombre.clear();
