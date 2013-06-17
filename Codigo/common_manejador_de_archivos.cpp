@@ -409,9 +409,16 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 }
 
 
+
+
+/*
+ * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
+ */
+
+
 // Separa de una linea el nombre y el hash
 void ManejadorDeArchivos::separarNombreYHash(char* linea, std::string& nombre,
-	std::string &hash) {
+	std::string& hash) {
 
 	// Variable auxiliar
 	std::string l;

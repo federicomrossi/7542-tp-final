@@ -41,7 +41,8 @@ private:
 	Mutex m;							// Mutex
 
 	// Separa de una linea el nombre y el hash
-	void separarNombreYHash(char* linea, std::string& nombre, std::string &hash);
+	void separarNombreYHash(char* linea, std::string& nombre, 
+		std::string& hash);
 
 public:
 
