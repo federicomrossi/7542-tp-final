@@ -113,6 +113,40 @@ void Sincronizador::run() {
 			// Se envia la respuesta al cliente
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
+		// Caso en que un cliente solicita bloques de un archivo
+		else if(instruccion == C_FILE_PARTS_REQUEST) {
+			// Parseamos la lista de archivos enviada por el servidor
+			Lista< std::string > listaArgumentos;
+			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
+
+			// Tomamos nombre de archivo
+			std::string nombreArchivo = listaArgumentos.verPrimero();
+			listaArgumentos.eliminarPrimero();
+
+			// Armamos el mensaje de respuesta
+			std::string respuesta;
+			respuesta.append(COMMON_FILE_PARTS);
+			respuesta.append(" ");
+			respuesta.append(nombreArchivo);
+
+			// Iteramos sobre los bloques solicitados
+			while(!listaArgumentos.estaVacia()) {
+				// Tomamos un número de bloque
+				std::string sNumBloque = listaArgumentos.verPrimero();
+				listaArgumentos.eliminarPrimero();
+				int numBloque = Convertir::stoi(sNumBloque);
+
+				// Insertamos número de bloque y su contenido
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(sNumBloque);
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(this->manejadorDeArchivos->obtenerContenido(
+					nombreArchivo, numBloque));
+			}
+
+			// Se envia la respuesta al cliente
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+		}
 		// Caso en que un cliente solicita un archivo
 		else if(instruccion == C_FILE_REQUEST) {
 			// Archivo a;

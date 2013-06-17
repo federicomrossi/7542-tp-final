@@ -66,13 +66,13 @@ void Actualizador::ejecutarActualizacion() {
    	std::cout.flush();
 
 	// Parseamos la lista de archivos enviada por el servidor
-	Lista< std::string > listaArgumentos;
-	Parser::parserArgumentos(args, &listaArgumentos, COMMON_DELIMITER[0]);
+	Lista< std::string > listaArgumentos_1;
+	Parser::dividirCadena(args, &listaArgumentos_1, COMMON_DELIMITER[0]);
 
 	// Obtenemos la cantidad de archivos envió el servidor, de acuerdo al
 	// protocolo
-	int cantidadArchivos = Convertir::stoi(listaArgumentos.verPrimero());
-	listaArgumentos.eliminarPrimero();
+	int cantidadArchivos = Convertir::stoi(listaArgumentos_1.verPrimero());
+	listaArgumentos_1.eliminarPrimero();
 
 	// Armamos lista de pares para poder procesar en manejador de archivos
 	Lista< std::pair< std::string, std::pair< std::string, int > > >
@@ -80,14 +80,14 @@ void Actualizador::ejecutarActualizacion() {
 
 	for(int i = 0; i < cantidadArchivos; i++) {
 		// Tomamos nombre de archivo
-		std::string nombreArchivo = listaArgumentos.verPrimero();
-		listaArgumentos.eliminarPrimero();
+		std::string nombreArchivo = listaArgumentos_1.verPrimero();
+		listaArgumentos_1.eliminarPrimero();
 		// Tomamos hash de archivo
-		std::string hashArchivo = listaArgumentos.verPrimero();
-		listaArgumentos.eliminarPrimero();
+		std::string hashArchivo = listaArgumentos_1.verPrimero();
+		listaArgumentos_1.eliminarPrimero();
 		// Tomamos cantidad de bloques de archivo
-		int cantBloquesArchivo = Convertir::stoi(listaArgumentos.verPrimero());
-		listaArgumentos.eliminarPrimero();
+		int cantBloquesArchivo = Convertir::stoi(listaArgumentos_1.verPrimero());
+		listaArgumentos_1.eliminarPrimero();
 
 		// Formamos el par con la información necesaria del archivo
 		std::pair< std::string, int > infoArchivo;
@@ -105,36 +105,74 @@ void Actualizador::ejecutarActualizacion() {
 	Lista< std::string > listaSobrantes;
 
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
-		&listaFaltantes, listaSobrantes);
+		&listaFaltantes, &listaSobrantes);
 
-	// // Realizamos la petición de envío y espera de recepción de archivos
-	// // faltantes
-	// for(size_t i = 0; i < listaArchivosFaltantes.tamanio(); i++) {
-	// 	// Emisión de la petición de archivo
-	// 	std::string mensaje = C_FILE_REQUEST + " " + 
-	// 		listaArchivosFaltantes[i].obtenerNombre();
-	// 	this->emisor->ingresarMensajeDeSalida(mensaje);
+	// Realizamos la petición de envío y espera de recepción de archivos
+	// faltantes
+	for(size_t i = 0; i < listaFaltantes.tamanio(); i++) {
+		// Tomamos uno de los archivos faltantes de la lista
+		std::string nombreArchivoFaltante = listaFaltantes.verPrimero().first;
+		Cola< int > colaBloques = listaFaltantes.verPrimero().second;
+		listaFaltantes.eliminarPrimero();
 
-	// 	std::string instr, args;
+		// Emisión de la petición de archivo
+		std::string mensaje;
+		mensaje.append(C_FILE_PARTS_REQUEST);
+		mensaje.append(" ");
+		mensaje.append(nombreArchivoFaltante);
 		
-	// 	// Esperamos a recibir el archivo
-	// 	while(instr != COMMON_SEND_FILE && instr != S_NO_SUCH_FILE) {
-	// 		std::string msg = this->receptor->obtenerMensajeDeEntrada();
-	// 		this->parserMensaje(msg, instr, args);
-	// 	}
+		// Insertamos numeros de bloque en mensaje
+		while(!colaBloques.vacia()) {
+			mensaje.append(COMMON_DELIMITER);
+			mensaje.append(Convertir::itos(colaBloques.pop_bloqueante()));
+		}
+
+		// Emitimos mensaje
+		this->emisor->ingresarMensajeDeSalida(mensaje);
+
+		std::string instr, args;
+		
+		// Esperamos a recibir el archivo
+		while(instr != COMMON_FILE_PARTS && instr != S_NO_SUCH_FILE) {
+			std::string msg = this->receptor->obtenerMensajeDeEntrada();
+			Parser::parserInstruccion(msg, instr, args);
+		}
+
+		// Si el servidor notifica que ya no existe el archivo, salteamos
+		if(instr == S_NO_SUCH_FILE) continue;
 
 
-	// 	// Si el servidor notifica que ya no existe el archivo, salteamos
-	// 	if(instr == S_NO_SUCH_FILE) continue;
+		// Parseamos los argumentos de la respuesta
+		Lista< std::string > listaArgumentos_2;
+		Parser::dividirCadena(args, &listaArgumentos_2, COMMON_DELIMITER[0]);
 
-	// 	// Parseamos el archivo
-	// 	Archivo a;
-	// 	this->parserArchivo(args, &a);
+		// Descartamos el primer argumento, referido al nombre de archivo, el
+		// cual es ya conocido
+		std::string archivoFaltanteEntrante = listaArgumentos_2.verPrimero();
+		listaArgumentos_2.eliminarPrimero();
 
-	// 	// Almacenamos el nuevo archivo
-	// 	this->manejadorDeArchivos->agregarArchivo(a.obtenerNombre(),
-	// 		WHOLE_FILE, a.obtenerBloque());
-	// }
+		while(!listaArgumentos_2.estaVacia()) {
+			// Tomamos un número de bloque
+			int numBloque = Convertir::stoi(listaArgumentos_2.verPrimero());
+			listaArgumentos_2.eliminarPrimero();
+			
+			// Tomamos el contenido del bloque
+			std::string contenidoBloque = listaArgumentos_2.verPrimero();
+			listaArgumentos_2.eliminarPrimero();
+
+			// Caso en que estamos recibiendo un archivo entero
+			if(numBloque == 0) {
+				this->manejadorDeArchivos->agregarArchivo(
+					nombreArchivoFaltante, contenidoBloque);
+
+				continue;
+			}
+
+			// Modificamos el contenido del bloque por el recibido
+			this->manejadorDeArchivos->modificarBloque(nombreArchivoFaltante,
+				numBloque, contenidoBloque);
+		}
+	}
 
 	// // Mensaje de log
 	// std::cout << "Actualizando registro de archivos locales... " << std::endl;
@@ -143,7 +181,7 @@ void Actualizador::ejecutarActualizacion() {
 	// // Actualizamos el registro de archivos
 	// this->manejadorDeArchivos->actualizarRegistroDeArchivos();
 
-	// // Mensaje de log
-	// std::cout << "Fin de la actualización... " << std::endl;
- //   	std::cout.flush();
+	// Mensaje de log
+	std::cout << "Fin de la actualización... " << std::endl;
+   	std::cout.flush();
 }

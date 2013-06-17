@@ -27,6 +27,8 @@ namespace {
 }
 
 
+
+
 /* ****************************************************************************
  * DECLARACIÓN DE LA CLASE
  * ***************************************************************************/
@@ -103,23 +105,20 @@ public:
 	bool compararBloque(const std::string& nombreArchivo, const int numBloque,
 		const std::string hash);
 
-
-	// Recibe una lista de archivos, compara con la que se encuentra localmente 
+	// Recibe una lista de archivos, compara con la que se encuentra 
+	// localmente.
 	// * ListaExterna: lista de archivos con la cual se compara
 	// * Faltantes: lista de archivos que no estan en el dir local
-	// * Sobrantes: lista de archivos que no estan en la lista que se deben eliminar del dir local
+	// * Sobrantes: lista de archivos que no estan en la lista que se deben
+	// eliminar del dir local
 	void obtenerListaDeActualizacion(Lista< std::pair< std::string, 
 		std::pair< std::string, int > > >* listaExterna,
 		Lista< std::pair< std::string, Cola<int> > >* faltantes, 
 		Lista<std::string>* sobrantes);
 
 	// Devuelve las diferencias que existen entre 2 archivos
-	void obtenerColaDiferencias(std::string nombre, int cantBloques, Cola<int>* diferencias);
-
-	// FALTAN AGREGAR MÉTODOS DE CREACIÓN Y ACTUALIZACIÓN DEL REGISTRO 
-	// DE ARCHIVOS. LAS FIRMAS SIGUIENTES ESTAN SUJETAS A MODIFICACIONES
-	////////////////////////////////////////////////////////////////////
-
+	void obtenerColaDiferencias(std::string nombre, int cantBloques, 
+		Cola<int>* diferencias);
 
 	// Crea un archivo de registro.
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.

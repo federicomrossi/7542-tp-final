@@ -189,16 +189,17 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 }
 
 
-
 // Recibe una lista de archivos, compara con la que se encuentra localmente 
 // * ListaExterna: lista de archivos con la cual se compara
 // * Faltantes: lista de archivos que no estan en el dir local
-// * Sobrantes: lista de archivos que no estan en la lista que se deben eliminar del dir local
-void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista< std::pair< std::string, std::pair< std::string, 
-	int > > >* listaExterna, Lista< std::pair< std::string, Cola<int> > >* faltantes, 
-	Lista<std::string>* sobrantes) {
-	// La primer lista contiene nombre, hash y cantidad de bloques (en ese orden)
-	// La segunda tiene hash y una cola de numeros de bloque
+// * Sobrantes: lista de archivos que no estan en la lista que se deben 
+// eliminar del dir local
+void ManejadorDeArchivos::obtenerListaDeActualizacion(
+	Lista< std::pair< std::string, std::pair< std::string, 
+	int > > >* listaExterna, Lista< std::pair< std::string, 
+	Cola<int> > >* faltantes, Lista<std::string>* sobrantes) {
+	// La primer lista contiene nombre, hash y cantidad de bloques (en ese 
+	// orden). La segunda tiene hash y una cola de numeros de bloque.
 
 	// Variables auxiliares
 	std::pair< std::string, std::pair< std::string, int > > externo;
@@ -216,12 +217,14 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista< std::pair< std::str
 	int tam_r = listaRegistro.tamanio();
 
 	// Se buscan diferencias y similitudes entre ambas listas
-	while ((it_e < tam_e) && (it_r < tam_r)) {  // Mientras no haya terminado alguna lista
+	while ((it_e < tam_e) && (it_r < tam_r)) {  
+		// Mientras no haya terminado alguna lista
 		// Se obtiene un elemento de cada lista
 		externo = (*listaExterna)[it_e];
 		registro = listaRegistro[it_r];
 
-		// Caso en que el nombre archivo de la listaExterna es > al nombre del registro
+		// Caso en que el nombre archivo de la listaExterna es > al nombre del
+		// registro
 		if (externo.first > registro.first) {
 			// DEBUG
 			std::cout << "Comparacion: "<< externo.first << " > " << registro.first << std::endl;
@@ -238,8 +241,8 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista< std::pair< std::str
 				externo = (*listaExterna)[it_e];
 				Cola<int> num_bloques;
 				num_bloques.push(0);
-				std::pair< std::string, Cola<int> > nom_num_bloques(externo.first, 
-					num_bloques);
+				std::pair< std::string, Cola<int> > nom_num_bloques(
+					externo.first, num_bloques);
 				faltantes->insertarUltimo(nom_num_bloques);
 				it_e++;
 			}
@@ -252,9 +255,10 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista< std::pair< std::str
 				//DEBUG
 				std::cout <<"Hashes distintos" << std::endl;
 				Cola<int> num_bloques;
-				obtenerColaDiferencias(externo.first, externo.second.second, &num_bloques);
-				std::pair< std::string, Cola<int> > nom_num_bloques(externo.first, 
-					num_bloques);
+				obtenerColaDiferencias(externo.first, externo.second.second,
+					&num_bloques);
+				std::pair< std::string, Cola<int> > nom_num_bloques(
+					externo.first, num_bloques);
 				faltantes->insertarUltimo(nom_num_bloques);
 			}
 			// Avanzo en ambas listas
@@ -288,10 +292,6 @@ void ManejadorDeArchivos::obtenerColaDiferencias(std::string nombre,
 	int cantBloques, Cola<int>* diferencias) {
 	diferencias->push(0);
 }
-
-
-// DE AQUI EN ADELANTE CONSIDERAR MODIFICACIONES
-
 
 
 // Crea un archivo de registro.
@@ -360,4 +360,3 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 	archivo.close();
 	return true;
 }
-
