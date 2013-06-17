@@ -137,10 +137,10 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	this->receptor->iniciar();
 	this->emisor->iniciar();
 
-	// Iniciamos la actualización del directorio local
-	Actualizador actualizador(this->emisor, this->receptor,
-		this->manejadorDeArchivos);
-	actualizador.ejecutarActualizacion();
+	// // Iniciamos la actualización del directorio local
+	// Actualizador actualizador(this->emisor, this->receptor,
+	// 	this->manejadorDeArchivos);
+	// actualizador.ejecutarActualizacion();
 
 	// Creamos los módulos para la sincronización en tiempo real
 	this->sincronizador = new Sincronizador(emisor);

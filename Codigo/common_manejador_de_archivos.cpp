@@ -5,6 +5,8 @@
 
 
 #include "common_manejador_de_archivos.h"
+#include "common_parser.h"
+#include "common_lista.h"
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,6 +21,9 @@ namespace {
 
 	// Constantes para los nombres de archivo
 	const std::string ARCHIVO_REG_ARCHIVOS = ".reg_archivos";
+
+	// Delimitador de campos del registro
+	const std::string DELIMITADOR = ",";
 
 	// Tamanio buffer lectura
 	#define TAM_BUF 2048
@@ -49,7 +54,7 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 	// Variables auxiliares
 	DIR *dir;
 	struct dirent *entrada = 0;
-	unsigned char esDirectorio =0x4;
+	unsigned char esDirectorio = 0x4;
 
 	// Abrimos directorio y procesamos si fue exitosa la apertura
 	if((dir = opendir (this->directorio.c_str())) != NULL) {
@@ -94,13 +99,10 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 
 	if (archivo.is_open()) {
 		// Se leen y guardan los nombres de archivos + hash en la lista
-		archivo.getline(buffer, TAM_BUF);		
-		separarNombreYHash(buffer, nombre, hash);
-		while (!archivo.eof()) {
+		while(archivo.getline(buffer, TAM_BUF)) {
+			separarNombreYHash(buffer, nombre, hash);
 			std::pair<std::string, std::string> par(nombre, hash);
 			listaArchivos->insertarUltimo(par);
-			archivo.getline(buffer, TAM_BUF);		
-			separarNombreYHash(buffer, nombre, hash);
 		}
 
 		// Se cierra el archivo
@@ -354,6 +356,7 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 	return(cantBloques);
 }
 
+
 // Recibe una lista de archivos, compara con la que se encuentra localmente 
 // * ListaExterna: lista de archivos con la cual se compara
 // * Faltantes: lista de archivos que no estan en el dir local
@@ -458,6 +461,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	}
 }
 
+
 // Devuelve las diferencias que existen entre 2 archivos
 void ManejadorDeArchivos::obtenerListaDiferencias(std::string nombre, 
 	int cantBloques, Lista<int>* diferencias) {
@@ -498,8 +502,138 @@ bool ManejadorDeArchivos::crearRegistroDeArchivos() {
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	Cola< std::string > *nuevos, Cola< std::string > *modificados, 
 	Cola< std::string > *eliminados) {
+	// Bloqueamos el mutex
+	Lock l(m);
 
-	return false;
+	// Variables auxiliares
+	std::ifstream registro;
+	std::ofstream registroTmp;
+	bool huboCambio = false;
+
+	// Armamos rutas de archivos
+	std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+	std::string regTmpNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS + "~";
+
+	// Abrimos el registro original y el registro temporal
+	registro.open(regNombre.c_str(), std::ios::in);
+	registroTmp.open(regTmpNombre.c_str(), std::ios::app);
+
+	// Verificamos si la apertura fue exitosa
+	if(!registro.is_open() || !registroTmp.is_open()) 
+		throw "ERROR: El registro no pudo ser abierto.";
+
+	// Relevamos los nombres de archivos ubicados actualmente en el directorio
+	Lista< std::string > ld;
+	this->obtenerArchivosDeDirectorio(&ld);
+
+	// Variables auxiliares de procesamiento
+	std::string reg_archivoNombre, reg_archivoHash;
+	char buffer[TAM_BUF];
+	bool eof = false;
+
+	// Tomamos el primer registro
+	if(!registro.getline(buffer, TAM_BUF)) eof = true;
+	this->separarNombreYHash(buffer, reg_archivoNombre, reg_archivoHash);
+
+	// Iteramos sobre los nombres de archivos existentes en el directorio
+	for(size_t i = 0; i < ld.tamanio(); i++) {
+		// Caso en el que no hay mas registros y se han agregado archivos
+		if(eof) {
+			// Calculamos el hash del archivo nuevo
+			std::string hashNuevo;
+			this->obtenerHash(ld[i], hashNuevo);
+
+			// Registramos archivo nuevo
+			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
+
+			// Insertamos archivo en cola de nuevos
+			nuevos->push(ld[i]);
+
+			huboCambio = true;
+			continue;
+		}
+
+		// Caso en que se han eliminado archivos
+		while(ld[i] > reg_archivoNombre && !eof) {
+			// Insertamos en cola de eliminados
+			eliminados->push(reg_archivoNombre);
+
+			// Tomamos el registro siguiente
+			memset(buffer, 0, TAM_BUF);
+			if(!registro.getline(buffer, TAM_BUF)) eof = true;
+			this->separarNombreYHash(buffer, reg_archivoNombre, 
+				reg_archivoHash);
+
+			huboCambio = true;
+		}
+
+		// Caso en el que el archivo se mantiene existente
+		if(ld[i] == reg_archivoNombre) {
+			// Corroboramos si ha sido modificado
+			// [FALTA MODIFICAR ESTA PARTEEEEE]
+			if(false) {
+			// if(reg_archivoHash != obtenerHash(ld[i])) {
+			// 	// Actualizamos el hash del archivo
+			// 	registroTmp << ld[i] << " " << 
+			// 		obtenerHash(ld[i]) << std::endl;
+
+			// 	// Insertamos archivo en cola de modificados
+			// 	modificados->push(ld[i]);
+
+			// 	huboCambio = true;
+			}
+			// [FIN FALTA MODIFICAR ESTA PARTEEEEE]
+			// Caso en que no ha sido modificado
+			else {
+				registroTmp << reg_archivoNombre << DELIMITADOR 
+					<< reg_archivoHash << std::endl;
+			}
+
+			// Tomamos el registro siguiente
+			memset(buffer, 0, TAM_BUF);
+			if(!registro.getline(buffer, TAM_BUF)) eof = true;
+			this->separarNombreYHash(buffer, reg_archivoNombre, 
+				reg_archivoHash);
+		}
+		// Caso en el que se han agregado nuevos archivos
+		else if(ld[i] < reg_archivoNombre || eof) {
+			// Calculamos el hash del archivo nuevo
+			std::string hashNuevo;
+			this->obtenerHash(ld[i], hashNuevo);
+			// Registramos archivo nuevo
+			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
+
+			// Insertamos archivo en cola de nuevos
+			nuevos->push(ld[i]);
+
+			huboCambio = true;
+		}
+	}
+
+	// Encolamos los últimos registros pertenecientes a archivos eliminados
+	while(!eof) {
+		eliminados->push(reg_archivoNombre);
+
+		// Tomamos el registro siguiente
+		memset(buffer, 0, TAM_BUF);
+		if(!registro.getline(buffer, TAM_BUF)) eof = true;
+		this->separarNombreYHash(buffer, reg_archivoNombre,	reg_archivoHash);
+
+		huboCambio = true;
+	}
+
+
+	// Cerramos archivos
+	registro.close();
+	registroTmp.close();
+
+	// Eliminamos el registro original y convertimos el temporal en el oficial
+	remove(regNombre.c_str());
+	rename(regTmpNombre.c_str(), regNombre.c_str());
+
+	return huboCambio;
 }
 
 
@@ -533,11 +667,12 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 }
 
 
+
+
+
 /*
  * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
-
-
 
 
 // Separa de una linea el nombre y el hash
@@ -554,7 +689,7 @@ void ManejadorDeArchivos::separarNombreYHash(char* linea, std::string& nombre,
 	// Se separa si hay contenido
 	if (!l.empty()) {
 		// Se busca el ultimo espacio
-		int delim = l.find_last_of(' ');
+		int delim = l.find_last_of(DELIMITADOR[0]);
 
 		// Se guarda nombre y hash por separado
 		nombre = l.substr(0, delim);

@@ -128,6 +128,9 @@ void Sincronizador::run() {
 			respuesta.append(COMMON_FILE_PARTS);
 			respuesta.append(" ");
 			respuesta.append(nombreArchivo);
+			respuesta.append(COMMON_DELIMITER);
+			respuesta.append(Convertir::itos(
+				this->manejadorDeArchivos->obtenerCantBloques(nombreArchivo)));
 
 			// Iteramos sobre los bloques solicitados
 			while(!listaArgumentos.estaVacia()) {

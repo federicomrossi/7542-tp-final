@@ -78,9 +78,10 @@ public:
 	// POST: devuelve true si se eliminó con éxito o false en su defecto.
 	bool eliminarArchivo(const std::string& nombreArchivo);
 
-	// Guarda modificaciones de bloques en un archivo, dejandolo de menor o mayor
-	// tamanio segun corresponda
-	void modificarArchivo(std::string& nombreArchivo, int cantBloquesDelArchivo, 
+	// Guarda modificaciones de bloques en un archivo, dejandolo de menor o 
+	// mayor tamanio segun corresponda
+	void modificarArchivo(std::string& nombreArchivo, 
+		int cantBloquesDelArchivo, 
 		Lista< std::pair< int, std::string > >& listaBloquesAReemplazar);
 
 	// Devuelve el hash del archivo, el cual se encuentra conformado

@@ -107,6 +107,13 @@ void Actualizador::ejecutarActualizacion() {
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
 		&listaFaltantes, &listaSobrantes);
 
+	// Eliminamos archivos sobrantes
+	for(size_t i = 0; i < listaSobrantes.tamanio(); i++) {
+		std::string archivo = listaSobrantes[i];
+		this->manejadorDeArchivos->eliminarArchivo(archivo);
+	}
+
+
 	// Realizamos la petición de envío y espera de recepción de archivos
 	// faltantes
 	for(size_t i = 0; i < listaFaltantes.tamanio(); i++) {
@@ -158,6 +165,14 @@ void Actualizador::ejecutarActualizacion() {
 		std::string archivoFaltanteEntrante = listaArgumentos_2.verPrimero();
 		listaArgumentos_2.eliminarPrimero();
 
+		// Tomamos la cantidad total de bloques del archivo
+		int cantTotalBloques = Convertir::stoi(listaArgumentos_2.verPrimero());
+		listaArgumentos_2.eliminarPrimero();
+
+		// Creamos lista de bloques a reemplazar
+		Lista< std::pair< int, std::string > > listaBloquesAReemplazar;
+
+		// LLenamos la lista de bloques a reemplazar
 		while(!listaArgumentos_2.estaVacia()) {
 			// Tomamos un número de bloque
 			int numBloque = Convertir::stoi(listaArgumentos_2.verPrimero());
@@ -175,11 +190,19 @@ void Actualizador::ejecutarActualizacion() {
 				continue;
 			}
 
-			// Modificamos el contenido del bloque por el recibido
-			this->manejadorDeArchivos->modificarBloque(nombreArchivoFaltante,
-				numBloque, contenidoBloque);
+			// Insertamos bloque en lista de bloques
+			listaBloquesAReemplazar.insertarUltimo(std::make_pair(numBloque, 
+				contenidoBloque));
 		}
+
+		// Si la lista de bloques esta vacía, salteamos
+		if(listaBloquesAReemplazar.estaVacia()) continue;
+
+		// Modificamos el archivo
+		this->manejadorDeArchivos->modificarArchivo(nombreArchivoFaltante,
+			cantTotalBloques, listaBloquesAReemplazar);
 	}
+
 
 	// // Mensaje de log
 	// std::cout << "Actualizando registro de archivos locales... " << std::endl;
