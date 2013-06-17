@@ -21,7 +21,7 @@ public:
 
 	// Parsea el mensaje separando los argumentos y los devuelve en una lista
 	// en el orden en que se leyeron. Si el mensaje esta vacio, no se modifica la lista
-	static void parserArgumentos(const std::string &msg, 
+	static void dividirCadena(const std::string &msg, 
 		Lista<std::string>* args, char delim);
 
 };
