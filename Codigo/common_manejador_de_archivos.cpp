@@ -72,11 +72,14 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 // Devuelve una lista con los archivos (ordenados por nombre) que se 
 // encuentran ubicados en el registro administrado por el manejador.
 
-void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair <std::string, std::string > >* listaArchivos) {
+void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair 
+	<std::string, std::string > >* listaArchivos) {
+	
 	Lock l(m);
 
 	// variables auxiliares
-	std::string nombre, hash;	
+	std::string nombre, hash;
+	
 
 	// Armamos ruta del registro
 	std::string registro = this->directorio + DIR_AU + "/" 
@@ -85,16 +88,18 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair <std::strin
 	// se abre el archivo
 	std::ifstream archivo(registro.c_str(), std::ios_base::in);
 
-	// Se leen y guardan los nombres de archivos + hash en la lista
-	archivo >> nombre >> hash;
-	while (!archivo.eof()) {
-		std::pair<std::string, std::string> par(nombre, hash);
-		listaArchivos->insertarUltimo(par);
+	if (archivo.is_open()) {
+		// Se leen y guardan los nombres de archivos + hash en la lista
 		archivo >> nombre >> hash;
-	}
+		while (!archivo.eof()) {
+			std::pair<std::string, std::string> par(nombre, hash);
+			listaArchivos->insertarUltimo(par);
+			archivo >> nombre >> hash;
+		}
 
-	// Se cierra el archivo
-	archivo.close();
+		// Se cierra el archivo
+		archivo.close();
+	}
 }
 
 
@@ -195,8 +200,95 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(Lista< std::pair< std::str
 	// La primer lista contiene nombre, hash y cantidad de bloques (en ese orden)
 	// La segunda tiene hash y una cola de numeros de bloque
 
-	
+	// Variables auxiliares
+	std::pair< std::string, std::pair< std::string, int > > externo;
+	std::pair< std::string, std::string> registro;
+
+	// Se crea una lista y se guarda una lista de archivos en registro
+	Lista< std::pair< std::string, std::string> > listaRegistro;
+	obtenerArchivosDeRegistro(&listaRegistro);
+
+	// Iterador para la lista a comparar y su tamanio
+	int it_e = 0; 
+	int tam_e = listaExterna->tamanio();
+	// Iterador para la lista local del cliente y su tamanio
+	int it_r = 0;
+	int tam_r = listaRegistro.tamanio();
+
+	// Se buscan diferencias y similitudes entre ambas listas
+	while ((it_e < tam_e) && (it_r < tam_r)) {  // Mientras no haya terminado alguna lista
+		// Se obtiene un elemento de cada lista
+		externo = (*listaExterna)[it_e];
+		registro = listaRegistro[it_r];
+
+		// Caso en que el nombre archivo de la listaExterna es > al nombre del registro
+		if (externo.first > registro.first) {
+			// DEBUG
+			std::cout << "Comparacion: "<< externo.first << " > " << registro.first << std::endl;
+			// Se agrega a lista eliminar
+			sobrantes->insertarUltimo(registro.first);
+			it_r++;
+		}
+		// Caso de nombre archivo de la listaExterna es < al del registro 
+		else if (externo.first < registro.first) {
+			//DEBUG
+			std::cout <<"Comparacion: "<< externo.first << " < " << registro.first << std::endl;
+			// Se deben pedir archivos hasta 
+			while (externo.first < registro.first && it_e < tam_e) {
+				externo = (*listaExterna)[it_e];
+				Cola<int> num_bloques;
+				num_bloques.push(0);
+				std::pair< std::string, Cola<int> > nom_num_bloques(externo.first, 
+					num_bloques);
+				faltantes->insertarUltimo(nom_num_bloques);
+				it_e++;
+			}
+		}
+		else {  // Caso de nombres iguales
+			//DEBUG
+			std::cout <<"Comparacion: "<< externo.first << " == " << registro.first << std::endl;
+			// Compara hashes
+			if (externo.second.first != registro.second) {
+				//DEBUG
+				std::cout <<"Hashes distintos" << std::endl;
+				Cola<int> num_bloques;
+				obtenerColaDiferencias(externo.first, externo.second.second, &num_bloques);
+				std::pair< std::string, Cola<int> > nom_num_bloques(externo.first, 
+					num_bloques);
+				faltantes->insertarUltimo(nom_num_bloques);
+			}
+			// Avanzo en ambas listas
+			it_e++;
+			it_r++;
+		}
+	}  // end while
+	// Si quedan elementos en la listaExterna
+	if (it_e < tam_e) {  // Quedan elementos por agregar al dir local
+		for (int i = it_e; i < tam_e; i++) {
+			Cola<int> num_bloques;
+			num_bloques.push(0);
+			std::pair< std::string, Cola<int> > nom_num_bloques(externo.first, 
+				num_bloques);
+			faltantes->insertarUltimo(nom_num_bloques);
+			it_e++;
+		}
+	}
+	// Si quedan elementos en la lista del dir local
+	if (it_r < tam_r) {  // Quedan elementos por eliminar en el dir local
+		for (int i = it_r; i < tam_r; i++) {
+			externo = (*listaExterna)[it_e];
+			sobrantes->insertarUltimo(externo.first);
+			it_r++;
+		}
+	}
 }
+
+// Devuelve las diferencias que existen entre 2 archivos
+void ManejadorDeArchivos::obtenerColaDiferencias(std::string nombre, 
+	int cantBloques, Cola<int>* diferencias) {
+	diferencias->push(0);
+}
+
 
 // DE AQUI EN ADELANTE CONSIDERAR MODIFICACIONES
 
