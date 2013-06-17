@@ -19,7 +19,7 @@ void Parser::parserInstruccion(const std::string& msg,
 
 // Parsea el mensaje separando los argumentos y los devuelve en una lista
 // en el orden en que se leyeron. Si el mensaje esta vacio, no se modifica la lista
-void Parser::parserArgumentos(const std::string &msg, Lista<std::string>* args,
+void Parser::dividirCadena(const std::string &msg, Lista<std::string>* args,
 	char delim) {
 	// Se procesa solo si el mensaje tiene contenido
 	if (!msg.empty()) {
