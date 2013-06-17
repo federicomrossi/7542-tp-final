@@ -9,7 +9,7 @@
 #include "common_protocolo.h"
 #include "common_parser.h"
 #include "common_convertir.h"
-#include "common_cola.h"
+#include "common_lista.h"
 #include "client_actualizador.h"
 
 // DEBUG
@@ -101,7 +101,7 @@ void Actualizador::ejecutarActualizacion() {
 
 	// Procesamos lista de archivos del servidor comparándola con el directorio
 	// local y obteniendo las actualizaciones pertinentes
-	Lista< std::pair< std::string, Cola< int > > > listaFaltantes;
+	Lista< std::pair< std::string, Lista< int > > > listaFaltantes;
 	Lista< std::string > listaSobrantes;
 
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
@@ -111,9 +111,8 @@ void Actualizador::ejecutarActualizacion() {
 	// faltantes
 	for(size_t i = 0; i < listaFaltantes.tamanio(); i++) {
 		// Tomamos uno de los archivos faltantes de la lista
-		std::string nombreArchivoFaltante = listaFaltantes.verPrimero().first;
-		Cola< int > colaBloques = listaFaltantes.verPrimero().second;
-		listaFaltantes.eliminarPrimero();
+		std::string nombreArchivoFaltante = listaFaltantes[i].first;
+		Lista< int > listaBloques = listaFaltantes[i].second;
 
 		// Emisión de la petición de archivo
 		std::string mensaje;
@@ -122,10 +121,14 @@ void Actualizador::ejecutarActualizacion() {
 		mensaje.append(nombreArchivoFaltante);
 		
 		// Insertamos numeros de bloque en mensaje
-		while(!colaBloques.vacia()) {
+		for(size_t i = 0; i < listaBloques.tamanio(); i++) {
 			mensaje.append(COMMON_DELIMITER);
-			mensaje.append(Convertir::itos(colaBloques.pop_bloqueante()));
+			mensaje.append(Convertir::itos(listaBloques[i]));
 		}
+
+		// DEBUG
+		std::cout << "SOLICITO: " << mensaje << std::endl;
+		// END DEBUG
 
 		// Emitimos mensaje
 		this->emisor->ingresarMensajeDeSalida(mensaje);
@@ -137,6 +140,10 @@ void Actualizador::ejecutarActualizacion() {
 			std::string msg = this->receptor->obtenerMensajeDeEntrada();
 			Parser::parserInstruccion(msg, instr, args);
 		}
+
+		// DEBUG
+		std::cout << "RECIBO: " << instr << " " << args << std::endl;
+		// END DEBUG
 
 		// Si el servidor notifica que ya no existe el archivo, salteamos
 		if(instr == S_NO_SUCH_FILE) continue;
