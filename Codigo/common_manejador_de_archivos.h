@@ -113,12 +113,12 @@ public:
 	// eliminar del dir local
 	void obtenerListaDeActualizacion(Lista< std::pair< std::string, 
 		std::pair< std::string, int > > >* listaExterna,
-		Lista< std::pair< std::string, Cola<int> > >* faltantes, 
+		Lista< std::pair< std::string, Lista<int> > >* faltantes, 
 		Lista<std::string>* sobrantes);
 
 	// Devuelve las diferencias que existen entre 2 archivos
 	void obtenerColaDiferencias(std::string nombre, int cantBloques, 
-		Cola<int>* diferencias);
+		Lista<int>* diferencias);
 
 	// Crea un archivo de registro.
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.

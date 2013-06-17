@@ -197,7 +197,7 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	Lista< std::pair< std::string, std::pair< std::string, 
 	int > > >* listaExterna, Lista< std::pair< std::string, 
-	Cola<int> > >* faltantes, Lista<std::string>* sobrantes) {
+	Lista<int> > >* faltantes, Lista<std::string>* sobrantes) {
 	// La primer lista contiene nombre, hash y cantidad de bloques (en ese 
 	// orden). La segunda tiene hash y una cola de numeros de bloque.
 
@@ -239,9 +239,9 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 			// Se deben pedir archivos hasta 
 			while (externo.first < registro.first && it_e < tam_e) {
 				externo = (*listaExterna)[it_e];
-				Cola<int> num_bloques;
-				num_bloques.push(0);
-				std::pair< std::string, Cola<int> > nom_num_bloques(
+				Lista<int> num_bloques;
+				num_bloques.insertarUltimo(0);
+				std::pair< std::string, Lista<int> > nom_num_bloques(
 					externo.first, num_bloques);
 				faltantes->insertarUltimo(nom_num_bloques);
 				it_e++;
@@ -254,24 +254,30 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 			if (externo.second.first != registro.second) {
 				//DEBUG
 				std::cout <<"Hashes distintos" << std::endl;
-				Cola<int> num_bloques;
+				Lista<int> num_bloques;
 				obtenerColaDiferencias(externo.first, externo.second.second,
 					&num_bloques);
-				std::pair< std::string, Cola<int> > nom_num_bloques(
-					externo.first, num_bloques);
+				std::pair< std::string, Lista<int> > nom_num_bloques = 
+					std::make_pair(externo.first, num_bloques);
 				faltantes->insertarUltimo(nom_num_bloques);
 			}
 			// Avanzo en ambas listas
 			it_e++;
 			it_r++;
+			// Si alguna termina, retrocedo la otra
+			if (it_e >= tam_e && it_r < tam_r)
+				it_r--;
+			if (it_r >= tam_r && it_e < tam_e)
+				it_e--;
 		}
 	}  // end while
 	// Si quedan elementos en la listaExterna
 	if (it_e < tam_e) {  // Quedan elementos por agregar al dir local
 		for (int i = it_e; i < tam_e; i++) {
-			Cola<int> num_bloques;
-			num_bloques.push(0);
-			std::pair< std::string, Cola<int> > nom_num_bloques(externo.first, 
+			externo = (*listaExterna)[it_e];
+			Lista<int> num_bloques;
+			num_bloques.insertarUltimo(0);
+			std::pair< std::string, Lista<int> > nom_num_bloques(externo.first, 
 				num_bloques);
 			faltantes->insertarUltimo(nom_num_bloques);
 			it_e++;
@@ -289,8 +295,8 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 
 // Devuelve las diferencias que existen entre 2 archivos
 void ManejadorDeArchivos::obtenerColaDiferencias(std::string nombre, 
-	int cantBloques, Cola<int>* diferencias) {
-	diferencias->push(0);
+	int cantBloques, Lista<int>* diferencias) {
+	diferencias->insertarUltimo(0);
 }
 
 
