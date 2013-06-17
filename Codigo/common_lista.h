@@ -34,6 +34,9 @@ public:
 	// Constructor
 	Lista();
 
+	// Constructor copia
+	Lista(const Lista< Tipo>& l);
+
 	// Destructor
 	~Lista();
 
@@ -68,6 +71,9 @@ public:
 	// lista[i], donde i es un número entero comprendido entre [0, n-1],
 	// siendo n el tamanio de la lista.
 	Tipo operator[] (const size_t indice);
+
+	// Asigna el contenido de una lista a otra
+	Lista& operator= (const Lista& lista);
 };
 
 
@@ -82,6 +88,12 @@ public:
 template <typename Tipo >
 Lista< Tipo >::Lista() { }
 
+
+// Constructor copia
+template <typename Tipo >
+Lista< Tipo >::Lista(const Lista< Tipo>& l) {
+	this->lista = l.lista;
+}
 
 // Destructor
 template <typename Tipo >
@@ -169,5 +181,12 @@ Tipo Lista< Tipo >::operator[] (const size_t indice) {
 	return *it;
 }
 
+
+// Asigna el contenido de una lista a otra
+template <typename Tipo >
+Lista< Tipo >& Lista< Tipo >::operator= (const Lista< Tipo >& l) {
+	this->lista = l->lista;
+	return(*this->lista);
+}
 
 #endif
