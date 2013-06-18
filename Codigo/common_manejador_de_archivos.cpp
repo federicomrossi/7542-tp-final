@@ -7,6 +7,7 @@
 #include "common_manejador_de_archivos.h"
 #include "common_parser.h"
 #include "common_lista.h"
+#include "common_hash.h"
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -24,6 +25,12 @@ namespace {
 
 	// Delimitador de campos del registro
 	const std::string DELIMITADOR = ",";
+
+	// Constante que define el tamaño de los bloques de archivos.
+	const int TAMANIO_BLOQUE = 8;
+
+	// Constante que define el tamaño de los bloques de hash de archivos.
+	const int TAMANIO_BLOQUE_HASH = 40;
 
 	// Tamanio buffer lectura
 	#define TAM_BUF 2048
@@ -226,7 +233,7 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 }
 
 
-// Devuelve el hash del archivo, el cual se encuentra conformado
+// Calcula el hash del archivo, el cual se encuentra conformado
 // por los hashes de cada bloque concatenados.
 // PRE: 'nombreArchivo' es el nombre de archivo, 'hashArchivo' es
 // el string en donde se depositará el hash.
@@ -234,9 +241,25 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 // archivo.
 int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo, 
 	std::string& hashArchivo) {
+	// Limpiamos el argumento en donde se depositará el hash del contenido
+	hashArchivo.clear();
 
-	hashArchivo = "UNHASH";
-	return 0;
+	// Obtenemos el contenido del archivo
+	std::string contenido = this->obtenerContenido(nombreArchivo);
+
+	// Obtenemos la cantidad de bloques del archivo
+	int cantBloques = this->obtenerCantBloques(nombreArchivo);
+
+	for(int i = 0; i < cantBloques; i++) {
+		// Obtenemos el bloque i del contenido
+		std::string bloque = contenido.substr(i * TAMANIO_BLOQUE,
+			TAMANIO_BLOQUE);
+
+		// Concatenamos el hash del bloque
+		hashArchivo.append(Hash::funcionDeHash(bloque));
+	}
+	
+	return cantBloques;
 }
 
 
@@ -247,9 +270,6 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 // o si es cero, se devuelve el contenido completo del archivo.
 std::string ManejadorDeArchivos::obtenerContenido(
 	const std::string& nombreArchivo, int numBloque) {
-	// Bloqueamos el mutex
-	Lock l(m);
-
 	// Armamos la ruta hacia el archivo
 	std::string ruta = this->directorio + "/" + nombreArchivo;
 
@@ -341,8 +361,9 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 
 	// Si no existe, se devuelve -1
 	if (archivo.is_open()) {
-		// Se obtiene longitud archivo
-		longitud = archivo.tellg();
+		// Se obtiene longitud archivo y se la multiplica por 2 para
+		// considerarlo en hexa
+		longitud = archivo.tellg() * 2;
 
 		// Se calcula cantBloques
 		cantBloques = floor((double)(longitud/TAMANIO_BLOQUE));
@@ -364,15 +385,17 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 // POST: se listan en 'listaBLoquesDiferentes' los numero de bloques
 // que han cambiado; Se devuelve true si se encontraron diferencias o 
 // false en caso contrario.
-bool ManejadorDeArchivos::obtenerDiferencias(std::string hashViejo,
-	std::string hashNuevo, int& cantNuevaBloques,
+bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
+	std::string& hashNuevo, int& cantNuevaBloques,
 	Lista<int> *listaBloquesDiferentes) {
+	// Si los hashes refieren a archivos vacios, devolvemos false
+	if(hashViejo == "" && hashNuevo == "") return false;
 
 	// Caso en que el tamaño del hashViejo es nulo
 	if(hashViejo.size() == 0) {
 		// Insertamos todos los números de bloques
 		for(int i = 1; i <= cantNuevaBloques; i++)
-			listaBloquesDiferentes->insertarUltimo(i + 1);
+			listaBloquesDiferentes->insertarUltimo(i);
 
 		return true;
 	}
@@ -385,26 +408,27 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string hashViejo,
 
 	while((i < cantNuevaBloques) && (j < hashViejo.size())) {
 		// Obtenemos el bloque i del hash viejo
-		std::string bloqueViejo = hashViejo.substr(0 * TAMANIO_BLOQUE,
-			TAMANIO_BLOQUE);
-		
+		std::string bloqueViejo = hashViejo.substr(i * TAMANIO_BLOQUE_HASH,
+			TAMANIO_BLOQUE_HASH);
+
 		// Obtenemos el bloque i del hash nuevo
-		std::string bloqueNuevo = hashNuevo.substr(0 * TAMANIO_BLOQUE,
-			TAMANIO_BLOQUE);
+		std::string bloqueNuevo = hashNuevo.substr(i * TAMANIO_BLOQUE_HASH,
+			TAMANIO_BLOQUE_HASH);
+
+		// Incrementamos el número de bloque
+		i++;
+		// Incrementamos el largo parcial del hashViejo
+		j += TAMANIO_BLOQUE_HASH;
 
 		// Si son iguales los bloques, sigo de largo
 		if(bloqueViejo == bloqueNuevo) continue;
 
 		// Insertamos el número de bloque en la lista
-		listaBloquesDiferentes->insertarUltimo(i + 1);
+		listaBloquesDiferentes->insertarUltimo(i);
 		hubieronCambios = true;
-
-		// Incrementamos el número de bloque
-		i++;
-		// Incrementamos el largo parcial del hashViejo
-		j += TAMANIO_BLOQUE;
 	}
 
+	// Agregamos bloques remanentes
 	while(i < cantNuevaBloques) {
 		// Insertamos el número de bloque en la lista
 		listaBloquesDiferentes->insertarUltimo(i + 1);
@@ -496,11 +520,6 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 			// Avanzo en ambas listas
 			it_e++;
 			it_r++;
-			// Si alguna termina, retrocedo la otra
-			if (it_e >= tam_e && it_r < tam_r)
-				it_r--;
-			if (it_r >= tam_r && it_e < tam_e)
-				it_e--;
 		}
 	}  // end while
 	// Si quedan elementos en la listaExterna
@@ -564,8 +583,9 @@ bool ManejadorDeArchivos::crearRegistroDeArchivos() {
 // 'true' en su defecto; esto evita tener que revisar las colas para
 // comprobar cambios.
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
-	Cola< std::string > *nuevos, Cola< std::string > *modificados, 
-	Cola< std::string > *eliminados) {
+	Cola< std::string > *nuevos, 
+	Cola< std::pair< std::string, Lista<int> > > *modificados, 
+	Cola< std::string > *eliminados){
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -636,23 +656,31 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		// Caso en el que el archivo se mantiene existente
 		if(ld[i] == reg_archivoNombre) {
 			// Corroboramos si ha sido modificado
-			// [FALTA MODIFICAR ESTA PARTEEEEE]
-			if(false) {
-			// if(reg_archivoHash != obtenerHash(ld[i])) {
-			// 	// Actualizamos el hash del archivo
-			// 	registroTmp << ld[i] << " " << 
-			// 		obtenerHash(ld[i]) << std::endl;
+			std::string hash_aux;
+			this->obtenerHash(reg_archivoNombre, hash_aux);
+			int cantBloques_aux = this->obtenerCantBloques(reg_archivoNombre);
+			Lista<int> listaDiferencias;
 
-			// 	// Insertamos archivo en cola de modificados
-			// 	modificados->push(ld[i]);
+			// std::cout << reg_archivoNombre << "HASH: " << hash_aux << std::endl;
 
-			// 	huboCambio = true;
+			// Caso en que el archivo ha sido modificado
+			if(this->obtenerDiferencias(reg_archivoHash, 
+				hash_aux, cantBloques_aux, &listaDiferencias)) {
+
+				// Actualizamos el hash del archivo
+				registroTmp << reg_archivoNombre << DELIMITADOR << 
+					hash_aux << std::endl;
+
+				// Insertamos archivo en cola de modificados
+				modificados->push(make_pair(reg_archivoNombre, 
+					listaDiferencias));
+
+				huboCambio = true;
 			}
-			// [FIN FALTA MODIFICAR ESTA PARTEEEEE]
 			// Caso en que no ha sido modificado
 			else {
 				registroTmp << reg_archivoNombre << DELIMITADOR 
-					<< reg_archivoHash << std::endl;
+					<< hash_aux << std::endl;
 			}
 
 			// Tomamos el registro siguiente
@@ -706,8 +734,14 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 // 'true' en su defecto; esto evita tener que revisar las colas para
 // comprobar cambios.
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
+	// Variables auxiliares
+	Cola< std::string > nuevos;
+	Cola< std::pair< std::string, Lista< int > > > modificados;
+	Cola< std::string > eliminados;
 
-	return false;
+	// Retornamos el resultado de comprobar si hubieron actualizaciones
+	return this->actualizarRegistroDeArchivos(&nuevos, &modificados,
+		&eliminados);
 }
 
 

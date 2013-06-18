@@ -185,8 +185,8 @@ Tipo Lista< Tipo >::operator[] (const size_t indice) {
 // Asigna el contenido de una lista a otra
 template <typename Tipo >
 Lista< Tipo >& Lista< Tipo >::operator= (const Lista< Tipo >& l) {
-	this->lista = l->lista;
-	return(*this->lista);
+	this->lista = l.lista;
+	return(*this);
 }
 
 #endif

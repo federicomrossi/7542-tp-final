@@ -22,13 +22,6 @@
 
 
 
-namespace {
-	// Constante que define el tamaño de los bloques de archivos.
-	const int TAMANIO_BLOQUE = 8;
-}
-
-
-
 
 /* ****************************************************************************
  * DECLARACIÓN DE LA CLASE
@@ -84,7 +77,7 @@ public:
 		int cantBloquesDelArchivo, 
 		Lista< std::pair< int, std::string > >& listaBloquesAReemplazar);
 
-	// Devuelve el hash del archivo, el cual se encuentra conformado
+	// Calcula el hash del archivo, el cual se encuentra conformado
 	// por los hashes de cada bloque concatenados.
 	// PRE: 'nombreArchivo' es el nombre de archivo, 'hashArchivo' es
 	// el string en donde se depositará el hash.
@@ -144,7 +137,7 @@ public:
 	// POST: se listan en 'listaBLoquesDiferentes' los numero de bloques
 	// que han cambiado; Se devuelve true si se encontraron diferencias o 
 	// false en caso contrario.
-	bool obtenerDiferencias(std::string hashViejo, std::string hashNuevo,
+	bool obtenerDiferencias(std::string& hashViejo, std::string& hashNuevo,
 		int& cantNuevaBloques, Lista<int> *listaBloquesDiferentes);
 
 	// Crea un archivo de registro.
@@ -161,7 +154,8 @@ public:
 	// 'true' en su defecto; esto evita tener que revisar las colas para
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
-		Cola< std::string > *modificados, Cola< std::string > *eliminados);
+		Cola< std::pair< std::string, Lista<int> > > *modificados, 
+		Cola< std::string > *eliminados);
 
 	// Actualiza el registro local de archivos.
 	// POST: se devuelve 'false' si se produjeron cambios en el registro o

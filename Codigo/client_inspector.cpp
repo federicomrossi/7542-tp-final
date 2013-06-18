@@ -9,6 +9,7 @@
 #include "common_cola.h"
 #include "common_lista.h"
 #include <string>
+#include <utility>
 #include <unistd.h>
 
 // DEBUG
@@ -68,29 +69,10 @@ void Inspector::run() {
 		// Si se detuvo al inspector, salimos
 		if(!this->isActive()) return;
 
-		
-
-		// DEBUG
-		Lista<int> bloques;
-		std::string hashViejo = "AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD";
-		std::string hashNuevo = "AAAAAAAABBBBBBBBCCCCCCCC";
-		int tam = 3;
-
-		if(this->manejadorDeArchivos->obtenerDiferencias(hashViejo, hashNuevo,
-			tam, &bloques)) {
-			std::cout << "Hubieron cambios" << std::endl;
-			for(size_t i = 0; i < bloques.tamanio(); i++)
-				std::cout << "bloque " << bloques[i] << std::endl;
-		}
-
-		continue;
-		// END DEBUG
-
-
 
 		// Realizamos la inspección
 		Cola< std::string > nuevos;
-		Cola< std::string > modificados;
+		Cola< std::pair< std::string, Lista< int > > > modificados;
 		Cola< std::string > eliminados;
 
 		if(this->manejadorDeArchivos->actualizarRegistroDeArchivos(&nuevos,
@@ -115,14 +97,21 @@ void Inspector::run() {
 
 			while(!modificados.vacia()) {
 				// Tomamos modificado
-				std::string mod = modificados.pop_bloqueante();
+				std::pair< std::string, Lista<int> > mod;
+				mod = modificados.pop_bloqueante();
 
 				// Enviamos a sincronizador
-				this->sincronizador->modificarArchivo(mod, 0, 
-					this->manejadorDeArchivos->obtenerContenido(mod));
+				// this->sincronizador->modificarArchivo(mod, 0, 
+				// 	this->manejadorDeArchivos->obtenerContenido(mod));
 
 				// DEBUG
-				std::cout << "Modificado: " << mod << std::endl;
+				std::cout << "Modificado: " << mod.first << " Bloques: ";
+
+				for(int i = 0; i < (int)mod.second.tamanio(); i++) {
+					std::cout << mod.second[i] << " ";
+				}
+
+				std::cout << std::endl;
 				// END DEBUG
 			}
 

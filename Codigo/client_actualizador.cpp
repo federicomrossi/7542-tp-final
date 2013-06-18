@@ -86,7 +86,9 @@ void Actualizador::ejecutarActualizacion() {
 		std::string hashArchivo = listaArgumentos_1.verPrimero();
 		listaArgumentos_1.eliminarPrimero();
 		// Tomamos cantidad de bloques de archivo
-		int cantBloquesArchivo = Convertir::stoi(listaArgumentos_1.verPrimero());
+		int cantBloquesArchivo;
+		cantBloquesArchivo = Convertir::stoi(listaArgumentos_1.verPrimero());
+		
 		listaArgumentos_1.eliminarPrimero();
 
 		// Formamos el par con la información necesaria del archivo
@@ -104,8 +106,27 @@ void Actualizador::ejecutarActualizacion() {
 	Lista< std::pair< std::string, Lista< int > > > listaFaltantes;
 	Lista< std::string > listaSobrantes;
 
+
+	// this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
+	// 	&listaFaltantes, &listaSobrantes);
+	
+	// DEBUG
+	try {
+	// NO FUNCIONA BIEN EL OBTENER LISTA DE ACTUALIZACION. TIRA ERROR DE
+	// INDICE INVALIDO DE LISTA. TAMPOCO FUNCIONA BIEN EL OBTENER LA
+	// CANTIDAD DE BLOQUES DEL MANEJADOR DE ARCHIVOS: SE ENVIA UNA UNIDAD
+	// MENOS DE LA QUE DEBERIA SER CUANDO SE MANDA ARCHIVO DESDE SERVER.
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
 		&listaFaltantes, &listaSobrantes);
+	}
+	catch(char const * e) {
+		std::cout << e << std::endl;
+	}
+	catch(...) {
+		std::cout << "Cago fuego!!" << std::endl;
+	}
+	// END DEBUG
+
 
 	// Eliminamos archivos sobrantes
 	for(size_t i = 0; i < listaSobrantes.tamanio(); i++) {
@@ -204,14 +225,14 @@ void Actualizador::ejecutarActualizacion() {
 	}
 
 
-	// // Mensaje de log
-	// std::cout << "Actualizando registro de archivos locales... " << std::endl;
- //   	std::cout.flush();
+	// Mensaje de log
+	std::cout << "Actualizando registro de archivos locales... " << std::endl;
+	std::cout.flush();
 
-	// // Actualizamos el registro de archivos
-	// this->manejadorDeArchivos->actualizarRegistroDeArchivos();
+	// Actualizamos el registro de archivos
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
 
 	// Mensaje de log
 	std::cout << "Fin de la actualización... " << std::endl;
-   	std::cout.flush();
+	std::cout.flush();
 }
