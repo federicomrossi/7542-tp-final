@@ -529,11 +529,11 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 
 	// Variables auxiliares de procesamiento
 	std::string reg_archivoNombre, reg_archivoHash;
-	char buffer[TAM_BUF];
+	std::string buffer;
 	bool eof = false;
 
 	// Tomamos el primer registro
-	if(!registro.getline(buffer, TAM_BUF)) eof = true;
+	if(!std::getline(registro, buffer)) eof = true;
 	this->separarNombreYHash(buffer, reg_archivoNombre, reg_archivoHash);
 
 	// Iteramos sobre los nombres de archivos existentes en el directorio
@@ -560,8 +560,8 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 			eliminados->push(reg_archivoNombre);
 
 			// Tomamos el registro siguiente
-			memset(buffer, 0, TAM_BUF);
-			if(!registro.getline(buffer, TAM_BUF)) eof = true;
+			buffer.clear();
+			if(!std::getline(registro, buffer)) eof = true;
 			this->separarNombreYHash(buffer, reg_archivoNombre, 
 				reg_archivoHash);
 
@@ -591,8 +591,8 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 			}
 
 			// Tomamos el registro siguiente
-			memset(buffer, 0, TAM_BUF);
-			if(!registro.getline(buffer, TAM_BUF)) eof = true;
+			buffer.clear();
+			if(!std::getline(registro, buffer)) eof = true;
 			this->separarNombreYHash(buffer, reg_archivoNombre, 
 				reg_archivoHash);
 		}
@@ -616,8 +616,8 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		eliminados->push(reg_archivoNombre);
 
 		// Tomamos el registro siguiente
-		memset(buffer, 0, TAM_BUF);
-		if(!registro.getline(buffer, TAM_BUF)) eof = true;
+		buffer.clear();
+		if(!std::getline(registro, buffer)) eof = true;
 		this->separarNombreYHash(buffer, reg_archivoNombre,	reg_archivoHash);
 
 		huboCambio = true;
@@ -675,9 +675,8 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 
 
 // Separa de una linea el nombre y el hash
-void ManejadorDeArchivos::separarNombreYHash(const std::string &linea, std::string& nombre,
-	std::string &hash) {
-
+void ManejadorDeArchivos::separarNombreYHash(const std::string &linea,
+	std::string& nombre, std::string &hash) {
 	// Se limpian las variables
 	nombre.clear();
 	hash.clear();
