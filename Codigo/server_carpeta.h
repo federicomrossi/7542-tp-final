@@ -32,10 +32,14 @@ private:
 	Sincronizador *sincronizador;						// Sincronizador
 	ManejadorDeArchivos *manejadorDeArchivos;			// Manejador
 
+	// Crea una carpeta fisica para el usuario si no existe ya una carpeta
+	// Devuelve 1 si la operacion es correcta y 0 sino
+	int crearCarpeta(const std::string &usuario);
+
 public:
 
 	// Constructor
-	Carpeta();
+	Carpeta(const std::string &usuario);
 
 	// Destructor
 	~Carpeta();

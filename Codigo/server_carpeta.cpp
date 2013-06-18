@@ -7,8 +7,11 @@
 #include "server_carpeta.h"
 #include "server_conexion_cliente.h"
 
+#include <dirent.h>
+#include <sys/stat.h>
 
-
+//DEBUG
+#include <iostream>
 
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
@@ -16,16 +19,20 @@
 
 
 // Constructor
-Carpeta::Carpeta() {
+Carpeta::Carpeta(const std::string &usuario) {
 	// Creamos el receptor que recibirá los mensajes entrantes
 	this->receptor = new Receptor();
 
 	// Creamos el emisor que enviará mensajes a los clientes
 	this->emisor = new Emisor(&this->listaConexiones);
 
-	// Se crea el manejador de archivos
+	// Si no existe carpeta fisica se crea
+	// DEBUG: ¿que hacer si no logra crearla?
 	// DEBUG: Modificar path
-	std::string path = "servidor";
+	std::string path = "servidor/" + usuario;
+	if(crearCarpeta(path));
+
+	// Se crea el manejador de archivos
 	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
 
 	// Creamos el sincronizador
@@ -75,3 +82,19 @@ void Carpeta::desvincularCliente(ConexionCliente *unCliente) {
 int Carpeta::cantidadClientes() {
 	return this->listaConexiones.tamanio();
 }
+
+
+// Crea una carpeta fisica para el usuario si no existe ya una carpeta
+// Devuelve 1 si la operacion es correcta y 0 sino
+int Carpeta::crearCarpeta(const std::string &usuario) {
+	// Se intenta abrir el directorio
+	DIR* carpeta = opendir(usuario.c_str());
+	if (carpeta == NULL) {  // No existe, entonces se crea
+		if (!mkdir(usuario.c_str(), S_IFDIR | S_IRWXU | S_IFDIR));
+			return 0;
+	}
+	else
+		closedir(carpeta);
+	return 1;
+}
+

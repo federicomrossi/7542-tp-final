@@ -34,7 +34,7 @@ void AdministradorDeClientes::ingresarCliente(std::string usuario,
 	// Corroboramos si ya hay una carpeta activa para dicho usuario
 	// Si no existe una carpeta activa, creamos una carpeta
 	if(this->carpetas.count(usuario) == 0)
-		this->carpetas[usuario] = new Carpeta();
+		this->carpetas[usuario] = new Carpeta(usuario);
 
 	// Vinculamos al cliente con la carpeta
 	this->carpetas[usuario]->vincularCliente(unCliente);
