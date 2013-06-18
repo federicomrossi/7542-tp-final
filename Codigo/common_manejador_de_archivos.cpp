@@ -86,8 +86,7 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 	Lock l(m);
 
 	// variables auxiliares
-	std::string nombre, hash;
-	char buffer[TAM_BUF];
+	std::string nombre, hash, linea;
 	
 
 	// Armamos ruta del registro
@@ -99,8 +98,8 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 
 	if (archivo.is_open()) {
 		// Se leen y guardan los nombres de archivos + hash en la lista
-		while(archivo.getline(buffer, TAM_BUF)) {
-			separarNombreYHash(buffer, nombre, hash);
+		while(std::getline(archivo, linea)) {
+			separarNombreYHash(linea, nombre, hash);
 			std::pair<std::string, std::string> par(nombre, hash);
 			listaArchivos->insertarUltimo(par);
 		}
@@ -676,25 +675,22 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 
 
 // Separa de una linea el nombre y el hash
-void ManejadorDeArchivos::separarNombreYHash(char* linea, std::string& nombre,
+void ManejadorDeArchivos::separarNombreYHash(const std::string &linea, std::string& nombre,
 	std::string &hash) {
-
-	// Variable auxiliar
-	std::string l = linea;
 
 	// Se limpian las variables
 	nombre.clear();
 	hash.clear();
 	
 	// Se separa si hay contenido
-	if (!l.empty()) {
+	if (!linea.empty()) {
 		// Se busca el ultimo espacio
-		int delim = l.find_last_of(DELIMITADOR[0]);
+		int delim = linea.find_last_of(DELIMITADOR[0]);
 
 		// Se guarda nombre y hash por separado
-		nombre = l.substr(0, delim);
+		nombre = linea.substr(0, delim);
 
-		hash = l.substr(delim + 1);
+		hash = linea.substr(delim + 1);
 	}
 }
 
