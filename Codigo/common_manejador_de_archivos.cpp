@@ -363,7 +363,7 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 	if (archivo.is_open()) {
 		// Se obtiene longitud archivo y se la multiplica por 2 para
 		// considerarlo en hexa
-		longitud = archivo.tellg() * 2;
+		longitud = archivo.tellg();
 
 		// Se calcula cantBloques
 		cantBloques = floor((double)(longitud/TAMANIO_BLOQUE));
@@ -372,8 +372,8 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 			cantBloques++;
 	}
 	
-	// Se devuelve la cantidad de bloques
-	return(cantBloques);
+	// Se devuelve la cantidad de bloques hexadecimales que hay
+	return(cantBloques * 2);
 }
 
 
@@ -472,6 +472,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	int it_r = 0;
 	int tam_r = listaRegistro.tamanio();
 
+
 	// Se buscan diferencias y similitudes entre ambas listas
 	while ((it_e < tam_e) && (it_r < tam_r)) {  
 		// Mientras no haya terminado alguna lista
@@ -482,16 +483,12 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 		// Caso en que el nombre archivo de la listaExterna es > al nombre del
 		// registro
 		if (externo.first > registro.first) {
-			// DEBUG
-			std::cout << "Comparacion: "<< externo.first << " > " << registro.first << std::endl;
 			// Se agrega a lista eliminar
 			sobrantes->insertarUltimo(registro.first);
 			it_r++;
 		}
 		// Caso de nombre archivo de la listaExterna es < al del registro 
 		else if (externo.first < registro.first) {
-			//DEBUG
-			std::cout <<"Comparacion: "<< externo.first << " < " << registro.first << std::endl;
 			// Se deben pedir archivos hasta 
 			while (externo.first < registro.first && it_e < tam_e) {
 				externo = (*listaExterna)[it_e];
@@ -504,12 +501,8 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 			}
 		}
 		else {  // Caso de nombres iguales
-			//DEBUG
-			std::cout <<"Comparacion: "<< externo.first << " == " << registro.first << std::endl;
 			// Compara hashes
 			if (externo.second.first != registro.second) {
-				//DEBUG
-				std::cout <<"Hashes distintos" << std::endl;
 				Lista<int> num_bloques;
 				obtenerListaDiferencias(externo.first, externo.second.second,
 					&num_bloques);
@@ -537,8 +530,8 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	// Si quedan elementos en la lista del dir local
 	if (it_r < tam_r) {  // Quedan elementos por eliminar en el dir local
 		for (int i = it_r; i < tam_r; i++) {
-			externo = (*listaExterna)[it_e];
-			sobrantes->insertarUltimo(externo.first);
+			registro = listaRegistro[it_r];
+			sobrantes->insertarUltimo(registro.first);
 			it_r++;
 		}
 	}
