@@ -136,6 +136,17 @@ public:
 	// Devuelve la cantidad de bloques de un archivo
 	int obtenerCantBloques(const std::string &nombreArchivo);
 
+	// Procesa dos hashes pertenecientes al contenido de un archivo y
+	// obtiene los bloques que han cambiado.
+	// PRE: 'hashViejo' y 'hashNuevo' son los hashes de los archivos a
+	// procesar; 'cantNuevaBloques' es la cantidad de bloques del archivo
+	// que es representado por 'hashNuevo'
+	// POST: se listan en 'listaBLoquesDiferentes' los numero de bloques
+	// que han cambiado; Se devuelve true si se encontraron diferencias o 
+	// false en caso contrario.
+	bool obtenerDiferencias(std::string hashViejo, std::string hashNuevo,
+		int& cantNuevaBloques, Lista<int> *listaBloquesDiferentes);
+
 	// Crea un archivo de registro.
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.
 	// POST: devuelve true si se realizó la creación con éxito o false en su

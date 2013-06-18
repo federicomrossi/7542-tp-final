@@ -7,6 +7,7 @@
 
 #include "client_inspector.h"
 #include "common_cola.h"
+#include "common_lista.h"
 #include <string>
 #include <unistd.h>
 
@@ -68,6 +69,25 @@ void Inspector::run() {
 		if(!this->isActive()) return;
 
 		
+
+		// DEBUG
+		Lista<int> bloques;
+		std::string hashViejo = "AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDD";
+		std::string hashNuevo = "AAAAAAAABBBBBBBBCCCCCCCC";
+		int tam = 3;
+
+		if(this->manejadorDeArchivos->obtenerDiferencias(hashViejo, hashNuevo,
+			tam, &bloques)) {
+			std::cout << "Hubieron cambios" << std::endl;
+			for(size_t i = 0; i < bloques.tamanio(); i++)
+				std::cout << "bloque " << bloques[i] << std::endl;
+		}
+
+		continue;
+		// END DEBUG
+
+
+
 		// Realizamos la inspección
 		Cola< std::string > nuevos;
 		Cola< std::string > modificados;

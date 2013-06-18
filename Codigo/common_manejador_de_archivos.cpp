@@ -356,6 +356,71 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 }
 
 
+// Procesa dos hashes pertenecientes al contenido de un archivo y
+// obtiene los bloques que han cambiado.
+// PRE: 'hashViejo' y 'hashNuevo' son los hashes de los archivos a
+// procesar; 'cantNuevaBloques' es la cantidad de bloques del archivo
+// que es representado por 'hashNuevo'
+// POST: se listan en 'listaBLoquesDiferentes' los numero de bloques
+// que han cambiado; Se devuelve true si se encontraron diferencias o 
+// false en caso contrario.
+bool ManejadorDeArchivos::obtenerDiferencias(std::string hashViejo,
+	std::string hashNuevo, int& cantNuevaBloques,
+	Lista<int> *listaBloquesDiferentes) {
+
+	// Caso en que el tamaño del hashViejo es nulo
+	if(hashViejo.size() == 0) {
+		// Insertamos todos los números de bloques
+		for(int i = 1; i <= cantNuevaBloques; i++)
+			listaBloquesDiferentes->insertarUltimo(i + 1);
+
+		return true;
+	}
+
+	bool hubieronCambios = false;
+
+	// Iteramos sobre cada bloque para buscar diferencias
+	int i = 0;
+	unsigned int j = 0;
+
+	while((i < cantNuevaBloques) && (j < hashViejo.size())) {
+		// Obtenemos el bloque i del hash viejo
+		std::string bloqueViejo = hashViejo.substr(0 * TAMANIO_BLOQUE,
+			TAMANIO_BLOQUE);
+		
+		// Obtenemos el bloque i del hash nuevo
+		std::string bloqueNuevo = hashNuevo.substr(0 * TAMANIO_BLOQUE,
+			TAMANIO_BLOQUE);
+
+		// Si son iguales los bloques, sigo de largo
+		if(bloqueViejo == bloqueNuevo) continue;
+
+		// Insertamos el número de bloque en la lista
+		listaBloquesDiferentes->insertarUltimo(i + 1);
+		hubieronCambios = true;
+
+		// Incrementamos el número de bloque
+		i++;
+		// Incrementamos el largo parcial del hashViejo
+		j += TAMANIO_BLOQUE;
+	}
+
+	while(i < cantNuevaBloques) {
+		// Insertamos el número de bloque en la lista
+		listaBloquesDiferentes->insertarUltimo(i + 1);
+		hubieronCambios = true;
+
+		// Incrementamos el número de bloque
+		i++;
+	}
+
+	if(!hubieronCambios && hashViejo.size() > hashNuevo.size())
+		hubieronCambios = true;
+
+	return hubieronCambios;
+}
+
+
 // Recibe una lista de archivos, compara con la que se encuentra localmente 
 // * ListaExterna: lista de archivos con la cual se compara
 // * Faltantes: lista de archivos que no estan en el dir local
