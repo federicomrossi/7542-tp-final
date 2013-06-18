@@ -27,7 +27,7 @@ void Parser::dividirCadena(const std::string &msg, Lista<std::string>* args,
 		std::string m = msg;
 
 		// posicion del delim
-		size_t d;
+		size_t d = 0;
 
 		while(d != std::string::npos){
 			d = m.find(delim);
