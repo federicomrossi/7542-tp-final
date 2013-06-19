@@ -76,7 +76,7 @@ void Sincronizador::run() {
 			// Pide la lista de archivos que tiene el server
 			Lista<std::string>* lista = new Lista<std::string>;
 			this->manejadorDeArchivos->obtenerArchivosDeDirectorio(lista);
-
+			
 			// Insertamos como cabecera de los argumentos la cantidad de
 			// archivos
 			int cantArchivos = lista->tamanio();
@@ -87,9 +87,10 @@ void Sincronizador::run() {
 			while (!lista->estaVacia()) {
 				std::string nombreArchivo = lista->verPrimero();
 				std::string hashArchivo;
+				
 				int cantBloques = this->manejadorDeArchivos->obtenerHash(
 					nombreArchivo, hashArchivo);
-
+				
 				respuesta.append(nombreArchivo);
 				respuesta.append(COMMON_DELIMITER);
 				respuesta.append(hashArchivo);
@@ -98,12 +99,12 @@ void Sincronizador::run() {
 				
 				// Eliminamos de la lista
 				lista->eliminarPrimero();
-
+				
 				// Separamos del próximo archivo que se liste
 				if(!lista->estaVacia()) 
 					respuesta.append(COMMON_DELIMITER);
 			}
-
+			
 			delete(lista);
 
 			// DEBUG
@@ -147,6 +148,10 @@ void Sincronizador::run() {
 					nombreArchivo, numBloque));
 			}
 
+			// DEBUG
+			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
+			//END DEBUG
+
 			// Se envia la respuesta al cliente
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
@@ -184,36 +189,43 @@ void Sincronizador::run() {
 			// this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
-			// Archivo a;
-			// this->parserArchivo(args, &a);
+			// Parseamos la lista de archivos enviada por el servidor
+			Lista< std::string > listaArgumentos;
+			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
-			// // Agregamos el archivo en el servidor
-			// std::string nombre = a.obtenerNombre();
-			// std::string bloque = a.obtenerBloque();
-			// std::string hash = a.obtenerHash();
-			// this->manejadorDeArchivos->agregarArchivo(nombre, WHOLE_FILE, 
-			// 	bloque, hash);
+			// Agregamos el archivo en el servidor
+			this->manejadorDeArchivos->agregarArchivo(listaArgumentos[0],
+				listaArgumentos[1]);
 
-			// // Enviamos notificación a clientes de que se agregó archivo
-			// std::string msg_salida;
-			// msg_salida.append(S_NOTIFY_NEW);
-			// msg_salida.append(" ");
-			// msg_salida.append(a.obtenerNombre());
-			// this->emisor->ingresarMensajeDeSalida(0, msg_salida);
+			// Enviamos notificación a clientes de que se agregó archivo
+			std::string msg_salida;
+			msg_salida.append(S_NEW_FILE);
+			msg_salida.append(" ");
+			msg_salida.append(listaArgumentos[0]);
+
+			// Se envia la notificación de nuevo archivo a los clientes
+			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
 		}
 		else if (instruccion == C_MODIFY_FILE) {
 
 		}
+		// Caso en que se recibe la notificación de la eliminación de archivo
 		else if (instruccion == COMMON_DELETE_FILE) {
-			// // Eliminamos archivo en carpeta del servidor
-			// this->manejadorDeArchivos->eliminarArchivo(args, WHOLE_FILE);
+			// Parseamos la lista de archivos enviada por el servidor
+			Lista< std::string > listaArgumentos;
+			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
-			// // Enviamos notificación a clientes de que se eliminó archivo
-			// std::string msg_salida;
-			// msg_salida.append(COMMON_DELETE_FILE);
-			// msg_salida.append(" ");
-			// msg_salida.append(args);
-			// this->emisor->ingresarMensajeDeSalida(0, msg_salida);
+			// Eliminamos archivo en carpeta del servidor
+			this->manejadorDeArchivos->eliminarArchivo(listaArgumentos[0]);
+
+			// Enviamos notificación a clientes de que se eliminó archivo
+			std::string msg_salida;
+			msg_salida.append(COMMON_DELETE_FILE);
+			msg_salida.append(" ");
+			msg_salida.append(listaArgumentos[0]);
+
+			// Se envia la notificación de nuevo archivo a los clientes
+			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
 		}
 	}
 }

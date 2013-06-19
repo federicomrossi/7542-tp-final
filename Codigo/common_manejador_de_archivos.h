@@ -163,6 +163,11 @@ public:
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos();
 
+	// Elimina el registro que identifica a un archivo en el registro de
+	// archivos.
+	// PRE: 'nombreArchivo' es el nombre del archivo a eliminar del registro.
+	void borrarDeRegistroDeArchivos(const std::string& nombreArchivo);
+
 	// Comprueba si existe cierto registro de archivos.
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.
 	// POST: devuelve true si existe o false en su defecto.

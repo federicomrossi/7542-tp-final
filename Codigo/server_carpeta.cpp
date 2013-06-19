@@ -29,7 +29,8 @@ Carpeta::Carpeta(const std::string &usuario) {
 	// Si no existe carpeta fisica se crea
 	// DEBUG: ¿que hacer si no logra crearla?
 	// DEBUG: Modificar path
-	std::string path = "servidor/" + usuario;
+	std::string path = "servidor/" + usuario + "/";
+	std::cout << path << std::endl;
 	if(crearCarpeta(path));
 
 	// Se crea el manejador de archivos

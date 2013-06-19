@@ -38,7 +38,7 @@ public:
 	~Sincronizador();
 
 	// Crea el evento de envío de un archivo nuevo
-	void enviarArchivo(std::string& nombreArchivo, std::string contenido);
+	void enviarArchivo(std::string& nombreArchivo, std::string& contenido);
 
 	// Crea el evento de modificar un archivo existente.
 	// PRE: 'nombreArchivo' es el nombre de archivo que debe modificarse;

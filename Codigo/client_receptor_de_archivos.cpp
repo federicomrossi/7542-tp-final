@@ -52,7 +52,11 @@ void ReceptorDeArchivos::recibirArchivo(std::string &mensaje) {
 
 // Se encarga de procesar la eliminación de un archivo
 void ReceptorDeArchivos::eliminarArchivo(std::string& nombreArchivo) {
+	// Damos la orden de eliminar el archivo
 	this->manejadorDeArchivos->eliminarArchivo(nombreArchivo);
+
+	// Eliminamos el archivo del registro local
+	this->manejadorDeArchivos->borrarDeRegistroDeArchivos(nombreArchivo);
 }
 
 

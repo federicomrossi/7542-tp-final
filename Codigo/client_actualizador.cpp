@@ -60,7 +60,7 @@ void Actualizador::ejecutarActualizacion() {
 	}
 
 	// Mensaje de log
-	std::cout << "Se recibió lista de archivos del servidor... " << args << std::endl;
+	std::cout << "Se recibió lista de archivos del servidor... " << std::endl;
    	std::cout.flush();
 	std::cout << "Procesando lista de archivos... " << std::endl;
    	std::cout.flush();
@@ -88,7 +88,6 @@ void Actualizador::ejecutarActualizacion() {
 		// Tomamos cantidad de bloques de archivo
 		int cantBloquesArchivo;
 		cantBloquesArchivo = Convertir::stoi(listaArgumentos_1.verPrimero());
-		
 		listaArgumentos_1.eliminarPrimero();
 
 		// Formamos el par con la información necesaria del archivo
@@ -106,26 +105,8 @@ void Actualizador::ejecutarActualizacion() {
 	Lista< std::pair< std::string, Lista< int > > > listaFaltantes;
 	Lista< std::string > listaSobrantes;
 
-
-	// this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
-	// 	&listaFaltantes, &listaSobrantes);
-	
-	// DEBUG
-	try {
-	// NO FUNCIONA BIEN EL OBTENER LISTA DE ACTUALIZACION. TIRA ERROR DE
-	// INDICE INVALIDO DE LISTA. TAMPOCO FUNCIONA BIEN EL OBTENER LA
-	// CANTIDAD DE BLOQUES DEL MANEJADOR DE ARCHIVOS: SE ENVIA UNA UNIDAD
-	// MENOS DE LA QUE DEBERIA SER CUANDO SE MANDA ARCHIVO DESDE SERVER.
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
 		&listaFaltantes, &listaSobrantes);
-	}
-	catch(char const * e) {
-		std::cout << e << std::endl;
-	}
-	catch(...) {
-		std::cout << "Cago fuego!!" << std::endl;
-	}
-	// END DEBUG
 
 
 	// Eliminamos archivos sobrantes
@@ -170,7 +151,8 @@ void Actualizador::ejecutarActualizacion() {
 		}
 
 		// DEBUG
-		std::cout << "RECIBO: " << instr << " " << args << std::endl;
+		// std::cout << "RECIBO: " << instr << " " << args << std::endl;
+		std::cout << "RECIBO: " << instr << std::endl;
 		// END DEBUG
 
 		// Si el servidor notifica que ya no existe el archivo, salteamos

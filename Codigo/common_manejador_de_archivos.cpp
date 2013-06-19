@@ -27,10 +27,10 @@ namespace {
 	const std::string DELIMITADOR = ",";
 
 	// Constante que define el tamaño de los bloques de archivos.
-	const int TAMANIO_BLOQUE = 8;
+	const int TAMANIO_BLOQUE = 2097152;
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
-	const int TAMANIO_BLOQUE_HASH = 40;
+	const int TAMANIO_BLOQUE_HASH = 64;
 
 	// Tamanio buffer lectura
 	#define TAM_BUF 2048
@@ -89,7 +89,7 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 
 void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair 
 	<std::string, std::string > >* listaArchivos) {
-	
+	// Bloqueamos el mutex
 	Lock l(m);
 
 	// variables auxiliares
@@ -127,6 +127,9 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 // contrario
 void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo, 
 	const std::string& contenido) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
 	// Variables auxiliares
 	std::fstream archivo;
 
@@ -151,10 +154,11 @@ void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo,
 	}
 
 	// Se convierte el archivo de hexa a char nuevamente
-	std::string archivoBin = (char*)Convertir::htoui(contenido);
+	uint8_t *archivoBin = Convertir::htoui(contenido);
+	size_t len = contenido.size() / 2;
 
 	// Se escribe el contenido en el archivo
-	archivo.write(archivoBin.c_str(), archivoBin.length());
+	archivo.write((char*) archivoBin, len);
 
 	// Se cierra el archivo
 	archivo.close();
@@ -170,6 +174,9 @@ void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo,
 // PRE: 'nombreArchivo' es el nombre de archivo.
 // POST: devuelve true si se eliminó con éxito o false en su defecto.
 bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
 	// Variables auxiliares
 	std::fstream archivo;
 
@@ -185,7 +192,7 @@ bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
 	// Cerramos el archivo y lo eliminamos del directorio
 	archivo.close();
 	remove(ruta.c_str());
-
+	
 	return true;
 }
 
@@ -195,6 +202,8 @@ bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
 void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo, 
 	int cantBloquesDelArchivo, Lista< std::pair< int, std::string > >& 
 	listaBloquesAReemplazar) {
+	// Bloqueamos el mutex
+	Lock l(m);
 
 /*	// Var auxiliares
 	std::fstream archivo;
@@ -246,11 +255,24 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 
 	// Obtenemos el contenido del archivo
 	std::string contenido = this->obtenerContenido(nombreArchivo);
+	// int tamanio = contenido.length();
 
 	// Obtenemos la cantidad de bloques del archivo
 	int cantBloques = this->obtenerCantBloques(nombreArchivo);
 
+	// std::cout << "BLOQUES: " << cantBloques << std::endl;
+	// std::cout << "CONTENIDO: " << contenido << std::endl;
+
 	for(int i = 0; i < cantBloques; i++) {
+
+		// int tamanioBloqueActual = tamanio - i * TAMANIO_BLOQUE;
+		// int tamanioBloque;
+
+		// if(tamanioBloqueActual < TAMANIO_BLOQUE)
+		// 	tamanioBloque = tamanioBloqueActual;
+		// else
+		// 	tamanioBloque = TAMANIO_BLOQUE;
+
 		// Obtenemos el bloque i del contenido
 		std::string bloque = contenido.substr(i * TAMANIO_BLOQUE,
 			TAMANIO_BLOQUE);
@@ -258,7 +280,7 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 		// Concatenamos el hash del bloque
 		hashArchivo.append(Hash::funcionDeHash(bloque));
 	}
-	
+
 	return cantBloques;
 }
 
@@ -373,7 +395,7 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 	}
 	
 	// Se devuelve la cantidad de bloques hexadecimales que hay
-	return(cantBloques * 2);
+	return ((cantBloques * 2) - 1);
 }
 
 
@@ -593,6 +615,9 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	std::string regTmpNombre = this->directorio + "/" + DIR_AU + "/" 
 		+ ARCHIVO_REG_ARCHIVOS + "~";
 
+	// Eliminamos posible registro temporal basura
+	remove(regTmpNombre.c_str());
+
 	// Abrimos el registro original y el registro temporal
 	registro.open(regNombre.c_str(), std::ios::in);
 	registroTmp.open(regTmpNombre.c_str(), std::ios::app);
@@ -654,12 +679,10 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 			int cantBloques_aux = this->obtenerCantBloques(reg_archivoNombre);
 			Lista<int> listaDiferencias;
 
-			// std::cout << reg_archivoNombre << "HASH: " << hash_aux << std::endl;
-
 			// Caso en que el archivo ha sido modificado
 			if(this->obtenerDiferencias(reg_archivoHash, 
 				hash_aux, cantBloques_aux, &listaDiferencias)) {
-
+				
 				// Actualizamos el hash del archivo
 				registroTmp << reg_archivoNombre << DELIMITADOR << 
 					hash_aux << std::endl;
@@ -735,6 +758,63 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
 	// Retornamos el resultado de comprobar si hubieron actualizaciones
 	return this->actualizarRegistroDeArchivos(&nuevos, &modificados,
 		&eliminados);
+}
+
+
+// Elimina el registro que identifica a un archivo en el registro de
+// archivos.
+// PRE: 'nombreArchivo' es el nombre del archivo a eliminar del registro.
+void ManejadorDeArchivos::borrarDeRegistroDeArchivos(
+	const std::string& nombreArchivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
+	// Variables auxiliares
+	std::ifstream registro;
+	std::ofstream registroTmp;
+
+	// Armamos rutas de archivos
+	std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+	std::string regTmpNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS + "~";
+
+	// Eliminamos posible registro temporal basura
+	remove(regTmpNombre.c_str());
+
+	// Abrimos el registro original y el registro temporal
+	registro.open(regNombre.c_str(), std::ios::in);
+	registroTmp.open(regTmpNombre.c_str(), std::ios::app);
+
+	// Verificamos si la apertura fue exitosa
+	if(!registro.is_open() || !registroTmp.is_open()) 
+		throw "ERROR: El registro no pudo ser abierto.";
+
+
+	// Variables auxiliares de procesamiento
+	std::string reg_archivoNombre, reg_archivoHash;
+	std::string buffer;
+
+	// Iteramos sobre los registros obviando el que coincide con el que
+	// se desea eliminar.
+	while(std::getline(registro, buffer)) {
+		// Parseamos el nombre de archivo
+		this->separarNombreYHash(buffer, reg_archivoNombre, reg_archivoHash);
+
+		// Obviamos la copia si coinciden los nombres de archivo
+		if(reg_archivoNombre == nombreArchivo) continue;
+
+		// Mantenemos el registro que no se desea borrar
+		registroTmp << buffer << std::endl;
+	}
+
+	// Cerramos archivos
+	registro.close();
+	registroTmp.close();
+
+	// Eliminamos el registro original y convertimos el temporal en el oficial
+	remove(regNombre.c_str());
+	rename(regTmpNombre.c_str(), regNombre.c_str());
 }
 
 

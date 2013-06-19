@@ -4,7 +4,8 @@
 //  
 
 
-#include <sstream> 
+#include <sstream>
+#include "common_parser.h" 
 #include "client_manejador_de_notificaciones.h"
 
 
@@ -41,7 +42,7 @@ void ManejadorDeNotificaciones::run() {
 
 		// Tomamos instrucción y sus argumentos
 		std::string instruccion, args;
-		parserMensaje(mensaje, instruccion, args);
+		Parser::parserInstruccion(mensaje, instruccion, args);
 
 
 		// Caso en que se notifica la existencia de un nuevo archivo
@@ -60,6 +61,7 @@ void ManejadorDeNotificaciones::run() {
 			// Derivamos al receptor de archivos
 			std::cout << "NOTIFICACION DE QUE SE BORRO ARCHIVO" << std::endl;
 			
+			// Derivamos al receptor de archivos
 			this->receptorDeArchivos->eliminarArchivo(args);
 		}
 

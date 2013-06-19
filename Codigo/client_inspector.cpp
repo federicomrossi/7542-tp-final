@@ -85,10 +85,11 @@ void Inspector::run() {
 			while(!nuevos.vacia()) {
 				// Tomamos nuevo
 				std::string nuevo = nuevos.pop_bloqueante();
+				std::string contenido;
+				contenido = this->manejadorDeArchivos->obtenerContenido(nuevo);
 
 				// Enviamos al sincronizador
-				this->sincronizador->enviarArchivo(nuevo, 
-					this->manejadorDeArchivos->obtenerContenido(nuevo));
+				this->sincronizador->enviarArchivo(nuevo, contenido);
 				
 				// DEBUG
 				std::cout << "Nuevo: " << nuevo << std::endl;
@@ -105,13 +106,7 @@ void Inspector::run() {
 				// 	this->manejadorDeArchivos->obtenerContenido(mod));
 
 				// DEBUG
-				std::cout << "Modificado: " << mod.first << " Bloques: ";
-
-				for(int i = 0; i < (int)mod.second.tamanio(); i++) {
-					std::cout << mod.second[i] << " ";
-				}
-
-				std::cout << std::endl;
+				std::cout << "Modificado: " << mod.first << std::endl;
 				// END DEBUG
 			}
 

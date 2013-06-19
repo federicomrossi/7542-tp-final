@@ -25,25 +25,17 @@ Sincronizador::~Sincronizador() { }
 
 
 // Crea el evento de envío de un archivo nuevo
-void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string contenido) {
+void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& contenido) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
 	// Armamos mensaje
-	// DEBUG: pasar parametros reales
 	std::string mensaje;
 	mensaje.append(COMMON_SEND_FILE);
 	mensaje.append(" ");
 	mensaje.append(nombreArchivo);
 	mensaje.append(COMMON_DELIMITER);
-	mensaje.append("WHOLE_FILE");
-	mensaje.append(COMMON_DELIMITER);
 	mensaje.append(contenido);
-	mensaje.append(COMMON_DELIMITER);
-	mensaje.append("HASH");
-	mensaje.append(COMMON_DELIMITER);
-	mensaje.append("FECHA");
-	// END DEBUG
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
@@ -75,7 +67,10 @@ void Sincronizador::eliminarArchivo(std::string& nombreArchivo) {
 	Lock l(m);
 
 	// Armamos mensaje
-	std::string mensaje = COMMON_DELETE_FILE + " " + nombreArchivo;
+	std::string mensaje;
+	mensaje.append(COMMON_DELETE_FILE);
+	mensaje.append(" ");
+	mensaje.append(nombreArchivo);
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
@@ -88,7 +83,10 @@ void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 	Lock l(m);
 
 	// Armamos mensaje
-	std::string mensaje = C_FILE_REQUEST + " " + nombreArchivo;
+	std::string mensaje;
+	mensaje.append(C_FILE_REQUEST);
+	mensaje.append(" ");
+	mensaje.append(nombreArchivo);
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
