@@ -11,16 +11,20 @@
 
 .PHONY: all clean
 
-all: server client
+all: server monitor client 
 
 server:
-	@ make --no-print-directory -s -f Makefile_server 
+	@ make --no-print-directory -s -f Makefile_server
+
+monitor:
+	@ make --no-print-directory -s -f Makefile_monitor
 
 client:
 	@ make --no-print-directory -s -f Makefile_client
 
 clean:
 	@ make --no-print-directory -s -f Makefile_server clean
+	@ make --no-print-directory -s -f Makefile_monitor clean
 	@ make --no-print-directory -s -f Makefile_client clean
 
 
@@ -29,7 +33,10 @@ clean:
 # #######################
 
 run_server:
-	@ make --no-print-directory -s -f Makefile_server p_server 
+	@ make --no-print-directory -s -f Makefile_server p_server
+
+run_monitor:
+	@ make --no-print-directory -s -f Makefile_monitor p_monitor
 
 run_client:
 	@ make --no-print-directory -s -f Makefile_client p_client
@@ -39,7 +46,10 @@ run_client:
 # ###################
 
 run_server_valgrind:
-	@ make --no-print-directory -s -f Makefile_server s_valgrind 
+	@ make --no-print-directory -s -f Makefile_server s_valgrind
+
+run_monitor_valgrind:
+	@ make --no-print-directory -s -f Makefile_monitor m_valgrind
 
 run_client_valgrind:
 	@ make --no-print-directory -s -f Makefile_client c_valgrind
