@@ -39,7 +39,7 @@ private:
 
 	// Devuelve un string de caracteres alfanumericos aleatorios de 
 	// tamanio 'longitud'
-	void randomString(std::string &s, int longitud);
+	void randomString(int longitud, std::string &s);
 
 public:
 
@@ -71,8 +71,12 @@ public:
 	// POST: devuelve true si se eliminó con éxito o false en su defecto.
 	bool eliminarArchivo(const std::string& nombreArchivo);
 
-	// Guarda modificaciones de bloques en un archivo, dejandolo de menor o 
-	// mayor tamanio segun corresponda
+	// Realiza modificaciones sobre los bloques de un archivo.
+	// PRE: 'nombreArchivo' es el nombre del archivo a modificar;
+	// 'cantloquesDelArchivo' es la cantidad nueva de bloques que debe
+	// contener el archivo; 'listaBloquesAReemplazar' es una lista que
+	// contiene los números de bloque y su respectivo contenido, los
+	// cuales reemplazarán a los bloques actuales.
 	void modificarArchivo(std::string& nombreArchivo, 
 		int cantBloquesDelArchivo, 
 		Lista< std::pair< int, std::string > >& listaBloquesAReemplazar);

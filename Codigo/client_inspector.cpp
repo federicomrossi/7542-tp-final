@@ -107,9 +107,16 @@ void Inspector::run() {
 				std::pair< std::string, Lista<int> > mod;
 				mod = modificados.pop_bloqueante();
 
-				// Enviamos a sincronizador
-				// this->sincronizador->modificarArchivo(mod, 0, 
-				// 	this->manejadorDeArchivos->obtenerContenido(mod));
+
+				// Lista< std::pair< int, std::string > > bloques;
+
+				// while(!mod.estaVacia()) {
+					
+				// }
+				// 	std::cout << mod.second[i];
+
+				// // Enviamos a sincronizador
+				// this->sincronizador->modificarArchivo(mod.first, mod.second);
 
 				// DEBUG
 				std::cout << "Modificado: " << mod.first << std::endl;

@@ -44,10 +44,10 @@ void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& conte
 
 // Crea el evento de modificar un archivo existente.
 // PRE: 'nombreArchivo' es el nombre de archivo que debe modificarse;
-// 'bloque' es el bloque del archivo que debe ser modificado; 'contenido'
-// son los datos que deben reemplazarse por los existentes.
-void Sincronizador::modificarArchivo(std::string& nombreArchivo, int bloque, 
-	std::string contenido) {
+// 'bloques' son pares de (bloque, contenido) los cuales son enviados para
+// ser actualizados en el servidor.
+void Sincronizador::modificarArchivo(std::string& nombreArchivo, 
+		Lista< std::pair< int, std::string > > bloques) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -98,7 +98,7 @@ void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 
 
 // Crea el evento de solicitud de modificación de un archivo.
-void Sincronizador::solicitarArchivoModificado() {
+void Sincronizador::solicitarBloquesModificados() {
 	// Bloqueamos el mutex
 	Lock l(m);
 

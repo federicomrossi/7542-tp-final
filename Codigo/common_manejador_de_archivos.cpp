@@ -34,6 +34,9 @@ namespace {
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
 	const int TAMANIO_BLOQUE_HASH = 64;
+
+	// Longitud de nombre del archivo temporal
+	const int LONGITUD_TEMP = 20;
 }
 
 
@@ -197,48 +200,67 @@ bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
 }
 
 
-// Guarda modificaciones de bloques en un archivo, dejandolo de menor o mayor
-// tamanio segun corresponda
+// Realiza modificaciones sobre los bloques de un archivo.
+// PRE: 'nombreArchivo' es el nombre del archivo a modificar;
+// 'cantloquesDelArchivo' es la cantidad nueva de bloques que debe
+// contener el archivo; 'listaBloquesAReemplazar' es una lista que
+// contiene los números de bloque y su respectivo contenido, los
+// cuales reemplazarán a los bloques actuales.
 void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo, 
 	int cantBloquesDelArchivo, Lista< std::pair< int, std::string > >& 
 	listaBloquesAReemplazar) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
-/*	// Var auxiliares
-	std::fstream archivo;
-	std::fstream temp;
-	std::string aux, nombreArchivoTemp = "KDSF988G98G9S8ASDF8D8F78E78D8F787D8F7Q~";
-	
-	// Abre un archivo 
-	archivo.open(nombreArchivo.c_str(), std::ios_base::in);	
+	// Variables auxiliares
+	std::fstream archivo, archivoTemp;
+	std::string sRandom;
+	this->randomString(LONGITUD_TEMP, sRandom);
+	std::string nombreArchivoTemp = "." + sRandom + "~";
 
-	// Si no existe, error
-	if (!archivo.is_open())
-		throw "ERROR: Archivo no existe.";
+	// Armamos ruta de archivos
+	std::string ruta = this->directorio + "/" + nombreArchivo;
+	std::string rutaTemp = this->directorio + "/" + nombreArchivoTemp;
 
-
-	// Sino, se cfrea el otro
-	temp.open(nombreArchivoTemp.c_str(), std::ios_base::out);
-	if (!temp.is_open())
-		throw "ERROR: No se pudo crear arcihvo.";
-
-	// se cierra y vuelve a abrir para escribir
-	temp.close();
-	temp.open(nombreArchivoTemp.c_str(), std::ios_base::out | 
+	// Intentamos abrir el archivos
+	archivo.open(ruta.c_str(), std::ios::in);
+	archivoTemp.open(rutaTemp.c_str(), std::ios_base::out | 
 		std::ios_base::app);
 
-	// Se va al principio del archivo
-	archivo.seekg(0, std::ios_base::beg);
+	// Verificamos si la apertura fue exitosa
+	if(!archivo.is_open() || !archivoTemp.is_open()) 
+		throw "ERROR: El archivo no pudo ser abierto.";
 
-	// Se copian los bloques que no fueron modificados
-	int numBloque = listaBloquesAReemplazar.verPrimero().first;
-	for (int i = 0; i < numBloque; i++) {
-		aux = obtenerContenido(nombreArchivo);
-		archivo.write((char*)Convertir::htoui(aux), aux.length()/2);
+	// Iteramos sobre los bloques
+	for(int i = 1; i <= cantBloquesDelArchivo; i++) {
+		// Variable auxiliar para el contenido
+		std::string contenidoBloque;
+
+		// Verificamos si debe reemplazarse bloque
+		if(!listaBloquesAReemplazar.estaVacia() && 
+			(i == listaBloquesAReemplazar.verPrimero().first)) {
+			// Insertamos el contenido nuevo en el bloque
+			contenidoBloque = listaBloquesAReemplazar.verPrimero().second;
+			listaBloquesAReemplazar.eliminarPrimero();
+		}
+		else
+			contenidoBloque = this->obtenerContenido(nombreArchivo, i);
+
+
+		// Se convierte el contenido de hexa a char nuevamente
+		uint8_t *contenidoBloqueBin = Convertir::htoui(contenidoBloque);
+		size_t len = contenidoBloque.size() / 2;
+
+		// Se escribe el contenido en el archivo
+		archivoTemp.write((char*) contenidoBloqueBin, len);
 	}
 
-*/	// Se compara
+	archivo.close();
+	archivoTemp.close();
+
+	// Eliminamos el archivo original y convertimos el temporal en el oficial
+	remove(ruta.c_str());
+	rename(rutaTemp.c_str(), ruta.c_str());
 }
 
 
@@ -1000,7 +1022,7 @@ void ManejadorDeArchivos::separarNombreYHash(const std::string &linea,
 
 // Devuelve un string de caracteres alfanumericos aleatorios de 
 // tamanio 'longitud'
-void ManejadorDeArchivos::randomString(std::string &s, int longitud) {
+void ManejadorDeArchivos::randomString(int longitud, std::string &s) {
 	// Tabla de caracteres posibles
 	char alphanumerico[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	// Se randomiza el set
