@@ -17,24 +17,31 @@
       <object class="GtkGrid" id="grid1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="margin_left">10</property>
+        <property name="margin_right">10</property>
+        <property name="margin_top">10</property>
+        <property name="margin_bottom">10</property>
         <property name="orientation">vertical</property>
         <property name="row_spacing">5</property>
         <property name="column_spacing">1</property>
         <property name="row_homogeneous">True</property>
-        <property name="column_homogeneous">True</property>
         <child>
           <object class="GtkBox" id="box1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="margin_left">10</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkButton" id="btn_actualizar">
                 <property name="label" translatable="yes">Actualizar</property>
+                <property name="width_request">130</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="halign">end</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -45,9 +52,12 @@
             <child>
               <object class="GtkButton" id="btn_limpiar">
                 <property name="label" translatable="yes">Limpiar</property>
+                <property name="width_request">130</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="margin_top">5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -58,9 +68,12 @@
             <child>
               <object class="GtkButton" id="btn_volver">
                 <property name="label" translatable="yes">Volver</property>
+                <property name="width_request">130</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="margin_top">5</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -78,11 +91,13 @@
         </child>
         <child>
           <object class="GtkTextView" id="hojaLog">
+            <property name="width_request">600</property>
+            <property name="height_request">300</property>
             <property name="visible">True</property>
-            <property name="sensitive">False</property>
             <property name="can_focus">True</property>
+            <property name="border_width">9</property>
             <property name="editable">False</property>
-            <property name="wrap_mode">word</property>
+            <property name="wrap_mode">word-char</property>
             <property name="cursor_visible">False</property>
             <property name="buffer">txt_buffer</property>
           </object>
