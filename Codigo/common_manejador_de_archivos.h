@@ -179,6 +179,9 @@ public:
 	// POST: devuelve true si el archivo se encuentra registrado o false
 	// en caso contrario.
 	bool existeArchivoEnRegitro(const std::string nombreArchivo);
+
+	// Devuelve la cantidad de bytes almacenadas en el directorio actual.
+	unsigned int obtenerCantBytesAlmacenados();
 };
 
 #endif

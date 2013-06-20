@@ -18,6 +18,13 @@ class AdministradorDeClientes;
 
 
 
+namespace {
+	// Constantes para los nombres de directorio
+	const std::string MONITOR_USER = "ADMMONITOR";
+}
+
+
+
 
 
 /* ****************************************************************************
@@ -39,6 +46,9 @@ private:
 
 	// Espera inicio sesion
 	int inicioSesion(Comunicador& comunicador);
+
+	// Se ocupa de atender a las solicitudes enviadas por el monitor.
+	void atenderAMonitor(std::string& mensaje, Comunicador *com);
 
 public:
 

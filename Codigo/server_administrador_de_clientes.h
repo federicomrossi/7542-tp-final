@@ -12,6 +12,7 @@
 #include <map>
 #include "common_thread.h"
 #include "common_cola.h"
+#include "common_lista.h"
 #include "server_conexion_cliente.h"
 #include "server_carpeta.h"
 
@@ -27,6 +28,7 @@ class AdministradorDeClientes : public Thread {
 private:
 
 	std::map< std::string, Carpeta* > carpetas;		// Diccionario de carpetas
+	Lista< ConexionCliente* > listaMonitores;		// Lista de monitores
 	Cola< ConexionCliente* > conexionesMuertas;		// Cola de conexiones que
 													// deben ser destruidas
 
@@ -57,6 +59,12 @@ public:
 
 	// Detiene el administrador de clientes
 	void detener();
+
+	// Devuelve la cantidad de clientes conectados actualmente.
+	unsigned int cantidadDeClientesConectados();
+
+	// Devuelve la cantidad de carpetas activas actualmente.
+	unsigned int cantidadDeCarpetasActivas();
 };
 
 #endif

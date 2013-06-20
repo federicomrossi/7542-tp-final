@@ -85,6 +85,15 @@ int Carpeta::cantidadClientes() {
 }
 
 
+
+
+
+
+/*
+ * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
+ */
+
+
 // Crea una carpeta fisica para el usuario si no existe ya una carpeta
 // Devuelve 1 si la operacion es correcta y 0 sino
 int Carpeta::crearCarpeta(const std::string &usuario) {

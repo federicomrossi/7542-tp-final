@@ -38,6 +38,10 @@ const std::string S_FILE_CHANGED = "FILE-CHANGED";
 const std::string S_NEW_FILE = "NEW-FILE";
 const std::string S_NO_SUCH_FILE = "NO-SUCH-FILE";
 const std::string S_CORRUPT_MESSAGE = "CORRUPT-MESSAGE";
+const std::string S_SERVER_INFO = "SERVER-INFO";
+
+// Constates para los identificadores de instrucciones enviadas por el monitor
+const std::string M_SERVER_INFO_REQUEST = "SERVER-INFO-REQUEST";
 
 // Constantes para los identificadores de instrucciones comunes al servidor
 // y al cliente

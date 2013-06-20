@@ -15,6 +15,10 @@ FILE-CHANGED [nombre_archivo_1],[num_bloque_1],[hash_1],...,[num_bloque_N],[hash
 NEW-FILE [nombre_archivo]
 NO-SUCH-FILE
 CORRUPT-MESSAGE
+SERVER-INFO [clientes_conectados],[carpetas_activas],[bytes_almacenados]
+
+# Constates para los identificadores de instrucciones enviadas por el monitor
+SERVER-INFO-REQUEST
 
 # Constantes para los identificadores de instrucciones comunes al servidor
 # y al cliente

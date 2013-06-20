@@ -31,6 +31,12 @@ AdministradorDeClientes::~AdministradorDeClientes() { }
 // encuentra vinculado.
 void AdministradorDeClientes::ingresarCliente(std::string usuario,
 		ConexionCliente *unCliente) {
+	// Si es un cliente monitor, insertamos en lista de monitores solamente
+	if(usuario == MONITOR_USER) {
+		this->listaMonitores.insertarUltimo(unCliente);
+		return;
+	}
+
 	// Corroboramos si ya hay una carpeta activa para dicho usuario
 	// Si no existe una carpeta activa, creamos una carpeta
 	if(this->carpetas.count(usuario) == 0)
@@ -45,8 +51,13 @@ void AdministradorDeClientes::ingresarCliente(std::string usuario,
 // como miembro activo del directorio al que se encuentra vinculado.
 void AdministradorDeClientes::darDeBajaCliente(std::string usuario,
 		ConexionCliente *unCliente) {
+	// Si es un cliente monitor, eliminamos de la lista de monitores
+	if(usuario == MONITOR_USER) {
+		this->listaMonitores.eliminar(unCliente);
+		return;
+	}
 	// Si no hay una carpeta vinculada al usuario, no hacemos nada
-	if(this->carpetas.count(usuario) == 0) return;
+	else if(this->carpetas.count(usuario) == 0) return;
 
 	// Desvinculamos la conexión de la carpeta
 	this->carpetas[usuario]->desvincularCliente(unCliente);
@@ -100,4 +111,27 @@ void AdministradorDeClientes::detener() {
 
 	// Destrabamos la cola encolando una conexión fantasma.
 	this->conexionesMuertas.push(0);
+}
+
+
+// Devuelve la cantidad de clientes conectados actualmente.
+unsigned int AdministradorDeClientes::cantidadDeClientesConectados() {
+	// Si no hay carpetas, devolvemos cero
+	if(this->carpetas.size() == 0) return 0;
+
+	// Variables auxiliares
+	unsigned int cantClientes = 0;
+	std::map< std::string, Carpeta* >::iterator it;
+
+	// Iteramos sobre las carpetas
+	for (it = this->carpetas.begin(); it != this->carpetas.end(); ++it)
+    	cantClientes += it->second->cantidadClientes();
+
+    return cantClientes;
+}
+
+
+// Devuelve la cantidad de carpetas activas actualmente.
+unsigned int AdministradorDeClientes::cantidadDeCarpetasActivas() {
+	return this->carpetas.size();
 }

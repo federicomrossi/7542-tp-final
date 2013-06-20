@@ -961,6 +961,34 @@ bool ManejadorDeArchivos::existeArchivoEnRegitro(
 }
 
 
+// Devuelve la cantidad de bytes almacenadas en el directorio actual.
+unsigned int ManejadorDeArchivos::obtenerCantBytesAlmacenados() {
+	// Variables auxiliares
+	Lista<std::string> listaArchivos;
+	unsigned int cantBytes = 0;
+
+	// Levantamos los nombres de archivo del directorio
+	this->obtenerArchivosDeDirectorio(&listaArchivos);
+
+	// Iteramos sobre cada archivo
+	while(!listaArchivos.estaVacia()) {
+		std::ifstream archivo(listaArchivos.verPrimero().c_str(), 
+			std::ios::in | std::ios::binary | std::ios::ate);
+
+		// Si no pudo ser abierto, lo pasamos por alto
+		if(!archivo.is_open()) continue;
+
+		// Contabilizamos bytes
+		cantBytes += archivo.tellg();
+
+		// Cerramos archivo
+		archivo.close();
+	}
+
+	return cantBytes;
+}
+
+
 
 
 /*

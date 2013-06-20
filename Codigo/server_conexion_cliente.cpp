@@ -5,6 +5,9 @@
 
 #include <iostream>
 #include <sstream>
+#include "common_protocolo.h"
+#include "common_parser.h"
+#include "common_convertir.h"
 #include "server_administrador_de_clientes.h"
 #include "server_conexion_cliente.h"
 
@@ -63,23 +66,36 @@ void ConexionCliente::run() {
 	// Nos autoregistramos en el administrador de clientes
 	this->admClientes->ingresarCliente(this->nombreUsuario, this);
 
-	// Esperamos a que se habilite la recepción, es decir, que se especifique
-	// un receptor
-	while(!habilitarRecepcion) 
-		if(!this->isActive()) return;
+	// Si se conectó una aplicación monitor, derivamos hacia allí
+	if(this->nombreUsuario == MONITOR_USER) {
+		// Se inicia la recepción de mensajes desde el cliente
+		while(this->isActive()) {
+			// Esperamos a recibir mensaje
+			if(comunicador.recibir(mensaje) == -1) break;
 
-	// Se inicia la recepción de mensajes desde el cliente
-	while(this->isActive()) {
-		// Esperamos a recibir mensaje
-		if(comunicador.recibir(mensaje) == -1) break;
-
-		// Enviamos el mensaje al receptor
-		this->receptor->ingresarMensajeDeEntrada(this->id(), mensaje);
-
-		std::cout << "ENTRANTE: " <<  mensaje << std::endl;
-		std::cout.flush();
+			// Derivamos para que sea atendido
+			this->atenderAMonitor(mensaje, &comunicador);
+		}
 	}
+	else {
+		// Esperamos a que se habilite la recepción, es decir, que se especifique
+		// un receptor
+		while(!habilitarRecepcion) 
+			if(!this->isActive()) return;
 
+		// Se inicia la recepción de mensajes desde el cliente
+		while(this->isActive()) {
+			// Esperamos a recibir mensaje
+			if(comunicador.recibir(mensaje) == -1) break;
+
+			// Enviamos el mensaje al receptor
+			this->receptor->ingresarMensajeDeEntrada(this->id(), mensaje);
+
+			std::cout << "ENTRANTE: " <<  mensaje << std::endl;
+			std::cout.flush();
+		}
+	}
+	
 	// Avisamos al administrador que la conexión debe darse de baja y ser
 	// destruida
 	this->admClientes->darDeBajaCliente(this->nombreUsuario, this);
@@ -179,4 +195,32 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 		}
 	}
 	return -1;
+}
+
+
+// Se ocupa de atender a las solicitudes enviadas por el monitor.
+void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
+	// Variables auxiliares
+	std::string instruccion, args;
+
+	// Parseamos instruccion
+	Parser::parserInstruccion(mensaje, instruccion, args);
+
+	// Caso en que se solicita información al server
+	if(instruccion == M_SERVER_INFO_REQUEST) {
+		// Armamos respuesta
+		std::string respuesta;
+		respuesta.append(S_SERVER_INFO);
+		respuesta.append(" ");
+		respuesta.append(Convertir::itos(
+			this->admClientes->cantidadDeClientesConectados()));
+		respuesta.append(COMMON_DELIMITER);
+		respuesta.append(Convertir::itos(
+			this->admClientes->cantidadDeCarpetasActivas()));
+		respuesta.append(COMMON_DELIMITER);
+		respuesta.append(Convertir::itos(0));
+
+		// Emitimos respuesta
+		com->emitir(respuesta);
+	}
 }
