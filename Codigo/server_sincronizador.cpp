@@ -124,28 +124,40 @@ void Sincronizador::run() {
 			std::string nombreArchivo = listaArgumentos.verPrimero();
 			listaArgumentos.eliminarPrimero();
 
-			// Armamos el mensaje de respuesta
 			std::string respuesta;
-			respuesta.append(COMMON_FILE_PARTS);
-			respuesta.append(" ");
-			respuesta.append(nombreArchivo);
-			respuesta.append(COMMON_DELIMITER);
-			respuesta.append(Convertir::itos(
-				this->manejadorDeArchivos->obtenerCantBloques(nombreArchivo)));
 
-			// Iteramos sobre los bloques solicitados
-			while(!listaArgumentos.estaVacia()) {
-				// Tomamos un número de bloque
-				std::string sNumBloque = listaArgumentos.verPrimero();
-				listaArgumentos.eliminarPrimero();
-				int numBloque = Convertir::stoi(sNumBloque);
+			// Caso en que no existe el archivo en el servidor
+			if(!this->manejadorDeArchivos->existeArchivo(nombreArchivo)) {
+				respuesta.append(S_NO_SUCH_FILE);
+				respuesta.append(" ");
+				respuesta.append(nombreArchivo);
+			}
+			// Caso en que existe el archivo en el servidor
+			else {
+				// Armamos el mensaje de respuesta
+				respuesta.append(COMMON_FILE_PARTS);
+				respuesta.append(" ");
+				respuesta.append(nombreArchivo);
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(Convertir::uitos(
+					this->manejadorDeArchivos->obtenerCantBytes(
+						nombreArchivo)));
 
-				// Insertamos número de bloque y su contenido
-				respuesta.append(COMMON_DELIMITER);
-				respuesta.append(sNumBloque);
-				respuesta.append(COMMON_DELIMITER);
-				respuesta.append(this->manejadorDeArchivos->obtenerContenido(
-					nombreArchivo, numBloque));
+				// Iteramos sobre los bloques solicitados
+				while(!listaArgumentos.estaVacia()) {
+					// Tomamos un número de bloque
+					std::string sNumBloque = listaArgumentos.verPrimero();
+					listaArgumentos.eliminarPrimero();
+					int numBloque = Convertir::stoi(sNumBloque);
+
+					// Insertamos número de bloque y su contenido
+					respuesta.append(COMMON_DELIMITER);
+					respuesta.append(sNumBloque);
+					respuesta.append(COMMON_DELIMITER);
+					respuesta.append(
+						this->manejadorDeArchivos->obtenerContenido(
+						nombreArchivo, numBloque));
+				}
 			}
 
 			// DEBUG

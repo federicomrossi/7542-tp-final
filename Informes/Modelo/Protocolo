@@ -24,7 +24,7 @@ SERVER-INFO-REQUEST
 # y al cliente
 SEND-FILE [nombre_archivo],[contenido]
 DELETE-FILE [nombre_archivo]
-FILE-PARTS [nombre_archivo],[cant_actual_de_bloques_del_archivo],[num_bloque_i],[contenido_i],[num_bloque_i+1],[contenido_i+1],...,[num_bloque_N],[contenido_N]
+FILE-PARTS [nombre_archivo],[cant_bytes_del_archivo],[num_bloque_i],[contenido_i],[num_bloque_i+1],[contenido_i+1],...,[num_bloque_N],[contenido_N]
 ,
 
 # Constante para caracter de fin de instrucción

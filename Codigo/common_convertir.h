@@ -35,8 +35,14 @@ public:
 	// Convierte un string en un integer
 	static int stoi(const std::string& s);
 
+	// Convierte un string en un unsigned integer
+	static unsigned int stoui(const std::string& s);
+
 	// Convierte un integer en un string
 	static std::string itos(const int i);
+
+	// Convierte un unsigned integer en un string
+	static std::string uitos(const unsigned int i);
 
 	// Convierte un string en un string en minusculas
 	static std::string toLowercase(const std::string &s);

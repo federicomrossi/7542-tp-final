@@ -168,8 +168,9 @@ void Actualizador::ejecutarActualizacion() {
 		std::string archivoFaltanteEntrante = listaArgumentos_2.verPrimero();
 		listaArgumentos_2.eliminarPrimero();
 
-		// Tomamos la cantidad total de bloques del archivo
-		int cantTotalBloques = Convertir::stoi(listaArgumentos_2.verPrimero());
+		// Tomamos la cantidad total de bytes del archivo
+		unsigned int cantTotalBytes;
+		cantTotalBytes = Convertir::stoui(listaArgumentos_2.verPrimero());
 		listaArgumentos_2.eliminarPrimero();
 
 		// Creamos lista de bloques a reemplazar
@@ -203,7 +204,7 @@ void Actualizador::ejecutarActualizacion() {
 
 		// Modificamos el archivo
 		this->manejadorDeArchivos->modificarArchivo(nombreArchivoFaltante,
-			cantTotalBloques, listaBloquesAReemplazar);
+			cantTotalBytes, listaBloquesAReemplazar);
 	}
 
 
