@@ -70,10 +70,10 @@ void Inspector::run() {
 		if(!this->isActive()) return;
 
 		// DEBUG
-		// std::string hash_aux;
-		// this->manejadorDeArchivos->obtenerHash("aa", hash_aux);
-		// std::cout << "Hash: " << hash_aux << std::endl << std::endl;
-		// continue;
+		std::string hash_aux;
+		this->manejadorDeArchivos->obtenerHash("aa", hash_aux);
+		std::cout << "Hash: " << hash_aux << std::endl;
+		continue;
 		// END DEBUG
 
 		// Realizamos la inspección

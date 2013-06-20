@@ -28,29 +28,30 @@ int Hash::longHash() {
 std::string Hash::funcionDeHash(std::string cadena) {
 	// Se obtiene el hash 
 	std::string hash = funcionDeHashBin(cadena);
-	
-	// Se transforma el hash a una cadena en hexadecimal
-	return(Convertir::uitoh((uint8_t*)hash.c_str(), (size_t)TAM_HASH));
+
+	return hash;
 }
 
 // Aplica la función de hash al string entrante
 std::string Hash::funcionDeHashBin(std::string cadena) {
 	// Variables auxiliares
 	sha256_context ctx;
-	std::string hash_string;
 	uint8 hash[TAM_HASH];
 
 	// Se inicia el algoritmo
 	sha256_starts(&ctx);
 
+	uint8 *input = Convertir::htoui(cadena);
+	uint32 input_length = cadena.size() / 2;
+
 	// Se le pasa la cadena a calcular el hash
-	sha256_update(&ctx, (uint8*)cadena.c_str(), (uint32)cadena.length());
+	sha256_update(&ctx, input, input_length);
 
 	// Se devuelve el hash
 	sha256_finish(&ctx, hash);
 
 	// Se guarda el char* en un string
-	hash_string = (char*)hash;
+	std::string hash_string(Convertir::uitoh(hash, TAM_HASH));
 	
 	return hash_string;
 }
