@@ -1,6 +1,6 @@
 //  
 //  ARCHIVOS UBICUOS
-//  Programa principal del SERVIDOR
+//  Programa principal del CLIENTE
 //  
 //  ***************************************************************************
 //  
