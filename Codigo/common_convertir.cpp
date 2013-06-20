@@ -32,7 +32,7 @@ std::string Convertir::uitoh(uint8_t *a, size_t size) {
 
 	for(unsigned int i = 0; i < size; i++) {
 		std::stringstream stream;
-		stream << std::uppercase << std::setfill('0') << std::setw(2) << 
+		stream << std::uppercase << std::setfill('\0') << std::setw(2) << 
 			std::hex << int(a[i]);
 		std::string result(stream.str());
 
