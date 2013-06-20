@@ -19,7 +19,7 @@ namespace {
 
 	// Parámetros configurables
 	const std::string CONFIG_P_PORT = "PUERTO";
-	
+	const std::string CONFIG_LOG = "LOG";
 
 	// Separadores
 	const std::string CONFIG_SEPARATOR = "=";
@@ -53,6 +53,8 @@ public:
 	// Devuelve el puerto del servidor.
 	int obtenerPuerto();
 
+	//Devuelve el puntero al archivo de Log
+	string obtenerLog();
 	
 	// Guarda cambios realizados sobre la configuracion.
 	void guardarCambios(string puerto);

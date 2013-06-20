@@ -26,6 +26,7 @@ public:
 	~ArchivoTexto();
 	void escribir(const std::string& cadena);
 	bool leerLinea(std::string &cadena, char separador,string buscado);
+	void leerLinea(string& cadena, int pos); 
 	bool validarLinea(std:: string &cadena, string buscado);
 };
 

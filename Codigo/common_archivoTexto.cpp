@@ -28,6 +28,13 @@ void ArchivoTexto::escribir(const string& cadena) {
 	archivo << cadena;
 }
 
+void ArchivoTexto::leerLinea(string& cadena, int pos) {
+	char linea[MAX_LENGTH];
+	archivo.seekg(pos, archivo.beg);
+	archivo.getline((char*)&linea, MAX_LENGTH,'\n');
+	cadena = linea;
+
+}
 
 bool ArchivoTexto::validarLinea(string &cadena, string buscado) {
 	int i = 0;
