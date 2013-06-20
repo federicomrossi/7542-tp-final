@@ -87,8 +87,7 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 // Devuelve una lista con los archivos (ordenados por nombre) que se 
 // encuentran ubicados en el registro administrado por el manejador.
 
-void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair 
-	<std::string, std::string > >* listaArchivos) {
+void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista<std::string>* listaArchivos) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -107,8 +106,7 @@ void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista< std::pair
 		// Se leen y guardan los nombres de archivos + hash en la lista
 		while(std::getline(archivo, linea)) {
 			separarNombreYHash(linea, nombre, hash);
-			std::pair<std::string, std::string> par(nombre, hash);
-			listaArchivos->insertarUltimo(par);
+			listaArchivos->insertarUltimo(nombre);
 		}
 
 		// Se cierra el archivo
@@ -560,89 +558,60 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 
 	// Variables auxiliares
 	std::pair< std::string, std::pair< std::string, int > > externo;
-	std::pair< std::string, std::string> registro;
+	std::string hash, registro;
 
 	// Se crea una lista y se guarda una lista de archivos en registro
-	Lista< std::pair< std::string, std::string> > listaRegistro;
+	Lista<std::string> listaRegistro;
 	obtenerArchivosDeRegistro(&listaRegistro);
 
 	// Iterador para la lista a comparar y su tamanio
-	int it_e = 0; 
-	int tam_e = listaExterna->tamanio();
-	// Iterador para la lista local del cliente y su tamanio
-	int it_r = 0;
-	int tam_r = listaRegistro.tamanio();
+	int it = 0; 
+	int tam = listaExterna->tamanio();
 
+	for (it = 0; it < tam; it++) {
+		// Se lee un item
+		externo = (*listaExterna)[it];
 
-	// Se buscan diferencias y similitudes entre ambas listas
-	while ((it_e < tam_e) && (it_r < tam_r)) {  
-		// Mientras no haya terminado alguna lista
-		// Se obtiene un elemento de cada lista
-		externo = (*listaExterna)[it_e];
-		registro = listaRegistro[it_r];
+		// Se comprueba si existe el archivo en registro
+		if (listaRegistro.buscar(externo.first)) {
+			// Se obtiene el hash
+			hash.clear();
+			obtenerHash(externo.first, hash);
 
-		// Caso en que el nombre archivo de la listaExterna es > al nombre del
-		// registro
-		if (externo.first > registro.first) {
-			// Se agrega a lista eliminar
-			sobrantes->insertarUltimo(registro.first);
-			it_r++;
-		}
-		// Caso de nombre archivo de la listaExterna es < al del registro 
-		else if (externo.first < registro.first) {
-			// Se deben pedir archivos hasta 
-			while (externo.first < registro.first && it_e < tam_e) {
-				externo = (*listaExterna)[it_e];
-				Lista<int> num_bloques;
-				num_bloques.insertarUltimo(0);
-				std::pair< std::string, Lista<int> > nom_num_bloques(
-					externo.first, num_bloques);
-				faltantes->insertarUltimo(nom_num_bloques);
-				it_e++;
+			// Si son distintos los hashes
+			if (hash != externo.first) {
+				Lista<int> bloques;
+
+				// Se buscan las diferencias
+				obtenerDiferencias(hash, externo.second.first,
+					externo.second.second, &bloques);
+
+				// Se deben pedir las diferencias
+				if (!bloques.estaVacia()) {
+					std::pair< std::string, Lista<int> > aPedir = 
+						std::make_pair(externo.first, bloques);
+					faltantes->insertarUltimo(aPedir);
+				}
 			}
+			// Se elimina para luego saber los que sobran
+			listaRegistro.eliminar(externo.first);
 		}
-		else {  // Caso de nombres iguales
-			// Compara hashes
-			if (externo.second.first != registro.second) {
-				Lista<int> num_bloques;
-				obtenerListaDiferencias(externo.first, externo.second.second,
-					&num_bloques);
-				std::pair< std::string, Lista<int> > nom_num_bloques = 
-					std::make_pair(externo.first, num_bloques);
-				faltantes->insertarUltimo(nom_num_bloques);
-			}
-			// Avanzo en ambas listas
-			it_e++;
-			it_r++;
-		}
-	}  // end while
-	// Si quedan elementos en la listaExterna
-	if (it_e < tam_e) {  // Quedan elementos por agregar al dir local
-		for (int i = it_e; i < tam_e; i++) {
-			externo = (*listaExterna)[it_e];
-			Lista<int> num_bloques;
-			num_bloques.insertarUltimo(0);
-			std::pair< std::string, Lista<int> > nom_num_bloques(externo.first, 
-				num_bloques);
-			faltantes->insertarUltimo(nom_num_bloques);
-			it_e++;
+		else {
+			// Se pide todo el archivo
+			Lista<int> bloques;
+			bloques.insertarUltimo(0);
+			std::pair< std::string, Lista<int> > aPedir = 
+				std::make_pair(externo.first, bloques);
+			faltantes->insertarUltimo(aPedir);
 		}
 	}
-	// Si quedan elementos en la lista del dir local
-	if (it_r < tam_r) {  // Quedan elementos por eliminar en el dir local
-		for (int i = it_r; i < tam_r; i++) {
-			registro = listaRegistro[it_r];
-			sobrantes->insertarUltimo(registro.first);
-			it_r++;
-		}
+	// Se guardan en lista de sobrantes los que queden en lista registro
+	tam = listaRegistro.tamanio();
+
+	for (it = 0; it < tam; it++) {
+		registro = listaRegistro[it];
+		sobrantes->insertarUltimo(registro);
 	}
-}
-
-
-// Devuelve las diferencias que existen entre 2 archivos
-void ManejadorDeArchivos::obtenerListaDiferencias(std::string nombre, 
-	int cantBloques, Lista<int>* diferencias) {
-	diferencias->insertarUltimo(0);
 }
 
 
@@ -971,7 +940,6 @@ bool ManejadorDeArchivos::existeArchivoEnRegitro(
 
 
 
-
 /*
  * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
@@ -994,19 +962,4 @@ void ManejadorDeArchivos::separarNombreYHash(const std::string &linea,
 
 		hash = linea.substr(delim + 1);
 	}
-}
-
-
-
-// Devuelve un string de caracteres alfanumericos aleatorios de 
-// tamanio 'longitud'
-void ManejadorDeArchivos::randomString(std::string &s, int longitud) {
-	// Tabla de caracteres posibles
-	char alphanumerico[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	// Se randomiza el set
-	srand(time(NULL));
-	int tamanio = sizeof(alphanumerico) - 1;
-
-	for (int i = 0; i < longitud; ++i) 
-		s[i] = alphanumerico[rand() % tamanio];
 }
