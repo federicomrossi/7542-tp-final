@@ -29,8 +29,8 @@ namespace {
 	// Constante que define el tamaño de los bloques de archivos en cantidad
 	// de caracteres hexadecimales (ej: si se quiere un tamaño de bloque de
 	// 10 Bytes, se debe insertar el valor 20).
-	// const int TAMANIO_BLOQUE = 2097152;
-	const int TAMANIO_BLOQUE = 20;
+	// const int TAMANIO_BLOQUE = 20;
+	const int TAMANIO_BLOQUE = 2097152;		// 1Mb por bloque
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
 	const int TAMANIO_BLOQUE_HASH = 64;
@@ -269,7 +269,6 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 
 	// Obtenemos el contenido del archivo
 	std::string contenido = this->obtenerContenido(nombreArchivo);
-	// int tamanio = contenido.length();
 
 	// Obtenemos la cantidad de bloques del archivo
 	int cantBloques = this->obtenerCantBloques(nombreArchivo);
@@ -280,22 +279,13 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 	// END DEBUG
 
 	for(int i = 0; i < cantBloques; i++) {
-
-		// int tamanioBloqueActual = tamanio - i * TAMANIO_BLOQUE;
-		// int tamanioBloque;
-
-		// if(tamanioBloqueActual < TAMANIO_BLOQUE)
-		// 	tamanioBloque = tamanioBloqueActual;
-		// else
-		// 	tamanioBloque = TAMANIO_BLOQUE;
-
 		// Obtenemos el bloque i del contenido
 		std::string bloque = contenido.substr(i * TAMANIO_BLOQUE,
 			TAMANIO_BLOQUE);
 
-		// DEBUG
+		// // DEBUG
 		// std::cout << "CONT BLOQUE: " << bloque << std::endl;
-		// END DEBUG
+		// // END DEBUG
 
 		// Concatenamos el hash del bloque
 		hashArchivo.append(Hash::funcionDeHash(bloque));

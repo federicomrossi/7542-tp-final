@@ -69,12 +69,12 @@ void Inspector::run() {
 		// Si se detuvo al inspector, salimos
 		if(!this->isActive()) return;
 
-		// DEBUG
-		std::string hash_aux;
-		this->manejadorDeArchivos->obtenerHash("aa", hash_aux);
-		std::cout << "Hash: " << hash_aux << std::endl;
-		continue;
-		// END DEBUG
+		// // DEBUG
+		// std::string hash_aux;
+		// this->manejadorDeArchivos->obtenerHash("aa", hash_aux);
+		// std::cout << "Hash: " << hash_aux << std::endl;
+		// continue;
+		// // END DEBUG
 
 		// Realizamos la inspección
 		Cola< std::string > nuevos;
