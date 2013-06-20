@@ -37,10 +37,6 @@ private:
 	// Separa de una linea el nombre y el hash
 	void separarNombreYHash(const std::string &linea, std::string& nombre, std::string &hash);
 
-	// Devuelve un string de caracteres alfanumericos aleatorios de 
-	// tamanio 'longitud'
-	void randomString(int longitud, std::string &s);
-
 public:
 
 	// Constructor
@@ -55,8 +51,7 @@ public:
 
 	// Devuelve una lista con los archivos (ordenados por nombre) que se 
 	// encuentran ubicados en el registro administrado por el manejador.
-	void obtenerArchivosDeRegistro(Lista< std::pair<std::string, 
-		std::string> >* listaArchivos);
+	void obtenerArchivosDeRegistro(Lista<std::string>* listaArchivos);
 
 	// Agrega un nuevo archivo al directorio.
 	// PRE: 'nombreArchivo' es el nombre del archivo nuevo; 'contenido' es el
@@ -130,10 +125,6 @@ public:
 		std::pair< std::string, int > > >* listaExterna,
 		Lista< std::pair< std::string, Lista<int> > >* faltantes, 
 		Lista<std::string>* sobrantes);
-
-	// Devuelve las diferencias que existen entre 2 archivos
-	void obtenerListaDiferencias(std::string nombre, int cantBloques, 
-		Lista<int>* diferencias);
 
 	// Devuelve la cantidad de bloques de un archivo
 	int obtenerCantBloques(const std::string &nombreArchivo);

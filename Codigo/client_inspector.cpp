@@ -107,11 +107,10 @@ void Inspector::run() {
 				std::pair< std::string, Lista<int> > mod;
 				mod = modificados.pop_bloqueante();
 
-
 				// Lista< std::pair< int, std::string > > bloques;
 
 				// while(!mod.estaVacia()) {
-					
+
 				// }
 				// 	std::cout << mod.second[i];
 

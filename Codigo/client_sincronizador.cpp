@@ -51,12 +51,12 @@ void Sincronizador::modificarArchivo(std::string& nombreArchivo,
 	// Bloqueamos el mutex
 	Lock l(m);
 
-	// Armamos mensaje
-	std::string mensaje = C_MODIFY_FILE + " " + nombreArchivo + " " 
-		+ contenido;
+	// // Armamos mensaje
+	// std::string mensaje = C_MODIFY_FILE + " " + nombreArchivo + " " 
+	// 	+ contenido;
 
-	// Enviamos mensaje al emisor
-	this->emisor->ingresarMensajeDeSalida(mensaje);
+	// // Enviamos mensaje al emisor
+	// this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 

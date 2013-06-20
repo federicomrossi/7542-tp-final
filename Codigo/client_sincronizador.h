@@ -11,6 +11,7 @@
 #include <string>
 #include "common_mutex.h"
 #include "common_lock.h"
+#include "common_lista.h"
 #include "client_emisor.h"
 
 //DEBUG
