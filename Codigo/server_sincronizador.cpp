@@ -157,36 +157,28 @@ void Sincronizador::run() {
 		}
 		// Caso en que un cliente solicita un archivo
 		else if(instruccion == C_FILE_REQUEST) {
-			// Archivo a;
-			// std::string msg_salida;
+			// Armamos mensaje de respuesta
+			std::string respuesta;
 
-			// // Buscamos el archivo en el directorio y armamos mensaje
-			// if(!this->manejadorDeArchivos->obtenerArchivo(args, a)){
-			// 	// Armamos mensaje
-			// 	msg_salida.append(S_NO_SUCH_FILE);
-			// 	msg_salida.append(" ");
-			// 	msg_salida.append(args);
-			// 	std::cout << "NO EXISTE ARCHIVO: " << msg_salida << std::endl;
-			// }
-			// else{
-			// 	// Armamos mensaje
-			// 	msg_salida.append(COMMON_SEND_FILE);
-			// 	msg_salida.append(" ");
-			// 	msg_salida.append(a.obtenerNombre());
-			// 	msg_salida.append(COMMON_DELIMITER);
-			// 	msg_salida.append(a.obtenerNumBloque());
-			// 	msg_salida.append(COMMON_DELIMITER);
-			// 	msg_salida.append(a.obtenerBloque());
-			// 	msg_salida.append(COMMON_DELIMITER);
-			// 	msg_salida.append(a.obtenerHash());
-			// 	msg_salida.append(COMMON_DELIMITER);
-			// 	msg_salida.append(a.obtenerFechaDeModificacion());
+			// Caso en que no existe el archivo en el servidor
+			if(!this->manejadorDeArchivos->existeArchivo(args)) {
+				respuesta.append(S_NO_SUCH_FILE);
+				respuesta.append(" ");
+				respuesta.append(args);
+			}
+			// Caso en que existe el archivo en el servidor
+			else {
+				// Armamos mensaje con contenido del archivo
+				respuesta.append(COMMON_SEND_FILE);
+				respuesta.append(" ");
+				respuesta.append(args);
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(this->manejadorDeArchivos->obtenerContenido(
+					args, 0));
+			}
 
-			// 	std::cout << "EXISTE ARCHIVO: " << msg_salida << std::endl;
-			// }
-
-			// // Enviamos mensaje al cliente que realizó solicitud
-			// this->emisor->ingresarMensajeDeSalida(mensaje.first, msg_salida);
+			// Enviamos mensaje al cliente que realizó solicitud
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
 			// Parseamos la lista de archivos enviada por el servidor
@@ -206,6 +198,7 @@ void Sincronizador::run() {
 			// Se envia la notificación de nuevo archivo a los clientes
 			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
 		}
+		// Caso en que se recibe la notificación de la modificación de archivo
 		else if (instruccion == C_MODIFY_FILE) {
 
 		}

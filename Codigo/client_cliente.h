@@ -36,6 +36,8 @@ private:
 	std::string nombreHost;			// Nombre del host de conexión
 	std::string directorio;			// Directorio que será sincronizado
 	bool estadoConexion;			// Censa si se encuentra conectado
+	bool actualizando;				// Censa si se encuentra actualizando
+									// el directorio.
 
 	//Atributos de módulos
 	Emisor *emisor;
@@ -97,6 +99,12 @@ public:
 	// POST: la conexión con el servidor finalizó. Si se desea volver a iniciar
 	// la sincronización, debe realizarse la conexión nuevamente.
 	void detenerSincronizacion();
+
+	// Comprueba si se encuentra realizando la actualización inicial
+	// que se inicia al invocar al metodo iniciarSincronizacion().
+	// POST: devuelve true si se encuentra actualizando o false en
+	// caso contrario.
+	bool estaActualizando();
 };
 
 #endif

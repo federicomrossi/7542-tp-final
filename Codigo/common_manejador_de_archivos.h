@@ -77,6 +77,11 @@ public:
 		int cantBloquesDelArchivo, 
 		Lista< std::pair< int, std::string > >& listaBloquesAReemplazar);
 
+	// Comprueba la existencia de un archivo en el directorio.
+	// PRE: 'nombreArchivo' es el nombre de archivo a buscar.
+	// POST: devuelve true si existe o false en caso contrario.
+	bool existeArchivo(std::string& nombreArchivo);
+
 	// Calcula el hash del archivo, el cual se encuentra conformado
 	// por los hashes de cada bloque concatenados.
 	// PRE: 'nombreArchivo' es el nombre de archivo, 'hashArchivo' es
@@ -172,6 +177,13 @@ public:
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.
 	// POST: devuelve true si existe o false en su defecto.
 	bool existeRegistroDeArchivos();
+
+	// Corrobora si se encuentra registrado un archivo en el registro de
+	// archivos.
+	// PRE: 'nombreArchivo' es el nombre de archivo.
+	// POST: devuelve true si el archivo se encuentra registrado o false
+	// en caso contrario.
+	bool existeArchivoEnRegitro(const std::string nombreArchivo);
 };
 
 #endif

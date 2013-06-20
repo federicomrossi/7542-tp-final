@@ -20,7 +20,7 @@
 
 
 // Constructor
-Cliente::Cliente() : estadoConexion(false) { }
+Cliente::Cliente() : estadoConexion(false), actualizando(true) { }
 
 
 // Destructor
@@ -128,6 +128,9 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Si la conexión no se encuentra activa, no hacemos nada
 	if(!estadoConexion) return;
 
+	// Activamos flag de actualización
+	this->actualizando = true;
+
 	// Creamos los módulos primarios
 	this->emisor = new Emisor(this->socket);
 	this->receptor = new Receptor(this->socket);
@@ -149,6 +152,9 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 		intervaloPolling);
 	this->manejadorDeNotificaciones = new ManejadorDeNotificaciones(receptor,
 		inspector, receptorDeArchivos);
+
+	// Activamos flag de actualización
+	this->actualizando = false;
 
 	// Ponemos en marcha los módulos
 	this->inspector->iniciar();
@@ -200,6 +206,14 @@ void Cliente::detenerSincronizacion() {
 	delete this->manejadorDeNotificaciones;
 }
 
+
+// Comprueba si se encuentra realizando la actualización inicial
+// que se inicia al invocar al metodo iniciarSincronizacion().
+// POST: devuelve true si se encuentra actualizando o false en
+// caso contrario.
+bool Cliente::estaActualizando() {
+	return this->actualizando;
+}
 
 
 

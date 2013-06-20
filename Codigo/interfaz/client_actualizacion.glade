@@ -5,6 +5,7 @@
     <property name="height_request">0</property>
     <property name="can_focus">False</property>
     <property name="type">popup</property>
+    <property name="title" translatable="yes">Actualizando directorio...</property>
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
     <property name="type_hint">dialog</property>

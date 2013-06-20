@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "client_configuracion.h"
+#include "client_interfaz_actualizacion.h"
 #include "client_interfaz_conexion.h"
 
 
@@ -57,9 +58,20 @@ void Conexion::on_buttonConectar_clicked() {
 	this->estadoConexion = cliente->conectar(user, pass);
 
 	if(this->estadoConexion == 1) {
-		cliente->iniciarSincronizacion((this->clienteConfig->obtenerIntervaloDePolling()));
+		// Abrimos ventana de actualización
+		this->main->set_sensitive(false);
+		// IActualizacion ventanaActualizacion(this->cliente);
+		// ventanaActualizacion.start();
+
+		this->cliente->iniciarSincronizacion(
+			this->clienteConfig->obtenerIntervaloDePolling());
 		this->lblError->set_text("");
-		
+
+		// ventanaActualizacion.stop();
+		// ventanaActualizacion.join();
+
+		// Habilitamos ventana luego de la actualización
+		this->main->set_sensitive(true);
 	}
 	else if(this->estadoConexion == 0) {
 		// Mostramos mensaje de error en ventana
@@ -88,16 +100,12 @@ void Conexion::on_buttonConectar_clicked() {
 
 void Conexion::on_buttonSalir_clicked() {
 	Gtk::Main::quit();
-
 }
 
 void Conexion::on_menuPref_activate() {
-
 	IConfiguracion ventanaSettings(this->clienteConfig, this->estadoConexion);
 	ventanaSettings.correr();
 	this->main->set_sensitive(true);
-	
-	
 }
 
 void Conexion::on_menuSalir_activate() {

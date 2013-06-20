@@ -5,7 +5,9 @@
 
 
 #include <sstream>
-#include "common_parser.h" 
+#include "common_parser.h"
+#include "common_lista.h"
+#include "common_protocolo.h"
 #include "client_manejador_de_notificaciones.h"
 
 
@@ -54,70 +56,22 @@ void ManejadorDeNotificaciones::run() {
 			// Derivamos al inspector
 		}
 		else if(instruccion == COMMON_SEND_FILE) {
+			// Parseamos argumentos para obtener nombre y contenido del archivo
+			Lista< std::string > listaArgumentos;
+			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
+
 			// Derivamos al receptor de archivos
-			this->receptorDeArchivos->recibirArchivo(mensaje);
+			this->receptorDeArchivos->recibirArchivo(listaArgumentos[0],
+				listaArgumentos[1]);
 		}
 		else if(instruccion == COMMON_DELETE_FILE) {
-			// Derivamos al receptor de archivos
+			// DEBUG
 			std::cout << "NOTIFICACION DE QUE SE BORRO ARCHIVO" << std::endl;
-			
+			// END DEBUG
+
 			// Derivamos al receptor de archivos
 			this->receptorDeArchivos->eliminarArchivo(args);
 		}
 
-
-		// // Formato de notificacion: "<'n'><Instruccion,Arg1-Arg2-Arg3..>"
-		// if (mensaje[0] == 'n')  { // Es una notificacion
-		// 	mensaje.erase(0,1);  // Se borra el identificador
-
-		// 	//DEBUG
-		// 	std::cout << "Es notificacion" << std::endl;
-		// 	//FIN DEBUG
-	
-		// 	// Se envia la notificacion al sincronizador para que 
-		// 	// realice una accion en base a ella.
-		// 	// this->sincronizador->recibirNotificacion(mensaje);
-		// }
-		// // Formato de archivo: "<'f'><Instruccion,Arg1-Arg2-Arg3..>"
-		// else {
-		// 	if (mensaje[0] == 'f') {  // Es un archivo
-		// 		mensaje.erase(0,1);  // Se borra el identificador
-
-		// 		//DEBUG
-		// 		std::cout << "Es archivo" << std::endl;
-		// 		//FIN DEBUG
-				
-		// 		// Se envia el archivo con la accion a realizar sobre el 
-		// 		// al receptor de archivos
-		// 		this->receptorDeArchivos->recibirArchivo(mensaje);
-		// 	}
-		// 	else  // Con cualquier otro mensaje, frena
-		// 		this->stop();  
-		// }
-		// mensaje.clear();
 	}
-}
-
-
-
-
-/*
- * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
- */
-
-
-// Parsea el mensaje separando la instruccion de sus argumentos.
-// PRE: 'msg' es el mensaje que desea parsearse; 'instruccion' y 'args' son
-// referencias a variables en donde se desea almacenar la instruccion y sus
-// argumentos respectivamente.
-void ManejadorDeNotificaciones::parserMensaje(const std::string& msg, 
-	std::string& instruccion, std::string& args) {
-	std::stringstream msgTemp(msg);
-
-	// Tomamos la instrucción
-	msgTemp >> instruccion;
-	getline(msgTemp, args);
-
-	// Eliminamos el espacio inicial sobrante de los argumentos
-	if(args != "") args.erase(0, 1);
 }

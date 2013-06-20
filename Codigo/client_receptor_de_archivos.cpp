@@ -24,29 +24,16 @@ ReceptorDeArchivos::ReceptorDeArchivos(ManejadorDeArchivos *unManejador) :
 ReceptorDeArchivos::~ReceptorDeArchivos() { }
 
 
-// Debe enviar al manejador de archivos el archivo recibido en el mensaje
-// Llega el archivo con COMMON_SEND_FILE o COMMON_DELETE_FILE al comienzo
-// para saber si hay que agregar un bloque
-// o eliminar un archivo del directorio
+// Se encarga de procesar la recepción de un archivo nuevo.
+// PRE: 'nombreArchivo' es el nombre del archivo a recibir; 'contenido' es
+// el contenido del archivo a recibir.
+void ReceptorDeArchivos::recibirArchivo(const std::string& nombreArchivo,
+	const std::string& contenido) {
+	// Damos la orden de agregar el archivo
+	this->manejadorDeArchivos->agregarArchivo(nombreArchivo, contenido);
 
-// Formato de archivo: "<Instruccion,Nombre_Archivo,Numero_Bloque,Bloque_Archivo>".
-// Para hacer referencia a todo el archivo, Numero_Bloque = WHOLE_FILE
-void ReceptorDeArchivos::recibirArchivo(std::string &mensaje) {
-	
-	std::string accion;
-	std::string nombre_archivo;
-	std::string num_bloque;
-	std::string bloque_archivo;
-	parsearMensaje(mensaje, accion, nombre_archivo, num_bloque, bloque_archivo);
-
-	if (accion.find(COMMON_SEND_FILE) == 0) {
-		this->manejadorDeArchivos->agregarArchivo(nombre_archivo, bloque_archivo);
-	}
-	else {
-		if (accion.find(COMMON_DELETE_FILE) == 0) {
-			this->manejadorDeArchivos->eliminarArchivo(nombre_archivo);
-		}
-	}
+	// Actualizamos el registro local de archivos
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
 }
 
 
@@ -58,39 +45,3 @@ void ReceptorDeArchivos::eliminarArchivo(std::string& nombreArchivo) {
 	// Eliminamos el archivo del registro local
 	this->manejadorDeArchivos->borrarDeRegistroDeArchivos(nombreArchivo);
 }
-
-
-
-
-
-/* Metodos privados */
-
-void ReceptorDeArchivos::parsearMensaje(const std::string &mensaje, std::string &accion,
-	std::string &nombre_archivo, std::string &num_bloque, std::string &bloque_archivo) {
-
-	// El mensaje viene en el formato "<Instruccion,Nombre_Archivo,Numero_Bloque,Bloque_Archivo"
-	// Divididos por una ','
-	std::string* args[4];
-	std::string aux;
-	std::string msj = mensaje;
-	int i;
-	int delim = 0;
-
-	// Se guarda la direccion de cada argumento en el array
-	args[0] = &accion;
-	args[1] = &nombre_archivo;
-	args[2] = &num_bloque;
-	args[3] = &bloque_archivo;
-	
-	// Se parsea el mensaje
-	for (i = 0; i < 4; i++) {
-		delim = msj.find(',');
-		aux = msj.substr(0, delim);
-		msj.erase(0, delim + 1);
-		args[i]->assign(aux.c_str());
-	}
-}
-
-
-
-

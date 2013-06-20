@@ -1,39 +1,36 @@
-//
+//  
 //  client_interfaz_actualizacion.h
-//  CLASE ACTUALIZACION
+//  CLASE INTERFAZ DE ACTUALIZACION
 //  
 
 
-#ifndef INTERFAZ_ACTUALIZACION_H_
-#define INTERFAZ_ACTUALIZACION_H_
+#ifndef IACTUALIZACION_H_
+#define IACTUALIZACION_H_
 
 
 #include "gtkmm.h"
+#include "common_thread.h"
+#include "client_cliente.h"
 
 
 
-class Actualizacion : public Gtk::Window {
+class IActualizacion : public Gtk::Window, public Thread {
 private:
 
 	// Atributos de la interfaz
-	Gtk::Window *ventana;						// Ventana
-	Gtk::Label	*lblActividad;					// Etiqueta de actividad
-	Gtk::Label	*lblDetalles;					// Link de detalles
-	Gtk::ProgressBar *prgbarCompletado;			// Barra de progreso
-
+	Gtk::Window* ventana;			// Ventana
+	Cliente *cliente;				// Cliente que se actualiza	
+	
 public:
 
 	// Constructor
-	Actualizacion();
+	IActualizacion(Cliente *cliente); 
 
 	// Destructor
-	virtual ~Actualizacion();
+	virtual ~IActualizacion();
 
-	// Inicia la ejecución de la ventana
-	void correr();
-
-protected:
-
+	// Define tareas a ejecutar en el hilo.
+	virtual void run();
 };
 
 #endif

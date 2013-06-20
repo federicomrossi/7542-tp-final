@@ -69,6 +69,12 @@ void Inspector::run() {
 		// Si se detuvo al inspector, salimos
 		if(!this->isActive()) return;
 
+		// DEBUG
+		// std::string hash_aux;
+		// this->manejadorDeArchivos->obtenerHash("aa", hash_aux);
+		// std::cout << "Hash: " << hash_aux << std::endl << std::endl;
+		// continue;
+		// END DEBUG
 
 		// Realizamos la inspección
 		Cola< std::string > nuevos;
@@ -107,6 +113,13 @@ void Inspector::run() {
 
 				// DEBUG
 				std::cout << "Modificado: " << mod.first << std::endl;
+
+				std::cout << "Bloques: ";
+
+				for(size_t i = 0; i < mod.second.tamanio(); i++)
+					std::cout << mod.second[i];
+
+				std::cout << std::endl;
 				// END DEBUG
 			}
 
@@ -166,16 +179,14 @@ void Inspector::inspeccionarArchivo(Archivo *archivo) {
 
 //
 void Inspector::inspeccionarExisteArchivo(std::string nombreArchivo) {
-	// Objetos auxiliares
-	Archivo archivoTemp;
-
 	// Corroboramos si existe el archivo
-	// if(this->manejadorDeArchivos->obtenerArchivo(nombreArchivo,
-	// 	archivoTemp)) return;
+	if(this->manejadorDeArchivos->existeArchivoEnRegitro(nombreArchivo))
+		return;
 
 	// Si no existe, lo solicitamos al servidor
 	this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
 }
+
 
 
 

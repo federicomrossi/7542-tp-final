@@ -26,14 +26,14 @@ namespace {
 	// Delimitador de campos del registro
 	const std::string DELIMITADOR = ",";
 
-	// Constante que define el tamaño de los bloques de archivos.
-	const int TAMANIO_BLOQUE = 2097152;
+	// Constante que define el tamaño de los bloques de archivos en cantidad
+	// de caracteres hexadecimales (ej: si se quiere un tamaño de bloque de
+	// 10 Bytes, se debe insertar el valor 20).
+	// const int TAMANIO_BLOQUE = 2097152;
+	const int TAMANIO_BLOQUE = 20;
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
 	const int TAMANIO_BLOQUE_HASH = 64;
-
-	// Tamanio buffer lectura
-	#define TAM_BUF 2048
 }
 
 
@@ -242,6 +242,20 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 }
 
 
+// Comprueba la existencia de un archivo en el directorio.
+// PRE: 'nombreArchivo' es el nombre de archivo a buscar.
+// POST: devuelve true si existe o false en caso contrario.
+bool ManejadorDeArchivos::existeArchivo(std::string& nombreArchivo) {
+	// Variables auxiliares
+	Lista<std::string> l;
+
+	// Relevamos los archivos del directorio
+	this->obtenerArchivosDeDirectorio(&l);
+
+	return l.buscar(nombreArchivo);
+}
+
+
 // Calcula el hash del archivo, el cual se encuentra conformado
 // por los hashes de cada bloque concatenados.
 // PRE: 'nombreArchivo' es el nombre de archivo, 'hashArchivo' es
@@ -260,8 +274,10 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 	// Obtenemos la cantidad de bloques del archivo
 	int cantBloques = this->obtenerCantBloques(nombreArchivo);
 
+	// DEBUG
 	// std::cout << "BLOQUES: " << cantBloques << std::endl;
 	// std::cout << "CONTENIDO: " << contenido << std::endl;
+	// END DEBUG
 
 	for(int i = 0; i < cantBloques; i++) {
 
@@ -276,6 +292,10 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 		// Obtenemos el bloque i del contenido
 		std::string bloque = contenido.substr(i * TAMANIO_BLOQUE,
 			TAMANIO_BLOQUE);
+
+		// DEBUG
+		// std::cout << "CONT BLOQUE: " << bloque << std::endl;
+		// END DEBUG
 
 		// Concatenamos el hash del bloque
 		hashArchivo.append(Hash::funcionDeHash(bloque));
@@ -309,15 +329,17 @@ std::string ManejadorDeArchivos::obtenerContenido(
 
 	// Almacenamos momentaneamente el contenido del archivo original
 	size = archivo.tellg();
+
 	if (numBloque == 0) {
 		inicio = 0;
 		fin = size;
 	}
 	else {
-		inicio = TAMANIO_BLOQUE * (numBloque - 1);
-		fin = inicio + TAMANIO_BLOQUE;
+		inicio = (TAMANIO_BLOQUE / 2) * (numBloque - 1);
+		fin = inicio + (TAMANIO_BLOQUE / 2);
 	}
-	if (inicio < fin) {
+
+	if(inicio < fin) {
 		// Se posiciona en el bloque correspondiente
 		archivo.seekg(inicio);
 
@@ -388,14 +410,14 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 		longitud = archivo.tellg();
 
 		// Se calcula cantBloques
-		cantBloques = floor((double)(longitud/TAMANIO_BLOQUE));
+		cantBloques = floor((double)(longitud/(TAMANIO_BLOQUE/2)));
 		
-		if (longitud % TAMANIO_BLOQUE > 0)
+		if (longitud % (TAMANIO_BLOQUE/2) > 0)
 			cantBloques++;
 	}
 	
 	// Se devuelve la cantidad de bloques hexadecimales que hay
-	return ((cantBloques * 2) - 1);
+	return cantBloques;
 }
 
 
@@ -413,6 +435,10 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 	// Si los hashes refieren a archivos vacios, devolvemos false
 	if(hashViejo == "" && hashNuevo == "") return false;
 
+
+	int cantViejaBloques = (hashViejo.size()) / TAMANIO_BLOQUE_HASH;
+	// int cantNuevaBloques = (hashNueva.size()) / TAMANIO_BLOQUE_HASH;
+
 	// Caso en que el tamaño del hashViejo es nulo
 	if(hashViejo.size() == 0) {
 		// Insertamos todos los números de bloques
@@ -422,13 +448,15 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 		return true;
 	}
 
+	// Flag para notificar cambios
 	bool hubieronCambios = false;
 
-	// Iteramos sobre cada bloque para buscar diferencias
-	int i = 0;
-	unsigned int j = 0;
 
-	while((i < cantNuevaBloques) && (j < hashViejo.size())) {
+	// Contador de bloques de hash viejo
+	int i = 0;
+
+	// Iteramos sobre los bloques
+	while((i < cantViejaBloques) && (i < cantNuevaBloques)) {
 		// Obtenemos el bloque i del hash viejo
 		std::string bloqueViejo = hashViejo.substr(i * TAMANIO_BLOQUE_HASH,
 			TAMANIO_BLOQUE_HASH);
@@ -437,10 +465,14 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 		std::string bloqueNuevo = hashNuevo.substr(i * TAMANIO_BLOQUE_HASH,
 			TAMANIO_BLOQUE_HASH);
 
-		// Incrementamos el número de bloque
+		// DEBUG		
+		// std::cout << "NUMER BLOQUE: " << i << std::endl;
+		// std::cout << "BLOQUE VIEJO: " << bloqueViejo << std::endl;
+		// std::cout << "BLOQUE NUEVO: " << bloqueNuevo << std::endl;
+		// END DEBUG
+
+		// Incrementamos contador de bloques
 		i++;
-		// Incrementamos el largo parcial del hashViejo
-		j += TAMANIO_BLOQUE_HASH;
 
 		// Si son iguales los bloques, sigo de largo
 		if(bloqueViejo == bloqueNuevo) continue;
@@ -460,10 +492,67 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 		i++;
 	}
 
-	if(!hubieronCambios && hashViejo.size() > hashNuevo.size())
+	// Caso en que no hay cambios pero se ha achicado el tamaño del hash
+	if(!hubieronCambios && (cantViejaBloques > cantNuevaBloques))
 		hubieronCambios = true;
 
 	return hubieronCambios;
+
+
+	// // Si los hashes refieren a archivos vacios, devolvemos false
+	// if(hashViejo == "" && hashNuevo == "") return false;
+
+	// // Caso en que el tamaño del hashViejo es nulo
+	// if(hashViejo.size() == 0) {
+	// 	// Insertamos todos los números de bloques
+	// 	for(int i = 1; i <= cantNuevaBloques; i++)
+	// 		listaBloquesDiferentes->insertarUltimo(i);
+
+	// 	return true;
+	// }
+
+	// bool hubieronCambios = false;
+
+	// // Iteramos sobre cada bloque para buscar diferencias
+	// int i = 0;
+	// unsigned int j = 0;
+
+	// while((i < cantNuevaBloques) && (j < hashViejo.size())) {
+	// 	// Obtenemos el bloque i del hash viejo
+	// 	std::string bloqueViejo = hashViejo.substr(i * TAMANIO_BLOQUE_HASH,
+	// 		TAMANIO_BLOQUE_HASH);
+
+	// 	// Obtenemos el bloque i del hash nuevo
+	// 	std::string bloqueNuevo = hashNuevo.substr(i * TAMANIO_BLOQUE_HASH,
+	// 		TAMANIO_BLOQUE_HASH);
+
+	// 	// Incrementamos el número de bloque
+	// 	i++;
+	// 	// Incrementamos el largo parcial del hashViejo
+	// 	j += TAMANIO_BLOQUE_HASH;
+
+	// 	// Si son iguales los bloques, sigo de largo
+	// 	if(bloqueViejo == bloqueNuevo) continue;
+
+	// 	// Insertamos el número de bloque en la lista
+	// 	listaBloquesDiferentes->insertarUltimo(i);
+	// 	hubieronCambios = true;
+	// }
+
+	// // Agregamos bloques remanentes
+	// while(i < cantNuevaBloques) {
+	// 	// Insertamos el número de bloque en la lista
+	// 	listaBloquesDiferentes->insertarUltimo(i + 1);
+	// 	hubieronCambios = true;
+
+	// 	// Incrementamos el número de bloque
+	// 	i++;
+	// }
+
+	// if(!hubieronCambios && hashViejo.size() > hashNuevo.size())
+	// 	hubieronCambios = true;
+
+	// return hubieronCambios;
 }
 
 
@@ -835,6 +924,58 @@ bool ManejadorDeArchivos::existeRegistroDeArchivos() {
 	// Si se abrió, lo cerramos y retornamos true
 	archivo.close();
 	return true;
+}
+
+
+// Corrobora si se encuentra registrado un archivo en el registro de
+// archivos.
+// PRE: 'nombreArchivo' es el nombre de archivo.
+// POST: devuelve true si el archivo se encuentra registrado o false
+// en caso contrario.
+bool ManejadorDeArchivos::existeArchivoEnRegitro(
+	const std::string nombreArchivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
+	// Variables auxiliares
+	std::ifstream registro;
+	std::string reg_archivoNombre, reg_archivoHash;
+	std::string buffer;
+
+	// Armamos rutas de archivos
+	std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+
+
+	// Abrimos el archivo de registros
+	registro.open(regNombre.c_str(), std::ios::in);
+
+	// Verificamos si la apertura fue exitosa
+	if(!registro.is_open()) 
+		throw "ERROR: El registro no pudo ser abierto.";
+
+	// Iteramos sobre las lineas del archivo para buscar el registro
+	while(std::getline(registro, buffer)) {
+		// Parseamos
+		this->separarNombreYHash(buffer, reg_archivoNombre, reg_archivoHash);
+
+		// Comparamos nombre de archivo del registro con el buscado
+		if(reg_archivoNombre == nombreArchivo) {
+			// Cerramos archivos
+			registro.close();
+
+			// Se encontró registro
+			return true;
+		}
+
+		buffer.clear();
+	}
+
+	// Cerramos archivos
+	registro.close();
+
+	// No se encontró registro
+	return false;
 }
 
 

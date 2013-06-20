@@ -11,6 +11,7 @@
 
 
 #include <list>
+#include <algorithm>
 #include "common_mutex.h"
 #include "common_lock.h"
 
@@ -60,6 +61,11 @@ public:
 
 	// Ordena los elementos de la lista (deben poder ser comparables)
 	void ordenar();
+
+	// Busca un elemento en la lista.
+	// PRE: 'valor' es el valor del elemento a buscar.
+	// POST: devuelve true si se encuentra o false en caso contrario
+	bool buscar(Tipo valor);
 
 	// Verifica si una lista se encuentra vacía.
 	// POST: Devuelve verdadero si la lista se encuentra vacía o falso en 
@@ -146,6 +152,23 @@ template <typename Tipo >
 void Lista< Tipo >::ordenar() {
 	Lock l(m);
 	this->lista.sort();
+}
+
+
+// Busca un elemento en la lista.
+// PRE: 'valor' es el valor del elemento a buscar.
+// POST: devuelve true si se encuentra o false en caso contrario
+template <typename Tipo >
+bool Lista< Tipo >::buscar(Tipo valor) {
+	Lock l(m);
+
+	// Buscamos elemento en lista interna
+	typename std::list< Tipo >::iterator i;
+	i = std::find(this->lista.begin(), this->lista.end(), valor);
+
+	// Devolvemos el resultado de la busqueda
+	if(i != this->lista.end()) return true;
+	return false;
 }
 
 
