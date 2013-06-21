@@ -1,5 +1,5 @@
 //
-//  server_interfaz_configuracion.h
+//  monitor_interfaz_configuracion.h
 //  CLASE INTERFAZ DE CONFIGURACION
 //  
 
@@ -24,7 +24,8 @@ private:
 	Gtk::Button *botonCancelar;			
 	
 	Gtk::Entry  *puerto;
-	
+	Gtk::Entry  *host;
+	Gtk::Entry  *tiempo;
 	Configuracion* config;	
 	int flag; // Indica si el servidor esta conectado	
 	

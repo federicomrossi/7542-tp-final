@@ -1,7 +1,3 @@
-//  
-//  ARCHIVOS UBICUOS
-//  Programa principal  MONITOR
-//  
 //  ***************************************************************************
 //  
 //  Facultad de Ingeniería - UBA
@@ -19,22 +15,32 @@
 //
 
 
-
 #include <iostream>
 #include "monitor_interfaz_principal.h"
+#include "monitor_receptorDatos.h"
 #include "monitor_monitor.h"
 #include "monitor_configuracion.h"
+#include "monitor_interfaz_conexion.h"
+
 
 int main (int argc, char** argv) {
 	// Iniciamos interfaz de la ventana principal
 	Gtk::Main kit(argc, argv);
-
 	
 	// Creamos la configuracion del servidor
 	Configuracion* configs = new Configuracion();
-	
+
+	// Creamos el receptor de datos que se comunica con el servidor
+	Receptor* receptor = new Receptor();
+
 	// Creamos el monitor
 	Monitor *monitor = new Monitor();
+
+	//Iniciamos ventana de conexion
+
+	Conexion ventanaConexion(receptor,configs);
+	if (ventanaConexion.correr() == 1) return 0;
+	std::cout<<"vuelvo a main "<<endl;
 	// ventana principal del programa
 	MenuPrincipal ventanaMonitor(monitor,configs);
 	ventanaMonitor.correr();
@@ -43,6 +49,7 @@ int main (int argc, char** argv) {
 	
 	delete monitor;
 	delete configs;
+	delete receptor;
 	
 	return 0;
 }

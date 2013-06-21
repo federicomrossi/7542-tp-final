@@ -20,6 +20,8 @@ IConfiguracion::IConfiguracion(Configuracion *config, int flag) {
 	
 	
 	refBuilder->get_widget("port", this->puerto);
+	refBuilder->get_widget("host", this->host);
+	refBuilder->get_widget("tiempo", this->tiempo);
 	
 	refBuilder->get_widget("guardar", this->botonGuardar);
 	refBuilder->get_widget("cancelar", this->botonCancelar);
@@ -39,8 +41,10 @@ void IConfiguracion::on_buttonGuardar_clicked() {
 	//obtengo cada valor almacenado en los textBox
 	
 	string unPuerto = this->puerto->get_text();
+	string unHost = this->host->get_text();
+	string unTiempo = this->tiempo->get_text();
 		
-	this->config->guardarCambios(unPuerto);
+	this->config->guardarCambios(unPuerto, unHost, unTiempo);
 
 	this->main->hide();
 		

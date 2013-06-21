@@ -1,0 +1,217 @@
+//
+//  monitor_receptorDatos.cpp
+//  CLASE RECEPTOR
+//   
+
+
+#include <iostream>
+#include <sstream>
+
+#include "common_parser.h"
+#include "common_convertir.h"
+#include "monitor_receptorDatos.h"
+
+/* ****************************************************************************
+ * DEFINICIÓN DE LA CLASE
+ * ***************************************************************************/
+
+
+// Constructor
+Receptor::Receptor() : estadoConexion(false) { }
+
+
+// Destructor
+Receptor::~Receptor() {
+	// Liberamos la memoria utilizada por el socket
+	delete this->socket;
+}
+
+
+// Establece el nombre de host al que se conectará el cliente.
+void Receptor::especificarNombreHost(std::string nombreHost) {
+	this->nombreHost = nombreHost;
+}
+
+
+// Establece el puerto del host al que se conectará el cliente
+void Receptor::especificarPuerto(int puerto) {
+	this->puerto = puerto;
+}
+
+void Receptor::especificarTiempo(int timer){
+	this->timer = timer;
+}
+
+
+// Realiza la conexión inicial con el servidor.
+// PRE: 'usuario' y 'clave' son el nombre de usuario y contraseña con el 
+// que se desea conectar al servidor. Debe haberse especificado el nombre 
+// de host, puerto y directorio.
+// POST: devuelve '-1' si falló la conexión, '0' si falló el login y '1' si
+// se conectó y loggeó con éxito.
+int Receptor::conectar(std::string usuario, std::string clave) {
+	// Creamos socket
+	this->socket = new Socket();
+	this->socket->crear();
+
+	// Mensaje de log
+	std::cout << "Conectando con " << this->nombreHost << " en el puerto " 
+		<< this->puerto << "... ";
+    std::cout.flush();
+
+	try {
+		// Conectamos el socket
+		this->socket->conectar(nombreHost, puerto);
+	}
+	catch(char const * e) {
+		// Mensaje de log
+		std::cout << "DESCONECTADO" << std::endl;
+		std::cerr << e << std::endl;
+
+		// Liberamos memoria
+		delete this->socket;
+
+		// Falló la conexión
+		return -1;
+	}
+
+	// Mensaje de log
+	std::cout << "CONECTADO" << std::endl;
+	std::cout.flush();
+
+	// Si se inició sesión con éxito, salimos y mantenemos socket activo
+	if(iniciarSesion(usuario, clave) == 1) {
+		// Cambiamos el estado de la conexión
+		this->estadoConexion = true;
+		this->start();
+
+		return 1;
+	}
+
+	// Destruimos el socket en caso de fallar el inicio de sesión
+	desconectar();
+	delete this->socket;
+
+	// Falló el ĺoggin
+	return 0;
+}
+
+// Detiene la conexión con el monitor. No debe utilizarse el método stop()
+// para detener.
+
+void Receptor::detener() {
+	// Detenemos hilo
+	this->stop();
+	
+	// Forzamos el cierre del socket y destrabamos espera de recepcion de datos
+	try {
+		this->socket->cerrar();
+	}
+	// Ante una eventual detención abrupta, previa a la inicialización del
+	// socket, lanzará un error que daremos por obviado.
+	catch(...) { } 
+}
+
+void Receptor::run() {
+	// Creamos el comunicador para recibir mensajes
+	Comunicador comunicador(this->socket);
+
+	// Variables de procesamiento
+	/*std::string mensaje;
+	std::string instruccion;
+	std::string args;
+	Lista<std::string>* valores;*/
+
+	while (this->estadoConexion &&  this->isActive()) {
+			/*// Enviamos el mensaje al servidor
+			mensaje = M_SERVER_INFO_REQUEST;
+			instruccion.clear();
+			args.clear();
+
+			comunicador.emitir(mensaje);
+			mensaje.clear();
+			comunicador.recibir(mensaje);
+
+			Parser::parserInstruccion(mensaje, instruccion, args);
+			Parser::dividirCadena(mensaje, valores, COMMON_DELIMITER);*/
+			std::cout<< "estoy conectado al servidor y pregunto cada 10 seg"<<std::endl;
+			this->sleep(this->timer);
+	}
+	
+
+}
+
+// Envia un mensaje al servidor.
+// PRE: 'mensaje' es la cadena que desea enviarse.
+// POST: lanza una excepción si el socket no se encuentra activo.
+void Receptor::enviarMensaje(std::string& mensaje) {
+	// Corroboramos que el socket esté activo
+	if(!this->socket->estaActivo())
+		throw "ERROR: No se pudo emitir mensaje al servidor.";
+
+	// Creamos el comunicador para enviar mensajes
+	Comunicador comunicador(this->socket);
+
+	// Enviamos el mensaje
+	comunicador.emitir(mensaje);
+}
+
+
+// Se desconecta del servidor
+void Receptor::desconectar() {
+	// Mensaje de log
+	std::cout << "Cerrando conexión... ";
+   	std::cout.flush();
+
+	// Desconectamos el socket
+	this->socket->cerrar();
+
+	// Cambiamos el estado de la conexión
+	this->estadoConexion = false;
+	
+	// Mensaje de log
+	std::cout << "DESCONECTADO" << std::endl;
+	std::cout.flush();
+}
+
+
+/*
+ * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
+ */
+ 
+
+// Inicia sesion con Admin existente
+int Receptor::iniciarSesion(std::string usuario, std::string clave) {
+	// Creamos comunicador
+	Comunicador com(this->socket);
+
+	// Mensaje de log
+	std::cout << "Emitiendo solicitud de LOGIN... " << std::endl;
+    std::cout.flush();
+	
+	// Se preparan los argumentos
+	std::string mensaje = usuario + COMMON_DELIMITER + clave;	
+
+	// Enviamos petición de inicio de sesion
+	if(com.emitir(C_LOGIN_REQUEST, mensaje) == -1) {
+		return -1;
+	}
+
+	// Se obtiene respuesta del servidor
+	std::string args;
+	if(com.recibir(mensaje, args) == -1) {
+		return -1;
+	}
+	
+	if (mensaje == S_LOGIN_OK) {
+		std::cout << "Inicio de sesion exitoso" << std::endl;
+		std::cout.flush();
+		return 1;
+	}
+	if (mensaje == S_LOGIN_FAIL) {
+		std::cout << "Inicio de sesion fallo, compruebe nombre de usuario y contrasenia" << std::endl;
+		std::cout.flush();
+		return 0;
+	}
+	return -1;
+}
