@@ -8,6 +8,8 @@
 #define MONITOR_H
 
 #include "common_archivoTexto.h"
+#include "monitor_receptorDatos.h"
+#include "common_convertir.h"
 
 
 /* ****************************************************************************
@@ -23,18 +25,30 @@ private:
 	int carpetasActivas;
 	int clientesConectados;
 
+
+	Receptor* receptor;
+
 protected: 
 	int posLecturaLog;
 
 public:
 
 	// Constructor
-	Monitor();
+	Monitor(Receptor* receptor);
 
 	// Destructor
 	~Monitor();
+	
+	// Actualizar valores
+
+	void actualizarValores();
 	//retorna un string con la ultima linea del buffer leida
 	string* getBufferLog();
+
+	
+
+
+
 
 	
 	void cambiarIntervaloPolling(unsigned int intervalo);
