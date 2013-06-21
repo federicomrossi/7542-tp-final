@@ -56,16 +56,16 @@ void ManejadorDeNotificaciones::run() {
 			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
-
+			
 			// Tomamos nombre de archivo
 			std::string nombreArchivo = listaArgumentos.verPrimero();
 			listaArgumentos.eliminarPrimero();
-
+			
 			// Tomamos cantidad de bytes que debe tener el archivo ahora
 			std::string sCantBytesTotal = listaArgumentos.verPrimero();
 			unsigned int cantBytesTotal = Convertir::stoui(sCantBytesTotal);
 			listaArgumentos.eliminarPrimero();
-
+			
 			// Lista de bloques a inspeccionar
 			Lista< std::pair< int, std::string > > bloques;
 
@@ -78,7 +78,7 @@ void ManejadorDeNotificaciones::run() {
 
 				bloques.insertarUltimo(std::make_pair(bloque, hash));
 			}
-
+			
 			// Derivamos al inspector
 			this->inspector->inspeccionarArchivo(nombreArchivo, 
 				cantBytesTotal, bloques);

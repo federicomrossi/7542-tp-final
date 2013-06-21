@@ -28,25 +28,29 @@
 
 
 int main (int argc, char** argv) {
-	// Iniciamos interfaz de la ventana principal
-	Gtk::Main kit(argc, argv);
+	try{
+		// Iniciamos interfaz de la ventana principal
+		Gtk::Main kit(argc, argv);
 
-	// Creamos el cliente
-	Cliente *cli = new Cliente;
-	// Creamos la configuracion del cliente
-	Configuracion* configs = new Configuracion();
-	// ventana principal del programa
-	Conexion ventanaConexion(cli,configs);
-	ventanaConexion.correr();
-	
-	
-	//TrayIcon trayConectado(cli);
-	//trayConectado.correr();
+		// Creamos el cliente
+		Cliente *cli = new Cliente;
+		// Creamos la configuracion del cliente
+		Configuracion* configs = new Configuracion();
+		// ventana principal del programa
+		Conexion ventanaConexion(cli,configs);
+		ventanaConexion.correr();
+		
+		
+		//TrayIcon trayConectado(cli);
+		//trayConectado.correr();
 
-	// Liberamos toda la memoria
-	delete configs;
-	delete cli;
-	
+		// Liberamos toda la memoria
+		delete configs;
+		delete cli;
+	}
+	catch(char const * e) {
+		std::cout << e << std::endl;
+	}
 
 	return 0;
 }

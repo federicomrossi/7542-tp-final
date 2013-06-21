@@ -169,7 +169,7 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 	// Tomamos bytes actuales de archivo local
 	unsigned int b;
 	b = this->manejadorDeArchivos->obtenerCantBytes(nombreArchivo);
-
+	
 	// Caso en que solo se modificó el largo del archivo
 	if(bloques.estaVacia() && (cantBytesTotal != b)) {
 		Lista< std::pair< int, std::string > > auxiliar;
@@ -180,7 +180,7 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 
 		return;
 	}
-
+	
 	Lista< int > bloquesASolicitar;
 
 	// Corroboramos que bloques se necesitan medir
@@ -193,8 +193,10 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 		// Si se requiere el bloque, lo listamos para solicitarlo
 		if(solicitar) 
 			bloquesASolicitar.insertarUltimo(bloques.verPrimero().first);
+		
+		bloques.eliminarPrimero();
 	}
-
+	
 	// Si los bloques son compatibles con la versión enviada, retornamos
 	if(bloquesASolicitar.estaVacia()) return;
 
