@@ -91,9 +91,9 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 	listaArchivos->ordenar();
 }
 
+
 // Devuelve una lista con los archivos (ordenados por nombre) que se 
 // encuentran ubicados en el registro administrado por el manejador.
-
 void ManejadorDeArchivos::obtenerArchivosDeRegistro(Lista<std::string>* listaArchivos,
 	Lista< std::pair< std::string, std::string> >* listaPares) {
 	// Bloqueamos el mutex
@@ -314,19 +314,10 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 	// Obtenemos la cantidad de bloques del archivo
 	int cantBloques = this->obtenerCantBloques(nombreArchivo);
 
-	// DEBUG
-	// std::cout << "BLOQUES: " << cantBloques << std::endl;
-	// std::cout << "CONTENIDO: " << contenido << std::endl;
-	// END DEBUG
-
 	for(int i = 0; i < cantBloques; i++) {
 		// Obtenemos el bloque i del contenido
 		std::string bloque = contenido.substr(i * TAMANIO_BLOQUE,
 			TAMANIO_BLOQUE);
-
-		// // DEBUG
-		// std::cout << "CONT BLOQUE: " << bloque << std::endl;
-		// // END DEBUG
 
 		// Concatenamos el hash del bloque
 		hashArchivo.append(Hash::funcionDeHash(bloque));
@@ -334,6 +325,7 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 
 	return cantBloques;
 }
+
 
 // Devuelve el hash del archivo, el cual se encuentra conformado
 // por los hashes de cada bloque concatenados.
@@ -361,6 +353,7 @@ std::string ManejadorDeArchivos::obtenerHashRegistro(Lista< std::pair<
 	return hash;
 }
 
+
 // Devuelve el hash del bloque de un archivo.
 // PRE: 'nombreArchivo' es el nombre de archivo del bloque; 'numBloque'
 // es el número de bloque del que se desea obtener el hash.
@@ -369,6 +362,16 @@ std::string ManejadorDeArchivos::obtenerHashDeBloque(
 	const std::string& nombreArchivo, int numBloque) {
 	// Tomamos el contenido del bloque
 	std::string contenido = this->obtenerContenido(nombreArchivo, numBloque);
+	int cantTotalBloques = this->obtenerCantBloques(nombreArchivo);
+
+	// Si el bloque es el mayor de todos, le quitamos el relleno de ceros
+	if(cantTotalBloques == numBloque) {
+		unsigned int bytes = this->obtenerCantBytes(nombreArchivo);
+		
+		// Quiltamos el relleno
+		contenido = contenido.substr(0, (bytes * 2) - (TAMANIO_BLOQUE * 
+			(numBloque - 1)));
+	}
 
 	// Si no existe el bloque, no devolvemos nada
 	if(contenido == "") return "";
@@ -442,9 +445,6 @@ std::string ManejadorDeArchivos::obtenerContenido(
 // Devuelve la cantidad de bloques de un archivo
 // Si no existe el archivo, devuelve -1
 int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
-	// Bloqueamos el mutex
-	Lock l(m);
-
 	// Armamos la ruta hacia el archivo
 	std::string ruta = this->directorio + "/" + nombreArchivo;
 
@@ -528,9 +528,7 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 	// Si los hashes refieren a archivos vacios, devolvemos false
 	if(hashViejo == "" && hashNuevo == "") return false;
 
-
 	int cantViejaBloques = (hashViejo.size()) / TAMANIO_BLOQUE_HASH;
-	// int cantNuevaBloques = (hashNueva.size()) / TAMANIO_BLOQUE_HASH;
 
 	// Caso en que el tamaño del hashViejo es nulo
 	if(hashViejo.size() == 0) {
@@ -557,12 +555,6 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 		// Obtenemos el bloque i del hash nuevo
 		std::string bloqueNuevo = hashNuevo.substr(i * TAMANIO_BLOQUE_HASH,
 			TAMANIO_BLOQUE_HASH);
-
-		// DEBUG		
-		// std::cout << "NUMER BLOQUE: " << i << std::endl;
-		// std::cout << "BLOQUE VIEJO: " << bloqueViejo << std::endl;
-		// std::cout << "BLOQUE NUEVO: " << bloqueNuevo << std::endl;
-		// END DEBUG
 
 		// Incrementamos contador de bloques
 		i++;
@@ -997,7 +989,7 @@ bool ManejadorDeArchivos::existeArchivoEnRegitro(
 // se comparará con el del bloque del archivo.
 // POST: devuelve true si son iguales o false si presentan diferencias.
 bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
-	const int numBloque, const std::string hash) {
+	const int numBloque, const std::string& hash) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -1027,12 +1019,15 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 		if(reg_archivoNombre == nombreArchivo) {
 			bool coincide = false;
 
-			// Extraemos el hash del bloque
-			std::string hashBloque = reg_archivoHash.substr(
-				(numBloque - 1) * TAMANIO_BLOQUE_HASH, TAMANIO_BLOQUE_HASH);
+			// Corroboramos si la cantidad de bloques es menor al pasado
+			if(!(this->obtenerCantBloques(nombreArchivo) < numBloque)) {
+				// Extraemos el hash del bloque
+				std::string hashBloque = reg_archivoHash.substr((numBloque - 1)
+					* TAMANIO_BLOQUE_HASH, TAMANIO_BLOQUE_HASH);
 
-			// Comparamos la igualdad de hashes
-			if(hashBloque == hash) coincide = true;
+				// Comparamos la igualdad de hashes
+				if(hashBloque == hash) coincide = true;
+			}
 
 			// Cerramos archivos
 			registro.close();

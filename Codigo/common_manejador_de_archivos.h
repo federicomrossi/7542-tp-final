@@ -197,7 +197,7 @@ public:
 	// se comparará con el del bloque del archivo.
 	// POST: devuelve true si son iguales o false si presentan diferencias.
 	bool compararBloque(const std::string& nombreArchivo, const int numBloque,
-		const std::string hash);
+		const std::string& hash);
 };
 
 #endif

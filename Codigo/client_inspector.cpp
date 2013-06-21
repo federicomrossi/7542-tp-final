@@ -187,10 +187,10 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 	while(!bloques.estaVacia()) {
 		// Comprobamos si es necesario solicitar el bloque
 		bool solicitar;
-		solicitar = this->manejadorDeArchivos->compararBloque(nombreArchivo,
+		solicitar = !this->manejadorDeArchivos->compararBloque(nombreArchivo,
 			bloques.verPrimero().first, bloques.verPrimero().second);
 
-		// Si se requiere el bloque, lo listamos para solicitarlo
+		// Si se requiere el1 bloque, lo listamos para solicitarlo
 		if(solicitar) 
 			bloquesASolicitar.insertarUltimo(bloques.verPrimero().first);
 		
