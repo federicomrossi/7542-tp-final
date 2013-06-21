@@ -21,5 +21,5 @@ void Utilidades::randomString(int longitud, std::string &s) {
 	int tamanio = sizeof(alphanumerico) - 1;
 
 	for (int i = 0; i < longitud; ++i) 
-		s[i] = alphanumerico[rand() % tamanio];
+		s += alphanumerico[rand() % tamanio];
 }

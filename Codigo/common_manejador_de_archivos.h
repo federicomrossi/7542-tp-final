@@ -73,7 +73,7 @@ public:
 	// contiene los números de bloque y su respectivo contenido, los
 	// cuales reemplazarán a los bloques actuales.
 	void modificarArchivo(std::string& nombreArchivo, 
-		int cantBloquesDelArchivo, 
+		unsigned int cantBytesDelArchivo, 
 		Lista< std::pair< int, std::string > >& listaBloquesAReemplazar);
 
 	// Comprueba la existencia de un archivo en el directorio.
@@ -128,6 +128,15 @@ public:
 
 	// Devuelve la cantidad de bloques de un archivo
 	int obtenerCantBloques(const std::string &nombreArchivo);
+
+	// Devuelve la cantidad de Bytes de un archivo
+	// PRE: 'nombreArchivo' es el nombre de archivo. El archivo no debe
+	// sobrepasar los 4Gb de tamaño.
+	// POST: en caso de no poder abrir el archivo (a causa de no existencia),
+	// se devuelve 0. Se recomienda al usuario verificar la existencia
+	// previamente para no confundir el cero de error con el valor nulo de
+	// que puede poseer cierto archivo.
+	unsigned int obtenerCantBytes(const std::string &nombreArchivo);
 
 	// Procesa dos hashes pertenecientes al contenido de un archivo y
 	// obtiene los bloques que han cambiado.

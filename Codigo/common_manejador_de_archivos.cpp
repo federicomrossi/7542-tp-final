@@ -30,14 +30,14 @@ namespace {
 	// Constante que define el tamaño de los bloques de archivos en cantidad
 	// de caracteres hexadecimales (ej: si se quiere un tamaño de bloque de
 	// 10 Bytes, se debe insertar el valor 20).
-	// const int TAMANIO_BLOQUE = 20;
-	const int TAMANIO_BLOQUE = 2097152;		// 1Mb por bloque
+	const int TAMANIO_BLOQUE = 20;
+	// const int TAMANIO_BLOQUE = 2097152;		// 1Mb por bloque
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
 	const int TAMANIO_BLOQUE_HASH = 64;
 
 	// Longitud de nombre del archivo temporal
-	const int LONGITUD_TEMP = 20;
+	const int LONGITUD_TEMP = 40;
 }
 
 
@@ -206,7 +206,7 @@ bool ManejadorDeArchivos::eliminarArchivo(const std::string& nombreArchivo) {
 // contiene los números de bloque y su respectivo contenido, los
 // cuales reemplazarán a los bloques actuales.
 void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo, 
-	int cantBloquesDelArchivo, Lista< std::pair< int, std::string > >& 
+	unsigned int cantBytesDelArchivo, Lista< std::pair< int, std::string > >& 
 	listaBloquesAReemplazar) {
 	// Bloqueamos el mutex
 	Lock l(m);
@@ -216,6 +216,9 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 	std::string sRandom;
 	Utilidades::randomString(LONGITUD_TEMP, sRandom);
 	std::string nombreArchivoTemp = "." + sRandom + "~";
+	unsigned int cantBytesParcial = 0;
+	unsigned int cantBytesPorBloque = TAMANIO_BLOQUE / 2;
+	int i = 1;
 
 	// Armamos ruta de archivos
 	std::string ruta = this->directorio + "/" + nombreArchivo;
@@ -230,8 +233,10 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 	if(!archivo.is_open() || !archivoTemp.is_open()) 
 		throw "ERROR: El archivo no pudo ser abierto.";
 
-	// Iteramos sobre los bloques
-	for(int i = 1; i <= cantBloquesDelArchivo; i++) {
+
+	// Vamos insertando bytes, reemplazando los actualizados hasta
+	// llegar al tamaño en bytes que debe tener el archivo
+	while(cantBytesParcial < cantBytesDelArchivo) {
 		// Variable auxiliar para el contenido
 		std::string contenidoBloque;
 
@@ -244,7 +249,13 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 		}
 		else
 			contenidoBloque = this->obtenerContenido(nombreArchivo, i);
+		
+		// Corroboramos si debemos truncar el bloque
+		unsigned int v = cantBytesDelArchivo - cantBytesParcial;
 
+		if(v < cantBytesPorBloque)
+			// Obtenemos la cantidad de bytes que necesitamos del bloque
+			contenidoBloque = contenidoBloque.substr(0, v * 2);
 
 		// Se convierte el contenido de hexa a char nuevamente
 		uint8_t *contenidoBloqueBin = Convertir::htoui(contenidoBloque);
@@ -252,6 +263,11 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 
 		// Se escribe el contenido en el archivo
 		archivoTemp.write((char*) contenidoBloqueBin, len);
+
+		// Incrementamos la cantidad parcial de bytes a guardar
+		cantBytesParcial += len;
+
+		i++;
 	}
 
 	archivo.close();
@@ -429,6 +445,38 @@ int ManejadorDeArchivos::obtenerCantBloques(const std::string &nombreArchivo) {
 	
 	// Se devuelve la cantidad de bloques hexadecimales que hay
 	return cantBloques;
+}
+
+
+// Devuelve la cantidad de Bytes de un archivo
+// PRE: 'nombreArchivo' es el nombre de archivo. El archivo no debe
+// sobrepasar los 4Gb de tamaño.
+// POST: en caso de no poder abrir el archivo (a causa de no existencia),
+// se devuelve 0. Se recomienda al usuario verificar la existencia
+// previamente para no confundir el cero de error con el valor nulo de
+// que puede poseer cierto archivo.
+unsigned int ManejadorDeArchivos::obtenerCantBytes(
+	const std::string &nombreArchivo) {
+	// Variables auxiliares
+	unsigned int cantBytes = 0;
+
+	// Armamos la ruta hacia el archivo
+	std::string ruta = this->directorio + "/" + nombreArchivo;
+
+	// Abrimos archivo
+	std::ifstream archivo(ruta.c_str(), 
+		std::ios::in | std::ios::binary | std::ios::ate);
+
+	// Si no pudo ser abierto, lo pasamos por alto
+	if(!archivo.is_open()) return 0;
+
+	// Contabilizamos bytes
+	cantBytes = archivo.tellg();
+
+	// Cerramos archivo
+	archivo.close();
+
+	return cantBytes;
 }
 
 
