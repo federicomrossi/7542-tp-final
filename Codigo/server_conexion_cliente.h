@@ -14,6 +14,7 @@
 #include "common_comunicador.h"
 #include "server_verificador.h"
 #include "server_receptor.h"
+#include "server_recolector_de_informacion.h"
 class AdministradorDeClientes;
 
 
@@ -40,6 +41,7 @@ private:
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
 	Verificador* verificador;					// Verificador de loggin
 	Receptor *receptor;							// Receptor a donde se envian
+//	std::string pathCarpeta;					// Path donde se encuentran los archivos del cliente
 												// los datos que arrivan
 	bool habilitarRecepcion;					// Traba para evitar recepción
 												// hasta que se indique.

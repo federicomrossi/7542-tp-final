@@ -218,7 +218,8 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		respuesta.append(Convertir::itos(
 			this->admClientes->cantidadDeCarpetasActivas()));
 		respuesta.append(COMMON_DELIMITER);
-		respuesta.append(Convertir::itos(0));
+		int bytesAlmacenados = Recolector::cantidadBytesAlmacenados();
+		respuesta.append(Convertir::itos(bytesAlmacenados));
 
 		// Emitimos respuesta
 		com->emitir(respuesta);
