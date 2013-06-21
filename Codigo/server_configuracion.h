@@ -19,6 +19,8 @@ namespace {
 
 	// Parámetros configurables
 	const std::string CONFIG_P_PORT = "PUERTO";
+	const std::string CONFIG_P_PATH = "PATH";
+	const std::string CONFIG_P_HOST = "HOST";
 	
 
 	// Separadores
@@ -53,9 +55,15 @@ public:
 	// Devuelve el puerto del servidor.
 	int obtenerPuerto();
 
+	// Devuelve el host del servidor.
+	std::string obtenerHost();
+
+	// Devuelve el path raiz de las carpetas de los clientes
+	std::string obtenerPath();
+
 	
 	// Guarda cambios realizados sobre la configuracion.
-	void guardarCambios(string puerto);
+	void guardarCambios(string puerto, string host, string path);
 
 };
 

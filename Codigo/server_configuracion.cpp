@@ -48,7 +48,36 @@ int Configuracion::obtenerPuerto() {
 	return Convertir:: stoi(result);
 }
 
-void Configuracion::guardarCambios(string puerto) {
+// Devuelve el path de los clientes en el servidor
+string Configuracion::obtenerHost() {
+
+	string* cadena = new string();
+	this->Archivo = new ArchivoTexto (CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,0);
+	bool estado = false;
+	while(estado == (this->Archivo->leerLinea(*cadena, '\n', CONFIG_P_HOST)));
+	string result = getInfo(*cadena);
+	delete(this->Archivo);
+	delete(cadena);
+	return result;
+}
+
+
+string Configuracion::obtenerPath() {
+
+	string* cadena = new string();
+	this->Archivo = new ArchivoTexto (CONFIG_DIR + CONFIG_FILENAME + 
+		CONFIG_FILE_EXT,0);
+	bool estado = false;
+	while(estado == (this->Archivo->leerLinea(*cadena, '\n', CONFIG_P_PATH)));
+	string result = getInfo(*cadena);
+	delete(this->Archivo);
+	delete(cadena);
+	return result;
+
+}
+
+void Configuracion::guardarCambios(string puerto, string host, string path) {
 
 	this->Archivo = new ArchivoTexto(CONFIG_DIR + CONFIG_FILENAME + 
 		CONFIG_FILE_EXT,1);
@@ -58,10 +87,23 @@ void Configuracion::guardarCambios(string puerto) {
 	this->Archivo->escribir(*aux);
 	
 	aux->clear();
+	*aux += CONFIG_P_HOST;
+	*aux += CONFIG_SEPARATOR;
+	*aux += host;
+	*aux += '\n';
+	this->Archivo->escribir(*aux);	
 
+	aux->clear();
 	*aux += CONFIG_P_PORT;
 	*aux += CONFIG_SEPARATOR;
 	*aux += puerto;
+	*aux += '\n';
+	this->Archivo->escribir(*aux);
+
+	aux->clear();
+	*aux += CONFIG_P_PATH;
+	*aux += CONFIG_SEPARATOR;
+	*aux += path;
 	*aux += '\n';
 	this->Archivo->escribir(*aux);
 

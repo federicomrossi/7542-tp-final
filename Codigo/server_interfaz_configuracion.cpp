@@ -40,7 +40,7 @@ void IConfiguracion::on_buttonGuardar_clicked() {
 	
 	string unPuerto = this->puerto->get_text();
 		
-	this->config->guardarCambios(unPuerto);
+	this->config->guardarCambios(unPuerto,"127.0.0.1","/carpetas");
 
 	this->main->hide();
 		
