@@ -177,6 +177,7 @@
               <object class="GtkEntry" id="usuarioTxt">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
                 <property name="invisible_char">•</property>
                 <property name="activates_default">True</property>
                 <property name="width_chars">6</property>

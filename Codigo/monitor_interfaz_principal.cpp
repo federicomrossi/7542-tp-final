@@ -2,6 +2,7 @@
 #include <string>
 #include "monitor_interfaz_principal.h"
 #include "monitor_interfaz_configuracion.h"
+#include "monitor_interfaz_usuarios.h"
 #include "monitor_interfaz_log.h"
 #include "common_convertir.h"
 
@@ -84,7 +85,14 @@ void MenuPrincipal::on_menuConfiguracion_activate() {
 }
 
 
-void MenuPrincipal::on_menuAdminUsers_activate(){} 
+void MenuPrincipal::on_menuAdminUsers_activate() {
+	this->main->set_sensitive(false);
+	MenuUsuarios ventanaUsuarios(this->monitor);
+	ventanaUsuarios.correr();
+	this->main->set_sensitive(true);
+} 
+
+
 void MenuPrincipal::on_menuEstadisticas_activate(){}
 
 
@@ -122,10 +130,8 @@ void MenuPrincipal::run() {
 		this->estado->set_text("Conectado");
 		this->clientesConectados->set_text(monitor->getClientesConectados());
 		this->carpetasActivas->set_text(monitor->getCarpetasActivas());
-		std::cout<<"actualizon valores de interfaz "<<std::endl;
-		
-		// HAY QUE HACER VARIABLE EL INTERVALO DE ACTUALIZACION DEL MONITOR
-		this->sleep(6);  
+		// HAY QUE HACER VARIABLE EL INTERVALO DE ACTUALIZACION DE LA INTERFAZ?
+		this->sleep(2);  
 	}
 	this->estado->set_text("Desconectado");
 	this->clientesConectados->set_text("-");
