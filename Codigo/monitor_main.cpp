@@ -16,6 +16,7 @@
 
 
 #include <iostream>
+#include "common_thread.h"
 #include "monitor_interfaz_principal.h"
 #include "monitor_receptorDatos.h"
 #include "monitor_monitor.h"
@@ -34,7 +35,7 @@ int main (int argc, char** argv) {
 	Receptor* receptor = new Receptor();
 
 	// Creamos el monitor
-	Monitor *monitor = new Monitor();
+	Monitor* monitor = new Monitor(receptor);
 
 	//Iniciamos ventana de conexion
 

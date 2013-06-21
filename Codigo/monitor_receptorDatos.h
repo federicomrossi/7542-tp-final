@@ -10,7 +10,7 @@
 #include <string>
 #include "common_comunicador.h"
 #include "common_thread.h"
-
+#include "common_lista.h"
 #include "common_socket.h"
 #include "common_protocolo.h"
 class Comunicador;
@@ -31,7 +31,7 @@ private:
 	int timer;						// Timer de actualizacion de informacion
 	std::string nombreHost;			// Nombre del host de conexión
 	bool estadoConexion;			// Censa si se encuentra conectado
-	
+	Lista<std::string> valores;     // valores recibidos
 	// Inicia sesion con usuario existente
 	int iniciarSesion(std::string usuario, std::string clave);
 
@@ -79,6 +79,8 @@ public:
 	// PRE: 'mensaje' es la cadena que desea enviarse.
 	// POST: lanza una excepción si el socket no se encuentra activo.
 	void enviarMensaje(std::string& mensaje);
+
+	Lista <std::string> getValores();
 
 };
 

@@ -3,6 +3,7 @@
 #include "monitor_interfaz_principal.h"
 #include "monitor_interfaz_configuracion.h"
 #include "monitor_interfaz_log.h"
+#include "common_convertir.h"
 
 
 
@@ -108,7 +109,27 @@ void MenuPrincipal::on_menuSalir_activate() {
 
 void MenuPrincipal::correr(){
 	this->main->set_sensitive(true);
+	this->start();
 	Gtk::Main::run(*main);
+
+
+}
+
+void MenuPrincipal::run() {
+	int i = 0;
+	
+	while(true){
+		string a = Convertir::itos(i);
+		
+		this->estado->set_text(a);
+		std::cout<<"actualizo valores de ventana "<<std::endl;
+		i++;
+
+		this->sleep(20);
+
+
+	}
+
 }
 
 MenuPrincipal::~MenuPrincipal() { }

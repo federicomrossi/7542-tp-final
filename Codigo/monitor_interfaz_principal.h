@@ -9,12 +9,14 @@
 
 
 #include "gtkmm.h"
+#include "common_thread.h"
 #include "monitor_monitor.h"
 #include "monitor_configuracion.h"
 
 
 
-class MenuPrincipal : public Gtk::Window {
+
+class MenuPrincipal : public Thread {
 private:
 
 	// Atributos de la interfaz
@@ -56,6 +58,10 @@ public:
 
 	// Inicia la ejecución de la ventana
 	void correr();
+
+	
+	// Define tareas a ejecutar en el hilo.
+	virtual void run();
 
 protected:
 	// Acciones de botones

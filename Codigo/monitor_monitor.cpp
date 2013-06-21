@@ -10,10 +10,11 @@
 
 
 // Constructor
-Monitor::Monitor() {
+Monitor::Monitor(Receptor* receptor) {
 	this->posLecturaLog = 0;
 	this->carpetasActivas = 0;
 	this->clientesConectados = 0;
+	this->receptor = receptor;
 }
 
 string* Monitor::getBufferLog() {
@@ -30,6 +31,11 @@ string* Monitor::getBufferLog() {
 	}
 	return cadena;
 
+}
+
+void Monitor::actualizarValores() {
+	Lista<std::string> nuevos = this->receptor->getValores();
+	this->clientesConectados = Convertir::stoi(nuevos[0]); 
 }
 
 // Destructor

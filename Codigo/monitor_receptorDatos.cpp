@@ -64,7 +64,7 @@ int Receptor::conectar(std::string usuario, std::string clave) {
 		this->socket->conectar(nombreHost, puerto);
 	}
 	catch(char const * e) {
-		// Mensaje de log
+		// Mensaje de logjando
 		std::cout << "DESCONECTADO" << std::endl;
 		std::cerr << e << std::endl;
 
@@ -78,6 +78,7 @@ int Receptor::conectar(std::string usuario, std::string clave) {
 	// Mensaje de log
 	std::cout << "CONECTADO" << std::endl;
 	std::cout.flush();
+	
 
 	// Si se inició sesión con éxito, salimos y mantenemos socket activo
 	if(iniciarSesion(usuario, clave) == 1) {
@@ -117,24 +118,25 @@ void Receptor::run() {
 	Comunicador comunicador(this->socket);
 
 	// Variables de procesamiento
-	/*std::string mensaje;
+	std::string mensaje;
 	std::string instruccion;
 	std::string args;
-	Lista<std::string>* valores;*/
+	
 
-	while (this->estadoConexion &&  this->isActive()) {
-			/*// Enviamos el mensaje al servidor
+	while ((this->estadoConexion) &&  (this->isActive())) {
+			// Enviamos el mensaje al servidor
 			mensaje = M_SERVER_INFO_REQUEST;
 			instruccion.clear();
 			args.clear();
 
-			comunicador.emitir(mensaje);
+			enviarMensaje(mensaje);
 			mensaje.clear();
 			comunicador.recibir(mensaje);
-
+			
 			Parser::parserInstruccion(mensaje, instruccion, args);
-			Parser::dividirCadena(mensaje, valores, COMMON_DELIMITER);*/
-			std::cout<< "estoy conectado al servidor y pregunto cada 10 seg"<<std::endl;
+			Parser::dividirCadena(mensaje, &this->valores, COMMON_DELIMITER[0]);
+
+			std::cout<< "actualizando valores  "<< mensaje <<std::endl;
 			this->sleep(this->timer);
 	}
 	
@@ -214,4 +216,11 @@ int Receptor::iniciarSesion(std::string usuario, std::string clave) {
 		return 0;
 	}
 	return -1;
+}
+// actualiza los valores del monitor
+Lista <std::string> Receptor::getValores() {
+
+	Lista<std::string> destino = Lista <std::string> (this->valores);
+	return destino;
+
 }
