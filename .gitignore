@@ -23,3 +23,7 @@ monitor
 *.synctex.gz
 75.42-TP-Final-Grupo04-Documentacion.de.diseño.log
 75.42-TP-Final-Grupo04-Documentacion.de.usuario.log
+
+# Others
+*~
+*.reg_archivos

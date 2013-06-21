@@ -62,8 +62,14 @@ void Receptor::run() {
 	while(this->isActive()) {
 		// Esperamos recepción de mensaje
 		std::string mensaje;
-		if(this->com.recibir(mensaje) == -1) break;
+		if(this->com.recibir(mensaje) == -1) {
+			
+			// DEBUG
+			std::cout << "SE DESCONECTO EL SERVIDOR" << std::endl;
+			// END DEGUG
 
+			break;
+		}
 		// Encolamos el mensaje en cola de entrada
 		this->entrada.push(mensaje);
 	}
