@@ -67,10 +67,6 @@ void ConexionCliente::run() {
 	this->admClientes->ingresarCliente(this->nombreUsuario, this, 
 		this->pathCarpeta);
 
-	// DEBUG
-	std::cout << "PATH: " << pathCarpeta << std::endl;
-	//END DEBUG
-
 	// Si se conectó una aplicación monitor, derivamos hacia allí
 	if(this->nombreUsuario == MONITOR_USER) {
 		// Se inicia la recepción de mensajes desde el cliente

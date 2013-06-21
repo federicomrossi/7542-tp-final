@@ -638,7 +638,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 		// los respectivos hashes
 		else {
 			// Se obtiene el hash
-			hash = obtenerHashRegistro(&listaNombreHashReg,
+			hash = obtenerHashRegistro(listaNombreHashReg,
 				externo.first);
 
 			// Si son distintos los hashes

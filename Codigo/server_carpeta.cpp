@@ -12,6 +12,11 @@
 
 //DEBUG
 #include <iostream>
+//END DEBUG
+
+namespace {
+	#define DIR_RAIZ "carpetas/"
+}
 
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
@@ -19,19 +24,18 @@
 
 
 // Constructor
-Carpeta::Carpeta(const std::string &usuario) {
+Carpeta::Carpeta(const std::string &pathCarpeta) {
 	// Creamos el receptor que recibirá los mensajes entrantes
 	this->receptor = new Receptor();
 
 	// Creamos el emisor que enviará mensajes a los clientes
 	this->emisor = new Emisor(&this->listaConexiones);
 
-	// Si no existe carpeta fisica se crea
-	// DEBUG: ¿que hacer si no logra crearla?
-	// DEBUG: Modificar path
-	std::string path = "servidor/" + usuario + "/";
-	std::cout << path << std::endl;
-	if(crearCarpeta(path));
+	// Si no existe carpeta fisica se crea. 
+	// Si no lo logra, lanza excepcion
+	std::string path = DIR_RAIZ + pathCarpeta + "/";
+	if(!crearCarpeta(path))
+		throw "ERROR: No se pudo crear directorio";
 
 	// Se crea el manejador de archivos
 	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
@@ -96,11 +100,11 @@ int Carpeta::cantidadClientes() {
 
 // Crea una carpeta fisica para el usuario si no existe ya una carpeta
 // Devuelve 1 si la operacion es correcta y 0 sino
-int Carpeta::crearCarpeta(const std::string &usuario) {
+int Carpeta::crearCarpeta(const std::string &pathCarpeta) {
 	// Se intenta abrir el directorio
-	DIR* carpeta = opendir(usuario.c_str());
+	DIR* carpeta = opendir(pathCarpeta.c_str());
 	if (carpeta == NULL) {  // No existe, entonces se crea
-		if (!mkdir(usuario.c_str(), S_IFDIR | S_IRWXU | S_IFDIR));
+		if (!mkdir(pathCarpeta.c_str(), S_IFDIR | S_IRWXU | S_IFDIR));
 			return 0;
 	}
 	else
