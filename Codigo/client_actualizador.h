@@ -9,7 +9,6 @@
 
 
 #include <string>
-#include "common_archivo.h"
 #include "common_lista.h"
 #include "client_emisor.h"
 #include "client_receptor.h"

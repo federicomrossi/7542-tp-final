@@ -41,12 +41,12 @@ void Actualizador::ejecutarActualizacion() {
 
 	// Mensaje de log
 	std::cout << "Actualizando directorio... " << std::endl;
-   	std::cout.flush();
+	std::cout.flush();
 	std::cout << "Solicitando lista de archivos del servidor... " << std::endl;
-   	std::cout.flush();
+	std::cout.flush();
 
-   	// Creamos el registro de archivos en caso de que no exista
-   	if(this->manejadorDeArchivos->crearRegistroDeArchivos());
+	// Creamos el registro de archivos en caso de que no exista
+	if(this->manejadorDeArchivos->crearRegistroDeArchivos());
 
 	// Solicitamos la lista de archivos del servidor
 	this->emisor->ingresarMensajeDeSalida(C_GET_FILES_LIST);

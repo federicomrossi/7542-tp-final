@@ -164,7 +164,7 @@ cpplint:
 ###################################################################
 
 p_server:
-	./server 8000
+	./server
 
 s_valgrind:
-	valgrind $(S_VGFLAGS) ./server 8000
+	valgrind $(S_VGFLAGS) ./server
