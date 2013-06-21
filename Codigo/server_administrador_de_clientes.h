@@ -42,7 +42,8 @@ public:
 
 	// Ingresa un cliente como miembro activo del directorio al que se
 	// encuentra vinculado.
-	void ingresarCliente(std::string usuario, ConexionCliente *unCliente);
+	void ingresarCliente(std::string usuario, ConexionCliente *unCliente, 
+		std::string pathCarpeta);
 
 	// Da de baja a un cliente, el cual debe haber sido ingresado previamente
 	// como miembro activo del directorio al que se encuentra vinculado.

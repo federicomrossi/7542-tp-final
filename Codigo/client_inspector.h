@@ -9,6 +9,7 @@
 
 #include <string>
 #include "common_thread.h"
+#include "common_lista.h"
 #include "client_sincronizador.h"
 #include "common_manejador_de_archivos.h"
 
@@ -59,20 +60,19 @@ public:
 	// Realiza una inspección cada un intervalo predeterminado.
 	virtual void run();
 
-	// Se encarga de corroborar si existe o no un archivo, y en caso de existir
-	// corrobora si hay diferencias entre el pasado por parámetro y el que se
-	// encuentra localmente.
-	// En caso de no existir el archivo, se encarga de realizar la petición del
-	// mismo, mientras que si existe pero es una versión vieja, se encarga de
-	// realizar la petición del bloque necesario para su actualización hacia
-	// la versión mas reciente.
-	// PRE: 'archivo' es un Archivo que contiene los datos del archivo a
-	// comparar con el local.
-	void inspeccionarArchivo(Archivo *archivo);
+	// Inspecciona si los hashes de los bloques pasados por parámetro
+	// coinciden con los del archivo local. Si no coinciden, se encarga de
+	// indicar que bloques deben ser solicitados al servidor.
+	// PRE: 'nombreArchivo' es el nombre del archivo a verificar;
+	// 'cantBYtesTotal' es la cantidad total de bytes que debe tener el
+	// archivo; bloques es una lista de pares (bloque, hash), con los números
+	// de bloque a verificar.
+	void inspeccionarArchivo(std::string nombreArchivo, unsigned int& 
+		cantBytesTotal, Lista< std::pair< int, std::string > > bloques);
 
-
-	//
-	void inspeccionarExisteArchivo(std::string nombreArchivo);
+	// Inspecciona si existe un archivo en el directorio local. Si no existe
+	// se encarga de indicar que debe ser solicitado al servidor.
+	void inspeccionarExisteArchivo(std::string& nombreArchivo);
 };
 
 #endif

@@ -15,7 +15,7 @@
 
 class Verificador {
 public:
-	std::ifstream* logins;
+	std::fstream* logins;
 	Mutex* mutex;
 	
 	// Busqueda secuencial

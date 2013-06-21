@@ -21,7 +21,7 @@ Verificador::~Verificador() {
 int Verificador::verificarCliente(std::string &args, 
 	std::string& nombreUsuario, std::string &pathCarpeta) {
 	// Variables auxiliares
-	std::string usuario, clave;
+	std::string usuario, clave, carpeta;
 	int delim;
 	
 	// Se obtiene usuario y clave correspondiente
@@ -36,7 +36,7 @@ int Verificador::verificarCliente(std::string &args,
 		// Si no esta abierto el archivo, lo abre
 		if (!this->logins->is_open())
 			this->logins->open("bd/Users_Pass.txt", std::ios_base::in);
-		existe = this->buscarCliente(usuario, clave, pathCarpeta);
+		existe = this->buscarCliente(usuario, clave, carpeta);
 		// Cierra el archivo
 		this->logins->close();
 	}

@@ -6,6 +6,7 @@
 
 #include <string>
 #include "common_protocolo.h"
+#include "common_convertir.h"
 #include "client_sincronizador.h"
 
 
@@ -47,16 +48,33 @@ void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& conte
 // 'bloques' son pares de (bloque, contenido) los cuales son enviados para
 // ser actualizados en el servidor.
 void Sincronizador::modificarArchivo(std::string& nombreArchivo, 
-		Lista< std::pair< int, std::string > > bloques) {
+	unsigned int bytesTotal, Lista< std::pair< int, std::string > > bloques) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
-	// // Armamos mensaje
-	// std::string mensaje = C_MODIFY_FILE + " " + nombreArchivo + " " 
-	// 	+ contenido;
+	// Armamos mensaje
+	std::string mensaje;
+	mensaje.append(C_MODIFY_FILE);
+	mensaje.append(" ");
+	mensaje.append(nombreArchivo);
+	mensaje.append(COMMON_DELIMITER);
+	mensaje.append(Convertir::uitos(bytesTotal));
+	
+	// Iteramos sobre los bloques modificados. Si solo se cambio el tamaño
+	// del archivo por el truncamiento de parte de su contenido final, solo
+	// se envía la cantidad tota de bytes.
+	while(!bloques.estaVacia()) {
+		std::pair< int, std::string > bloque = bloques.verPrimero();
+		bloques.eliminarPrimero();
 
-	// // Enviamos mensaje al emisor
-	// this->emisor->ingresarMensajeDeSalida(mensaje);
+		mensaje.append(COMMON_DELIMITER);
+		mensaje.append(Convertir::uitos(bloque.first));
+		mensaje.append(COMMON_DELIMITER);
+		mensaje.append(bloque.second);
+	}
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -78,6 +96,7 @@ void Sincronizador::eliminarArchivo(std::string& nombreArchivo) {
 
 
 // Crea el evento de solicitud de un archivo nuevo.
+// PRE: 'nombreArchivo' esl el nombre del archivo.
 void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 	// Bloqueamos el mutex
 	Lock l(m);
@@ -98,21 +117,29 @@ void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 
 
 // Crea el evento de solicitud de modificación de un archivo.
-void Sincronizador::solicitarBloquesModificados() {
+// PRE: 'nombreArchivo' esl el nombre del archivo; 'bloquesASolicitar' es
+// una lista de números de bloque a solicitar.
+void Sincronizador::solicitarBloquesModificados(std::string& nombreArchivo, 
+	Lista< int > bloquesASolicitar) {
 	// Bloqueamos el mutex
 	Lock l(m);
+
+	// Armamos mensaje
+	std::string mensaje;
+	mensaje.append(C_FILE_PARTS_REQUEST);
+	mensaje.append(" ");
+	mensaje.append(nombreArchivo);
+
+	// Insertamos numeros de bloque en mensaje
+	for(size_t i = 0; i < bloquesASolicitar.tamanio(); i++) {
+		mensaje.append(COMMON_DELIMITER);
+		mensaje.append(Convertir::itos(bloquesASolicitar[i]));
+	}
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 
 	//DEBUG
 	std::cout << "Solicito archivo modificado" << std::endl;
 	//END DEBUG	
 }
-
-
-// void Sincronizador::recibirNotificacion(std::string &notificacion) {
-// 	if (notificacion.find(S_NOTIFY_NEW, 0) != std::string::npos)
-// 		this->solicitarArchivoNuevo();
-// 	else {
-// 		if (notificacion.find(S_NOTIFY_CHANGE, 0) != std::string::npos)
-// 			this->solicitarArchivoModificado();
-// 	}
-// }

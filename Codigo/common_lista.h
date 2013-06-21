@@ -72,6 +72,10 @@ public:
 	// caso contrario.
 	bool estaVacia();
 
+	// Elimina los elementos que estan en la lista. 
+	// Si esta vacia, no realiza accion
+	void vaciar();
+
 	// Operador []
 	// Permite acceder a los índices de la lista mediante la notación 
 	// lista[i], donde i es un número entero comprendido entre [0, n-1],
@@ -179,6 +183,15 @@ template <typename Tipo >
 bool Lista< Tipo >::estaVacia() {
 	Lock l(m);
 	return this->lista.empty();
+}
+
+// Elimina los elementos que estan en la lista. 
+// Si esta vacia, no realiza accion
+template <typename Tipo >
+void Lista< Tipo >::vaciar() {
+	int i, tam = tamanio();
+	for (i = 0; i < tam; i++)
+		eliminarPrimero();
 }
 
 

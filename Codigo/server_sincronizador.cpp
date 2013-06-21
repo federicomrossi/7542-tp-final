@@ -116,7 +116,7 @@ void Sincronizador::run() {
 		}
 		// Caso en que un cliente solicita bloques de un archivo
 		else if(instruccion == C_FILE_PARTS_REQUEST) {
-			// Parseamos la lista de archivos enviada por el servidor
+			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
@@ -193,7 +193,7 @@ void Sincronizador::run() {
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
-			// Parseamos la lista de archivos enviada por el servidor
+			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
@@ -202,21 +202,80 @@ void Sincronizador::run() {
 				listaArgumentos[1]);
 
 			// Enviamos notificación a clientes de que se agregó archivo
-			std::string msg_salida;
-			msg_salida.append(S_NEW_FILE);
-			msg_salida.append(" ");
-			msg_salida.append(listaArgumentos[0]);
+			std::string respuesta;
+			respuesta.append(S_NEW_FILE);
+			respuesta.append(" ");
+			respuesta.append(listaArgumentos[0]);
 
 			// Se envia la notificación de nuevo archivo a los clientes
-			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
+			this->emisor->ingresarMensajeDeSalida(0, respuesta);
 		}
 		// Caso en que se recibe la notificación de la modificación de archivo
 		else if (instruccion == C_MODIFY_FILE) {
+			// Parseamos argumentos
+			Lista< std::string > listaArgumentos;
+			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
+			// Tomamos nombre de archivo
+			std::string nombreArchivo = listaArgumentos.verPrimero();
+			listaArgumentos.eliminarPrimero();
+
+			// Tomamos cantidad de bytes que debe tener el archivo ahora
+			std::string sCantBytesTotal = listaArgumentos.verPrimero();
+			unsigned int cantBytesTotal = Convertir::stoui(sCantBytesTotal);
+			listaArgumentos.eliminarPrimero();
+
+			// Lista de bloques a reemplazar
+			Lista< std::pair< int, std::string > > bloques;
+			Lista< int > numBloques;
+
+			// Armamos mensaje con notificación
+			std::string respuesta;
+			respuesta.append(S_FILE_CHANGED);
+			respuesta.append(" ");
+			respuesta.append(nombreArchivo);
+			respuesta.append(COMMON_DELIMITER);
+			respuesta.append(sCantBytesTotal);
+
+			// Tomamos los bloques y sus contenidos de los argumentos
+			while(!listaArgumentos.estaVacia()) {
+				std::string sBloque = listaArgumentos.verPrimero();
+				int bloque = Convertir::stoui(sBloque);
+				listaArgumentos.eliminarPrimero();
+				std::string contenido = listaArgumentos.verPrimero();
+				listaArgumentos.eliminarPrimero();
+
+				bloques.insertarUltimo(std::make_pair(bloque, contenido));
+				numBloques.insertarUltimo(bloque);
+			}
+
+			// Enviamos a modificar el archivo
+			this->manejadorDeArchivos->modificarArchivo(nombreArchivo, 
+				cantBytesTotal, bloques);
+
+			while(!numBloques.estaVacia()) {
+				int b = numBloques.verPrimero();
+				numBloques.eliminarPrimero();
+				std::string sB = Convertir::itos(b);
+
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(sB);
+				respuesta.append(COMMON_DELIMITER);
+				respuesta.append(
+					this->manejadorDeArchivos->obtenerHashDeBloque(
+						nombreArchivo, b));
+			}
+
+			// Se envia la notificación de modificación a los clientes
+			this->emisor->ingresarMensajeDeSalida(0, respuesta);
+
+			// DEBUG
+			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
+			//END DEBUG
 		}
 		// Caso en que se recibe la notificación de la eliminación de archivo
 		else if (instruccion == COMMON_DELETE_FILE) {
-			// Parseamos la lista de archivos enviada por el servidor
+			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
@@ -224,13 +283,13 @@ void Sincronizador::run() {
 			this->manejadorDeArchivos->eliminarArchivo(listaArgumentos[0]);
 
 			// Enviamos notificación a clientes de que se eliminó archivo
-			std::string msg_salida;
-			msg_salida.append(COMMON_DELETE_FILE);
-			msg_salida.append(" ");
-			msg_salida.append(listaArgumentos[0]);
+			std::string respuesta;
+			respuesta.append(COMMON_DELETE_FILE);
+			respuesta.append(" ");
+			respuesta.append(listaArgumentos[0]);
 
 			// Se envia la notificación de nuevo archivo a los clientes
-			this->emisor->ingresarMensajeDeSalida(0, msg_salida);
+			this->emisor->ingresarMensajeDeSalida(0, respuesta);
 		}
 	}
 }
