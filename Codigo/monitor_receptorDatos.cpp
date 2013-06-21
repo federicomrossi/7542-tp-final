@@ -103,6 +103,7 @@ int Receptor::conectar(std::string usuario, std::string clave) {
 void Receptor::detener() {
 	// Detenemos hilo
 	this->stop();
+	this->estadoConexion = false;
 	
 	// Forzamos el cierre del socket y destrabamos espera de recepcion de datos
 	try {
@@ -113,6 +114,9 @@ void Receptor::detener() {
 	catch(...) { } 
 }
 
+bool Receptor::getEstadoConexion() {
+	return this->estadoConexion;
+}
 void Receptor::run() {
 	// Creamos el comunicador para recibir mensajes
 	Comunicador comunicador(this->socket);
@@ -122,25 +126,28 @@ void Receptor::run() {
 	std::string instruccion;
 	std::string args;
 	
-
-	while ((this->estadoConexion) &&  (this->isActive())) {
-			// Enviamos el mensaje al servidor
-			mensaje = M_SERVER_INFO_REQUEST;
-			instruccion.clear();
-			args.clear();
-
-			enviarMensaje(mensaje);
-			mensaje.clear();
-			comunicador.recibir(mensaje);
-			
-			Parser::parserInstruccion(mensaje, instruccion, args);
-			Parser::dividirCadena(mensaje, &this->valores, COMMON_DELIMITER[0]);
-
-			std::cout<< "actualizando valores  "<< mensaje <<std::endl;
-			this->sleep(this->timer);
-	}
+	int r = 0;
+	while ((r == 0 ) && (this->isActive())) {
 	
-
+		mensaje = M_SERVER_INFO_REQUEST;
+		
+		enviarMensaje(mensaje);
+		mensaje.clear();
+		// Enviamos el mensaje al servidor
+		Lista <std::string> aux;	
+		instruccion.clear();
+		args.clear();
+		r = comunicador.recibir(mensaje);
+		std::cout << "salida del recv "<< r <<std::endl;	
+		Parser::parserInstruccion(mensaje, instruccion, args);
+		std::cout << "imprimo argumentos del mensaje "<< args <<std::endl;
+		Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
+		this->valores = aux;
+		std::cout<< "Receptor actualizando valores  "<< mensaje <<std::endl;
+		mensaje.clear();
+		this->sleep(this->timer);
+	}
+	this->estadoConexion = false;
 }
 
 // Envia un mensaje al servidor.
@@ -219,8 +226,8 @@ int Receptor::iniciarSesion(std::string usuario, std::string clave) {
 }
 // actualiza los valores del monitor
 Lista <std::string> Receptor::getValores() {
+	Lista<std::string> destino = this->valores;
 
-	Lista<std::string> destino = Lista <std::string> (this->valores);
 	return destino;
 
 }

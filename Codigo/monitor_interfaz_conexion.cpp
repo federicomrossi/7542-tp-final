@@ -33,6 +33,7 @@ Conexion::Conexion(Receptor *receptor, Configuracion* receptorConfig) : receptor
 
 	main->show_all_children();
 	this->flagSalida = 0;
+	this->estadoConexion = 0;
 
 }
 
@@ -43,7 +44,7 @@ void Conexion::on_buttonConectar_clicked() {
 	this->usuarioTextBox->set_sensitive(false);
 	this->passTextBox->set_sensitive(false);
 	
-	// Obtenemos la configuracion actual del cliente
+	// Obtenemos la configuracion actual del servidor
 
 	receptor->especificarNombreHost(this->receptorConfig->obtenerHost());
 	receptor->especificarPuerto(this->receptorConfig->obtenerPuerto());
@@ -59,6 +60,7 @@ void Conexion::on_buttonConectar_clicked() {
 		
 		this->main->set_sensitive(false);
 		this->main->hide();
+
 		// se puede incluir una ventana de actualizacion
 	}
 	else if(this->estadoConexion == 0) {
@@ -106,7 +108,7 @@ void Conexion::on_menuSalir_activate() {
 }
 
 
-int Conexion::correr(){
+int Conexion::correr() {
 	Gtk::Main::run(*main);
 	return this->flagSalida;
 }
