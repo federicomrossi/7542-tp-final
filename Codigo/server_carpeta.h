@@ -39,7 +39,7 @@ private:
 public:
 
 	// Constructor
-	Carpeta(const std::string &usuario);
+	Carpeta(const std::string &pathCarpeta);
 
 	// Destructor
 	~Carpeta();

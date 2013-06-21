@@ -30,7 +30,7 @@ AdministradorDeClientes::~AdministradorDeClientes() { }
 // Ingresa un cliente como miembro activo del directorio al que se
 // encuentra vinculado.
 void AdministradorDeClientes::ingresarCliente(std::string usuario,
-		ConexionCliente *unCliente) {
+	ConexionCliente *unCliente, std::string pathCarpeta) {
 	// Si es un cliente monitor, insertamos en lista de monitores solamente
 	if(usuario == MONITOR_USER) {
 		this->listaMonitores.insertarUltimo(unCliente);
@@ -40,7 +40,7 @@ void AdministradorDeClientes::ingresarCliente(std::string usuario,
 	// Corroboramos si ya hay una carpeta activa para dicho usuario
 	// Si no existe una carpeta activa, creamos una carpeta
 	if(this->carpetas.count(usuario) == 0)
-		this->carpetas[usuario] = new Carpeta(usuario);
+		this->carpetas[usuario] = new Carpeta(pathCarpeta);
 
 	// Vinculamos al cliente con la carpeta
 	this->carpetas[usuario]->vincularCliente(unCliente);

@@ -97,8 +97,8 @@ public:
 	// 'listaNombreHashReg' es una lista de pares de <nombre,hash> del 
 	// archivo registro
 	// POST: Se devuelve el hash
-	std::string obtenerHashRegistro(Lista< std::pair< std::string, 
-		std::string> > * listaNombreHashReg, std::string& nombreArchivo);
+	std::string obtenerHash(Lista< std::pair< std::string, std::string> > * 
+		listaNombreHashReg, std::string& nombreArchivo);
 
 	// Devuelve el hash del bloque de un archivo.
 	// PRE: 'nombreArchivo' es el nombre de archivo del bloque; 'numBloque'
