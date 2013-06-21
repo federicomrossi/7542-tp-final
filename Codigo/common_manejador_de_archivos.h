@@ -90,6 +90,13 @@ public:
 	int obtenerHash(const std::string& nombreArchivo, 
 		std::string& hashArchivo);
 
+	// Devuelve el hash del bloque de un archivo.
+	// PRE: 'nombreArchivo' es el nombre de archivo del bloque; 'numBloque'
+	// es el número de bloque del que se desea obtener el hash.
+	// POST: se devuelve una cadena con el hash del bloque.
+	std::string obtenerHashDeBloque(const std::string& nombreArchivo,
+		int numBloque);
+
 	// Devuelve el contenido de un archivo en formato hexadecimal expresado
 	// en una cadena de caracteres.
 	// PRE: 'nombreArchivo' es el nombre de archivo; 'numBloque' es el
@@ -98,22 +105,6 @@ public:
 	// POST: devuelve una cadena que representa el contenido.
 	std::string obtenerContenido(const std::string& nombreArchivo,
 		int numBloque = 0);
-
-	// Modifica el contenido del bloque de un archivo.
-	// PRE: 'nombreArchivo' es el nombre de archivo; 'numBloque' es el
-	// numero de bloque que se desea modificar; 'contenido' es el contenido
-	// nuevo del bloque expresado en formato hexadecimal.
-	void modificarBloque(const std::string& nombreArchivo, const int numBloque,
-		const std::string& contenido);
-
-	// Compara el hash actual de cierto bloque de archivo con un hash pasado
-	// por parámetro.
-	// PRE: 'nombreArchivo' es el nombre de archivo; 'numBloque' es el
-	// número del bloque que se desea comparar; 'hash' es el hash que
-	// se comparará con el del bloque del archivo.
-	// POST: devuelve true si son iguales o false si presentan diferencias.
-	bool compararBloque(const std::string& nombreArchivo, const int numBloque,
-		const std::string hash);
 
 	// Recibe una lista de archivos, compara con la que se encuentra 
 	// localmente.
@@ -189,8 +180,14 @@ public:
 	// en caso contrario.
 	bool existeArchivoEnRegitro(const std::string nombreArchivo);
 
-	// Devuelve la cantidad de bytes almacenadas en el directorio actual.
-	unsigned int obtenerCantBytesAlmacenados();
+	// Compara el hash actual de cierto bloque de archivo con un hash pasado
+	// por parámetro.
+	// PRE: 'nombreArchivo' es el nombre de archivo; 'numBloque' es el
+	// número del bloque que se desea comparar; 'hash' es el hash que
+	// se comparará con el del bloque del archivo.
+	// POST: devuelve true si son iguales o false si presentan diferencias.
+	bool compararBloque(const std::string& nombreArchivo, const int numBloque,
+		const std::string hash);
 };
 
 #endif

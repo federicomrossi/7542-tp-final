@@ -45,7 +45,7 @@ public:
 	// PRE: 'nombreArchivo' es el nombre de archivo que debe modificarse;
 	// 'bloques' son pares de (bloque, contenido) los cuales son enviados para
 	// ser actualizados en el servidor.
-	void modificarArchivo(std::string& nombreArchivo, 
+	void modificarArchivo(std::string& nombreArchivo, unsigned int bytesTotal, 
 		Lista< std::pair< int, std::string > > bloques);
 
 	// Crea el evento de eliminación de un archivo.
@@ -53,14 +53,14 @@ public:
 	void eliminarArchivo(std::string& nombreArchivo);
 
 	// Crea el evento de solicitud de un archivo nuevo.
+	// PRE: 'nombreArchivo' esl el nombre del archivo.
 	void solicitarArchivoNuevo(std::string& nombreArchivo);
 
 	// Crea el evento de solicitud de modificación de un archivo.
-	void solicitarBloquesModificados();
-	
-	// Recibe una notificacion y a partir del contenido
-	// solicita archivo nuevo, modificado o elimina un archivo existente 
-	// void recibirNotificacion(std::string& notificacion);
+	// PRE: 'nombreArchivo' esl el nombre del archivo; 'bloquesASolicitar' es
+	// una lista de números de bloque a solicitar.
+	void solicitarBloquesModificados(std::string& nombreArchivo, 
+		Lista< int > bloquesASolicitar);
 };
 
 #endif
