@@ -58,7 +58,7 @@ MenuPrincipal::MenuPrincipal(Monitor *monitor, Configuracion *config) : monitor(
 
 
 void MenuPrincipal::on_buttonSalir_clicked() {
-	// Damos orden de detener servidor si se encuentra activo
+	// Damos orden de detener servidor 
 	
 		std::cout << "Monitoreo detenido"<< std::endl;
 		// END DEBUG
@@ -78,7 +78,7 @@ void MenuPrincipal::on_buttonConfiguracion_clicked() {
 // Acciones del menu
 void MenuPrincipal::on_menuConfiguracion_activate() {
 	this->main->set_sensitive(false);
-	IConfiguracion ventanaConfiguracion(this->serverConfig,1);
+	IConfiguracion ventanaConfiguracion(this->serverConfig,this->monitor->getEstadoConexion());
 	ventanaConfiguracion.correr();
 	this->main->set_sensitive(true);
 }
@@ -116,19 +116,20 @@ void MenuPrincipal::correr(){
 }
 
 void MenuPrincipal::run() {
-	int i = 0;
-	
-	while(true){
-		string a = Convertir::itos(i);
+	this->monitor->actualizarValores();
+	while(monitor->getEstadoConexion()) { 
+		this->monitor->actualizarValores();
+		this->estado->set_text("Conectado");
+		this->clientesConectados->set_text(monitor->getClientesConectados());
+		this->carpetasActivas->set_text(monitor->getCarpetasActivas());
+		std::cout<<"actualizon valores de interfaz "<<std::endl;
 		
-		this->estado->set_text(a);
-		std::cout<<"actualizo valores de ventana "<<std::endl;
-		i++;
-
-		this->sleep(20);
-
-
+		// HAY QUE HACER VARIABLE EL INTERVALO DE ACTUALIZACION DEL MONITOR
+		this->sleep(6);  
 	}
+	this->estado->set_text("Desconectado");
+	this->clientesConectados->set_text("-");
+	this->carpetasActivas->set_text("-");
 
 }
 

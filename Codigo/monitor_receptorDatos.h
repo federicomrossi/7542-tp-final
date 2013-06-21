@@ -80,7 +80,11 @@ public:
 	// POST: lanza una excepción si el socket no se encuentra activo.
 	void enviarMensaje(std::string& mensaje);
 
+	// Retorna la ultima version de valores obtenidos del servidor
 	Lista <std::string> getValores();
+
+	// Retorna estado de conexion
+	bool getEstadoConexion();
 
 };
 

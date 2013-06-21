@@ -6,7 +6,7 @@
 
 
 
-IConfiguracion::IConfiguracion(Configuracion *config, int flag) {
+IConfiguracion::IConfiguracion(Configuracion *config, bool flag) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 	
@@ -19,7 +19,7 @@ IConfiguracion::IConfiguracion(Configuracion *config, int flag) {
 	refBuilder->get_widget("main", this->main); // linkeo el form
 	
 	
-	refBuilder->get_widget("port", this->puerto);
+	refBuilder->get_widget("puerto", this->puerto);
 	refBuilder->get_widget("host", this->host);
 	refBuilder->get_widget("tiempo", this->tiempo);
 	
@@ -61,12 +61,18 @@ void IConfiguracion::correr() {
 	
 	//cargo los textBox con info
 	string auxPuerto = Convertir::itos(this->config->obtenerPuerto());
+	string auxHost = this->config->obtenerHost();
+	string auxTiempo = Convertir::itos(this->config->obtenerTiempo());
 	
 	this->puerto->set_text(auxPuerto); 
+	this->host->set_text(auxHost);
+	this->tiempo->set_text(auxTiempo);
 	
-	if (this->flag == 1) {
-		
+	if (this->flag == true) {
+		this->tiempo->set_sensitive(false);
 		this->puerto->set_sensitive(false);
+		this->host->set_sensitive(false);
+		
 	}
 	//Muestro configuracion actual
 	Gtk::Main::run(*main);

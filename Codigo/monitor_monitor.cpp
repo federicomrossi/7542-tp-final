@@ -15,6 +15,7 @@ Monitor::Monitor(Receptor* receptor) {
 	this->carpetasActivas = 0;
 	this->clientesConectados = 0;
 	this->receptor = receptor;
+	this->estado = 0;
 }
 
 string* Monitor::getBufferLog() {
@@ -35,7 +36,24 @@ string* Monitor::getBufferLog() {
 
 void Monitor::actualizarValores() {
 	Lista<std::string> nuevos = this->receptor->getValores();
+	if ((this->receptor->getEstadoConexion()) == 1) {
+		this->estado = true;
+	} else {
+	 this->estado = false;
+	}
 	this->clientesConectados = Convertir::stoi(nuevos[0]); 
+	this->carpetasActivas = Convertir::stoi(nuevos[1]);
+}
+
+bool Monitor::getEstadoConexion(){
+	return this->estado;
+}
+
+string Monitor::getClientesConectados() {
+	return Convertir::itos(this->clientesConectados);
+}
+string Monitor::getCarpetasActivas() {
+	return Convertir::itos(this->carpetasActivas);
 }
 
 // Destructor

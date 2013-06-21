@@ -33,7 +33,7 @@ private:
 public:
 
 	// Constructor
-	IConfiguracion(Configuracion *config, int flag); 
+	IConfiguracion(Configuracion *config, bool flag); 
 
 	// Destructor
 	virtual ~IConfiguracion();
