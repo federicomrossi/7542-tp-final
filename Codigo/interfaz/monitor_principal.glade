@@ -36,7 +36,7 @@
     <property name="height_request">235</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">AU - Aplicación servidor</property>
+    <property name="title" translatable="yes">AU - Aplicación Monitor</property>
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
     <property name="default_width">440</property>

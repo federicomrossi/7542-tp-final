@@ -12,9 +12,6 @@
 #include "monitor_canvas.h"
 #include "monitor_monitor.h"
 #include "monitor_configuracion.h"
-// aca hay q agregar al canvas? y cual es la clase canvas? eso tmb hay q agregarlo agarrala de mi tp 5, carpetaa vistas dale 
-//ehh ni idea, como gustes xD  si calculo q es common, mmmm noo mejor ponele monitor solo el monitor va a graficar no? si 
-// tenes razon al pedo
 
 
 class MenuEstadisticas : public Gtk::Window {
