@@ -171,7 +171,8 @@ public:
 	// POST: se devuelve 'false' si se produjeron cambios en el registro o
 	// 'true' en su defecto; esto evita tener que revisar las colas para
 	// comprobar cambios.
-	bool actualizarRegistroDeArchivos();
+	bool actualizarRegistroDeArchivos(Lista< std::string >& 
+		nuevosActualizables);
 
 	// Elimina el registro que identifica a un archivo en el registro de
 	// archivos.

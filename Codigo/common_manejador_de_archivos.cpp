@@ -841,17 +841,9 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 // POST: se devuelve 'false' si se produjeron cambios en el registro o
 // 'true' en su defecto; esto evita tener que revisar las colas para
 // comprobar cambios.
-bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
-	// // Variables auxiliares
-	// Cola< std::string > nuevos;
-	// Cola< std::pair< std::string, Lista< int > > > modificados;
-	// Cola< std::string > eliminados;
-
-	// // Retornamos el resultado de comprobar si hubieron actualizaciones
-	// return this->actualizarRegistroDeArchivos(&nuevos, &modificados,
-	// 	&eliminados);
-
-	// Variables auxiliares
+bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
+	Lista< std::string >& nuevosActualizables) {
+ 	// Variables auxiliares
 	std::ifstream registro;
 	std::ofstream registroTmp;
 	bool huboCambio = false;
@@ -890,6 +882,17 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
 	for(size_t i = 0; i < ld.tamanio(); i++) {
 		// Caso en el que no hay mas registros y se han agregado archivos
 		if(eof) {
+			// Si no está en la lista de nuevos actualizables salteamos
+			if(!nuevosActualizables.buscar(ld[i]))
+				continue;
+
+			// Calculamos el hash del archivo nuevo
+			std::string hashNuevo;
+			this->obtenerHash(ld[i], hashNuevo);
+
+			// Registramos archivo nuevo
+			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
+
 			huboCambio = true;
 			continue;
 		}
@@ -937,20 +940,19 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
 		}
 		// Caso en el que se han agregado nuevos archivos
 		else if(ld[i] < reg_archivoNombre || eof) {
+			// Si no está en la lista de nuevos actualizables salteamos
+			if(!nuevosActualizables.buscar(ld[i]))
+				continue;
+
+			// Calculamos el hash del archivo nuevo
+			std::string hashNuevo;
+			this->obtenerHash(ld[i], hashNuevo);
+			// Registramos archivo nuevo
+			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
+
 			huboCambio = true;
 		}
 	}
-
-	// Registros pertenecientes a archivos eliminados
-	while(!eof) {
-		// Tomamos el registro siguiente
-		buffer.clear();
-		if(!std::getline(registro, buffer)) eof = true;
-		this->separarNombreYHash(buffer, reg_archivoNombre,	reg_archivoHash);
-
-		huboCambio = true;
-	}
-
 
 	// Cerramos archivos
 	registro.close();

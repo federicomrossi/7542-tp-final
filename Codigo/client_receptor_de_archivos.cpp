@@ -33,7 +33,10 @@ void ReceptorDeArchivos::recibirArchivo(const std::string& nombreArchivo,
 	this->manejadorDeArchivos->agregarArchivo(nombreArchivo, contenido);
 
 	// Actualizamos el registro local de archivos
-	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
+	Lista< std::string > nuevos;
+	nuevos.insertarUltimo(nombreArchivo);
+
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos);
 }
 
 
@@ -61,5 +64,8 @@ void ReceptorDeArchivos::recibirModificaciones(std::string& nombreArchivo,
 		cantBytesDelArchivo, listaBloquesAReemplazar);
 
 	// Actualizamos el registro local de archivos
-	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
+	Lista< std::string > nuevos;
+	nuevos.insertarUltimo(nombreArchivo);
+
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos);
 }
