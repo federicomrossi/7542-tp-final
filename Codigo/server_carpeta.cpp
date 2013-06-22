@@ -4,19 +4,15 @@
 //  
 
 
+#include "server_config.h"
 #include "server_carpeta.h"
 #include "server_conexion_cliente.h"
-
 #include <dirent.h>
 #include <sys/stat.h>
 
-//DEBUG
-#include <iostream>
-//END DEBUG
 
-namespace {
-	#define DIR_RAIZ "carpetas/"
-}
+
+
 
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
@@ -34,7 +30,7 @@ Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger) :
 
 	// Si no existe carpeta fisica se crea. 
 	// Si no lo logra, lanza excepcion
-	std::string path = DIR_RAIZ + pathCarpeta + "/";
+	std::string path = DIR_RAIZ_CARPETAS + pathCarpeta + "/";
 
 	// Si no se pudo crear el directorio, lanzamos error
 	if(!crearCarpeta(path)){
@@ -48,7 +44,7 @@ Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger) :
 
 	// Creamos el sincronizador
 	this->sincronizador = new Sincronizador(this->receptor, this->emisor,
-		this->manejadorDeArchivos);
+		this->manejadorDeArchivos, this->logger);
 
 	// Iniciamos los hilos
 	this->emisor->iniciar();

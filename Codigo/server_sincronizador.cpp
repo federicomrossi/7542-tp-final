@@ -25,9 +25,9 @@
 
 // Constructor
 Sincronizador::Sincronizador(Receptor *receptor, Emisor *emisor, 
-	ManejadorDeArchivos *manejadorDeArchivos) : 
+	ManejadorDeArchivos *manejadorDeArchivos, Logger *logger) : 
 	receptor(receptor), emisor(emisor), 
-	manejadorDeArchivos(manejadorDeArchivos) { }
+	manejadorDeArchivos(manejadorDeArchivos), logger(logger) { }
 
 
 // Destructor
@@ -67,7 +67,11 @@ void Sincronizador::run() {
 
 
 		// Caso en que el cliente solicita la lista de archivos del servidor
-		if (instruccion == C_GET_FILES_LIST) {	
+		if (instruccion == C_GET_FILES_LIST) {
+			// Mensaje de log
+			std::string e = "SINCRONIZADOR: Solicitud de lista de archivos.";
+			this->logger->emitirLog(e);
+
 			// Se crea el mensaje de respuesta
 			std::string respuesta;
 			respuesta.append(S_FILES_LIST);
@@ -113,9 +117,17 @@ void Sincronizador::run() {
 			
 			// Se envia la respuesta al cliente
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+
+			// Mensaje de log
+			std::string ee = "SINCRONIZADOR: Lista de archivos enviada.";
+			this->logger->emitirLog(e);
 		}
 		// Caso en que un cliente solicita bloques de un archivo
 		else if(instruccion == C_FILE_PARTS_REQUEST) {
+			// Mensaje de log
+			std::string e = "SINCRONIZADOR: Solicitud de partes de archivo.";
+			this->logger->emitirLog(e);
+
 			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
@@ -166,9 +178,17 @@ void Sincronizador::run() {
 
 			// Se envia la respuesta al cliente
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+
+			// Mensaje de log
+			std::string ee = "SINCRONIZADOR: Partes de archivo enviadas.";
+			this->logger->emitirLog(e);
 		}
 		// Caso en que un cliente solicita un archivo
 		else if(instruccion == C_FILE_REQUEST) {
+			// Mensaje de log
+			std::string e = "SINCRONIZADOR: Solicitud de archivo.";
+			this->logger->emitirLog(e);
+
 			// Armamos mensaje de respuesta
 			std::string respuesta;
 
@@ -191,8 +211,16 @@ void Sincronizador::run() {
 
 			// Enviamos mensaje al cliente que realizó solicitud
 			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+
+			// Mensaje de log
+			std::string ee = "SINCRONIZADOR: Archivo enviado.";
+			this->logger->emitirLog(e);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
+			// Mensaje de log
+			std::string e = "SINCRONIZADOR: Recepción de archivo nuevo.";
+			this->logger->emitirLog(e);
+
 			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
@@ -209,9 +237,19 @@ void Sincronizador::run() {
 
 			// Se envia la notificación de nuevo archivo a los clientes
 			this->emisor->ingresarMensajeDeSalida(0, respuesta);
+
+			// Mensaje de log
+			std::string ee = "SINCRONIZADOR: Se realizó notificación a ";
+			e += "clientes de la existencia de un nuevo archivo.";
+			this->logger->emitirLog(e);
 		}
 		// Caso en que se recibe la notificación de la modificación de archivo
 		else if (instruccion == C_MODIFY_FILE) {
+			// Mensaje de log
+			std::string e = "SINCRONIZADOR: Recepción de modificaciones ";
+			e += "en archivo.";
+			this->logger->emitirLog(e);
+
 			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
@@ -272,9 +310,19 @@ void Sincronizador::run() {
 			// DEBUG
 			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
 			//END DEBUG
+
+			// Mensaje de log
+			std::string ee = "SINCRONIZADOR: Se realizó notificación a ";
+			e += "clientes de la modificación de un archivo.";
+			this->logger->emitirLog(e);
 		}
 		// Caso en que se recibe la notificación de la eliminación de archivo
 		else if (instruccion == COMMON_DELETE_FILE) {
+			// Mensaje de log
+			std::string e = "SINCRONIZADOR: Recepción de orden de eliminación";
+			e += "de un archivo.";
+			this->logger->emitirLog(e);
+
 			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
@@ -288,8 +336,13 @@ void Sincronizador::run() {
 			respuesta.append(" ");
 			respuesta.append(listaArgumentos[0]);
 
-			// Se envia la notificación de nuevo archivo a los clientes
+			// Se envia la notificación dela eliminación archivo
 			this->emisor->ingresarMensajeDeSalida(0, respuesta);
+
+			// Mensaje de log
+			std::string ee = "SINCRONIZADOR: Envío de orden de eliminación";
+			e += "de un archivo a clientes.";
+			this->logger->emitirLog(e);
 		}
 	}
 }
