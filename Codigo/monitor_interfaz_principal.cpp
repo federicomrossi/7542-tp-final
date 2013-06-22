@@ -4,6 +4,7 @@
 #include "monitor_interfaz_configuracion.h"
 #include "monitor_interfaz_usuarios.h"
 #include "monitor_interfaz_log.h"
+#include "monitor_interfaz_estadisticas.h"
 #include "common_convertir.h"
 
 
@@ -31,7 +32,11 @@ MenuPrincipal::MenuPrincipal(Monitor *monitor, Configuracion *config) : monitor(
 	refBuilder->get_widget("mi_configuracion", this->menuConfiguracion);
 	refBuilder->get_widget("mi_salir", this->menuSalir);
 	refBuilder->get_widget("mi_admUsers", this->menuAdminUsers);
+
+
 	refBuilder->get_widget("mi_estadisticas", this->menuEstadisticas);
+
+
 	refBuilder->get_widget("mi_log", this->menuLog);
 	refBuilder->get_widget("mi_manual", this->menuManualUsuario);
 	refBuilder->get_widget("mi_ayuda", this->menuAyuda);
@@ -93,7 +98,12 @@ void MenuPrincipal::on_menuAdminUsers_activate() {
 } 
 
 
-void MenuPrincipal::on_menuEstadisticas_activate(){}
+void MenuPrincipal::on_menuEstadisticas_activate(){
+	this->main->set_sensitive(false);
+	MenuEstadisticas estadisticas(this->monitor);
+	estadisticas.correr();
+	this->main->set_sensitive(true);
+}
 
 
 void MenuPrincipal::on_menuLog_activate() {
@@ -130,7 +140,7 @@ void MenuPrincipal::run() {
 		this->estado->set_text("Conectado");
 		this->clientesConectados->set_text(monitor->getClientesConectados());
 		this->carpetasActivas->set_text(monitor->getCarpetasActivas());
-		// HAY QUE HACER VARIABLE EL INTERVALO DE ACTUALIZACION DE LA INTERFAZ?
+	
 		this->sleep(2);  
 	}
 	this->estado->set_text("Desconectado");
@@ -138,5 +148,6 @@ void MenuPrincipal::run() {
 	this->carpetasActivas->set_text("-");
 
 }
+
 
 MenuPrincipal::~MenuPrincipal() { }

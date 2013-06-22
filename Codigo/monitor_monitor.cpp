@@ -43,6 +43,7 @@ void Monitor::actualizarValores() {
 	}
 	this->clientesConectados = Convertir::stoi(nuevos[0]); 
 	this->carpetasActivas = Convertir::stoi(nuevos[1]);
+	this->bytesOcupados = Convertir::stoi(nuevos[2]);
 }
 
 bool Monitor::getEstadoConexion(){
@@ -55,6 +56,11 @@ string Monitor::getClientesConectados() {
 string Monitor::getCarpetasActivas() {
 	return Convertir::itos(this->carpetasActivas);
 }
+
+int Monitor::getBytesOcupados() {
+	return this->bytesOcupados;
+}
+
 
 // Destructor
 Monitor::~Monitor() {

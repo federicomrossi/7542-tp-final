@@ -24,6 +24,7 @@ private:
 	ArchivoTexto* archivoLog;
 	int carpetasActivas;
 	int clientesConectados;
+	int bytesOcupados;
 	int estado;
 	Receptor* receptor;
 
@@ -49,8 +50,11 @@ public:
 	// Retorna un string con la cantidad de carpetas activas
 	string getCarpetasActivas();
 
+	int getBytesOcupados();
+
 	// Retorna si el servidor sigue levantado o no
 	bool getEstadoConexion();
+
 	
 	
 	void cambiarIntervaloPolling(unsigned int intervalo);

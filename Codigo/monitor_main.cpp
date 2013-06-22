@@ -34,13 +34,14 @@ int main (int argc, char** argv) {
 	// Creamos el receptor de datos que se comunica con el servidor
 	Receptor* receptor = new Receptor();
 
+	//Iniciamos ventana de conexion
+	Conexion ventanaConexion(receptor,configs);
+	if (ventanaConexion.correr() == 1) return 0;
+
+	// Si llego aca, el tipo se logeo
 	// Creamos el monitor
 	Monitor* monitor = new Monitor(receptor);
 
-	//Iniciamos ventana de conexion
-
-	Conexion ventanaConexion(receptor,configs);
-	if (ventanaConexion.correr() == 1) return 0;
 	std::cout<<"vuelvo a main "<<endl;
 	// ventana principal del programa
 	MenuPrincipal ventanaMonitor(monitor,configs);

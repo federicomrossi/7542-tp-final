@@ -1,5 +1,5 @@
 //
-//  server_interfaz_principal.h
+//  monitor_interfaz_principal.h
 //  CLASE MENUPRINCIPAL
 //  
 
@@ -12,7 +12,6 @@
 #include "common_thread.h"
 #include "monitor_monitor.h"
 #include "monitor_configuracion.h"
-
 
 
 
