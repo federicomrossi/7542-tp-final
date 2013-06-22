@@ -115,6 +115,8 @@ void Actualizador::ejecutarActualizacion() {
 		this->manejadorDeArchivos->eliminarArchivo(archivo);
 	}
 
+	// Se crea una lista de nuevos archivos en el server
+	Lista<std::string> nuevosActualizables;
 
 	// Realizamos la petición de envío y espera de recepción de archivos
 	// faltantes
@@ -191,6 +193,9 @@ void Actualizador::ejecutarActualizacion() {
 				this->manejadorDeArchivos->agregarArchivo(
 					nombreArchivoFaltante, contenidoBloque);
 
+				// Se agrega a lista de nuevos
+				nuevosActualizables.insertarUltimo(archivoFaltanteEntrante);
+
 				continue;
 			}
 
@@ -213,7 +218,7 @@ void Actualizador::ejecutarActualizacion() {
 	std::cout.flush();
 
 	// Actualizamos el registro de archivos
-	this->manejadorDeArchivos->actualizarRegistroDeArchivos();
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevosActualizables);
 
 	// Mensaje de log
 	std::cout << "Fin de la actualización... " << std::endl;

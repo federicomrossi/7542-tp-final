@@ -125,7 +125,7 @@ public:
 	void obtenerListaDeActualizacion(Lista< std::pair< std::string, 
 		std::pair< std::string, int > > >* listaExterna,
 		Lista< std::pair< std::string, Lista<int> > >* faltantes, 
-		Lista<std::string>* sobrantes, Lista<std::string>* nuevos);
+		Lista<std::string>* sobrantes);
 
 	// Devuelve la cantidad de bloques de un archivo
 	int obtenerCantBloques(const std::string &nombreArchivo);

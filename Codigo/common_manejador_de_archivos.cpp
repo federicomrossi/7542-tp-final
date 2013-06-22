@@ -590,8 +590,7 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	Lista< std::pair< std::string, std::pair< std::string, 
 	int > > >* listaExterna, Lista< std::pair< std::string, 
-	Lista<int> > >* faltantes, Lista<std::string>* sobrantes, 
-	Lista<std::string>* nuevos) {
+	Lista<int> > >* faltantes, Lista<std::string>* sobrantes) {
 	// La primer lista contiene nombre, hash y cantidad de bloques (en ese 
 	// orden). La segunda tiene hash y una cola de numeros de bloque.
 
@@ -623,7 +622,6 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 			std::pair< std::string, Lista<int> > aPedir = 
 				std::make_pair(externo.first, bloques);
 			faltantes->insertarUltimo(aPedir);
-			nuevos->insertarUltimo(externo.first);
 		}
 		// Existe el archivo en registro, entonces se comparan
 		// los respectivos hashes
