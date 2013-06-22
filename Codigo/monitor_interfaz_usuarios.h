@@ -24,7 +24,28 @@ private:
 	Gtk::Button *botonEliminar;
 	Gtk::Button *botonModificar;
 	Gtk::Button *botonVolver;
+
+
+protected:
+
+  //Tree model columns:
+  class ModelColumns : public Gtk::TreeModel::ColumnRecord
+  {
+  public:
+
+    ModelColumns()
+    { add(m_col_name);}
+  
+    Gtk::TreeModelColumn<Glib::ustring> m_col_name;
+   
+    
+  };
+  Gtk::Grid *grid;
+  ModelColumns m_Columns;
+  Gtk::TreeView tree;
+  Glib::RefPtr<Gtk::ListStore> listaUsuarios;
 	
+
 	// Atributos del modelo
 
 	Monitor *monitor;

@@ -9,11 +9,12 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 
-	
+
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/monitor_adminUsuarios.glade");
 	refBuilder->get_widget("main", this->main); // linkeo el form
-
+	refBuilder->get_widget("grid1", this->grid);
+	//this->grid->add(tree);
 	
 	// Botones
 	
@@ -21,7 +22,22 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 	refBuilder->get_widget("btn_eliminarUsuario", this->botonEliminar);
 	refBuilder->get_widget("btn_modificarUsuario", this->botonModificar);
 	refBuilder->get_widget("btn_volver", this->botonVolver);
+	//refBuilder->get_widget("tree", this->tree);
+	this->grid->attach(this->tree, 0, 0, 1, 1);
+
 	
+	//Create the Tree model:
+	 
+ 	 this->listaUsuarios = Gtk::ListStore::create(m_Columns);
+ 	 this->tree.set_model(this->listaUsuarios);
+
+ 	  //Fill the TreeView's model
+
+  	 for (int i = 0; i < 4; i++) {
+  	 	Gtk::TreeModel::Row row = *(this->listaUsuarios->append());
+  	 	row[m_Columns.m_col_name] =  Convertir :: itos(i);
+  	 }
+  	  this->tree.append_column("Usuario      ", m_Columns.m_col_name);
 
 	// Acciones
 	// Acciones -> Bontones

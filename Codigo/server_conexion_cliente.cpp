@@ -228,6 +228,7 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		int bytesAlmacenados = Recolector::cantidadBytesAlmacenados();
 		respuesta.append(Convertir::itos(bytesAlmacenados));
 
+
 		// Emitimos respuesta
 		com->emitir(respuesta);
 	}
