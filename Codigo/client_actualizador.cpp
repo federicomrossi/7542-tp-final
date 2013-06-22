@@ -218,7 +218,8 @@ void Actualizador::ejecutarActualizacion() {
 	std::cout.flush();
 
 	// Actualizamos el registro de archivos
-	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevosActualizables);
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos(
+		nuevosActualizables);
 
 	// Mensaje de log
 	std::cout << "Fin de la actualización... " << std::endl;
