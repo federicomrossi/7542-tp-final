@@ -172,10 +172,6 @@ void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo,
 	// Se cierra el archivo
 	archivo.close();
 
-	// DEBUG
-	std::cout << "Se agrego archivo con nombre: " << nombreArchivo << std::endl;	
-	//END DEBUG
-
 }
 
 
@@ -587,13 +583,15 @@ bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 
 // Recibe una lista de archivos, compara con la que se encuentra localmente 
 // * ListaExterna: lista de archivos con la cual se compara
-// * Faltantes: lista de archivos que no estan en el dir local
+// * Faltantes: lista de archivos que estan modificados en el dir local
 // * Sobrantes: lista de archivos que no estan en la lista que se deben 
 // eliminar del dir local
+// * Nuevos: lista de archivos que no estan en el dir local
 void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	Lista< std::pair< std::string, std::pair< std::string, 
 	int > > >* listaExterna, Lista< std::pair< std::string, 
-	Lista<int> > >* faltantes, Lista<std::string>* sobrantes) {
+	Lista<int> > >* faltantes, Lista<std::string>* sobrantes, 
+	Lista<std::string>* nuevos) {
 	// La primer lista contiene nombre, hash y cantidad de bloques (en ese 
 	// orden). La segunda tiene hash y una cola de numeros de bloque.
 
@@ -625,6 +623,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 			std::pair< std::string, Lista<int> > aPedir = 
 				std::make_pair(externo.first, bloques);
 			faltantes->insertarUltimo(aPedir);
+			nuevos->insertarUltimo(externo.first);
 		}
 		// Existe el archivo en registro, entonces se comparan
 		// los respectivos hashes
@@ -634,7 +633,7 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 				externo.first);
 
 			// Si son distintos los hashes
-			if (hash != externo.first) {
+			if (hash != externo.second.first) {
 				Lista<int> bloques;
 
 				// Se buscan las diferencias

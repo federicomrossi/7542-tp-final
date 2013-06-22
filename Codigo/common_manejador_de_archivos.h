@@ -116,16 +116,16 @@ public:
 	std::string obtenerContenido(const std::string& nombreArchivo,
 		int numBloque = 0);
 
-	// Recibe una lista de archivos, compara con la que se encuentra 
-	// localmente.
+	// Recibe una lista de archivos, compara con la que se encuentra localmente 
 	// * ListaExterna: lista de archivos con la cual se compara
-	// * Faltantes: lista de archivos que no estan en el dir local
-	// * Sobrantes: lista de archivos que no estan en la lista que se deben
+	// * Faltantes: lista de archivos que estan modificados en el dir local
+	// * Sobrantes: lista de archivos que no estan en la lista que se deben 
 	// eliminar del dir local
+	// * Nuevos: lista de archivos que no estan en el dir local
 	void obtenerListaDeActualizacion(Lista< std::pair< std::string, 
 		std::pair< std::string, int > > >* listaExterna,
 		Lista< std::pair< std::string, Lista<int> > >* faltantes, 
-		Lista<std::string>* sobrantes);
+		Lista<std::string>* sobrantes, Lista<std::string>* nuevos);
 
 	// Devuelve la cantidad de bloques de un archivo
 	int obtenerCantBloques(const std::string &nombreArchivo);
