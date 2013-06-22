@@ -24,7 +24,7 @@ void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& 
     cr->line_to (xfin, yfin);
     cr->set_source_rgb(0.8, 0.0, 0.0);
 	cr->set_line_width (1.0);
-  	//tengo la teoria de que el hilo en el canvas no hace falta, solo faltaba el show_all pruebo sacarlo comentando codigo :D
+
 	cr->restore();  // back to opaque black
 	cr->stroke();
 }

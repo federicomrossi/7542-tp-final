@@ -6,11 +6,11 @@
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <property name="title" translatable="yes">Visor de Log</property>
+    <property name="title" translatable="yes">Administrador de Usuarios</property>
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
-    <property name="default_width">458</property>
-    <property name="default_height">617</property>
+    <property name="default_width">600</property>
+    <property name="default_height">800</property>
     <property name="destroy_with_parent">True</property>
     <child>
       <object class="GtkGrid" id="grid1">
@@ -22,7 +22,7 @@
         <property name="margin_bottom">10</property>
         <property name="orientation">vertical</property>
         <property name="row_spacing">5</property>
-        <property name="column_spacing">1</property>
+        <property name="column_spacing">6</property>
         <property name="row_homogeneous">True</property>
         <child>
           <object class="GtkBox" id="box1">
@@ -121,22 +121,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTreeView" id="treeview1">
-            <property name="width_request">290</property>
-            <property name="height_request">230</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="enable_grid_lines">horizontal</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection" id="treeview-selection1"/>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>
