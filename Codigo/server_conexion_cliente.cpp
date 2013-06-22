@@ -25,9 +25,9 @@
 // número de cliente que se le ha sido asignado por el servidor; 'serv' es
 // una referencia al servidor al que pertenece la conexión.
 ConexionCliente::ConexionCliente(Socket *s,
-	AdministradorDeClientes *adm, Verificador *v) : socket(s), 
+	AdministradorDeClientes *adm, Verificador *v, Logger *logger) : socket(s), 
 	nombreUsuario(""), admClientes(adm), verificador(v), pathCarpeta(""), 
-	habilitarRecepcion(false) { }
+	habilitarRecepcion(false), logger(logger) { }
 
 
 // Destructor
@@ -52,24 +52,26 @@ void ConexionCliente::run() {
 	std::string mensaje;
 
 	// Mensaje de log
-	// DEBUG
-	std::cout << "Esperando mensaje del cliente... ";
-    std::cout.flush();
-	// END DEBUG
+	this->logger->emitirLog("LOGIN: Esperando datos de login del cliente...");
 
 	// Si el inicio de sesión falló, cerramos conexión con cliente
 	if(this->inicioSesion(comunicador) != 1) {
 		this->admClientes->destruirCliente(this);
+
+		// Mensaje de log
+		this->logger->emitirLog("LOGIN: Falló inicio de sesión de cliente.");
+		this->logger->emitirLog("Se ha desconectado al cliente.");
+
 		return;
 	}
+
+	// Mensaje de log
+	this->logger->emitirLog("LOGIN: Usuario '" + this->nombreUsuario + "'" 
+		+ " ha iniciado sesión.");
 
 	// Nos autoregistramos en el administrador de clientes
 	this->admClientes->ingresarCliente(this->nombreUsuario, this, 
 		this->pathCarpeta);
-
-	// DEBUG
-	std::cout << "PATH: " << pathCarpeta << std::endl;
-	//END DEBUG
 
 	// Si se conectó una aplicación monitor, derivamos hacia allí
 	if(this->nombreUsuario == MONITOR_USER) {
@@ -83,8 +85,8 @@ void ConexionCliente::run() {
 		}
 	}
 	else {
-		// Esperamos a que se habilite la recepción, es decir, que se especifique
-		// un receptor
+		// Esperamos a que se habilite la recepción, es decir, que se 
+		// especifique un receptor
 		while(!habilitarRecepcion) 
 			if(!this->isActive()) return;
 
@@ -95,9 +97,6 @@ void ConexionCliente::run() {
 
 			// Enviamos el mensaje al receptor
 			this->receptor->ingresarMensajeDeEntrada(this->id(), mensaje);
-
-			std::cout << "ENTRANTE: " <<  mensaje << std::endl;
-			std::cout.flush();
 		}
 	}
 	
@@ -105,10 +104,10 @@ void ConexionCliente::run() {
 	// destruida
 	this->admClientes->darDeBajaCliente(this->nombreUsuario, this);
 	this->admClientes->destruirCliente(this);
-	
-	// DEBUG
-	std::cout << "TERMINO" << std::endl;
-	// END DEBUG
+
+	// Mensaje de log
+	this->logger->emitirLog("Usuario '" + this->nombreUsuario + "'" 
+		+ " se ha desconectado.");
 }
 
 
@@ -153,8 +152,14 @@ void ConexionCliente::asignarReceptor(Receptor *unReceptor) {
 // POST: lanza una excepción si el socket no se encuentra activo.
 void ConexionCliente::enviarMensaje(std::string& mensaje) {
 	// Corroboramos que el socket esté activo
-	if(!this->socket->estaActivo())
+	if(!this->socket->estaActivo()) {
+		// Mensaje de log
+		this->logger->emitirLog("ERROR: No se pudo emitir mensaje a usuario '"
+			+ this->nombreUsuario + "'");
+
+		// Lanzamos excepción
 		throw "ERROR: No se pudo emitir mensaje a cliente.";
+	}
 
 	// Creamos el comunicador para enviar mensajes
 	Comunicador comunicador(this->socket);
@@ -188,15 +193,11 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 		if (verificador->verificarCliente(args, this->nombreUsuario, 
 			this->pathCarpeta) == 1) {  
 			comunicador.emitir(S_LOGIN_OK);
-			std::cout << "Inicio de sesion OK" << std::endl;
-			std::cout.flush();	
 			return 1;
 		}
 		// Caso en que la verificación es incorrecta
 		else {
 			comunicador.emitir(S_LOGIN_FAIL);
-			std::cout << "Inicio de sesion fallo" << std::endl;
-			std::cout.flush();
 			return 0;
 		}
 	}

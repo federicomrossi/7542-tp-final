@@ -12,6 +12,7 @@
 #include "common_thread.h"
 #include "common_socket.h"
 #include "common_comunicador.h"
+#include "common_logger.h"
 #include "server_verificador.h"
 #include "server_receptor.h"
 #include "server_recolector_de_informacion.h"
@@ -41,10 +42,12 @@ private:
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
 	Verificador* verificador;					// Verificador de loggin
 	Receptor *receptor;							// Receptor a donde se envian
-	std::string pathCarpeta;					// Path donde se encuentran los archivos del cliente
+	std::string pathCarpeta;					// Path donde se encuentran
+												// los archivos del cliente
 												// los datos que arrivan
 	bool habilitarRecepcion;					// Traba para evitar recepción
 												// hasta que se indique.
+	Logger *logger;								// Logger de eventos
 
 	// Espera inicio sesion
 	int inicioSesion(Comunicador& comunicador);
@@ -58,8 +61,8 @@ public:
 	// PRE: 's' es un socket para la comunicación con el cliente; 'id' es 
 	// número de cliente que se le ha sido asignado por el servidor; 'serv' es
 	// una referencia al servidor al que pertenece la conexión.
-	ConexionCliente(Socket *s, AdministradorDeClientes *adm, Verificador *v);
-	// ConexionCliente(Socket *s, Verificador *v);
+	ConexionCliente(Socket *s, AdministradorDeClientes *adm, Verificador *v,
+		Logger *logger);
 
 	// Destructor
 	~ConexionCliente();

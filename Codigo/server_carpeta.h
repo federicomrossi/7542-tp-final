@@ -9,10 +9,11 @@
 
 
 #include "common_lista.h"
+#include "common_logger.h"
+#include "common_manejador_de_archivos.h"
 #include "server_receptor.h"
 #include "server_emisor.h"
 #include "server_sincronizador.h"
-#include "common_manejador_de_archivos.h"
 #include "server_conexion_cliente.h"
 
 
@@ -31,6 +32,7 @@ private:
 	Emisor *emisor;										// Emisor
 	Sincronizador *sincronizador;						// Sincronizador
 	ManejadorDeArchivos *manejadorDeArchivos;			// Manejador
+	Logger *logger;										// Logger de eventos
 
 	// Crea una carpeta fisica para el usuario si no existe ya una carpeta
 	// Devuelve 1 si la operacion es correcta y 0 sino
@@ -39,7 +41,7 @@ private:
 public:
 
 	// Constructor
-	Carpeta(const std::string &pathCarpeta);
+	Carpeta(const std::string &pathCarpeta, Logger *logger);
 
 	// Destructor
 	~Carpeta();

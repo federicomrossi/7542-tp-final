@@ -1,0 +1,11 @@
+Sat Jun 22 04:32:58 2013 Iniciando servidor AU...
+Sat Jun 22 04:32:58 2013 Se ha iniciado el servidor.
+Sat Jun 22 04:33:34 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Sat Jun 22 04:33:34 2013 LOGIN: Esperando datos de login del cliente...
+Sat Jun 22 04:33:34 2013 LOGIN: Fallo inicio de sesión de cliente.
+Sat Jun 22 04:33:34 2013 Se ha desconectado al cliente.
+Sat Jun 22 04:34:39 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Sat Jun 22 04:34:39 2013 LOGIN: Esperando datos de login del cliente...
+Sat Jun 22 04:34:39 2013 LOGIN: Usuario 'belu' ha iniciado sesión.
+Sat Jun 22 04:35:12 2013 Usuario 'belu' se ha desconectado.
+Sat Jun 22 04:36:10 2013 Se ha detenido el servidor.

@@ -13,8 +13,10 @@
 #include "common_thread.h"
 #include "common_cola.h"
 #include "common_lista.h"
+#include "common_logger.h"
 #include "server_conexion_cliente.h"
 #include "server_carpeta.h"
+
 
 
 
@@ -31,11 +33,12 @@ private:
 	Lista< ConexionCliente* > listaMonitores;		// Lista de monitores
 	Cola< ConexionCliente* > conexionesMuertas;		// Cola de conexiones que
 													// deben ser destruidas
+	Logger *logger;									// Logger de eventos
 
 public:
 
 	// Constructor
-	AdministradorDeClientes();
+	AdministradorDeClientes(Logger *logger);
 
 	// Destructor
 	~AdministradorDeClientes();

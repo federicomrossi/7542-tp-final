@@ -24,7 +24,8 @@ namespace {
 
 
 // Constructor
-Carpeta::Carpeta(const std::string &pathCarpeta) {
+Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger) : 
+	logger(logger){
 	// Creamos el receptor que recibirá los mensajes entrantes
 	this->receptor = new Receptor();
 
@@ -34,8 +35,13 @@ Carpeta::Carpeta(const std::string &pathCarpeta) {
 	// Si no existe carpeta fisica se crea. 
 	// Si no lo logra, lanza excepcion
 	std::string path = DIR_RAIZ + pathCarpeta + "/";
-	if(!crearCarpeta(path))
+
+	// Si no se pudo crear el directorio, lanzamos error
+	if(!crearCarpeta(path)){
+		// Mensaje de log
+		this->logger->emitirLog("ERROR: No se pudo crear directorio " + path);
 		throw "ERROR: No se pudo crear directorio";
+	}
 
 	// Se crea el manejador de archivos
 	this->manejadorDeArchivos = new ManejadorDeArchivos(path);

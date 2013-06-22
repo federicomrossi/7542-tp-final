@@ -5,8 +5,9 @@
 
 
 #include <iostream>
-#include "server_servidor.h"
 #include "common_lock.h"
+#include "server_config.h"
+#include "server_servidor.h"
 
 
 
@@ -24,12 +25,15 @@ namespace {
 
 // Constructor
 Servidor::Servidor() : activo(false) {
+	// Creamos el logger
+	this->logger = new Logger(LOGGER_RUTA_LOG + LOGGER_NOMBRE_LOG);
+
 	// Creamos al administrador de clientes
-	this->admClientes = new AdministradorDeClientes;
+	this->admClientes = new AdministradorDeClientes(this->logger);
 	this->admClientes->iniciar();
 
 	// Se crea un verificador de usuario y contrasenia
-	this->verificador = new Verificador;
+	this->verificador = new Verificador;	
 }
 
 
@@ -40,6 +44,7 @@ Servidor::~Servidor() {
 	this->admClientes->join();
 	delete this->admClientes;
 	delete this->verificador;
+	delete this->logger;
 }
 
 
@@ -58,12 +63,11 @@ void Servidor::run() {
 		if(!this->socket.estaActivo() || !socketCLI) break;
 
 		// Mensaje de log
-		std::cout << "Se ha conectado un cliente..." << std::endl;
-	    std::cout.flush();
+		this->logger->emitirLog("Se ha conectado un cliente (IP = 0.0.0.0).");
 		
 		// Generamos una nueva conexión para escuchate
 		ConexionCliente *conexionCLI = new ConexionCliente(socketCLI,
-				this->admClientes, this->verificador);
+				this->admClientes, this->verificador, this->logger);
 
 		// Damos la orden de que comience a ejecutarse el hilo del cliente.
 		conexionCLI->start();
@@ -79,19 +83,22 @@ bool Servidor::iniciar(int puerto) {
 	// Guardamos el puerto
 	this->puerto = puerto;
 
+	// Mensaje de log
+	this->logger->emitirLog("Iniciando servidor AU...");
+
 	try {
 		// Iniciamos la escucha del servidor
 		this->socket.crear();
 		this->socket.escuchar(MAX_CONEXIONES, this->puerto);
 	}
 	catch(char const * e) {
+		// Creamos entrada en Log para informar error
+		this->logger->emitirLog(e);
+		std::string err = "ERROR: Falló el intento de conexión del servidor.";
+		this->logger->emitirLog(err);
+
 		// Detenemos servidor de inmediato
 		this->detener();
-
-		// Creamos entrada en Log para informar error
-		std::cout << e << std::endl;
-		std::cout << "ERROR: Falló el intento de conexión del servidor." 
-			<< std::endl;
 
 		return false;
 	}
@@ -101,6 +108,9 @@ bool Servidor::iniciar(int puerto) {
 
 	// Cambiamos el estado del servidor
 	this->activo = true;
+
+	// Mensaje de log
+	this->logger->emitirLog("Se ha iniciado el servidor.");
 
 	return true;
 }
@@ -122,6 +132,9 @@ void Servidor::detener() {
 	// Ante una eventual detención abrupta, previa a la inicialización del
 	// socket, lanzará un error que daremos por obviado.
 	catch(...) { }
+
+	// Mensaje de log
+	this->logger->emitirLog("Se ha detenido el servidor.");
 }
 
 
