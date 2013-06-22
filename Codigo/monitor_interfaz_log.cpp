@@ -61,6 +61,7 @@ void MenuLog::on_buttonVolver_clicked() {
 void MenuLog::correr(){
 	this->main->set_sensitive(true);
 	Gtk::Main::run(*main);
+	this->main->hide();
 
 }
 
