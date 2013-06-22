@@ -29,6 +29,7 @@ void MenuEstadisticas::correr() {
 	c.correr();
 	Gtk::Main::run(*main);
 	c.detener();
+	main->hide();
 } 
 
 MenuEstadisticas::~MenuEstadisticas() { }

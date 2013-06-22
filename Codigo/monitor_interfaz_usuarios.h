@@ -37,13 +37,14 @@ protected:
     { add(m_col_name);}
   
     Gtk::TreeModelColumn<Glib::ustring> m_col_name;
-   
+
     
   };
   Gtk::Grid *grid;
   ModelColumns m_Columns;
   Gtk::TreeView tree;
   Glib::RefPtr<Gtk::ListStore> listaUsuarios;
+  Glib::RefPtr<Gtk::TreeSelection>  seleccionado;
 	
 
 	// Atributos del modelo
@@ -69,6 +70,8 @@ public:
 	void on_buttonModificar_clicked();
 
 	void on_buttonVolver_clicked();
+	void on_selection_changed(); 
+
 
 };
 

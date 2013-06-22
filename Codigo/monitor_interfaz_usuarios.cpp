@@ -14,7 +14,7 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 	refBuilder->add_from_file("./interfaz/monitor_adminUsuarios.glade");
 	refBuilder->get_widget("main", this->main); // linkeo el form
 	refBuilder->get_widget("grid1", this->grid);
-	//this->grid->add(tree);
+	
 	
 	// Botones
 	
@@ -22,7 +22,7 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 	refBuilder->get_widget("btn_eliminarUsuario", this->botonEliminar);
 	refBuilder->get_widget("btn_modificarUsuario", this->botonModificar);
 	refBuilder->get_widget("btn_volver", this->botonVolver);
-	//refBuilder->get_widget("tree", this->tree);
+	
 	this->grid->attach(this->tree, 0, 0, 1, 1);
 
 	
@@ -31,7 +31,8 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
  	 this->listaUsuarios = Gtk::ListStore::create(m_Columns);
  	 this->tree.set_model(this->listaUsuarios);
 
- 	  //Fill the TreeView's model
+ 	  
+  	  //Fill the TreeView's model
 
   	 for (int i = 0; i < 4; i++) {
   	 	Gtk::TreeModel::Row row = *(this->listaUsuarios->append());
@@ -41,28 +42,33 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 
 	// Acciones
 	// Acciones -> Bontones
+
+
+    this->botonEliminar->set_sensitive( false );
+    this->seleccionado = this->tree.get_selection();
 	 
 	this->botonNuevo->signal_clicked().connect(sigc::mem_fun(*this, &MenuUsuarios::on_buttonNuevo_clicked)); 
 	this->botonEliminar->signal_clicked().connect(sigc::mem_fun(*this, &MenuUsuarios::on_buttonEliminar_clicked));
 	this->botonModificar->signal_clicked().connect(sigc::mem_fun(*this, &MenuUsuarios::on_buttonModificar_clicked)); 
 	this->botonVolver->signal_clicked().connect(sigc::mem_fun(*this, &MenuUsuarios::on_buttonVolver_clicked)); 
+
+	this->seleccionado->signal_changed().connect( sigc::mem_fun(*this, &MenuUsuarios::on_selection_changed) );
 	
+
 	main->show_all_children();
 
 }
 
 
 void MenuUsuarios::on_buttonNuevo_clicked() {
-	 
-	
+
 }
 
+
 void MenuUsuarios::on_buttonEliminar_clicked() {
-	/*this->main->set_sensitive(false);
-	IConfiguracion ventanaConfiguracion(this->serverConfig,1);
-	ventanaConfiguracion.correr();
-	this->main->set_sensitive(true);
-	*/
+	Gtk::TreeModel::iterator store_iter = this->seleccionado->get_selected();
+	this->listaUsuarios->erase(store_iter);
+        
 }
 
 
@@ -79,6 +85,13 @@ void MenuUsuarios::on_buttonVolver_clicked() {
 	this->main->hide();
 
 }
+void MenuUsuarios::on_selection_changed() {
+
+       this->botonEliminar->set_sensitive(
+		this->seleccionado->count_selected_rows() > 0 );
+}
+
+
 void MenuUsuarios::correr() { 
 	this->main->set_sensitive(true);
 	Gtk::Main::run(*main);
