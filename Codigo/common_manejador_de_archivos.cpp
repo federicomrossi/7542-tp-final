@@ -842,14 +842,125 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 // 'true' en su defecto; esto evita tener que revisar las colas para
 // comprobar cambios.
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos() {
-	// Variables auxiliares
-	Cola< std::string > nuevos;
-	Cola< std::pair< std::string, Lista< int > > > modificados;
-	Cola< std::string > eliminados;
+	// // Variables auxiliares
+	// Cola< std::string > nuevos;
+	// Cola< std::pair< std::string, Lista< int > > > modificados;
+	// Cola< std::string > eliminados;
 
-	// Retornamos el resultado de comprobar si hubieron actualizaciones
-	return this->actualizarRegistroDeArchivos(&nuevos, &modificados,
-		&eliminados);
+	// // Retornamos el resultado de comprobar si hubieron actualizaciones
+	// return this->actualizarRegistroDeArchivos(&nuevos, &modificados,
+	// 	&eliminados);
+
+	// Variables auxiliares
+	std::ifstream registro;
+	std::ofstream registroTmp;
+	bool huboCambio = false;
+
+	// Armamos rutas de archivos
+	std::string regNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS;
+	std::string regTmpNombre = this->directorio + "/" + DIR_AU + "/" 
+		+ ARCHIVO_REG_ARCHIVOS + "~";
+
+	// Eliminamos posible registro temporal basura
+	remove(regTmpNombre.c_str());
+
+	// Abrimos el registro original y el registro temporal
+	registro.open(regNombre.c_str(), std::ios::in);
+	registroTmp.open(regTmpNombre.c_str(), std::ios::app);
+
+	// Verificamos si la apertura fue exitosa
+	if(!registro.is_open() || !registroTmp.is_open()) 
+		throw "ERROR: El registro no pudo ser abierto.";
+
+	// Relevamos los nombres de archivos ubicados actualmente en el directorio
+	Lista< std::string > ld;
+	this->obtenerArchivosDeDirectorio(&ld);
+
+	// Variables auxiliares de procesamiento
+	std::string reg_archivoNombre, reg_archivoHash;
+	std::string buffer;
+	bool eof = false;
+
+	// Tomamos el primer registro
+	if(!std::getline(registro, buffer)) eof = true;
+	this->separarNombreYHash(buffer, reg_archivoNombre, reg_archivoHash);
+
+	// Iteramos sobre los nombres de archivos existentes en el directorio
+	for(size_t i = 0; i < ld.tamanio(); i++) {
+		// Caso en el que no hay mas registros y se han agregado archivos
+		if(eof) {
+			huboCambio = true;
+			continue;
+		}
+
+		// Caso en que se han eliminado archivos
+		while(ld[i] > reg_archivoNombre && !eof) {
+			// Tomamos el registro siguiente
+			buffer.clear();
+			if(!std::getline(registro, buffer)) eof = true;
+			this->separarNombreYHash(buffer, reg_archivoNombre, 
+				reg_archivoHash);
+
+			huboCambio = true;
+		}
+
+		// Caso en el que el archivo se mantiene existente
+		if(ld[i] == reg_archivoNombre) {
+			// Corroboramos si ha sido modificado
+			std::string hash_aux;
+			this->obtenerHash(reg_archivoNombre, hash_aux);
+			int cantBloques_aux = this->obtenerCantBloques(reg_archivoNombre);
+			Lista<int> listaDiferencias;
+
+			// Caso en que el archivo ha sido modificado
+			if(this->obtenerDiferencias(reg_archivoHash, 
+				hash_aux, cantBloques_aux, &listaDiferencias)) {
+				
+				// Actualizamos el hash del archivo
+				registroTmp << reg_archivoNombre << DELIMITADOR << 
+					hash_aux << std::endl;
+
+				huboCambio = true;
+			}
+			// Caso en que no ha sido modificado
+			else {
+				registroTmp << reg_archivoNombre << DELIMITADOR 
+					<< hash_aux << std::endl;
+			}
+
+			// Tomamos el registro siguiente
+			buffer.clear();
+			if(!std::getline(registro, buffer)) eof = true;
+			this->separarNombreYHash(buffer, reg_archivoNombre, 
+				reg_archivoHash);
+		}
+		// Caso en el que se han agregado nuevos archivos
+		else if(ld[i] < reg_archivoNombre || eof) {
+			huboCambio = true;
+		}
+	}
+
+	// Registros pertenecientes a archivos eliminados
+	while(!eof) {
+		// Tomamos el registro siguiente
+		buffer.clear();
+		if(!std::getline(registro, buffer)) eof = true;
+		this->separarNombreYHash(buffer, reg_archivoNombre,	reg_archivoHash);
+
+		huboCambio = true;
+	}
+
+
+	// Cerramos archivos
+	registro.close();
+	registroTmp.close();
+
+	// Eliminamos el registro original y convertimos el temporal en el oficial
+	remove(regNombre.c_str());
+	rename(regTmpNombre.c_str(), regNombre.c_str());
+
+	return huboCambio;
 }
 
 

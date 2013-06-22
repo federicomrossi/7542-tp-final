@@ -120,7 +120,7 @@ void Sincronizador::run() {
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Lista de archivos enviada.";
-			this->logger->emitirLog(e);
+			this->logger->emitirLog(ee);
 		}
 		// Caso en que un cliente solicita bloques de un archivo
 		else if(instruccion == C_FILE_PARTS_REQUEST) {
@@ -181,7 +181,7 @@ void Sincronizador::run() {
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Partes de archivo enviadas.";
-			this->logger->emitirLog(e);
+			this->logger->emitirLog(ee);
 		}
 		// Caso en que un cliente solicita un archivo
 		else if(instruccion == C_FILE_REQUEST) {
@@ -214,7 +214,7 @@ void Sincronizador::run() {
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Archivo enviado.";
-			this->logger->emitirLog(e);
+			this->logger->emitirLog(ee);
 		}
 		else if (instruccion == COMMON_SEND_FILE) {
 			// Mensaje de log
@@ -240,8 +240,8 @@ void Sincronizador::run() {
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Se realizó notificación a ";
-			e += "clientes de la existencia de un nuevo archivo.";
-			this->logger->emitirLog(e);
+			ee += "clientes de la existencia de un nuevo archivo.";
+			this->logger->emitirLog(ee);
 		}
 		// Caso en que se recibe la notificación de la modificación de archivo
 		else if (instruccion == C_MODIFY_FILE) {
@@ -313,8 +313,8 @@ void Sincronizador::run() {
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Se realizó notificación a ";
-			e += "clientes de la modificación de un archivo.";
-			this->logger->emitirLog(e);
+			ee += "clientes de la modificación de un archivo.";
+			this->logger->emitirLog(ee);
 		}
 		// Caso en que se recibe la notificación de la eliminación de archivo
 		else if (instruccion == COMMON_DELETE_FILE) {
@@ -341,8 +341,8 @@ void Sincronizador::run() {
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Envío de orden de eliminación";
-			e += "de un archivo a clientes.";
-			this->logger->emitirLog(e);
+			ee += "de un archivo a clientes.";
+			this->logger->emitirLog(ee);
 		}
 	}
 }
