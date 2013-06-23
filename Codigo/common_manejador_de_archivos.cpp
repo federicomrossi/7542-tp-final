@@ -149,25 +149,26 @@ void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo,
 	std::string ruta = this->directorio + "/" + nombreArchivo;
 
 	// Intenta abrir el archivo 
-	archivo.open(ruta.c_str(), std::ios_base::out | std::ios_base::app);
-
-	if (!archivo.is_open()) {  // El archivo no existe
-		archivo.clear();
-
-		//crea el archivo
-		archivo.open(nombreArchivo.c_str(), std::fstream::out);
+	archivo.open(ruta.c_str(), std::ios_base::in);
+	
+	// Si abre, se elimina
+	if (archivo.is_open()) {
+		// Se cierra
 		archivo.close();
 
-		// Vuelve a abrir el archivo
-		archivo.open(nombreArchivo.c_str(), std::ios_base::out | std::ios_base::app);
+		// Se elimina
+		remove(ruta.c_str());
+	}
 		
-		// No se pudo crear el archivo
-		if (!archivo.is_open()) {
-			// Mensaje de log
-			this->logger->emitirLog("ERROR: Archivo nuevo " + nombreArchivo + 
-				" no pudo ser creado.");
-			throw "ERROR: Archivo nuevo no pudo ser creado.";
-		}
+	// Se crea
+	archivo.open(ruta.c_str(), std::ios_base::out | std::ios_base::app);
+	
+	// No se pudo crear el archivo
+	if (!archivo.is_open()) {
+		// Mensaje de log
+		this->logger->emitirLog("ERROR: Archivo nuevo " + nombreArchivo + 
+			" no pudo ser creado.");
+		throw "ERROR: Archivo nuevo no pudo ser creado.";
 	}
 
 	// Se convierte el archivo de hexa a char nuevamente
