@@ -41,8 +41,7 @@ void Receptor::especificarPuerto(int puerto) {
 void Receptor::especificarTiempo(int timer){
 	this->timer = timer;
 }
-
-
+//no hayy deja de buscar recibir xq no hay pera q lo agarro de un lugar q creo q esta hecho...
 // Realiza la conexión inicial con el servidor.
 // PRE: 'usuario' y 'clave' son el nombre de usuario y contraseña con el 
 // que se desea conectar al servidor. Debe haberse especificado el nombre 
@@ -138,6 +137,7 @@ void Receptor::run() {
 		instruccion.clear();
 		args.clear();
 		r = comunicador.recibir(mensaje);
+		if (r != -1 ) {
 		std::cout << "salida del recv "<< r <<std::endl;	
 		Parser::parserInstruccion(mensaje, instruccion, args);
 		std::cout << "imprimo argumentos del mensaje "<< args <<std::endl;
@@ -145,6 +145,7 @@ void Receptor::run() {
 		this->valores = aux;
 		std::cout<< "Receptor actualizando valores  "<< mensaje <<std::endl;
 		mensaje.clear();
+		}
 		this->sleep(this->timer);
 	}
 	this->estadoConexion = false;
@@ -161,9 +162,18 @@ void Receptor::enviarMensaje(std::string& mensaje) {
 	// Creamos el comunicador para enviar mensajes
 	Comunicador comunicador(this->socket);
 
-	// Enviamos el mensaje
 	comunicador.emitir(mensaje);
+	//el comunicador no tiene un recibir? sisi eso si y bue instanciemos un comunicador y pasaemosle el socket del receptor y ala verga?¿
 }
+int Receptor::recibirMensaje(std::string& mensaje){
+	// Creamos el comunicador para recibir mensajes
+	this->stop();
+	Comunicador comunicador(this->socket);
+
+	int ret = comunicador.recibir(mensaje);
+	this->start();
+	return ret; //asi podes usar el recibirmensaje sin preocparte por el otro hilo :D re bien :D;Dy bueno ahora falta el GET en el server 
+} // nos va a mandar USER-LIST Y LA FRUTA ESO ES BUENO O MALO Xd? AJJAJAJAJ no bien bien
 
 
 // Se desconecta del servidor
@@ -187,7 +197,7 @@ void Receptor::desconectar() {
 /*
  * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
- 
+ // 
 
 // Inicia sesion con Admin existente
 int Receptor::iniciarSesion(std::string usuario, std::string clave) {
@@ -231,3 +241,4 @@ Lista <std::string> Receptor::getValores() {
 	return destino;
 
 }
+

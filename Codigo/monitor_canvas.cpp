@@ -2,6 +2,11 @@
 #include <iostream>
 #include "monitor_vista.h"
 #include "monitor_vista_linea.h"
+
+#define B 1
+#define KB 1024
+#define MB 1048576
+
 Canvas::Canvas() {
 }
 
@@ -15,21 +20,32 @@ void Canvas::agregarVista(Vista* v) {
 }
 
 void Canvas::run() {
-	//esto se ejecuta cuando se le da correr al canvas, ya en otro hilo, entonces aca,
-	
+//probalo a ver xD
+	int escalaActual = escalaRequerida(monitor->getBytesOcupados());
+	VistaLinea* primera = new VistaLinea( 500-10, monitor->getBytesOcupados() , 500, monitor->getBytesOcupados()); 
+	primera->escala = escalaActual;
+	this->agregarVista(primera);
 	while (estado){
-		
-			if (vistas.size() > 120) {
-				//vistas.pop_front();
+			//si se llena el grafico, borro el primero
+			if (vistas.size() > 50) {
 				vistas.pop_front();
 			}
-			list<Vista*>::iterator it;
-			for ( it=vistas.begin() ; it != vistas.end(); it++ ) ((VistaLinea*)(*it))->correrIzquierda(5);
-			VistaLinea* horizontal = new VistaLinea( 500, 400 - monitor->getBytesOcupados()/1024 , 500 - 5, 400 - monitor->getBytesOcupados()/1024); 
-			VistaLinea* vertical = new VistaLinea( 500 - 5, 400 - monitor->getBytesOcupados()/1024 , 500 - 5, 400 );
+			//actualizo la escala actual segun la actual medicion de bytes
+			escalaActual = escalaRequerida(monitor->getBytesOcupados());
 
+			//corro toda la mierda a la izquierda
+			//refresco las lineas actuales a la escala actual
+			list<Vista*>::iterator it;
+			for ( it=vistas.begin() ; it != vistas.end(); it++ ){
+				((VistaLinea*)(*it))->correrIzquierda(10);
+				((VistaLinea*)(*it))->escala = escalaActual; 
+			}
+			
+			//creo la linea para la actual medicion
+			VistaLinea* horizontal = new VistaLinea( 500 - 10, ((VistaLinea*)vistas.back())->yfin , 500, monitor->getBytesOcupados()); 
+			//cargo la linea en el lienzo 
 			this->agregarVista(horizontal);
-			this->agregarVista(vertical); 
+			//rompo la pantalla para que se ejecute el evento "on_draw" de nuevo
 			Glib::RefPtr<Gdk::Window> win = get_window();
 			if (win) {
 				Gdk::Rectangle r(0, 0, get_allocation().get_width(), get_allocation().get_height());
@@ -37,6 +53,16 @@ void Canvas::run() {
 			}
 		sleep(1);
 	}
+
+	// queria ver si se estaba dibujando abajo de tod... vos pensas q tiene q crecer mas para q se vea..si se estuviese mostrando abajo?
+}
+
+int Canvas::escalaRequerida(int bytes) {
+	// en q escala esta imprimiendo ...?¿?¿?¿?¿?¿ nunca guardamos antes de que compiles xD
+	//hasta 100 mb, sale en mb, mas de 100, sale en mb100 mmmmmmmmmmmmmm q esta mal aca a ver
+	if (bytes < KB) return B;
+	if (bytes < MB) return KB;
+	return MB;
 }
 
 

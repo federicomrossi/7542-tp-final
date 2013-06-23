@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <sstream>
+#include "common_parser.h"
 #include "monitor_monitor.h"
 
 
@@ -16,6 +17,10 @@ Monitor::Monitor(Receptor* receptor) {
 	this->clientesConectados = 0;
 	this->receptor = receptor;
 	this->estado = 0;
+}
+
+Receptor* Monitor::getReceptor(){
+	return receptor;
 }
 
 string* Monitor::getBufferLog() {
@@ -59,6 +64,19 @@ string Monitor::getCarpetasActivas() {
 
 int Monitor::getBytesOcupados() {
 	return this->bytesOcupados;
+}
+
+void Monitor::getUsuarios(){
+	string usuarios;
+	string query = "GET-USER-LIST"; // hay q meter la constante que corresponda dsd protocolo.h
+	receptor->enviarMensaje(query);
+	receptor->recibirMensaje(usuarios); // tenemos el mensaje
+	Lista <std::string> aux;
+ 	string instruccion; 
+ 	string args;
+ 	Parser::parserInstruccion(usuarios, instruccion, args);
+	Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
+	this->usuarios = aux;
 }
 
 

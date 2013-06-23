@@ -5,26 +5,31 @@ VistaLinea::VistaLinea(int xini, int yini, int xfin, int yfin) {
 	this->yini = yini;
 	this->xfin = xfin;
 	this->yfin = yfin;
-
+	this->escala = 1;
 }
 
 VistaLinea::~VistaLinea() {}
-
 void VistaLinea::correrIzquierda(int x){
 	xini = xini - x;
 	xfin = xfin - x;
 }
 
 void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation) {
-	//aca es donde dibuja la cosa 
 	
 	cr->save();
+	
+	if (escala == 1048576 && yini < (escala*100) && yfin < (escala*100)) {
 
-	cr->move_to (xini, yini);
-    cr->line_to (xfin, yfin);
-    cr->set_source_rgb(0.8, 0.0, 0.0);
-	cr->set_line_width (1.0);
+	cr->move_to (xini, 512 - ((yini/escala)*10)/2);
+    cr->line_to (xfin, 512 - ((yfin/escala)*10)/2);
+	
+	}else {
 
+	cr->move_to (xini, 512 - (yini/escala)/2);
+    cr->line_to (xfin, 512 - (yfin/escala)/2);
+	}
+    
+    cr->set_line_width (10.0); 
 	cr->restore();  // back to opaque black
 	cr->stroke();
 }

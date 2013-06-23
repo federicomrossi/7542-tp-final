@@ -27,12 +27,13 @@ private:
 	int bytesOcupados;
 	int estado;
 	Receptor* receptor;
+	
 
 protected: 
 	int posLecturaLog;
 
 public:
-
+	Lista<std::string> usuarios;
 	// Constructor
 	Monitor(Receptor* receptor);
 
@@ -52,10 +53,13 @@ public:
 
 	int getBytesOcupados();
 
+	// Pide al servidor la lista de usuarios existentes
+	void getUsuarios();
+	
 	// Retorna si el servidor sigue levantado o no
 	bool getEstadoConexion();
 
-	
+	Receptor* getReceptor();
 	
 	void cambiarIntervaloPolling(unsigned int intervalo);
 

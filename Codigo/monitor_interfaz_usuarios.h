@@ -9,7 +9,7 @@
 
 
 #include "gtkmm.h"
-
+#include "common_lista.h"
 #include "monitor_monitor.h"
 
 
@@ -40,12 +40,13 @@ protected:
 
     
   };
+  
   Gtk::Grid *grid;
   ModelColumns m_Columns;
   Gtk::TreeView tree;
   Glib::RefPtr<Gtk::ListStore> listaUsuarios;
   Glib::RefPtr<Gtk::TreeSelection>  seleccionado;
-	
+  Lista<std::string> usuarios; // 
 
 	// Atributos del modelo
 
@@ -53,8 +54,7 @@ protected:
 	
 	
 public:
-
-	// Constructor
+// Constructor
 	MenuUsuarios(Monitor *monitor);
 
 	// Destructor
@@ -71,7 +71,6 @@ public:
 
 	void on_buttonVolver_clicked();
 	void on_selection_changed(); 
-
 
 };
 

@@ -18,7 +18,7 @@ public:
 	int yini;
 	int xfin;
 	int yfin;
-
+	int escala;
 	VistaLinea(int xini, int yini, int xfin, int yfin);
 	virtual ~VistaLinea();
 	void correrIzquierda(int x);
