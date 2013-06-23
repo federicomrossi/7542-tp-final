@@ -39,12 +39,12 @@ void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& conte
 	mensaje.append(COMMON_DELIMITER);
 	mensaje.append(contenido);
 
-	// Enviamos mensaje al emisor
-	this->emisor->ingresarMensajeDeSalida(mensaje);
-
 	// Mensaje de log
 	this->logger->emitirLog("Se envió archivo '" + nombreArchivo + "' " +
 		"al servidor.");
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -78,13 +78,13 @@ void Sincronizador::modificarArchivo(std::string& nombreArchivo,
 		mensaje.append(bloque.second);
 	}
 
-	// Enviamos mensaje al emisor
-	this->emisor->ingresarMensajeDeSalida(mensaje);
-
 	// Mensaje de log
 	std::string log = "Se enviaron modificaciones hechas sobre el archivo '";
 	log += nombreArchivo + "' al servidor.";
 	this->logger->emitirLog(log);
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -100,12 +100,12 @@ void Sincronizador::eliminarArchivo(std::string& nombreArchivo) {
 	mensaje.append(" ");
 	mensaje.append(nombreArchivo);
 
-	// Enviamos mensaje al emisor
-	this->emisor->ingresarMensajeDeSalida(mensaje);
-
 	// Mensaje de log
 	this->logger->emitirLog("Se envió notificación de eliminar archivo '" +
 		nombreArchivo + "' al servidor");
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -121,12 +121,12 @@ void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 	mensaje.append(" ");
 	mensaje.append(nombreArchivo);
 
-	// Enviamos mensaje al emisor
-	this->emisor->ingresarMensajeDeSalida(mensaje);
-
 	// Mensaje de log
 	this->logger->emitirLog("Se solicitó archivo '" + nombreArchivo + "' " +
 		"al servidor.");
+
+	// Enviamos mensaje al emisor
+	this->emisor->ingresarMensajeDeSalida(mensaje);
 }
 
 
@@ -150,13 +150,14 @@ void Sincronizador::solicitarBloquesModificados(std::string& nombreArchivo,
 		mensaje.append(Convertir::itos(bloquesASolicitar[i]));
 	}
 
+	// Mensaje de log
+	this->logger->emitirLog("Se solicitaron partes del archivo '" +
+		nombreArchivo + "' al servidor");
+
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
 
 	//DEBUG
 	std::cout << "Solicito archivo modificado" << std::endl;
 	//END DEBUG
-	// Mensaje de log
-	this->logger->emitirLog("Se solicitaron partes del archivo '" +
-		nombreArchivo + "' al servidor");
 }

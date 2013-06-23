@@ -1,0 +1,16 @@
+Sat Jun 22 23:40:15 2013 Iniciando servidor AU...
+Sat Jun 22 23:40:15 2013 Se ha iniciado el servidor.
+Sat Jun 22 23:40:31 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Sat Jun 22 23:40:31 2013 LOGIN: Esperando datos de login del cliente...
+Sat Jun 22 23:40:31 2013 LOGIN: Usuario 'belu' ha iniciado sesión.
+Sat Jun 22 23:40:31 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Sat Jun 22 23:40:47 2013 SINCRONIZADOR: Lista de archivos enviada.
+Sat Jun 22 23:41:14 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Sat Jun 22 23:41:27 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Sat Jun 22 23:42:33 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Sat Jun 22 23:42:33 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Sat Jun 22 23:42:38 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Sat Jun 22 23:42:38 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Sat Jun 22 23:50:05 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Sat Jun 22 23:50:05 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Sun Jun 23 00:02:51 2013 Se ha detenido el servidor.

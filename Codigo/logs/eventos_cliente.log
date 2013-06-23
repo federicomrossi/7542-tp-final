@@ -1,0 +1,30 @@
+Sat Jun 22 23:40:31 2013 Conectando con 127.0.0.1 en el puerto 8080
+Sat Jun 22 23:40:31 2013 Conexión establecida con servidor.
+Sat Jun 22 23:40:31 2013 Emitiendo solicitud de LOGIN...
+Sat Jun 22 23:40:31 2013 Inicio de sesión exitoso con usuario 'belu'
+Sat Jun 22 23:40:31 2013 Actualizando directorio...
+Sat Jun 22 23:40:31 2013 Solicitando lista de archivos del servidor...
+Sat Jun 22 23:40:51 2013 Se recibió lista de archivos del servidor...
+Sat Jun 22 23:40:51 2013 Procesando lista de archivos...
+Sat Jun 22 23:41:14 2013 Se solicitaron archivos y partes faltantes.
+Sat Jun 22 23:41:28 2013 Se recibieron archivos y partes faltantes.
+Sat Jun 22 23:41:44 2013 Actualizando registro de archivos locales...
+Sat Jun 22 23:41:51 2013 Finalizada la actualización de archivos.
+Sat Jun 22 23:42:33 2013 INSPECTOR: Se detectaron cambios.
+Sat Jun 22 23:42:33 2013 Se enviaron modificaciones hechas sobre el archivo 'a6' al servidor.
+Sat Jun 22 23:42:33 2013 NOTIFICACIÓN: Archivo 'a6' ha sido modificado.
+Sat Jun 22 23:42:33 2013 INSPECTOR: Archivo 'a6' fue modificado.
+Sat Jun 22 23:42:33 2013 INSPECTOR: Inspeccionando archivo 'a6' en directorio local.
+Sat Jun 22 23:42:38 2013 INSPECTOR: Se detectaron cambios.
+Sat Jun 22 23:42:38 2013 Se envió notificación de eliminar archivo 'a6' al servidor
+Sat Jun 22 23:42:38 2013 INSPECTOR: Archivo 'a6' fue eliminado.
+Sat Jun 22 23:42:38 2013 NOTIFICACIÓN: Archivo 'a6' ha sido eliminado.
+Sat Jun 22 23:42:38 2013 Se eliminó el archivo 'a6'.
+Sat Jun 22 23:42:38 2013 Se actualizó el registro de archivos.
+---------Sat Jun 22 23:50:05 2013 INSPECTOR: Se detectaron cambios.
+Sat Jun 22 23:50:05 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
+Sat Jun 22 23:50:05 2013 Se eliminó el archivo 'a10'.
+Sat Jun 22 23:50:05 2013 Se actualizó el registro de archivos.
+Sat Jun 22 23:50:05 2013 Se envió notificación de eliminar archivo 'a10' al servidor
+Sat Jun 22 23:50:05 2013 INSPECTOR: Archivo 'a10' fue eliminado.
+Sun Jun 23 00:02:51 2013 RECEPTOR: Se desconectó el servidor.

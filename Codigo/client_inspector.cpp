@@ -90,16 +90,16 @@ void Inspector::run() {
 				std::string contenido;
 				contenido = this->manejadorDeArchivos->obtenerContenido(nuevo);
 
+				// Mensaje de log
+				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
+					nuevo + "'");
+
 				// Enviamos al sincronizador
 				this->sincronizador->enviarArchivo(nuevo, contenido);
 				
 				// DEBUG
 				std::cout << "Nuevo: " << nuevo << std::endl;
 				// END DEBUG
-
-				// Mensaje de log
-				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
-					nuevo + "'");
 			}
 
 			while(!modificados.vacia()) {
@@ -123,6 +123,10 @@ void Inspector::run() {
 					bloques.insertarUltimo(std::make_pair(bloque, contenido));
 				}
 
+				// Mensaje de log
+				this->logger->emitirLog("INSPECTOR: Archivo '" + mod.first 
+					+ "' fue modificado.");
+
 				// Enviamos modificaciones del archivo al sincronizador
 				this->sincronizador->modificarArchivo(mod.first, 
 					this->manejadorDeArchivos->obtenerCantBytes(mod.first),
@@ -131,15 +135,15 @@ void Inspector::run() {
 				// DEBUG
 				std::cout << "Modificado: " << mod.first << std::endl;
 				// END DEBUG
-
-				// Mensaje de log
-				this->logger->emitirLog("INSPECTOR: Archivo '" + mod.first 
-					+ "' fue modificado.");
 			}
 
 			while(!eliminados.vacia()) {
 				// Tomamos eliminado
 				std::string elim = eliminados.pop_bloqueante();
+
+				// Mensaje de log
+				this->logger->emitirLog("INSPECTOR: Archivo '" + elim 
+					+ "' fue eliminado.");
 
 				// Enviamos a sincronizador
 				this->sincronizador->eliminarArchivo(elim);
@@ -147,13 +151,7 @@ void Inspector::run() {
 				// DEBUG
 				std::cout << "Eliminado: " << elim << std::endl;
 				// END DEBUG
-
-				// Mensaje de log
-				this->logger->emitirLog("INSPECTOR: Archivo '" + elim 
-					+ "' fue eliminado.");
 			}
-
-			// END DEBUG
 		}
 		// DEBUG
 		else {
