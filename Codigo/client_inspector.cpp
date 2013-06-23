@@ -228,8 +228,12 @@ void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo) {
 	if(this->manejadorDeArchivos->existeArchivoEnRegitro(nombreArchivo))
 		return;
 
+	Lista< std::string > archivosDir;
+	this->manejadorDeArchivos->obtenerArchivosDeDirectorio(&archivosDir);
+	
 	// Si no existe, lo solicitamos al servidor
-	this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
+	if(!archivosDir.buscar(nombreArchivo))
+		this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
 }
 
 

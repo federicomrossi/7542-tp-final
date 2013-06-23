@@ -1,249 +1,82 @@
-Sat Jun 22 23:40:31 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sat Jun 22 23:40:31 2013 Conexión establecida con servidor.
-Sat Jun 22 23:40:31 2013 Emitiendo solicitud de LOGIN...
-Sat Jun 22 23:40:31 2013 Inicio de sesión exitoso con usuario 'belu'
-Sat Jun 22 23:40:31 2013 Actualizando directorio...
-Sat Jun 22 23:40:31 2013 Solicitando lista de archivos del servidor...
-Sat Jun 22 23:40:51 2013 Se recibió lista de archivos del servidor...
-Sat Jun 22 23:40:51 2013 Procesando lista de archivos...
-Sat Jun 22 23:41:14 2013 Se solicitaron archivos y partes faltantes.
-Sat Jun 22 23:41:28 2013 Se recibieron archivos y partes faltantes.
-Sat Jun 22 23:41:44 2013 Actualizando registro de archivos locales...
-Sat Jun 22 23:41:51 2013 Finalizada la actualización de archivos.
-Sat Jun 22 23:42:33 2013 INSPECTOR: Se detectaron cambios.
-Sat Jun 22 23:42:33 2013 Se enviaron modificaciones hechas sobre el archivo 'a6' al servidor.
-Sat Jun 22 23:42:33 2013 NOTIFICACIÓN: Archivo 'a6' ha sido modificado.
-Sat Jun 22 23:42:33 2013 INSPECTOR: Archivo 'a6' fue modificado.
-Sat Jun 22 23:42:33 2013 INSPECTOR: Inspeccionando archivo 'a6' en directorio local.
-Sat Jun 22 23:42:38 2013 INSPECTOR: Se detectaron cambios.
-Sat Jun 22 23:42:38 2013 Se envió notificación de eliminar archivo 'a6' al servidor
-Sat Jun 22 23:42:38 2013 INSPECTOR: Archivo 'a6' fue eliminado.
-Sat Jun 22 23:42:38 2013 NOTIFICACIÓN: Archivo 'a6' ha sido eliminado.
-Sat Jun 22 23:42:38 2013 Se eliminó el archivo 'a6'.
-Sat Jun 22 23:42:38 2013 Se actualizó el registro de archivos.
----------Sat Jun 22 23:50:05 2013 INSPECTOR: Se detectaron cambios.
-Sat Jun 22 23:50:05 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sat Jun 22 23:50:05 2013 Se eliminó el archivo 'a10'.
-Sat Jun 22 23:50:05 2013 Se actualizó el registro de archivos.
-Sat Jun 22 23:50:05 2013 Se envió notificación de eliminar archivo 'a10' al servidor
-Sat Jun 22 23:50:05 2013 INSPECTOR: Archivo 'a10' fue eliminado.
-Sun Jun 23 00:02:51 2013 RECEPTOR: Se desconectó el servidor.
-Sun Jun 23 00:59:10 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 00:59:10 2013 Conexión establecida con servidor.
-Sun Jun 23 00:59:10 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 00:59:10 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 00:59:10 2013 Actualizando directorio...
-Sun Jun 23 00:59:10 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 00:59:10 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 00:59:10 2013 Procesando lista de archivos...
-Sun Jun 23 00:59:10 2013 Actualizando registro de archivos locales...
-Sun Jun 23 00:59:10 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:04:39 2013 RECEPTOR: Se desconectó el servidor.
-Sun Jun 23 01:05:02 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 01:05:02 2013 Conexión establecida con servidor.
-Sun Jun 23 01:05:02 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 01:05:02 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 01:05:02 2013 Actualizando directorio...
-Sun Jun 23 01:05:02 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 01:05:02 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 01:05:02 2013 Procesando lista de archivos...
-Sun Jun 23 01:05:02 2013 Actualizando registro de archivos locales...
-Sun Jun 23 01:05:02 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:13:24 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 01:13:24 2013 Conexión establecida con servidor.
-Sun Jun 23 01:13:24 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 01:13:24 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 01:13:24 2013 Actualizando directorio...
-Sun Jun 23 01:13:24 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 01:13:24 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 01:13:24 2013 Procesando lista de archivos...
-Sun Jun 23 01:13:24 2013 Actualizando registro de archivos locales...
-Sun Jun 23 01:13:24 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:14:50 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:14:50 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 01:14:50 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 01:14:50 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 01:14:50 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 01:16:54 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:16:55 2013 INSPECTOR: Archivo nuevo 'a7'
-Sun Jun 23 01:16:55 2013 Se envió archivo 'a7' al servidor.
-Sun Jun 23 01:16:57 2013 NOTIFIACIÓN: Nuevo archivo 'a7'.
-Sun Jun 23 01:16:57 2013 INSPECTOR: Inspeccionando existencia de archivo 'a7' en directorio local.
-Sun Jun 23 01:18:16 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:18:16 2013 INSPECTOR: Archivo 'a10' fue eliminado.
-Sun Jun 23 01:18:16 2013 Se envió notificación de eliminar archivo 'a10' al servidor
-Sun Jun 23 01:18:16 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 01:18:16 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 01:18:16 2013 Se actualizó el registro de archivos.
-Sun Jun 23 01:19:16 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:19:16 2013 INSPECTOR: Archivo 'a7' fue modificado.
-Sun Jun 23 01:19:16 2013 Se enviaron modificaciones hechas sobre el archivo 'a7' al servidor.
-Sun Jun 23 01:19:16 2013 NOTIFICACIÓN: Archivo 'a7' ha sido modificado.
-Sun Jun 23 01:19:16 2013 INSPECTOR: Inspeccionando archivo 'a7' en directorio local.
-Sun Jun 23 01:19:21 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:19:21 2013 INSPECTOR: Archivo 'a7' fue eliminado.
-Sun Jun 23 01:19:21 2013 Se envió notificación de eliminar archivo 'a7' al servidor
-Sun Jun 23 01:19:21 2013 NOTIFICACIÓN: Archivo 'a7' ha sido eliminado.
-Sun Jun 23 01:19:21 2013 Se eliminó el archivo 'a7'.
-Sun Jun 23 01:19:21 2013 Se actualizó el registro de archivos.
-Sun Jun 23 01:22:44 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 01:22:44 2013 Conexión establecida con servidor.
-Sun Jun 23 01:22:44 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 01:22:44 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 01:22:44 2013 Actualizando directorio...
-Sun Jun 23 01:22:44 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 01:22:44 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 01:22:44 2013 Procesando lista de archivos...
-Sun Jun 23 01:22:44 2013 Actualizando registro de archivos locales...
-Sun Jun 23 01:22:44 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:22:49 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:22:49 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 01:22:49 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 01:22:49 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 01:22:49 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 01:23:14 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:23:14 2013 INSPECTOR: Archivo 'a10' fue eliminado.
-Sun Jun 23 01:23:14 2013 Se envió notificación de eliminar archivo 'a10' al servidor
-Sun Jun 23 01:23:14 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 01:23:14 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 01:23:14 2013 Se actualizó el registro de archivos.
-Sun Jun 23 01:23:38 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 01:23:38 2013 Conexión establecida con servidor.
-Sun Jun 23 01:23:38 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 01:23:38 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 01:23:38 2013 Actualizando directorio...
-Sun Jun 23 01:23:38 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 01:23:38 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 01:23:38 2013 Procesando lista de archivos...
-Sun Jun 23 01:23:38 2013 Actualizando registro de archivos locales...
-Sun Jun 23 01:23:38 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:23:51 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:23:53 2013 INSPECTOR: Archivo nuevo 'a7'
-Sun Jun 23 01:23:53 2013 Se envió archivo 'a7' al servidor.
-Sun Jun 23 01:23:55 2013 NOTIFIACIÓN: Nuevo archivo 'a7'.
-Sun Jun 23 01:23:55 2013 INSPECTOR: Inspeccionando existencia de archivo 'a7' en directorio local.
-Sun Jun 23 01:24:38 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:24:38 2013 INSPECTOR: Archivo 'a7' fue modificado.
-Sun Jun 23 01:24:38 2013 Se enviaron modificaciones hechas sobre el archivo 'a7' al servidor.
-Sun Jun 23 01:24:38 2013 NOTIFICACIÓN: Archivo 'a7' ha sido modificado.
-Sun Jun 23 01:24:38 2013 INSPECTOR: Inspeccionando archivo 'a7' en directorio local.
-Sun Jun 23 01:24:43 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:24:43 2013 INSPECTOR: Archivo 'a7' fue eliminado.
-Sun Jun 23 01:24:43 2013 Se envió notificación de eliminar archivo 'a7' al servidor
-Sun Jun 23 01:24:43 2013 NOTIFICACIÓN: Archivo 'a7' ha sido eliminado.
-Sun Jun 23 01:24:43 2013 Se eliminó el archivo 'a7'.
-Sun Jun 23 01:24:43 2013 Se actualizó el registro de archivos.
-Sun Jun 23 01:40:21 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 01:40:21 2013 Conexión establecida con servidor.
-Sun Jun 23 01:40:21 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 01:40:21 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 01:40:21 2013 Actualizando directorio...
-Sun Jun 23 01:40:21 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 01:40:21 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 01:40:21 2013 Procesando lista de archivos...
-Sun Jun 23 01:40:21 2013 Se solicitaron archivos y partes faltantes.
-Sun Jun 23 01:40:25 2013 Se recibieron archivos y partes faltantes.
-Sun Jun 23 01:40:25 2013 Actualizando registro de archivos locales...
-Sun Jun 23 01:40:25 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:41:06 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 01:41:06 2013 Conexión establecida con servidor.
-Sun Jun 23 01:41:06 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 01:41:06 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 01:41:06 2013 Actualizando directorio...
-Sun Jun 23 01:41:06 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 01:41:06 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 01:41:06 2013 Procesando lista de archivos...
-Sun Jun 23 01:41:06 2013 Actualizando registro de archivos locales...
-Sun Jun 23 01:41:06 2013 Finalizada la actualización de archivos.
-Sun Jun 23 01:41:11 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:41:11 2013 INSPECTOR: Archivo nuevo 'a2'
-Sun Jun 23 01:41:11 2013 Se envió archivo 'a2' al servidor.
-Sun Jun 23 01:41:11 2013 NOTIFIACIÓN: Nuevo archivo 'a2'.
-Sun Jun 23 01:41:11 2013 INSPECTOR: Inspeccionando existencia de archivo 'a2' en directorio local.
-Sun Jun 23 01:42:10 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:42:13 2013 INSPECTOR: Archivo nuevo '00 - no me simpatisas - kiko444.mp3'
-Sun Jun 23 01:42:13 2013 Se envió archivo '00 - no me simpatisas - kiko444.mp3' al servidor.
-Sun Jun 23 01:42:17 2013 NOTIFIACIÓN: Nuevo archivo '00 - no me simpatisas - kiko444.mp3'.
-Sun Jun 23 01:42:17 2013 INSPECTOR: Inspeccionando existencia de archivo '00 - no me simpatisas - kiko444.mp3' en directorio local.
-Sun Jun 23 01:47:44 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:47:48 2013 INSPECTOR: Archivo nuevo '00 - no me simpatisas, - kiko444.mp3'
-Sun Jun 23 01:47:48 2013 Se envió archivo '00 - no me simpatisas, - kiko444.mp3' al servidor.
-Sun Jun 23 01:47:48 2013 INSPECTOR: Archivo '00 - no me simpatisas - kiko444.mp3' fue eliminado.
-Sun Jun 23 01:47:48 2013 Se envió notificación de eliminar archivo '00 - no me simpatisas - kiko444.mp3' al servidor
-Sun Jun 23 01:47:50 2013 NOTIFIACIÓN: Nuevo archivo '00 - no me simpatisas'.
-Sun Jun 23 01:47:50 2013 INSPECTOR: Inspeccionando existencia de archivo '00 - no me simpatisas' en directorio local.
-Sun Jun 23 01:47:50 2013 Se solicitó archivo '00 - no me simpatisas' al servidor.
-Sun Jun 23 01:47:50 2013 NOTIFICACIÓN: Archivo '00 - no me simpatisas - kiko444.mp3' ha sido eliminado.
-Sun Jun 23 01:47:50 2013 Se eliminó el archivo '00 - no me simpatisas - kiko444.mp3'.
-Sun Jun 23 01:47:50 2013 Se actualizó el registro de archivos.
-Sun Jun 23 01:47:50 2013 NOTIFICACIÓN: Arrivo de archivo '00 - no me simpatisas'.
-Sun Jun 23 01:47:50 2013 Se agregó archivo nuevo '00 - no me simpatisas'
-Sun Jun 23 01:47:58 2013 Se actualizó el registro de archivos.
-Sun Jun 23 01:47:58 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 01:47:58 2013 INSPECTOR: Archivo nuevo '00 - no me simpatisas'
-Sun Jun 23 01:47:58 2013 Se envió archivo '00 - no me simpatisas' al servidor.
-Sun Jun 23 01:47:58 2013 NOTIFIACIÓN: Nuevo archivo '00 - no me simpatisas'.
-Sun Jun 23 01:47:58 2013 INSPECTOR: Inspeccionando existencia de archivo '00 - no me simpatisas' en directorio local.
-Sun Jun 23 02:18:29 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 02:18:29 2013 Conexión establecida con servidor.
-Sun Jun 23 02:18:29 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 02:18:30 2013 Se ha cerrado la conexión con el servidor.
-Sun Jun 23 02:26:08 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 02:26:08 2013 Conexión establecida con servidor.
-Sun Jun 23 02:26:08 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 02:26:08 2013 Se ha cerrado la conexión con el servidor.
-Sun Jun 23 02:35:05 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 02:35:05 2013 Conexión establecida con servidor.
-Sun Jun 23 02:35:05 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 02:35:05 2013 Se ha cerrado la conexión con el servidor.
-Sun Jun 23 02:40:55 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 02:40:55 2013 Conexión establecida con servidor.
-Sun Jun 23 02:40:55 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 02:40:55 2013 Se ha cerrado la conexión con el servidor.
-Sun Jun 23 02:44:20 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 02:44:20 2013 Conexión establecida con servidor.
-Sun Jun 23 02:44:20 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 02:44:20 2013 Se ha cerrado la conexión con el servidor.
-Sun Jun 23 02:53:07 2013 Conectando con 127.0.0.1 en el puerto 8080
-Sun Jun 23 02:53:07 2013 Conexión establecida con servidor.
-Sun Jun 23 02:53:07 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 02:53:07 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 02:53:07 2013 Actualizando directorio...
-Sun Jun 23 02:53:07 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 02:53:07 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 02:53:07 2013 Procesando lista de archivos...
-Sun Jun 23 02:53:07 2013 Se solicitaron archivos y partes faltantes.
-Sun Jun 23 02:53:07 2013 Se recibieron archivos y partes faltantes.
-Sun Jun 23 02:53:07 2013 Actualizando registro de archivos locales...
-Sun Jun 23 02:53:07 2013 Finalizada la actualización de archivos.
-Sun Jun 23 02:53:16 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 02:53:19 2013 INSPECTOR: Archivo nuevo '00 - no me simpatisas - kiko444.mp3'
-Sun Jun 23 02:53:19 2013 Se envió archivo '00 - no me simpatisas - kiko444.mp3' al servidor.
-Sun Jun 23 02:53:22 2013 NOTIFIACIÓN: Nuevo archivo '00 - no me simpatisas - kiko444.mp3'.
-Sun Jun 23 02:53:22 2013 INSPECTOR: Inspeccionando existencia de archivo '00 - no me simpatisas - kiko444.mp3' en directorio local.
-Sun Jun 23 03:04:18 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 03:04:22 2013 INSPECTOR: Archivo nuevo '00 - no me simpatisas, - kiko444.mp3'
-Sun Jun 23 03:04:22 2013 Se envió archivo '00 - no me simpatisas, - kiko444.mp3' al servidor.
-Sun Jun 23 03:04:22 2013 INSPECTOR: Archivo '00 - no me simpatisas - kiko444.mp3' fue eliminado.
-Sun Jun 23 03:04:22 2013 Se envió notificación de eliminar archivo '00 - no me simpatisas - kiko444.mp3' al servidor
-Sun Jun 23 03:04:25 2013 NOTIFIACIÓN: Nuevo archivo '00 - no me simpatisas, - kiko444.mp3'.
-Sun Jun 23 03:04:25 2013 INSPECTOR: Inspeccionando existencia de archivo '00 - no me simpatisas, - kiko444.mp3' en directorio local.
-Sun Jun 23 03:04:25 2013 NOTIFICACIÓN: Archivo '00 - no me simpatisas - kiko444.mp3' ha sido eliminado.
-Sun Jun 23 03:04:25 2013 Se eliminó el archivo '00 - no me simpatisas - kiko444.mp3'.
-Sun Jun 23 03:04:25 2013 Se actualizó el registro de archivos.
-Sun Jun 23 03:15:29 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 03:15:29 2013 INSPECTOR: Archivo '00 - no me simpatisas, - kiko444.mp3' fue modificado.
-Sun Jun 23 03:15:29 2013 Se enviaron modificaciones hechas sobre el archivo '00 - no me simpatisas, - kiko444.mp3' al servidor.
-Sun Jun 23 03:15:29 2013 NOTIFICACIÓN: Archivo '00 - no me simpatisas, - kiko444.mp3' ha sido modificado.
-Sun Jun 23 03:15:29 2013 INSPECTOR: Inspeccionando archivo '00 - no me simpatisas, - kiko444.mp3' en directorio local.
-Sun Jun 23 03:15:38 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 03:15:41 2013 INSPECTOR: Archivo nuevo '!"#$%&()=?¡*[]_:;*~`.mp3'
-Sun Jun 23 03:15:41 2013 Se envió archivo '!"#$%&()=?¡*[]_:;*~`.mp3' al servidor.
-Sun Jun 23 03:15:41 2013 INSPECTOR: Archivo '00 - no me simpatisas, - kiko444.mp3' fue eliminado.
-Sun Jun 23 03:15:41 2013 Se envió notificación de eliminar archivo '00 - no me simpatisas, - kiko444.mp3' al servidor
-Sun Jun 23 03:15:44 2013 NOTIFIACIÓN: Nuevo archivo '!"#$%&()=?¡*[]_:;*~`.mp3'.
-Sun Jun 23 03:15:44 2013 INSPECTOR: Inspeccionando existencia de archivo '!"#$%&()=?¡*[]_:;*~`.mp3' en directorio local.
-Sun Jun 23 03:15:44 2013 NOTIFICACIÓN: Archivo '00 - no me simpatisas, - kiko444.mp3' ha sido eliminado.
-Sun Jun 23 03:15:44 2013 Se eliminó el archivo '00 - no me simpatisas, - kiko444.mp3'.
-Sun Jun 23 03:15:44 2013 Se actualizó el registro de archivos.
-Sun Jun 23 03:16:37 2013 RECEPTOR: Se desconectó el servidor.
+Sun Jun 23 04:32:26 2013 Conectando con 186.58.140.172 en el puerto 8000
+Sun Jun 23 04:32:26 2013 Conexión establecida con servidor.
+Sun Jun 23 04:32:26 2013 Emitiendo solicitud de LOGIN...
+Sun Jun 23 04:32:26 2013 Inicio de sesión exitoso con usuario 'belu'
+Sun Jun 23 04:32:26 2013 Actualizando directorio...
+Sun Jun 23 04:32:26 2013 Solicitando lista de archivos del servidor...
+Sun Jun 23 04:32:26 2013 Se recibió lista de archivos del servidor...
+Sun Jun 23 04:32:26 2013 Procesando lista de archivos...
+Sun Jun 23 04:32:26 2013 Se solicitaron archivos y partes faltantes.
+Sun Jun 23 04:32:26 2013 Se recibieron archivos y partes faltantes.
+Sun Jun 23 04:32:27 2013 Actualizando registro de archivos locales...
+Sun Jun 23 04:32:27 2013 Finalizada la actualización de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Bob Esponja'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Bob Esponja' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Bob Esponja' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Bob Esponja'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Bob Esponja'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Cartas de colores'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Cartas de colores' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Cartas de colores' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Don Rodrigo Diaz de Carreras'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Don Rodrigo Diaz de Carreras' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Don Rodrigo Diaz de Carreras' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Homero Simpson'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Homero Simpson' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Homero Simpson' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Jack Johnson'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Jack Johnson' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Jack Johnson' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Lisa Simpson'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Lisa Simpson' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Lisa Simpson' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'Mastropiero'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'Mastropiero' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'Mastropiero' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFIACIÓN: Nuevo archivo 'No estoy creativa para los nombres'.
+Sun Jun 23 04:33:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'No estoy creativa para los nombres' en directorio local.
+Sun Jun 23 04:33:33 2013 Se solicitó archivo 'No estoy creativa para los nombres' al servidor.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Cartas de colores'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Cartas de colores'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Don Rodrigo Diaz de Carreras'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Don Rodrigo Diaz de Carreras'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Homero Simpson'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Homero Simpson'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Jack Johnson'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Jack Johnson'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Lisa Simpson'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Lisa Simpson'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'Mastropiero'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'Mastropiero'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:33:33 2013 NOTIFICACIÓN: Arrivo de archivo 'No estoy creativa para los nombres'.
+Sun Jun 23 04:33:33 2013 Se agregó archivo nuevo 'No estoy creativa para los nombres'
+Sun Jun 23 04:33:33 2013 Se actualizó el registro de archivos.
+Sun Jun 23 04:36:28 2013 INSPECTOR: Se detectaron cambios.
+Sun Jun 23 04:36:28 2013 INSPECTOR: Archivo nuevo 'a10'
+Sun Jun 23 04:36:28 2013 Se envió archivo 'a10' al servidor.
+Sun Jun 23 04:36:28 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
+Sun Jun 23 04:36:28 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
+Sun Jun 23 04:39:45 2013 RECEPTOR: Se desconectó el servidor.
+Sun Jun 23 04:42:13 2013 Conectando con 186.58.140.172 en el puerto 8000
+Sun Jun 23 04:42:13 2013 Conexión establecida con servidor.
+Sun Jun 23 04:42:13 2013 Emitiendo solicitud de LOGIN...
+Sun Jun 23 04:42:13 2013 Inicio de sesión exitoso con usuario 'belu'
+Sun Jun 23 04:42:13 2013 Actualizando directorio...
+Sun Jun 23 04:42:13 2013 Solicitando lista de archivos del servidor...
+Sun Jun 23 04:42:13 2013 Se recibió lista de archivos del servidor...
+Sun Jun 23 04:42:13 2013 Procesando lista de archivos...
+Sun Jun 23 04:42:13 2013 Actualizando registro de archivos locales...
+Sun Jun 23 04:42:13 2013 Finalizada la actualización de archivos.
+Sun Jun 23 04:44:32 2013 NOTIFIACIÓN: Nuevo archivo 'eventos_cliente.log'.
+Sun Jun 23 04:44:32 2013 INSPECTOR: Inspeccionando existencia de archivo 'eventos_cliente.log' en directorio local.
+Sun Jun 23 04:44:32 2013 Se solicitó archivo 'eventos_cliente.log' al servidor.
+Sun Jun 23 04:44:32 2013 NOTIFICACIÓN: Arrivo de archivo 'eventos_cliente.log'.
+Sun Jun 23 04:44:32 2013 Se agregó archivo nuevo 'eventos_cliente.log'
+Sun Jun 23 04:44:32 2013 Se actualizó el registro de archivos.
