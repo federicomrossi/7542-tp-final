@@ -90,7 +90,7 @@ void Inspector::run() {
 				std::string contenido;
 				contenido = this->manejadorDeArchivos->obtenerContenido(nuevo);
 				std::string hash;
-				this->manejadorDeArchivos->obtenerHash(nuevo, hash)
+				this->manejadorDeArchivos->obtenerHash(nuevo, hash);
 
 				// Mensaje de log
 				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
