@@ -236,11 +236,7 @@ void Sincronizador::run() {
 			respuesta.append(" ");
 			respuesta.append(listaArgumentos[0]);
 			respuesta.append(COMMON_DELIMITER);
-			// Se pide el hash del archivo
-			std::string hash;
-			this->manejadorDeArchivos->obtenerHash(listaArgumentos[0],
-				hash);
-			respuesta.append(hash);
+			respuesta.append(listaArgumentos[2]);
 
 			// Se envia la notificación de nuevo archivo a los clientes
 			this->emisor->ingresarMensajeDeSalida(0, respuesta);
