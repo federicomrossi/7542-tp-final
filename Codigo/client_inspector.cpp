@@ -240,7 +240,11 @@ void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo,
 		this->manejadorDeArchivos->obtenerHash(nombreArchivo, hashArchivoLoc);
 
 		// Si tenemos archivos iguales, retornamos sin solicitar nada
-		if(hashArchivo == hashArchivoLoc) return;
+		if(hashArchivo == hashArchivoLoc) 
+			return;
+		// Sino, se debe pedir
+		else
+			this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
 	}
 
 	// Si no existe o es viejo, lo solicitamos al servidor
