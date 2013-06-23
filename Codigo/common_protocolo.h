@@ -41,9 +41,12 @@ const std::string S_CORRUPT_MESSAGE = "CORRUPT-MESSAGE";
 const std::string S_SERVER_INFO = "SERVER-INFO";
 const std::string S_SERVER_USER_LIST = "SERVER-USER-LIST";
 
+
 // Constates para los identificadores de instrucciones enviadas por el monitor
 const std::string M_SERVER_INFO_REQUEST = "SERVER-INFO-REQUEST";
 const std::string M_SERVER_USER_LIST_REQUEST = "SERVER-USER-LIST-REQUEST";
+const std::string M_SERVER_NEW_USER_INFO = "SERVER-NEW-USER-INFO";
+const std::string M_SERVER_DELETE_USER = "SERVER-DELETE-USER";
 
 // Constantes para los identificadores de instrucciones comunes al servidor
 // y al cliente

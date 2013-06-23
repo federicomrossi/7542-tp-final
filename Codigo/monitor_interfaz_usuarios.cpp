@@ -2,6 +2,7 @@
 #include <string>
 #include "monitor_interfaz_usuarios.h"
 #include "monitor_interfaz_formUsuario.h"
+#include "monitor_interfaz_eliminarUsuario.h"
 #include "common_convertir.h"
 
 #include <iostream>
@@ -39,7 +40,6 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 
  	// Actualizo la lista de usuarios existentes
  	this->monitor->getReceptor()->stop();
- 	std::cout<<"salgo del stop "<<std::endl;
  	this->monitor->getUsuarios();
  	
 
@@ -82,37 +82,43 @@ void MenuUsuarios::on_buttonNuevo_clicked() {
 	FormUsuario ventanaDeEdicion(this->monitor);
 	ventanaDeEdicion.correr();
 	this->main->set_sensitive(true);
-
-	//Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
-	//row[m_Columns.m_col_name] = "Fiona";
-
-
-
-
+	size_t pos = this->monitor->usuarios.tamanio();
+	Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
+	row[m_Columns.m_col_name] = this->monitor->usuarios[pos-1];
 
 }
 
 
 void MenuUsuarios::on_buttonEliminar_clicked() {
 	Gtk::TreeModel::iterator store_iter = this->seleccionado->get_selected();
-	this->listaUsuarios->erase(store_iter);
-        
+	string aBorrar;
+	if(store_iter) {
+		Gtk::TreeModel::Row row = *store_iter;
+  		
+  		aBorrar = row[m_Columns.m_col_name];
+  		
+	}
+
+	FormConfirmacion ventanaConfirmacion(this->monitor, aBorrar);
+	ventanaConfirmacion.correr();
+	this->listaUsuarios->erase(store_iter);    
+	this->monitor->usuarios.eliminar(aBorrar);
 }
 
 
 void MenuUsuarios::on_buttonModificar_clicked() {
-	/*this->main->set_sensitive(false);
-	IConfiguracion ventanaConfiguracion(this->serverConfig,this->monitor->getEstadoConexion());
-	ventanaConfiguracion.correr();
-	this->main->set_sensitive(true);
-	*/
+	
+
+
+
+
 }
 
 void MenuUsuarios::on_buttonVolver_clicked() {
-
+	this->monitor->getReceptor()->start();
 	this->main->hide();
-
 }
+
 void MenuUsuarios::on_selection_changed() {
 
        this->botonEliminar->set_sensitive(
