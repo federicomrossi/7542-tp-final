@@ -30,8 +30,8 @@ namespace {
 	// Constante que define el tamaño de los bloques de archivos en cantidad
 	// de caracteres hexadecimales (ej: si se quiere un tamaño de bloque de
 	// 10 Bytes, se debe insertar el valor 20).
-	const int TAMANIO_BLOQUE = 20;
-	// const int TAMANIO_BLOQUE = 2097152;		// 1Mb por bloque
+	// const int TAMANIO_BLOQUE = 20;
+	const int TAMANIO_BLOQUE = 2097152;		// 1Mb por bloque
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
 	const int TAMANIO_BLOQUE_HASH = 64;

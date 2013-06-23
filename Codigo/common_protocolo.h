@@ -49,7 +49,7 @@ const std::string M_SERVER_INFO_REQUEST = "SERVER-INFO-REQUEST";
 const std::string COMMON_SEND_FILE = "SEND-FILE";
 const std::string COMMON_DELETE_FILE = "DELETE-FILE";
 const std::string COMMON_FILE_PARTS = "FILE-PARTS";
-const std::string COMMON_DELIMITER = ",";
+const std::string COMMON_DELIMITER = "/";
 
 // Constante para caracter de fin de instrucción
 const char FIN_MENSAJE = '\n';

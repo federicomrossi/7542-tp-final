@@ -112,7 +112,7 @@ void Sincronizador::run() {
 			delete(lista);
 
 			// DEBUG
-			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
+			// std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
 			//END DEBUG
 			
 			// Se envia la respuesta al cliente
@@ -173,7 +173,7 @@ void Sincronizador::run() {
 			}
 
 			// DEBUG
-			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
+			// std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
 			//END DEBUG
 
 			// Se envia la respuesta al cliente
@@ -308,7 +308,7 @@ void Sincronizador::run() {
 			this->emisor->ingresarMensajeDeSalida(0, respuesta);
 
 			// DEBUG
-			std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
+			// std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
 			//END DEBUG
 
 			// Mensaje de log

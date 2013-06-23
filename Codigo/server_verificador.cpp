@@ -24,7 +24,6 @@ int Verificador::verificarCliente(std::string &args,
 	std::string usuario, clave;
 	int delim;
 	
-	// Se obtiene usuario y clave correspondiente
 	delim = args.find(COMMON_DELIMITER, 0);
 	usuario = args.substr(0, delim);
 	clave = args.substr(delim + 1, std::string::npos);
@@ -62,7 +61,6 @@ int Verificador::buscarCliente(std::string &usuario, std::string &clave,
 
 	// Busca uno por uno si encuentra al cliente
 	while (getline(*logins, lineaActual)) {
-		std::cout << "Linea de archivo " << lineaActual << std::endl;
 		// Se parsea la linea
 		Parser::dividirCadena(lineaActual, &param, COMMON_DELIMITER[0]);
 		// Se obtienen los datos

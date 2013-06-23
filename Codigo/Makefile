@@ -27,6 +27,15 @@ clean:
 	@ make --no-print-directory -s -f Makefile_monitor clean
 	@ make --no-print-directory -s -f Makefile_client clean
 
+clean_server:
+	@ make --no-print-directory -s -f Makefile_server clean
+
+clean_monitor:
+	@ make --no-print-directory -s -f Makefile_monitor clean
+
+clean_client:
+	@ make --no-print-directory -s -f Makefile_client clean
+
 
 
 # DIRECTIVAS DE EJECUCION
