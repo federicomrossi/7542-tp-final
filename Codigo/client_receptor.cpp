@@ -15,13 +15,16 @@ namespace {
 }
 
 
+
+
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
  * ***************************************************************************/
 
 
 // Constructor
-Receptor::Receptor(Socket *socket) : socket(socket), com(socket) { }
+Receptor::Receptor(Socket *socket, Logger *logger) : socket(socket), 
+	com(socket), logger(logger) { }
 
 
 // Destructor
@@ -63,6 +66,8 @@ void Receptor::run() {
 		// Esperamos recepción de mensaje
 		std::string mensaje;
 		if(this->com.recibir(mensaje) == -1) {
+			// Mensaje de log
+			this->logger->emitirLog("RECEPTOR: Se desconectó el servidor.");
 			
 			// DEBUG
 			std::cout << "SE DESCONECTO EL SERVIDOR" << std::endl;

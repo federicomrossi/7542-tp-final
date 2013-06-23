@@ -26,7 +26,8 @@ namespace {
 
 
 // Constructor
-Emisor::Emisor(Socket *socket) : socket(socket), com(socket) { }
+Emisor::Emisor(Socket *socket, Logger *logger) : socket(socket), 
+	com(socket), logger(logger) { }
 
 
 // Destructor
@@ -73,7 +74,10 @@ void Emisor::run() {
 		if(mensaje == COLA_SALIDA_FIN) return;
 
 		// Enviamos mensaje
-		if(this->com.emitir(mensaje) == -1)
+		if(this->com.emitir(mensaje) == -1) {
+			// Mensaje de log
+			this->logger->emitirLog("ERROR: Emisor no pudo emitir mensaje.");
 			throw "ERROR: No pudo emitirse el mensaje";
+		}
 	}
 }

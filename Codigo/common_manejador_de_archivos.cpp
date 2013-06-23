@@ -50,8 +50,8 @@ namespace {
 
 
 // Constructor
-ManejadorDeArchivos::ManejadorDeArchivos(const std::string& directorio) : 
-	directorio(directorio) { }
+ManejadorDeArchivos::ManejadorDeArchivos(const std::string& directorio, 
+	Logger *logger) : directorio(directorio), logger(logger) { }
 
 
 // Destructor
@@ -84,8 +84,11 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 
 		closedir(dir);
 	} 
-	else 
+	else {
+		// Mensaje de log
+		this->logger->emitirLog("ERROR: No se ha podido abrir el directorio " +this->directorio);
 		throw "ERROR: No se ha podido abrir el directorio.";
+	}
 
 	// Ordenamos la lista de archivos
 	listaArchivos->ordenar();
@@ -158,8 +161,13 @@ void ManejadorDeArchivos::agregarArchivo(const std::string& nombreArchivo,
 		// Vuelve a abrir el archivo
 		archivo.open(nombreArchivo.c_str(), std::ios_base::out | std::ios_base::app);
 		
-		if (!archivo.is_open()) // No se pudo crear el archivo
+		// No se pudo crear el archivo
+		if (!archivo.is_open()) {
+			// Mensaje de log
+			this->logger->emitirLog("ERROR: Archivo nuevo " + nombreArchivo + 
+				" no pudo ser creado.");
 			throw "ERROR: Archivo nuevo no pudo ser creado.";
+		}
 	}
 
 	// Se convierte el archivo de hexa a char nuevamente
@@ -230,8 +238,12 @@ void ManejadorDeArchivos::modificarArchivo(std::string& nombreArchivo,
 		std::ios_base::app);
 
 	// Verificamos si la apertura fue exitosa
-	if(!archivo.is_open() || !archivoTemp.is_open()) 
+	if(!archivo.is_open() || !archivoTemp.is_open()) {
+		// Mensaje de log
+		this->logger->emitirLog("ERROR: El archivo " + nombreArchivo + 
+				" no pudo ser abierto.");	
 		throw "ERROR: El archivo no pudo ser abierto.";
+	}
 
 
 	// Vamos insertando bytes, reemplazando los actualizados hasta

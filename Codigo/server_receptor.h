@@ -13,6 +13,7 @@
 #include "common_cola.h"
 #include "common_mutex.h"
 #include "common_lock.h"
+#include "common_logger.h"
 
 
 
@@ -28,11 +29,12 @@ private:
 	Cola< std::pair < int, std::string > > entrada;			// Cola de entrada
 	Mutex me;												// Mutex de entrada
 	Mutex ms;												// Mutex de salida
+	Logger *logger;											// Logger de eventos
 
 public:
 
 	// Constructor
-	Receptor();
+	Receptor(Logger *logger);
 
 	// Destructor
 	~Receptor();

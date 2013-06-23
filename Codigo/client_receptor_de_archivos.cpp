@@ -10,14 +10,16 @@
 #include "client_receptor_de_archivos.h"
 
 
+
+
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
  * ***************************************************************************/
 
 
 // Constructor
-ReceptorDeArchivos::ReceptorDeArchivos(ManejadorDeArchivos *unManejador) :
-	manejadorDeArchivos(unManejador) { }
+ReceptorDeArchivos::ReceptorDeArchivos(ManejadorDeArchivos *unManejador, 
+	Logger *logger) : manejadorDeArchivos(unManejador), logger(logger) { }
 
 
 // Destructor
@@ -32,11 +34,17 @@ void ReceptorDeArchivos::recibirArchivo(const std::string& nombreArchivo,
 	// Damos la orden de agregar el archivo
 	this->manejadorDeArchivos->agregarArchivo(nombreArchivo, contenido);
 
+	// Mensaje de log
+	this->logger->emitirLog("Se agregó archivo nuevo '" + nombreArchivo + "'");
+
 	// Actualizamos el registro local de archivos
 	Lista< std::string > nuevos;
 	nuevos.insertarUltimo(nombreArchivo);
 
 	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos);
+
+	// Mensaje de log
+	this->logger->emitirLog("Se actualizó el registro de archivos.");
 }
 
 
@@ -45,8 +53,14 @@ void ReceptorDeArchivos::eliminarArchivo(std::string& nombreArchivo) {
 	// Damos la orden de eliminar el archivo
 	this->manejadorDeArchivos->eliminarArchivo(nombreArchivo);
 
+	// Mensaje de log
+	this->logger->emitirLog("Se eliminó el archivo '" + nombreArchivo + "'.");
+
 	// Eliminamos el archivo del registro local
 	this->manejadorDeArchivos->borrarDeRegistroDeArchivos(nombreArchivo);
+
+	// Mensaje de log
+	this->logger->emitirLog("Se actualizó el registro de archivos.");
 }
 
 
@@ -63,9 +77,14 @@ void ReceptorDeArchivos::recibirModificaciones(std::string& nombreArchivo,
 	this->manejadorDeArchivos->modificarArchivo(nombreArchivo, 
 		cantBytesDelArchivo, listaBloquesAReemplazar);
 
+	// Mensaje de log
+	this->logger->emitirLog("Se modificó el archivo '" + nombreArchivo + "'.");
+
 	// Actualizamos el registro local de archivos
 	Lista< std::string > nuevos;
-	nuevos.insertarUltimo(nombreArchivo);
 
 	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos);
+
+	// Mensaje de log
+	this->logger->emitirLog("Se actualizó el registro de archivos.");
 }

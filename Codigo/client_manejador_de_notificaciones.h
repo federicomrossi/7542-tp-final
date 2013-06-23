@@ -10,6 +10,7 @@
 
 #include <string>
 #include "common_thread.h"
+#include "common_logger.h"
 #include "client_receptor.h"
 #include "client_inspector.h"
 #include "client_receptor_de_archivos.h"
@@ -17,6 +18,7 @@
 //DEBUG
 #include <iostream>
 //FIN DEBUG
+
 
 
 
@@ -31,12 +33,13 @@ private:
 	Receptor *receptor;								// Receptor de mensajes
 	Inspector *inspector;							// Inspector
 	ReceptorDeArchivos *receptorDeArchivos;			// Receptor de archivos
+	Logger *logger;									// Logger de eventos
 
 public:
 
 	// Constructor
 	ManejadorDeNotificaciones(Receptor *receptor, Inspector *inspector,
-		ReceptorDeArchivos *receptorDeArchivos);
+		ReceptorDeArchivos *receptorDeArchivos, Logger *logger);
 
 	// Destructor
 	~ManejadorDeNotificaciones();

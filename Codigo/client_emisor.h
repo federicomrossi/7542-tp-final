@@ -12,6 +12,8 @@
 #include "common_thread.h"
 #include "common_socket.h"
 #include "common_comunicador.h"
+#include "common_logger.h"
+
 
 
 
@@ -27,11 +29,12 @@ private:
 	Socket *socket;							// Socket por el que envía datos
 	Cola< std::string > salida;				// Cola de salida
 	Comunicador com;						// Comunicador del emisor
+	Logger *logger;							// Logger de eventos
 
 public:
 
 	// Constructor
-	Emisor(Socket *socket);
+	Emisor(Socket *socket, Logger *logger);
 
 	// Destructor
 	~Emisor();

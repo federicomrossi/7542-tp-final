@@ -22,9 +22,9 @@
 
 // Constructor
 ManejadorDeNotificaciones::ManejadorDeNotificaciones(Receptor *receptor,
-	Inspector *inspector, ReceptorDeArchivos *receptorDeArchivos) :
-	receptor(receptor), inspector(inspector), 
-	receptorDeArchivos(receptorDeArchivos) { }
+	Inspector *inspector, ReceptorDeArchivos *receptorDeArchivos, 
+	Logger *logger) : receptor(receptor), inspector(inspector), 
+	receptorDeArchivos(receptorDeArchivos), logger(logger) { }
 
 
 // Destructor
@@ -49,6 +49,10 @@ void ManejadorDeNotificaciones::run() {
 
 		// Caso en que se notifica la existencia de un nuevo archivo
 		if(instruccion == S_NEW_FILE) {
+			// Mensaje de log
+			this->logger->emitirLog("NOTIFIACIÓN: Nuevo archivo '" +
+				args + "'.");
+
 			// Derivamos al inspector
 			this->inspector->inspeccionarExisteArchivo(args);
 		}
@@ -65,6 +69,10 @@ void ManejadorDeNotificaciones::run() {
 			std::string sCantBytesTotal = listaArgumentos.verPrimero();
 			unsigned int cantBytesTotal = Convertir::stoui(sCantBytesTotal);
 			listaArgumentos.eliminarPrimero();
+
+			// Mensaje de log
+			this->logger->emitirLog("NOTIFICACIÓN: Archivo '" + nombreArchivo
+				+ "' ha sido modificado.");
 			
 			// Lista de bloques a inspeccionar
 			Lista< std::pair< int, std::string > > bloques;
@@ -88,14 +96,18 @@ void ManejadorDeNotificaciones::run() {
 			Lista< std::string > listaArgumentos;
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
+			// Mensaje de log
+			this->logger->emitirLog("NOTIFICACIÓN: Arrivo de archivo '" +
+				listaArgumentos[0] + "'.");
+
 			// Derivamos al receptor de archivos
 			this->receptorDeArchivos->recibirArchivo(listaArgumentos[0],
 				listaArgumentos[1]);
 		}
 		else if(instruccion == COMMON_DELETE_FILE) {
-			// DEBUG
-			std::cout << "NOTIFICACION DE QUE SE BORRO ARCHIVO" << std::endl;
-			// END DEBUG
+			// Mensaje de log
+			this->logger->emitirLog("NOTIFICACIÓN: Archivo '" + args
+				+ "' ha sido eliminado.");
 
 			// Derivamos al receptor de archivos
 			this->receptorDeArchivos->eliminarArchivo(args);
@@ -108,6 +120,11 @@ void ManejadorDeNotificaciones::run() {
 			// Tomamos el nombre de archivo
 			std::string archivoEntrante = listaArgumentos.verPrimero();
 			listaArgumentos.eliminarPrimero();
+
+			// Mensaje de log
+			std::string log = "NOTIFICACIÓN: Arrivo de partes del archivo '";
+			log += archivoEntrante + "'.";
+			this->logger->emitirLog(log);
 
 			// Tomamos la cantidad total de bytes del archivo
 			unsigned int cantTotalBytes;
@@ -137,9 +154,9 @@ void ManejadorDeNotificaciones::run() {
 				cantTotalBytes, listaBloquesAReemplazar);
 		}
 		else if(instruccion == S_NO_SUCH_FILE) {
-			// DEBUG
-			std::cout << args << ": No existe dicho archivo solcitado." << std::endl;
-			// END DEBUG
+			// Mensaje de log
+			this->logger->emitirLog("NOTIFICACIÓN: Archivo '" + args
+				+ "' ya no se encuentra en el servidor.");
 		}
 	}
 }

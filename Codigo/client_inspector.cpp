@@ -27,9 +27,9 @@
 // Constructor
 // PRE: 'intervalo' es el intervalo de inspección en segundos.
 Inspector::Inspector(ManejadorDeArchivos *unManejador, 
-	Sincronizador *sincronizador, unsigned int intervalo) : 
+	Sincronizador *sincronizador, unsigned int intervalo, Logger *logger) : 
 	manejadorDeArchivos(unManejador), sincronizador(sincronizador), 
-	intervalo(intervalo) { }
+	intervalo(intervalo), logger(logger) { }
 
 
 // Destructor
@@ -69,24 +69,20 @@ void Inspector::run() {
 		// Si se detuvo al inspector, salimos
 		if(!this->isActive()) return;
 
-		// // DEBUG
-		// std::string hash_aux;
-		// this->manejadorDeArchivos->obtenerHash("aa", hash_aux);
-		// std::cout << "Hash: " << hash_aux << std::endl;
-		// continue;
-		// // END DEBUG
-
 		// Realizamos la inspección
 		Cola< std::string > nuevos;
 		Cola< std::pair< std::string, Lista< int > > > modificados;
 		Cola< std::string > eliminados;
 
 		if(this->manejadorDeArchivos->actualizarRegistroDeArchivos(&nuevos,
-			&modificados, &eliminados))
-		{
+			&modificados, &eliminados)) {
+			// Mensaje de log
+			this->logger->emitirLog("INSPECTOR: Se detectaron cambios.");
+
 			// DEBUG
 			std::cout << "Inspeccion: hubieron cambios" << std::endl;
 			std::cout.flush();
+			// END
 
 			while(!nuevos.vacia()) {
 				// Tomamos nuevo
@@ -100,6 +96,10 @@ void Inspector::run() {
 				// DEBUG
 				std::cout << "Nuevo: " << nuevo << std::endl;
 				// END DEBUG
+
+				// Mensaje de log
+				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
+					nuevo + "'");
 			}
 
 			while(!modificados.vacia()) {
@@ -131,6 +131,10 @@ void Inspector::run() {
 				// DEBUG
 				std::cout << "Modificado: " << mod.first << std::endl;
 				// END DEBUG
+
+				// Mensaje de log
+				this->logger->emitirLog("INSPECTOR: Archivo '" + mod.first 
+					+ "' fue modificado.");
 			}
 
 			while(!eliminados.vacia()) {
@@ -143,16 +147,21 @@ void Inspector::run() {
 				// DEBUG
 				std::cout << "Eliminado: " << elim << std::endl;
 				// END DEBUG
+
+				// Mensaje de log
+				this->logger->emitirLog("INSPECTOR: Archivo '" + elim 
+					+ "' fue eliminado.");
 			}
 
 			// END DEBUG
 		}
+		// DEBUG
 		else {
-			// DEBUG
+			
 			std::cout << "Inspeccion: no hubieron cambios" << std::endl;
 			std::cout.flush();
-			// END DEBUG
 		}
+		// END DEBUG
 	}
 }
 
@@ -166,6 +175,10 @@ void Inspector::run() {
 // de bloque a verificar.
 void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 		cantBytesTotal, Lista< std::pair< int, std::string > > bloques) {
+	// Mensaje de log
+	this->logger->emitirLog("INSPECTOR: Inspeccionando archivo '" +
+		nombreArchivo + "' en directorio local.");
+
 	// Tomamos bytes actuales de archivo local
 	unsigned int b;
 	b = this->manejadorDeArchivos->obtenerCantBytes(nombreArchivo);
@@ -209,6 +222,10 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 // Inspecciona si existe un archivo en el directorio local. Si no existe
 // se encarga de indicar que debe ser solicitado al servidor.
 void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo) {
+	// Mensaje de log
+	this->logger->emitirLog("INSPECTOR: Inspeccionando existencia de archivo '"
+		+ nombreArchivo + "' en directorio local.");
+
 	// Corroboramos si existe el archivo
 	if(this->manejadorDeArchivos->existeArchivoEnRegitro(nombreArchivo))
 		return;

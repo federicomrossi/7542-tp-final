@@ -18,7 +18,8 @@
 
 
 // Constructor
-Sincronizador::Sincronizador(Emisor *emisor) : emisor(emisor) { }
+Sincronizador::Sincronizador(Emisor *emisor, Logger *logger) : emisor(emisor),
+	logger(logger) { }
 
 
 // Destructor
@@ -40,6 +41,10 @@ void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& conte
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
+
+	// Mensaje de log
+	this->logger->emitirLog("Se envió archivo '" + nombreArchivo + "' " +
+		"al servidor.");
 }
 
 
@@ -75,6 +80,11 @@ void Sincronizador::modificarArchivo(std::string& nombreArchivo,
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
+
+	// Mensaje de log
+	std::string log = "Se enviaron modificaciones hechas sobre el archivo '";
+	log += nombreArchivo + "' al servidor.";
+	this->logger->emitirLog(log);
 }
 
 
@@ -92,6 +102,10 @@ void Sincronizador::eliminarArchivo(std::string& nombreArchivo) {
 
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
+
+	// Mensaje de log
+	this->logger->emitirLog("Se envió notificación de eliminar archivo '" +
+		nombreArchivo + "' al servidor");
 }
 
 
@@ -110,9 +124,9 @@ void Sincronizador::solicitarArchivoNuevo(std::string& nombreArchivo) {
 	// Enviamos mensaje al emisor
 	this->emisor->ingresarMensajeDeSalida(mensaje);
 
-	//DEBUG
-	std::cout << "Solicito archivo nuevo" << std::endl;
-	//END DEBUG
+	// Mensaje de log
+	this->logger->emitirLog("Se solicitó archivo '" + nombreArchivo + "' " +
+		"al servidor.");
 }
 
 
@@ -141,5 +155,8 @@ void Sincronizador::solicitarBloquesModificados(std::string& nombreArchivo,
 
 	//DEBUG
 	std::cout << "Solicito archivo modificado" << std::endl;
-	//END DEBUG	
+	//END DEBUG
+	// Mensaje de log
+	this->logger->emitirLog("Se solicitaron partes del archivo '" +
+		nombreArchivo + "' al servidor");
 }

@@ -8,6 +8,7 @@
 #include <sstream>
 #include "common_comunicador.h"
 #include "common_convertir.h"
+#include "client_config.h"
 #include "client_actualizador.h"
 #include "client_cliente.h"
 
@@ -60,9 +61,8 @@ int Cliente::conectar(std::string usuario, std::string clave) {
 	this->socket->crear();
 
 	// Mensaje de log
-	std::cout << "Conectando con " << this->nombreHost << " en el puerto " 
-		<< this->puerto << "... ";
-    std::cout.flush();
+	this->logger->emitirLog("Conectando con " + this->nombreHost +
+		" en el puerto " + Convertir::itos(this->puerto));
 
 	try {
 		// Conectamos el socket
@@ -70,8 +70,8 @@ int Cliente::conectar(std::string usuario, std::string clave) {
 	}
 	catch(char const * e) {
 		// Mensaje de log
-		std::cout << "DESCONECTADO" << std::endl;
-		std::cerr << e << std::endl;
+		this->logger->emitirLog("No se ha podido conectar con servidor.");
+		this->logger->emitirLog(e);
 
 		// Liberamos memoria
 		delete this->socket;
@@ -81,8 +81,7 @@ int Cliente::conectar(std::string usuario, std::string clave) {
 	}
 
 	// Mensaje de log
-	std::cout << "CONECTADO" << std::endl;
-	std::cout.flush();
+	this->logger->emitirLog("Conexión establecida con servidor.");
 
 	// Si se inició sesión con éxito, salimos y mantenemos socket activo
 	if(iniciarSesion(usuario, clave) == 1) {
@@ -112,10 +111,9 @@ void Cliente::desconectar() {
 
 	// Cambiamos el estado de la conexión
 	this->estadoConexion = false;
-	
+
 	// Mensaje de log
-	std::cout << "DESCONECTADO" << std::endl;
-	std::cout.flush();
+	this->logger->emitirLog("Se ha cerrado la conexión con el servidor.");
 }
 
 
@@ -131,10 +129,14 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Activamos flag de actualización
 	this->actualizando = true;
 
+	// Creamos el logger
+	this->logger = new Logger(LOGGER_RUTA_LOG + LOGGER_NOMBRE_LOG);
+
 	// Creamos los módulos primarios
-	this->emisor = new Emisor(this->socket);
-	this->receptor = new Receptor(this->socket);
-	this->manejadorDeArchivos = new ManejadorDeArchivos(this->directorio);
+	this->emisor = new Emisor(this->socket, this->logger);
+	this->receptor = new Receptor(this->socket, this->logger);
+	this->manejadorDeArchivos = new ManejadorDeArchivos(this->directorio,
+		this->logger);
 	
 	// Ponemos en marcha los módulos
 	this->receptor->iniciar();
@@ -142,16 +144,17 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 
 	// Iniciamos la actualización del directorio local
 	Actualizador actualizador(this->emisor, this->receptor,
-		this->manejadorDeArchivos);
+		this->manejadorDeArchivos, this->logger);
 	actualizador.ejecutarActualizacion();
 
 	// Creamos los módulos para la sincronización en tiempo real
-	this->sincronizador = new Sincronizador(emisor);
-	this->receptorDeArchivos = new ReceptorDeArchivos(manejadorDeArchivos);
+	this->sincronizador = new Sincronizador(emisor, this->logger);
+	this->receptorDeArchivos = new ReceptorDeArchivos(manejadorDeArchivos,
+		this->logger);
 	this->inspector = new Inspector(manejadorDeArchivos, sincronizador,
-		intervaloPolling);
+		intervaloPolling, this->logger);
 	this->manejadorDeNotificaciones = new ManejadorDeNotificaciones(receptor,
-		inspector, receptorDeArchivos);
+		inspector, receptorDeArchivos, this->logger);
 
 	// Activamos flag de actualización
 	this->actualizando = false;
@@ -204,6 +207,7 @@ void Cliente::detenerSincronizacion() {
 	delete this->receptorDeArchivos;
 	delete this->inspector;
 	delete this->manejadorDeNotificaciones;
+	delete this->logger;
 }
 
 
@@ -221,7 +225,7 @@ bool Cliente::estaActualizando() {
 /*
  * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
  */
- 
+
 
 // Inicia sesion con usuario existente
 int Cliente::iniciarSesion(std::string usuario, std::string clave) {
@@ -229,32 +233,32 @@ int Cliente::iniciarSesion(std::string usuario, std::string clave) {
 	Comunicador com(this->socket);
 
 	// Mensaje de log
-	std::cout << "Emitiendo solicitud de LOGIN... " << std::endl;
-    std::cout.flush();
+	this->logger->emitirLog("Emitiendo solicitud de LOGIN...");
 	
 	// Se preparan los argumentos
 	std::string mensaje = usuario + COMMON_DELIMITER + clave;	
 
 	// Enviamos petición de inicio de sesion
-	if(com.emitir(C_LOGIN_REQUEST, mensaje) == -1) {
-		return -1;
-	}
+	if(com.emitir(C_LOGIN_REQUEST, mensaje) == -1) return -1;
 
 	// Se obtiene respuesta del servidor
 	std::string args;
-	if(com.recibir(mensaje, args) == -1) {
-		return -1;
-	}
+	if(com.recibir(mensaje, args) == -1) return -1;
 	
 	if (mensaje == S_LOGIN_OK) {
-		std::cout << "Inicio de sesion exitoso" << std::endl;
-		std::cout.flush();
+		// Mensaje de log
+		this->logger->emitirLog("Inicio de sesión exitoso con usuario '" +
+			usuario + "'");
+
 		return 1;
 	}
-	if (mensaje == S_LOGIN_FAIL) {
-		std::cout << "Inicio de sesion fallo, compruebe nombre de usuario y contrasenia" << std::endl;
-		std::cout.flush();
+	else if (mensaje == S_LOGIN_FAIL) {
+		// Mensaje de log
+		this->logger->emitirLog("Falló inicio de sesión con usuario '" +
+			usuario + "'");
+
 		return 0;
 	}
+
 	return -1;
 }

@@ -21,12 +21,12 @@
 
 // Constructor
 Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger) : 
-	logger(logger){
+	logger(logger) {
 	// Creamos el receptor que recibirá los mensajes entrantes
-	this->receptor = new Receptor();
+	this->receptor = new Receptor(this->logger);
 
 	// Creamos el emisor que enviará mensajes a los clientes
-	this->emisor = new Emisor(&this->listaConexiones);
+	this->emisor = new Emisor(&this->listaConexiones, this->logger);
 
 	// Si no existe carpeta fisica se crea. 
 	// Si no lo logra, lanza excepcion
@@ -40,7 +40,7 @@ Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger) :
 	}
 
 	// Se crea el manejador de archivos
-	this->manejadorDeArchivos = new ManejadorDeArchivos(path);
+	this->manejadorDeArchivos = new ManejadorDeArchivos(path, this->logger);
 
 	// Creamos el sincronizador
 	this->sincronizador = new Sincronizador(this->receptor, this->emisor,

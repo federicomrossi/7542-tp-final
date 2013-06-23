@@ -21,8 +21,8 @@ namespace {
 
 
 // Constructor
-Emisor::Emisor(Lista< ConexionCliente* > *listaConexiones) : 
-	listaConexiones(listaConexiones) { }
+Emisor::Emisor(Lista< ConexionCliente* > *listaConexiones, Logger *logger) : 
+	listaConexiones(listaConexiones), logger(logger) { }
 
 
 // Destructor

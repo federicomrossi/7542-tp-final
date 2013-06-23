@@ -12,6 +12,7 @@
 #include "common_thread.h"
 #include "common_socket.h"
 #include "common_comunicador.h"
+#include "common_logger.h"
 
 
 
@@ -27,11 +28,12 @@ private:
 	Socket *socket;							// Socket por el que recibe datos
 	Cola< std::string > entrada;			// Cola de entrada
 	Comunicador com;						// Comunicador del receptor
+	Logger *logger;							// Logger de eventos
 
 public:
 
 	// Constructor
-	Receptor(Socket *socket);
+	Receptor(Socket *socket, Logger *logger);
 
 	// Destructor
 	~Receptor();

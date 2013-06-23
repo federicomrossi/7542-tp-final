@@ -12,10 +12,6 @@
 #include "common_lista.h"
 #include "client_actualizador.h"
 
-// DEBUG
-#include <iostream>
-// END DEBUG
-
 
 
 
@@ -27,9 +23,10 @@
 
 // Constructor
 Actualizador::Actualizador(Emisor *emisor, Receptor *receptor, 
-		ManejadorDeArchivos *manejadorDeArchivos) : emisor(emisor),
-		receptor(receptor), manejadorDeArchivos(manejadorDeArchivos),
-		porcentajeDeActualizacion(0) { }
+		ManejadorDeArchivos *manejadorDeArchivos, Logger *logger) : 
+		emisor(emisor), receptor(receptor), 
+		manejadorDeArchivos(manejadorDeArchivos), porcentajeDeActualizacion(0),
+		logger(logger) { }
 
 
 // Destructor
@@ -38,12 +35,9 @@ Actualizador::~Actualizador() { }
 
 // Inicia la recepción
 void Actualizador::ejecutarActualizacion() {
-
 	// Mensaje de log
-	std::cout << "Actualizando directorio... " << std::endl;
-	std::cout.flush();
-	std::cout << "Solicitando lista de archivos del servidor... " << std::endl;
-	std::cout.flush();
+	this->logger->emitirLog("Actualizando directorio...");
+	this->logger->emitirLog("Solicitando lista de archivos del servidor...");
 
 	// Creamos el registro de archivos en caso de que no exista
 	if(this->manejadorDeArchivos->crearRegistroDeArchivos());
@@ -60,10 +54,8 @@ void Actualizador::ejecutarActualizacion() {
 	}
 
 	// Mensaje de log
-	std::cout << "Se recibió lista de archivos del servidor... " << std::endl;
-   	std::cout.flush();
-	std::cout << "Procesando lista de archivos... " << std::endl;
-   	std::cout.flush();
+	this->logger->emitirLog("Se recibió lista de archivos del servidor...");
+	this->logger->emitirLog("Procesando lista de archivos...");
 
 	// Parseamos la lista de archivos enviada por el servidor
 	Lista< std::string > listaArgumentos_1;
@@ -137,9 +129,8 @@ void Actualizador::ejecutarActualizacion() {
 			mensaje.append(Convertir::itos(listaBloques[i]));
 		}
 
-		// DEBUG
-		std::cout << "SOLICITO: " << mensaje << std::endl;
-		// END DEBUG
+		// Mensaje de log
+		this->logger->emitirLog("Se solicitaron archivos y partes faltantes.");
 
 		// Emitimos mensaje
 		this->emisor->ingresarMensajeDeSalida(mensaje);
@@ -152,10 +143,8 @@ void Actualizador::ejecutarActualizacion() {
 			Parser::parserInstruccion(msg, instr, args);
 		}
 
-		// DEBUG
-		// std::cout << "RECIBO: " << instr << " " << args << std::endl;
-		std::cout << "RECIBO: " << instr << std::endl;
-		// END DEBUG
+		// Mensaje de log
+		this->logger->emitirLog("Se recibieron archivos y partes faltantes.");
 
 		// Si el servidor notifica que ya no existe el archivo, salteamos
 		if(instr == S_NO_SUCH_FILE) continue;
@@ -212,16 +201,13 @@ void Actualizador::ejecutarActualizacion() {
 			cantTotalBytes, listaBloquesAReemplazar);
 	}
 
-
 	// Mensaje de log
-	std::cout << "Actualizando registro de archivos locales... " << std::endl;
-	std::cout.flush();
+	this->logger->emitirLog("Actualizando registro de archivos locales...");
 
 	// Actualizamos el registro de archivos
 	this->manejadorDeArchivos->actualizarRegistroDeArchivos(
 		nuevosActualizables);
 
 	// Mensaje de log
-	std::cout << "Fin de la actualización... " << std::endl;
-	std::cout.flush();
+	this->logger->emitirLog("Finalizada la actualización de archivos.");
 }

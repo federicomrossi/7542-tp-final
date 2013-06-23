@@ -10,6 +10,7 @@
 
 #include "common_socket.h"
 #include "common_manejador_de_archivos.h"
+#include "common_logger.h"
 #include "client_emisor.h"
 #include "client_receptor.h"
 #include "client_sincronizador.h"
@@ -47,6 +48,7 @@ private:
 	ReceptorDeArchivos *receptorDeArchivos;
 	Inspector *inspector;
 	ManejadorDeNotificaciones *manejadorDeNotificaciones;
+	Logger *logger;
 
 
 	// Inicia sesion con usuario existente

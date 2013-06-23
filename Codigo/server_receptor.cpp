@@ -15,7 +15,7 @@
 
 
 // Constructor
-Receptor::Receptor() { }
+Receptor::Receptor(Logger *logger) : logger(logger) { }
 
 
 // Destructor

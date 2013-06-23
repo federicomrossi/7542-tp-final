@@ -10,8 +10,9 @@
 #include <string>
 #include "common_thread.h"
 #include "common_lista.h"
-#include "client_sincronizador.h"
 #include "common_manejador_de_archivos.h"
+#include "common_logger.h"
+#include "client_sincronizador.h"
 
 
 
@@ -28,6 +29,7 @@ private:
 	Sincronizador *sincronizador;					// Sincronizador
 	unsigned int intervalo;							// Intervalo de inspección
 													// en segundos
+	Logger *logger;									// Logger de eventos
 
 	// Bloquea actividades hasta que haya transcurrido el intervalo de polling
 	void alarmaDeInspeccion();
@@ -37,7 +39,7 @@ public:
 	// Constructor
 	// PRE: 'intervalo' es el intervalo de inspección en segundos.
 	Inspector(ManejadorDeArchivos *unManejador, Sincronizador *sincronizador,
-		unsigned int intervalo);
+		unsigned int intervalo, Logger *logger);
 
 	// Destructor
 	~Inspector();

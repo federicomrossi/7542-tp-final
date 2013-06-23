@@ -15,6 +15,7 @@
 #include "common_thread.h"
 #include "common_mutex.h"
 #include "common_lock.h"
+#include "common_logger.h"
 #include "server_conexion_cliente.h"
 
 
@@ -29,16 +30,17 @@
 class Emisor : public Thread {
 private:
 
-	Cola< std::pair < int, std::string > > salida;			// Cola de salida
-	Lista< ConexionCliente* > *listaConexiones;				// Conexiones
-	Mutex m;												// Mutex
+	Cola< std::pair < int, std::string > > salida;		// Cola de salida
+	Lista< ConexionCliente* > *listaConexiones;			// Conexiones
+	Mutex m;											// Mutex
+	Logger *logger;										// Logger de eventos
 
 public:
 
 	// Constructor
 	// PRE: 'listaConexiones' es la lista de conexiones de clientes sobre las
 	// que se realizan las emisiones.
-	Emisor(Lista< ConexionCliente* > *listaConexiones);
+	Emisor(Lista< ConexionCliente* > *listaConexiones, Logger *logger);
 
 	// Destructor
 	~Emisor();

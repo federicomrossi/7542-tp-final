@@ -12,6 +12,7 @@
 #include "common_mutex.h"
 #include "common_lock.h"
 #include "common_lista.h"
+#include "common_logger.h"
 #include "client_emisor.h"
 
 //DEBUG
@@ -29,11 +30,12 @@ private:
 
 	Mutex m;									// Mutex
 	Emisor *emisor;								// Emisor de mensajes
+	Logger *logger;								// Logger de eventos
 
 public:
 
 	// Constructor
-	Sincronizador(Emisor *emisor);
+	Sincronizador(Emisor *emisor, Logger *logger);
 
 	// Destructor
 	~Sincronizador();

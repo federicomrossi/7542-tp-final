@@ -11,6 +11,7 @@
 #include <string>
 #include "common_manejador_de_archivos.h"
 #include "common_protocolo.h"
+#include "common_logger.h"
 class Mutex;
 class Lock;
 
@@ -24,16 +25,14 @@ class Lock;
 class ReceptorDeArchivos {
 private:
 
-	Mutex m;							// Mutex
+	Mutex m;										// Mutex
 	ManejadorDeArchivos *manejadorDeArchivos;		// Manejador de archivos
+	Logger *logger;									// Logger de eventos
 	
-	void parsearMensaje(const std::string &mensaje, std::string &accion,
-		std::string &nombre_archivo, std::string &num_bloque, std::string &bloque_archivo);
-
 public:
 
 	// Constructor
-	ReceptorDeArchivos(ManejadorDeArchivos *unManejador);
+	ReceptorDeArchivos(ManejadorDeArchivos *unManejador, Logger *logger);
 
 	// Destructor
 	~ReceptorDeArchivos();

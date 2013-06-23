@@ -106,7 +106,7 @@ void ConexionCliente::run() {
 	this->admClientes->destruirCliente(this);
 
 	// Mensaje de log
-	this->logger->emitirLog("Usuario '" + this->nombreUsuario + "'" 
+	this->logger->emitirLog("Usuario '" + this->nombreUsuario + "' " 
 		+ " se ha desconectado.");
 }
 

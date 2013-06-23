@@ -12,6 +12,7 @@
 #include "common_hash.h"
 #include "common_lista.h"
 #include "common_cola.h"
+#include "common_logger.h"
 #include <string>
 #include <stdio.h>
 #include <iostream>
@@ -33,6 +34,7 @@ private:
 
 	std::string directorio;				// Directorio sobre el cual se trabaja
 	Mutex m;							// Mutex
+	Logger *logger;						// Logger de eventos
 
 	// Separa de una linea el nombre y el hash
 	void separarNombreYHash(const std::string &linea, std::string& nombre, std::string &hash);
@@ -40,7 +42,7 @@ private:
 public:
 
 	// Constructor
-	ManejadorDeArchivos(const std::string& directorio);
+	ManejadorDeArchivos(const std::string& directorio, Logger *logger);
 
 	// Destructor
 	~ManejadorDeArchivos();
