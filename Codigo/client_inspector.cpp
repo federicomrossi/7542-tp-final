@@ -243,8 +243,10 @@ void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo,
 		if(hashArchivo == hashArchivoLoc) 
 			return;
 		// Sino, se debe pedir
-		else
+		else {
 			this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
+			return;
+		}
 	}
 
 	// Si no existe o es viejo, lo solicitamos al servidor
