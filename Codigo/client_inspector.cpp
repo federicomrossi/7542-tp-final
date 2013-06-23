@@ -177,6 +177,12 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 	this->logger->emitirLog("INSPECTOR: Inspeccionando archivo '" +
 		nombreArchivo + "' en directorio local.");
 
+	// Si no existe, lo solicitamos al servidor
+	if(!this->manejadorDeArchivos->existeArchivo(nombreArchivo)) {
+		this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
+		return;
+	}
+
 	// Tomamos bytes actuales de archivo local
 	unsigned int b;
 	b = this->manejadorDeArchivos->obtenerCantBytes(nombreArchivo);
@@ -228,11 +234,8 @@ void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo) {
 	if(this->manejadorDeArchivos->existeArchivoEnRegitro(nombreArchivo))
 		return;
 
-	Lista< std::string > archivosDir;
-	this->manejadorDeArchivos->obtenerArchivosDeDirectorio(&archivosDir);
-	
 	// Si no existe, lo solicitamos al servidor
-	if(!archivosDir.buscar(nombreArchivo))
+	if(!this->manejadorDeArchivos->existeArchivo(nombreArchivo))
 		this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
 }
 
