@@ -223,7 +223,8 @@ void Sincronizador::run() {
 
 			// Parseamos argumentos
 			Lista< std::string > listaArgumentos;
-			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
+			Parser::dividirCadena(args, &listaArgumentos, 
+				COMMON_DELIMITER[0]);
 
 			// Agregamos el archivo en el servidor
 			this->manejadorDeArchivos->agregarArchivo(listaArgumentos[0],
@@ -234,6 +235,12 @@ void Sincronizador::run() {
 			respuesta.append(S_NEW_FILE);
 			respuesta.append(" ");
 			respuesta.append(listaArgumentos[0]);
+			respuesta.append(COMMON_DELIMITER);
+			// Se pide el hash del archivo
+			std::string hash;
+			this->manejadorDeArchivos->obtenerHash(listaArgumentos[0],
+				hash);
+			respuesta.append(hash);
 
 			// Se envia la notificación de nuevo archivo a los clientes
 			this->emisor->ingresarMensajeDeSalida(0, respuesta);
