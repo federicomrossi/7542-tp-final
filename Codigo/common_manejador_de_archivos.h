@@ -170,11 +170,14 @@ public:
 		Cola< std::string > *eliminados);
 
 	// Actualiza el registro local de archivos.
+	// PRE: las listas corresponden a que archivos nuevos o modificados deben
+	// tenerse en cuenta, siendo que los demás detectados en el momento de la
+	// actualización, son salteados.
 	// POST: se devuelve 'false' si se produjeron cambios en el registro o
 	// 'true' en su defecto; esto evita tener que revisar las colas para
 	// comprobar cambios.
 	bool actualizarRegistroDeArchivos(Lista< std::string >& 
-		nuevosActualizables);
+		nuevosActualizables, Lista< std::string >& modificadosActualizables);
 
 	// Elimina el registro que identifica a un archivo en el registro de
 	// archivos.

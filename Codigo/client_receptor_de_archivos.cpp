@@ -38,10 +38,10 @@ void ReceptorDeArchivos::recibirArchivo(const std::string& nombreArchivo,
 	this->logger->emitirLog("Se agregó archivo nuevo '" + nombreArchivo + "'");
 
 	// Actualizamos el registro local de archivos
-	Lista< std::string > nuevos;
+	Lista< std::string > nuevos, mod;
 	nuevos.insertarUltimo(nombreArchivo);
 
-	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos);
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos, mod);
 
 	// Mensaje de log
 	this->logger->emitirLog("Se actualizó el registro de archivos.");
@@ -81,9 +81,9 @@ void ReceptorDeArchivos::recibirModificaciones(std::string& nombreArchivo,
 	this->logger->emitirLog("Se modificó el archivo '" + nombreArchivo + "'.");
 
 	// Actualizamos el registro local de archivos
-	Lista< std::string > nuevos;
+	Lista< std::string > nuevos, mod;
 
-	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos);
+	this->manejadorDeArchivos->actualizarRegistroDeArchivos(nuevos, mod);
 
 	// Mensaje de log
 	this->logger->emitirLog("Se actualizó el registro de archivos.");

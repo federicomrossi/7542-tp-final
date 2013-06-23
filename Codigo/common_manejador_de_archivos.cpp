@@ -847,11 +847,15 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 
 
 // Actualiza el registro local de archivos.
+// PRE: las listas corresponden a que archivos nuevos o modificados deben
+// tenerse en cuenta, siendo que los demás detectados en el momento de la
+// actualización, son salteados.
 // POST: se devuelve 'false' si se produjeron cambios en el registro o
 // 'true' en su defecto; esto evita tener que revisar las colas para
 // comprobar cambios.
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
-	Lista< std::string >& nuevosActualizables) {
+	Lista< std::string >& nuevosActualizables, 
+	Lista< std::string >& modificadosActualizables) {
  	// Variables auxiliares
 	std::ifstream registro;
 	std::ofstream registroTmp;
@@ -926,9 +930,9 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 			Lista<int> listaDiferencias;
 
 			// Caso en que el archivo ha sido modificado
-			if(this->obtenerDiferencias(reg_archivoHash, 
-				hash_aux, cantBloques_aux, &listaDiferencias)) {
-				
+			if(modificadosActualizables.buscar(ld[i]) && 
+				this->obtenerDiferencias(reg_archivoHash, hash_aux, 
+					cantBloques_aux, &listaDiferencias)) {
 				// Actualizamos el hash del archivo
 				registroTmp << reg_archivoNombre << DELIMITADOR << 
 					hash_aux << std::endl;
