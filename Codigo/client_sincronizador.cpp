@@ -27,7 +27,7 @@ Sincronizador::~Sincronizador() { }
 
 
 // Crea el evento de envío de un archivo nuevo
-void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& contenido) {
+void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& contenido, std::string hash) {
 	// Bloqueamos el mutex
 	Lock l(m);
 
@@ -38,6 +38,9 @@ void Sincronizador::enviarArchivo(std::string& nombreArchivo, std::string& conte
 	mensaje.append(nombreArchivo);
 	mensaje.append(COMMON_DELIMITER);
 	mensaje.append(contenido);
+	mensaje.append(COMMON_DELIMITER);
+	mensaje.append(hash);
+
 
 	// Mensaje de log
 	this->logger->emitirLog("Se envió archivo '" + nombreArchivo + "' " +

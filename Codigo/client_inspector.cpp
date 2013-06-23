@@ -89,13 +89,15 @@ void Inspector::run() {
 				std::string nuevo = nuevos.pop_bloqueante();
 				std::string contenido;
 				contenido = this->manejadorDeArchivos->obtenerContenido(nuevo);
+				std::string hash;
+				this->manejadorDeArchivos->obtenerHash(nuevo, hash)
 
 				// Mensaje de log
 				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
 					nuevo + "'");
 
 				// Enviamos al sincronizador
-				this->sincronizador->enviarArchivo(nuevo, contenido);
+				this->sincronizador->enviarArchivo(nuevo, contenido, hash);
 				
 				// DEBUG
 				std::cout << "Nuevo: " << nuevo << std::endl;
@@ -225,16 +227,23 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 
 // Inspecciona si existe un archivo en el directorio local. Si no existe
 // se encarga de indicar que debe ser solicitado al servidor.
-void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo) {
+void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo,
+	std::string hashArchivo) {
 	// Mensaje de log
 	this->logger->emitirLog("INSPECTOR: Inspeccionando existencia de archivo '"
 		+ nombreArchivo + "' en directorio local.");
 
 	// Corroboramos si existe el archivo
-	if(this->manejadorDeArchivos->existeArchivoEnRegitro(nombreArchivo))
-		return;
+	if(this->manejadorDeArchivos->existeArchivoEnRegitro(nombreArchivo)) {
+		// Tomamos el hash del archivo local
+		std::string hashArchivoLoc;
+		this->manejadorDeArchivos->obtenerHash(nombreArchivo, hashArchivoLoc);
 
-	// Si no existe, lo solicitamos al servidor
+		// Si tenemos archivos iguales, retornamos sin solicitar nada
+		if(hashArchivo == hashArchivoLoc) return;
+	}
+
+	// Si no existe o es viejo, lo solicitamos al servidor
 	if(!this->manejadorDeArchivos->existeArchivo(nombreArchivo))
 		this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
 }

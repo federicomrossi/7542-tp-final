@@ -49,12 +49,24 @@ void ManejadorDeNotificaciones::run() {
 
 		// Caso en que se notifica la existencia de un nuevo archivo
 		if(instruccion == S_NEW_FILE) {
+			// Parseamos argumentos
+			Lista< std::string > listaArgumentos;
+			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
+
+			// Tomamos nombre de archivo
+			std::string nombreArchivo = listaArgumentos.verPrimero();
+			listaArgumentos.eliminarPrimero();
+
+			// Tomamos nombre de archivo
+			std::string hash = listaArgumentos.verPrimero();
+			listaArgumentos.eliminarPrimero();
+
 			// Mensaje de log
 			this->logger->emitirLog("NOTIFIACIÓN: Nuevo archivo '" +
-				args + "'.");
+				nombreArchivo + "'.");
 
 			// Derivamos al inspector
-			this->inspector->inspeccionarExisteArchivo(args);
+			this->inspector->inspeccionarExisteArchivo(nombreArchivo, hash);
 		}
 		else if(instruccion == S_FILE_CHANGED) {
 			// Parseamos argumentos

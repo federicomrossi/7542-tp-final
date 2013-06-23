@@ -70,7 +70,8 @@ public:
 
 	// Inspecciona si existe un archivo en el directorio local. Si no existe
 	// se encarga de indicar que debe ser solicitado al servidor.
-	void inspeccionarExisteArchivo(std::string& nombreArchivo);
+	void inspeccionarExisteArchivo(std::string& nombreArchivo, 
+		std::string hashArchivo);
 };
 
 #endif

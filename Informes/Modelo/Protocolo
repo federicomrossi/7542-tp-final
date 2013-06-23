@@ -12,7 +12,7 @@ LOGIN-OK
 LOGIN-FAIL
 FILES-LIST [cant_archivos],[nombre_archivo_1],[hash_1],[cant_bloques_1],...,[nombre_archivo_N],[hash_N],[cant_bloques_N]
 FILE-CHANGED [nombre_archivo_1],[cant_bytes_del_archivo],[num_bloque_1],[hash_1],...,[num_bloque_N],[hash_N]
-NEW-FILE [nombre_archivo]
+NEW-FILE [nombre_archivo],[hash_archivo]
 NO-SUCH-FILE [nombre_archivo]
 CORRUPT-MESSAGE
 SERVER-INFO [clientes_conectados],[carpetas_activas],[bytes_almacenados]
