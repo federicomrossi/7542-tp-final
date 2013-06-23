@@ -91,7 +91,9 @@ void MenuPrincipal::on_menuConfiguracion_activate() {
 
 
 void MenuPrincipal::on_menuAdminUsers_activate() {
+	this->monitor->getReceptor()->stop();
 	this->main->set_sensitive(false);
+
 	MenuUsuarios ventanaUsuarios(this->monitor);
 	ventanaUsuarios.correr();
 	this->main->set_sensitive(true);

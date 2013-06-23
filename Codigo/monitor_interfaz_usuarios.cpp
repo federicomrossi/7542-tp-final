@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "monitor_interfaz_usuarios.h"
+#include "monitor_interfaz_formUsuario.h"
 #include "common_convertir.h"
 
 #include <iostream>
@@ -37,7 +38,12 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
  	 this->tree.set_model(this->listaUsuarios);
 
  	// Actualizo la lista de usuarios existentes
+ 	this->monitor->getReceptor()->stop();
+ 	std::cout<<"salgo del stop "<<std::endl;
  	this->monitor->getUsuarios();
+ 	
+
+
 
  	// Cargo la lisa de usuarios a la lista que se muestra por pantalla.
   	//Fill the TreeView's model
@@ -72,8 +78,13 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
 
 void MenuUsuarios::on_buttonNuevo_clicked() {
 
-	Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
-	row[m_Columns.m_col_name] = "Fiona";
+	this->main->set_sensitive(false);
+	FormUsuario ventanaDeEdicion(this->monitor);
+	ventanaDeEdicion.correr();
+	this->main->set_sensitive(true);
+
+	//Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
+	//row[m_Columns.m_col_name] = "Fiona";
 
 
 

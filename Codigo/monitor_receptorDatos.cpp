@@ -163,7 +163,7 @@ void Receptor::enviarMensaje(std::string& mensaje) {
 	Comunicador comunicador(this->socket);
 
 	comunicador.emitir(mensaje);
-	//el comunicador no tiene un recibir? sisi eso si y bue instanciemos un comunicador y pasaemosle el socket del receptor y ala verga?¿
+	
 }
 int Receptor::recibirMensaje(std::string& mensaje){
 	// Creamos el comunicador para recibir mensajes
@@ -172,8 +172,8 @@ int Receptor::recibirMensaje(std::string& mensaje){
 
 	int ret = comunicador.recibir(mensaje);
 	this->start();
-	return ret; //asi podes usar el recibirmensaje sin preocparte por el otro hilo :D re bien :D;Dy bueno ahora falta el GET en el server 
-} // nos va a mandar USER-LIST Y LA FRUTA ESO ES BUENO O MALO Xd? AJJAJAJAJ no bien bien
+	return ret;  
+} 
 
 
 // Se desconecta del servidor

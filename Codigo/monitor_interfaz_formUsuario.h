@@ -9,9 +9,9 @@
 
 
 #include "gtkmm.h"
-#include "common_thread.h"
+
 #include "monitor_monitor.h"
-#include "monitor_configuracion.h"
+
 
 
 
@@ -23,6 +23,8 @@ private:
 	
 	Gtk::Button *botonGuardar;
 	Gtk::Button *botonCancelar;
+	Gtk::Label  *labelError;
+
 
 	Gtk::Entry  *usuarioTextBox;		// Textbox de nombre de usuario
 	Gtk::Entry  *passTextBox;		// Textbox de la contraseña de usuario
@@ -46,7 +48,7 @@ protected:
 	
 	void on_buttonGuardar_clicked();
 	void on_buttonCancelar_clicked();
-	
+
 };
 
 #endif /* FORMUSUARIO_H_ */

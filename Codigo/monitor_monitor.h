@@ -60,8 +60,7 @@ public:
 	bool getEstadoConexion();
 
 	Receptor* getReceptor();
-	
-	void cambiarIntervaloPolling(unsigned int intervalo);
+
 
 };
 

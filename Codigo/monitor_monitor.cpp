@@ -3,6 +3,7 @@
 #include <sstream>
 #include "common_parser.h"
 #include "monitor_monitor.h"
+#include "common_protocolo.h"
 
 
 /* ****************************************************************************
@@ -68,9 +69,12 @@ int Monitor::getBytesOcupados() {
 
 void Monitor::getUsuarios(){
 	string usuarios;
-	string query = "GET-USER-LIST"; // hay q meter la constante que corresponda dsd protocolo.h
+
+	string query = M_SERVER_USER_LIST_REQUEST; // hay q meter la constante que corresponda dsd protocolo.h
 	receptor->enviarMensaje(query);
+	
 	receptor->recibirMensaje(usuarios); // tenemos el mensaje
+	
 	Lista <std::string> aux;
  	string instruccion; 
  	string args;
@@ -84,8 +88,3 @@ void Monitor::getUsuarios(){
 Monitor::~Monitor() {
 }
 
-
-
-void Monitor::cambiarIntervaloPolling(unsigned int intervalo) {
-
-}

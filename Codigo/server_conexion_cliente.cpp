@@ -232,4 +232,17 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		// Emitimos respuesta
 		com->emitir(respuesta);
 	}
+	if (instruccion == M_SERVER_USER_LIST_REQUEST) {
+
+		// LISTA DE PRUEBA PARA SEGUIR EJECUCION
+		std::string respuesta;
+		respuesta.append(S_SERVER_USER_LIST);
+		respuesta.append(" ");
+		respuesta.append("Belu");
+		respuesta.append(COMMON_DELIMITER);
+		respuesta.append("Fede");
+		respuesta.append(COMMON_DELIMITER);
+		respuesta.append("Fio");
+		com->emitir(respuesta);
+	}
 }

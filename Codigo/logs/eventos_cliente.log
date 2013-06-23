@@ -284,3 +284,35 @@ Sun Jun 23 06:37:14 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
 Sun Jun 23 06:37:14 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
 Sun Jun 23 06:37:16 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
 Sun Jun 23 06:37:16 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
+Sun Jun 23 11:56:24 2013 Conectando con 186.58.140.172 en el puerto 8000
+Sun Jun 23 11:56:24 2013 No se ha podido conectar con servidor.
+Sun Jun 23 11:56:24 2013 ERROR: No se pudo llevar a cabo la conexión.
+Sun Jun 23 11:56:44 2013 Conectando con 127.0.0.1 en el puerto 8000
+Sun Jun 23 11:56:44 2013 Conexión establecida con servidor.
+Sun Jun 23 11:56:44 2013 Emitiendo solicitud de LOGIN...
+Sun Jun 23 11:56:44 2013 Inicio de sesión exitoso con usuario 'Fiona'
+Sun Jun 23 11:56:44 2013 Actualizando directorio...
+Sun Jun 23 11:56:44 2013 Solicitando lista de archivos del servidor...
+Sun Jun 23 11:56:44 2013 Se recibió lista de archivos del servidor...
+Sun Jun 23 11:56:44 2013 Procesando lista de archivos...
+Sun Jun 23 11:56:44 2013 Actualizando registro de archivos locales...
+Sun Jun 23 11:56:45 2013 Finalizada la actualización de archivos.
+Sun Jun 23 11:56:50 2013 INSPECTOR: Se detectaron cambios.
+Sun Jun 23 11:56:50 2013 INSPECTOR: Archivo nuevo 'a10'
+Sun Jun 23 11:56:50 2013 Se envió archivo 'a10' al servidor.
+Sun Jun 23 11:56:50 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
+Sun Jun 23 11:56:50 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
+Sun Jun 23 11:57:15 2013 INSPECTOR: Se detectaron cambios.
+Sun Jun 23 11:57:15 2013 INSPECTOR: Archivo nuevo 'copia de a10'
+Sun Jun 23 11:57:15 2013 Se envió archivo 'copia de a10' al servidor.
+Sun Jun 23 11:57:15 2013 INSPECTOR: Archivo nuevo 'otra copia de a10'
+Sun Jun 23 11:57:15 2013 Se envió archivo 'otra copia de a10' al servidor.
+Sun Jun 23 11:57:15 2013 NOTIFIACIÓN: Nuevo archivo 'copia de a10'.
+Sun Jun 23 11:57:15 2013 INSPECTOR: Inspeccionando existencia de archivo 'copia de a10' en directorio local.
+Sun Jun 23 11:57:15 2013 NOTIFIACIÓN: Nuevo archivo 'otra copia de a10'.
+Sun Jun 23 11:57:15 2013 INSPECTOR: Inspeccionando existencia de archivo 'otra copia de a10' en directorio local.
+Sun Jun 23 11:57:35 2013 INSPECTOR: Se detectaron cambios.
+Sun Jun 23 11:57:35 2013 INSPECTOR: Archivo 'a10' fue modificado.
+Sun Jun 23 11:57:35 2013 Se enviaron modificaciones hechas sobre el archivo 'a10' al servidor.
+Sun Jun 23 11:57:35 2013 NOTIFICACIÓN: Archivo 'a10' ha sido modificado.
+Sun Jun 23 11:57:35 2013 INSPECTOR: Inspeccionando archivo 'a10' en directorio local.
