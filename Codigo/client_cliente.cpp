@@ -21,13 +21,17 @@
 
 
 // Constructor
-Cliente::Cliente() : estadoConexion(false), actualizando(true) { }
+Cliente::Cliente() : estadoConexion(false), actualizando(true) {
+	// Creamos el logger
+	this->logger = new Logger(LOGGER_RUTA_LOG + LOGGER_NOMBRE_LOG);
+}
 
 
 // Destructor
 Cliente::~Cliente() {
 	// Liberamos la memoria utilizada por el socket
 	delete this->socket;
+	delete this->logger;
 }
 
 
@@ -129,9 +133,6 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	// Activamos flag de actualización
 	this->actualizando = true;
 
-	// Creamos el logger
-	this->logger = new Logger(LOGGER_RUTA_LOG + LOGGER_NOMBRE_LOG);
-
 	// Creamos los módulos primarios
 	this->emisor = new Emisor(this->socket, this->logger);
 	this->receptor = new Receptor(this->socket, this->logger);
@@ -207,7 +208,6 @@ void Cliente::detenerSincronizacion() {
 	delete this->receptorDeArchivos;
 	delete this->inspector;
 	delete this->manejadorDeNotificaciones;
-	delete this->logger;
 }
 
 
