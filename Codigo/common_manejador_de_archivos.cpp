@@ -610,6 +610,10 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 	std::pair< std::string, std::pair< std::string, int > > externo;
 	std::string hash, registro;
 
+	// Si esta vacia, no realizar accion
+	if (listaExterna->estaVacia())
+		return;
+
 	// Se crea una lista y se guarda una lista de archivos en registro
 	Lista<std::string> listaRegistro;
 	Lista< std::pair< std::string, std::string> > listaNombreHashReg;
@@ -656,6 +660,26 @@ void ManejadorDeArchivos::obtenerListaDeActualizacion(
 						std::make_pair(externo.first, bloques);
 					faltantes->insertarUltimo(aPedir);
 				}
+			}
+			// Si los hashes son iguales, entonces se busca el
+			// archivo y se compara realmente
+			else {
+				obtenerHash(externo.first, hash);
+				// Si son distintos los hashes
+				if (hash != externo.second.first) {
+					Lista<int> bloques;
+
+					// Se buscan las diferencias
+					obtenerDiferencias(hash, externo.second.first,
+						externo.second.second, &bloques);
+
+					// Se deben pedir las diferencias
+					if (!bloques.estaVacia()) {
+						std::pair< std::string, Lista<int> > aPedir = 
+							std::make_pair(externo.first, bloques);
+						faltantes->insertarUltimo(aPedir);
+					}
+				}			
 			}
 			// Se elimina para luego saber los que sobran
 			listaRegistro.eliminar(externo.first);
