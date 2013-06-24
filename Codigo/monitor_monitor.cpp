@@ -70,7 +70,7 @@ void Monitor::getUsuarios(){
 }
 
 
-// Destructor
+
 Monitor::~Monitor() {
 }
 

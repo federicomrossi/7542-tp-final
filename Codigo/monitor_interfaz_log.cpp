@@ -34,6 +34,7 @@ MenuLog::MenuLog(Monitor *monitor) : monitor(monitor) {
 	this->botonIniciar->signal_clicked().connect(sigc::mem_fun(*this, &MenuLog::on_buttonIniciar_clicked));
 	this->buffer = this->hojaLog->get_buffer();
 	
+	
 	main->show_all_children();
 
 	

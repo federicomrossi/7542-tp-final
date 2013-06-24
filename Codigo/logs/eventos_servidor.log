@@ -1027,3 +1027,580 @@ Mon Jun 24 11:15:17 2013 Se ha conectado un cliente (IP = 0.0.0.0).
 Mon Jun 24 11:15:17 2013 LOGIN: Esperando datos de login del cliente...
 Mon Jun 24 11:15:17 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
 Mon Jun 24 11:16:56 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 11:32:55 2013 Iniciando servidor AU...
+Mon Jun 24 11:32:55 2013 Se ha iniciado el servidor.
+Mon Jun 24 11:33:09 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 11:33:09 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 11:33:09 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 11:43:32 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 11:50:09 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 11:50:09 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 11:50:09 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 11:53:00 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 11:53:16 2013 Se ha detenido el servidor.
+Mon Jun 24 11:55:06 2013 Iniciando servidor AU...
+Mon Jun 24 11:55:06 2013 Se ha iniciado el servidor.
+Mon Jun 24 11:55:16 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 11:55:16 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 11:55:16 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 11:56:52 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 11:56:52 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 11:56:52 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Lista de archivos enviada.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 11:56:52 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 11:57:00 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 11:57:00 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 11:57:00 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 11:57:00 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 11:57:25 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 11:57:25 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 11:57:39 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 11:57:39 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 11:57:46 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 11:57:46 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 11:58:09 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 11:58:10 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 11:58:10 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 11:58:10 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 11:58:16 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 11:58:16 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 11:58:16 2013 Usuario 'Fiona'  se ha desconectado.
+Mon Jun 24 11:59:30 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:17:59 2013 Se ha detenido el servidor.
+Mon Jun 24 12:21:18 2013 Iniciando servidor AU...
+Mon Jun 24 12:21:18 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:21:46 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:21:46 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:21:46 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:21:51 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:22:42 2013 Se ha detenido el servidor.
+Mon Jun 24 12:22:56 2013 Iniciando servidor AU...
+Mon Jun 24 12:22:56 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:23:09 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:23:09 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:23:09 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:23:13 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:23:16 2013 Se ha detenido el servidor.
+Mon Jun 24 12:24:07 2013 Iniciando servidor AU...
+Mon Jun 24 12:24:07 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:24:58 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:24:58 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:24:58 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:25:01 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:25:40 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:25:40 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:25:40 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:25:46 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:29:28 2013 Se ha detenido el servidor.
+Mon Jun 24 12:32:23 2013 Iniciando servidor AU...
+Mon Jun 24 12:32:23 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:32:39 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:32:39 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:32:39 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:32:42 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:37:30 2013 Se ha detenido el servidor.
+Mon Jun 24 12:38:19 2013 Iniciando servidor AU...
+Mon Jun 24 12:38:19 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:39:28 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:39:28 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:39:28 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:39:35 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:41:19 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:41:19 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:41:19 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:41:32 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:44:52 2013 Se ha detenido el servidor.
+Mon Jun 24 12:46:15 2013 Iniciando servidor AU...
+Mon Jun 24 12:46:15 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:46:32 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:46:32 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:46:32 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:46:38 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 12:48:00 2013 Se ha detenido el servidor.
+Mon Jun 24 12:49:08 2013 Iniciando servidor AU...
+Mon Jun 24 12:49:08 2013 Se ha iniciado el servidor.
+Mon Jun 24 12:49:33 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 12:49:33 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 12:49:33 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 12:49:38 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:04:38 2013 Iniciando servidor AU...
+Mon Jun 24 13:04:38 2013 Se ha iniciado el servidor.
+Mon Jun 24 13:04:49 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:04:49 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:04:49 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 13:04:49 2013 Se ha desconectado al cliente.
+Mon Jun 24 13:05:00 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:05:00 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:05:00 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:05:15 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:16:16 2013 Iniciando servidor AU...
+Mon Jun 24 13:16:16 2013 Se ha iniciado el servidor.
+Mon Jun 24 13:16:18 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:16:18 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:16:18 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:16:21 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:20:18 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:20:18 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:20:18 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:20:21 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:27:07 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:27:07 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:27:07 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:27:10 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:27:34 2013 Se ha detenido el servidor.
+Mon Jun 24 13:28:26 2013 Iniciando servidor AU...
+Mon Jun 24 13:28:26 2013 Se ha iniciado el servidor.
+Mon Jun 24 13:28:50 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:28:50 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:28:50 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:28:54 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:47:26 2013 Iniciando servidor AU...
+Mon Jun 24 13:47:26 2013 Se ha iniciado el servidor.
+Mon Jun 24 13:47:40 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:47:40 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:47:40 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:47:44 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 13:52:17 2013 Se ha detenido el servidor.
+Mon Jun 24 13:56:36 2013 Iniciando servidor AU...
+Mon Jun 24 13:56:36 2013 Se ha iniciado el servidor.
+Mon Jun 24 13:56:48 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 13:56:48 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 13:56:48 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 13:56:53 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:00:51 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:00:51 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:00:51 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 14:00:51 2013 Se ha desconectado al cliente.
+Mon Jun 24 14:01:04 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:01:04 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:01:04 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:01:25 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:05:19 2013 Se ha detenido el servidor.
+Mon Jun 24 14:05:32 2013 Iniciando servidor AU...
+Mon Jun 24 14:05:32 2013 Se ha iniciado el servidor.
+Mon Jun 24 14:05:51 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:05:51 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:05:51 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:05:58 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:06:33 2013 Se ha detenido el servidor.
+Mon Jun 24 14:09:23 2013 Iniciando servidor AU...
+Mon Jun 24 14:09:23 2013 Se ha iniciado el servidor.
+Mon Jun 24 14:09:33 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:09:33 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:09:33 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:09:35 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:25:23 2013 Se ha detenido el servidor.
+Mon Jun 24 14:27:33 2013 Iniciando servidor AU...
+Mon Jun 24 14:27:33 2013 Se ha iniciado el servidor.
+Mon Jun 24 14:27:45 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:27:45 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:27:45 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:27:51 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:35:45 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:35:45 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:35:45 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:35:50 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:42:45 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:42:45 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:42:45 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:42:48 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:44:07 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:44:07 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:44:07 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:44:10 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:48:17 2013 Se ha detenido el servidor.
+Mon Jun 24 14:48:19 2013 Iniciando servidor AU...
+Mon Jun 24 14:48:19 2013 Se ha iniciado el servidor.
+Mon Jun 24 14:48:33 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:48:33 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:48:33 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:48:36 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 14:52:00 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 14:52:00 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 14:52:00 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 14:52:04 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 15:19:11 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:19:11 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:19:11 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 15:20:19 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 15:20:36 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:20:36 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:20:36 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 15:20:43 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 15:28:37 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:28:37 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:28:37 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 15:28:37 2013 Se ha desconectado al cliente.
+Mon Jun 24 15:28:51 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:28:51 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:28:51 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 15:28:51 2013 Se ha desconectado al cliente.
+Mon Jun 24 15:28:54 2013 Se ha detenido el servidor.
+Mon Jun 24 15:28:58 2013 Iniciando servidor AU...
+Mon Jun 24 15:28:58 2013 Se ha iniciado el servidor.
+Mon Jun 24 15:29:11 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:29:11 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:29:11 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 15:29:16 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 15:37:30 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:37:30 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:37:30 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 15:37:30 2013 Se ha desconectado al cliente.
+Mon Jun 24 15:37:38 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:37:38 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:37:38 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 15:37:44 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 15:52:21 2013 Iniciando servidor AU...
+Mon Jun 24 15:52:21 2013 Se ha iniciado el servidor.
+Mon Jun 24 15:52:40 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:52:40 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:52:40 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 15:52:40 2013 Se ha desconectado al cliente.
+Mon Jun 24 15:52:48 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:52:48 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:52:48 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 15:52:48 2013 Se ha desconectado al cliente.
+Mon Jun 24 15:52:56 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:52:56 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:52:56 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 15:53:04 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 15:56:15 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 15:56:15 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 15:56:15 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 15:56:22 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 16:21:57 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:21:57 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:21:57 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 16:24:43 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:24:43 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:24:43 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 16:24:43 2013 Se ha desconectado al cliente.
+Mon Jun 24 16:24:47 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:24:47 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:24:47 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Mon Jun 24 16:24:47 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Lista de archivos enviada.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 16:24:50 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 16:26:15 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:26:15 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:26:15 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:26:15 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:26:15 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:26:15 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:30:27 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 16:30:30 2013 Usuario 'Fiona'  se ha desconectado.
+Mon Jun 24 16:33:27 2013 Se ha detenido el servidor.
+Mon Jun 24 16:35:35 2013 Iniciando servidor AU...
+Mon Jun 24 16:35:35 2013 Se ha iniciado el servidor.
+Mon Jun 24 16:35:52 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:35:52 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:35:52 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 16:36:48 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 16:36:51 2013 Se ha detenido el servidor.
+Mon Jun 24 16:38:03 2013 Iniciando servidor AU...
+Mon Jun 24 16:38:03 2013 Se ha iniciado el servidor.
+Mon Jun 24 16:38:49 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:38:49 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:38:49 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 16:39:19 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:39:19 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:39:19 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Mon Jun 24 16:39:19 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Mon Jun 24 16:39:22 2013 SINCRONIZADOR: Lista de archivos enviada.
+Mon Jun 24 16:39:46 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 16:39:46 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 16:39:46 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 16:39:46 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 16:39:46 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 16:39:46 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 16:40:37 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 16:42:53 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 16:42:53 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 16:42:53 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 16:43:27 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:43:27 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:43:27 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:43:27 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:43:44 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:43:44 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:44:11 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:44:11 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:44:11 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:44:11 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:44:11 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:44:11 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Solicitud de archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Archivo enviado.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Solicitud de archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Archivo enviado.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Solicitud de archivo.
+Mon Jun 24 16:44:21 2013 SINCRONIZADOR: Archivo enviado.
+Mon Jun 24 16:44:31 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 16:44:31 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 16:44:31 2013 Usuario 'Fiona'  se ha desconectado.
+Mon Jun 24 17:03:22 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 17:11:49 2013 Iniciando servidor AU...
+Mon Jun 24 17:11:49 2013 Se ha iniciado el servidor.
+Mon Jun 24 17:12:23 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 17:12:23 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 17:12:23 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 17:12:23 2013 Se ha desconectado al cliente.
+Mon Jun 24 17:12:28 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 17:12:28 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 17:12:28 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 17:12:28 2013 Se ha desconectado al cliente.
+Mon Jun 24 17:12:38 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 17:12:38 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 17:12:38 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 17:12:59 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 17:23:56 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 17:23:56 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 17:23:56 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 17:24:26 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 17:24:26 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 17:24:26 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Mon Jun 24 17:24:26 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Lista de archivos enviada.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Mon Jun 24 17:24:29 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Mon Jun 24 17:25:07 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:25:07 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:25:07 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:25:07 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:38 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:38 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:59 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:59 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:25:59 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:25:59 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Recepción de modificaciones en archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Se realizó notificación a clientes de la modificación de un archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Solicitud de archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Archivo enviado.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Solicitud de archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Archivo enviado.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Solicitud de archivo.
+Mon Jun 24 17:26:05 2013 SINCRONIZADOR: Archivo enviado.
+Mon Jun 24 17:26:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:23 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:23 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:26:35 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:26:56 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:26:56 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:26:56 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:26:56 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:27:03 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:27:03 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:27:09 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:27:09 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:27:34 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:27:34 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:27:40 2013 SINCRONIZADOR: Recepción de orden de eliminaciónde un archivo.
+Mon Jun 24 17:27:40 2013 SINCRONIZADOR: Envío de orden de eliminaciónde un archivo a clientes.
+Mon Jun 24 17:27:46 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:27:46 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:28:18 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:07 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:07 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:07 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:07 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:26 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:26 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:31 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:31 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:35 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:35 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:40 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:40 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:52 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:52 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:53 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:53 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:29:53 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:29:53 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:01 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:01 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:14 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:30 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:46 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:46 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:46 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:46 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:31:46 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:31:46 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:32:03 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:32:03 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:32:57 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:32:57 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:34:51 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:34:51 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:34:56 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:34:56 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:01 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:01 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:06 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:07 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:12 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:12 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:18 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:18 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:23 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:23 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:29 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:29 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:34 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:35 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:40 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:40 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:45 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:45 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:51 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:51 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:35:57 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:35:57 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:03 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:04 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:09 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:09 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:15 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:16 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:21 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:21 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:27 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:27 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:33 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:33 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:39 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:39 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:44 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:45 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:50 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:50 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:36:56 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:36:56 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:02 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:02 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:08 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:08 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:13 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:14 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:19 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:19 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:25 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:25 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:31 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:31 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:37:36 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Mon Jun 24 17:37:36 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Mon Jun 24 17:38:41 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 17:38:42 2013 Usuario 'Fiona'  se ha desconectado.
