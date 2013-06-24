@@ -8,12 +8,13 @@
 
 
 
-FormConfirmacion::FormConfirmacion(Monitor *monitor, string borrar) {
+FormConfirmacion::FormConfirmacion(Monitor *monitor, string borrar ) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 
 	this->monitor = monitor;
 	this->borrar = borrar;
+	this->seleccion = 0;
 
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/monitor_confirmarEliminacion.glade");
@@ -50,17 +51,18 @@ void FormConfirmacion::on_buttonAceptar_clicked() {
 	msg.append(this->borrar);
 
 	this->monitor->getReceptor()->enviarMensaje(msg);
+	this->seleccion = 1;
 	this->main->hide();
 }
 void FormConfirmacion::on_buttonCancelar_clicked() {
-
+	this->seleccion = 0;
 	this->main->hide();
 }
 
-void FormConfirmacion::correr(){
+int FormConfirmacion::correr() {
 	this->main->set_sensitive(true);
 	Gtk::Main::run(*main);
-
+	return this->seleccion;
 }
 
 FormConfirmacion::~FormConfirmacion() { }

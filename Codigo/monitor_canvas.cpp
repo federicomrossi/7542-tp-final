@@ -25,7 +25,7 @@ void Canvas::agregarVista(Vista* v) {
 }
 
 void Canvas::run() {
-//probalo a ver xD
+
 	int escalaActual = escalaRequerida(monitor->getBytesOcupados());
 
 	VistaLinea* primera = new VistaLinea( 500-10, monitor->getBytesOcupados() , 500, monitor->getBytesOcupados()); 
@@ -43,7 +43,7 @@ void Canvas::run() {
 			//actualizo la escala actual segun la actual medicion de bytes
 			escalaActual = escalaRequerida(monitor->getBytesOcupados());
 
-			//corro toda la mierda a la izquierda
+			//corro toda lo dibujado a la izquierda
 			//refresco las lineas actuales a la escala actual
 			list<Vista*>::iterator it;
 			for ( it=vistasLinea.begin() ; it != vistasLinea.end(); it++ ){
@@ -62,13 +62,13 @@ void Canvas::run() {
 			}
 		sleep(1);
 	}
+	
 
-	// queria ver si se estaba dibujando abajo de tod... vos pensas q tiene q crecer mas para q se vea..si se estuviese mostrando abajo?
+	
 }
 
 int Canvas::escalaRequerida(int bytes) {
-	// en q escala esta imprimiendo ...?¿?¿?¿?¿?¿ nunca guardamos antes de que compiles xD
-	//hasta 100 mb, sale en mb, mas de 100, sale en mb100 mmmmmmmmmmmmmm q esta mal aca a ver
+
 	if (bytes < KB) return B;
 	if (bytes < MB) return KB;
 	return MB;
@@ -78,9 +78,12 @@ int Canvas::escalaRequerida(int bytes) {
 void Canvas::correr(){
 	this->estado = true;
 	this->start();
+
 }
 void Canvas::detener(){
-	this->estado = false;	
+	
+	this->estado = false;
+	this->join();	
 }
 bool Canvas::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	Gtk::Allocation allocation = get_allocation();

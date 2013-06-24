@@ -11,7 +11,7 @@ MenuEstadisticas::MenuEstadisticas(Monitor *monitor) {
 	
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/monitor_estadisticas.glade");
-	refBuilder->get_widget("main", this->main); // linkeo el form
+	refBuilder->get_widget("main", this->main); // linkeo el form en blanco donde se muestra el grafico
 
 
 	main->show_all_children();

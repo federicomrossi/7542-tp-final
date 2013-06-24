@@ -27,6 +27,7 @@ private:
 	// Atributos del modelo
 	Monitor *monitor;
 	string borrar;
+	int seleccion;
 	
 public:
 
@@ -37,7 +38,7 @@ public:
 	virtual ~FormConfirmacion();
 
 	// Inicia la ejecución de la ventana
-	void correr();
+	int correr();
 
 protected:
 	// Acciones de botones

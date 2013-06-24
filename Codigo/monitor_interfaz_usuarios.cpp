@@ -9,7 +9,6 @@
 #include <iostream>
 #include <string>
 
-#include "common_convertir.h"
 
 
 
@@ -55,7 +54,7 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
   	 }
 
   	//Establacemos el titulo de a columna a mostrar
-  	this->tree.append_column("Usuario                   |", m_Columns.m_col_name); 
+  	this->tree.append_column("Usuario                     |", m_Columns.m_col_name); 
   	
 
 	// Acciones
@@ -103,15 +102,18 @@ void MenuUsuarios::on_buttonEliminar_clicked() {
   		aBorrar = row[m_Columns.m_col_name];
   		
 	}
-	
+
 	FormConfirmacion ventanaConfirmacion(this->monitor, aBorrar);
-	ventanaConfirmacion.correr();
-	this->listaUsuarios->erase(store_iter);    
-	this->monitor->usuarios.eliminar(aBorrar);
+	int resultado = ventanaConfirmacion.correr();
+	
+	if(resultado == 1) { //Borro solo si sale por aceptar
+		this->listaUsuarios->erase(store_iter);    
+		this->monitor->usuarios.eliminar(aBorrar);
+	}	
 	this->main->set_sensitive(true);
+	
+	}	
 
-
-}
 
 
 void MenuUsuarios::on_buttonModificar_clicked() {
@@ -138,10 +140,6 @@ void MenuUsuarios::on_buttonModificar_clicked() {
 	size_t pos = this->monitor->usuarios.tamanio();
 	Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
 	row[m_Columns.m_col_name] = this->monitor->usuarios[pos-1]; 
-
-
-
-
 
 }
 
