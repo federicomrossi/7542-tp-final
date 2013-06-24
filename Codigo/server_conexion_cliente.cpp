@@ -210,6 +210,7 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 	// Variables auxiliares
 	std::string instruccion, args;
+	AdministradorDeCuentas admin;
 
 	// Parseamos instruccion
 	Parser::parserInstruccion(mensaje, instruccion, args);
@@ -234,7 +235,6 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 	}
 	else if (instruccion == M_SERVER_USER_LIST_REQUEST) {
 		// Se pide a admin cuentas que devuelva la lista de clientes
-		AdministradorDeCuentas admin;
 		Lista<std::string> listaUsuarios;
 		admin.obtenerListaUsuarios(listaUsuarios);
 
@@ -256,14 +256,21 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		respuesta += S_SERVER_USER_PASS + " ";
 		respuesta.append("9090123");
 		com->emitir(respuesta);
-
 	}
 
 	else if (instruccion == M_SERVER_NEW_USER_INFO) {
-		std::cout<<"voy a agregar a un usuario"<<std::endl;
+		// Variables aux
+		Lista<std::string> listaArgs;
+
+		// Se obtiene nombre y clave
+		Parser::dividirCadena(args, &listaArgs, COMMON_DELIMITER[0]);
+
+		// Se agrega cliente
+		admin.agregarCliente(listaArgs[0], listaArgs[1]);
 	}
 	else if (instruccion == M_SERVER_DELETE_USER) {
-		std::cout<< "se da de baja un usuario"<<std::endl;
+		// Se elimina el usuario con el nombre especificado
+		admin.eliminarCliente(args);
 	}
 	else if (instruccion == M_SERVER_LOG_REQUEST) {
 		// Q HACEMO?

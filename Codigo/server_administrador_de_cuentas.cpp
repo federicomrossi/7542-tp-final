@@ -10,6 +10,7 @@ namespace {
 	#define PATH_ARCHIVO "bd/Users_Pass.txt"
 	#define PATH_ARCHIVO_TEMP "bd/Users_Pass_tmp.txt"
 	#define LONG_PATH 10
+	const std::string NOMBRE_MONITOR = "ADMMONITOR";
 }
 
 // Ctor
@@ -43,7 +44,9 @@ void AdministradorDeCuentas::obtenerListaUsuarios(Lista<std::string>
 		while (getline(archivo, linea)) {
 			nombre = linea.substr(0, linea.find( 
 				COMMON_DELIMITER));
-			listaUsuarios.insertarUltimo(nombre);
+			// Si no es el monitor, se guarda
+			if (nombre != NOMBRE_MONITOR)
+				listaUsuarios.insertarUltimo(nombre);
 		}
 
 		archivo.close();
