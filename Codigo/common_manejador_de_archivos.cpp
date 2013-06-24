@@ -10,6 +10,7 @@
 #include "common_hash.h"
 #include "common_utilidades.h"
 #include <stdlib.h>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "dirent.h"
@@ -77,6 +78,10 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 		while ((entrada = readdir (dir)) != NULL) {
 			// Salteamos directorios
 			if (entrada->d_type == esDirectorio)
+				continue;
+
+			// Si tiene el char ~ se saltea
+			if (strchr(entrada->d_name, '~'))
 				continue;
 
 			// Insertamos el nombre de archivo en la lista
