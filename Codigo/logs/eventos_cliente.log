@@ -1,318 +1,41 @@
-Sun Jun 23 05:19:50 2013 Conectando con 186.58.140.172 en el puerto 8000
-Sun Jun 23 05:19:50 2013 Conexión establecida con servidor.
-Sun Jun 23 05:19:50 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 05:19:50 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 05:19:50 2013 Actualizando directorio...
-Sun Jun 23 05:19:50 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 05:19:50 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 05:19:50 2013 Procesando lista de archivos...
-Sun Jun 23 05:19:50 2013 Se solicitaron archivos y partes faltantes.
-Sun Jun 23 05:19:50 2013 Se recibieron archivos y partes faltantes.
-Sun Jun 23 05:19:50 2013 Actualizando registro de archivos locales...
-Sun Jun 23 05:19:50 2013 Finalizada la actualización de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Bob Esponja'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Bob Esponja' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Bob Esponja' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Bob Esponja'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Bob Esponja'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Cartas de colores'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Cartas de colores' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Cartas de colores' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Don Rodrigo Diaz de Carreras'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Don Rodrigo Diaz de Carreras' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Don Rodrigo Diaz de Carreras' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Homero Simpson'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Homero Simpson' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Homero Simpson' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Jack Johnson'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Jack Johnson' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Jack Johnson' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Lisa Simpson'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Lisa Simpson' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Lisa Simpson' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'Mastropiero'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'Mastropiero' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'Mastropiero' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'No estoy creativa para los nombres'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'No estoy creativa para los nombres' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'No estoy creativa para los nombres' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'a10' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Cartas de colores'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Cartas de colores'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Don Rodrigo Diaz de Carreras'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Don Rodrigo Diaz de Carreras'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Homero Simpson'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Homero Simpson'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Jack Johnson'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Jack Johnson'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Lisa Simpson'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Lisa Simpson'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'Mastropiero'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'Mastropiero'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'No estoy creativa para los nombres'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'No estoy creativa para los nombres'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'a10'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'a10'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:24:04 2013 NOTIFIACIÓN: Nuevo archivo 'eventos_cliente.log'.
-Sun Jun 23 05:24:04 2013 INSPECTOR: Inspeccionando existencia de archivo 'eventos_cliente.log' en directorio local.
-Sun Jun 23 05:24:04 2013 Se solicitó archivo 'eventos_cliente.log' al servidor.
-Sun Jun 23 05:24:04 2013 NOTIFICACIÓN: Arrivo de archivo 'eventos_cliente.log'.
-Sun Jun 23 05:24:04 2013 Se agregó archivo nuevo 'eventos_cliente.log'
-Sun Jun 23 05:24:04 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:35:10 2013 NOTIFIACIÓN: Nuevo archivo 'A borrar'.
-Sun Jun 23 05:35:10 2013 INSPECTOR: Inspeccionando existencia de archivo 'A borrar' en directorio local.
-Sun Jun 23 05:35:10 2013 Se solicitó archivo 'A borrar' al servidor.
-Sun Jun 23 05:35:10 2013 NOTIFICACIÓN: Arrivo de archivo 'A borrar'.
-Sun Jun 23 05:35:10 2013 Se agregó archivo nuevo 'A borrar'
-Sun Jun 23 05:35:10 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:35:15 2013 NOTIFICACIÓN: Archivo 'A borrar' ha sido eliminado.
-Sun Jun 23 05:35:15 2013 Se eliminó el archivo 'A borrar'.
-Sun Jun 23 05:35:15 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:37:33 2013 NOTIFIACIÓN: Nuevo archivo 'A borrar'.
-Sun Jun 23 05:37:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'A borrar' en directorio local.
-Sun Jun 23 05:37:33 2013 Se solicitó archivo 'A borrar' al servidor.
-Sun Jun 23 05:37:33 2013 NOTIFICACIÓN: Arrivo de archivo 'A borrar'.
-Sun Jun 23 05:37:33 2013 Se agregó archivo nuevo 'A borrar'
-Sun Jun 23 05:37:33 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:38:20 2013 NOTIFICACIÓN: Archivo 'A borrar' ha sido eliminado.
-Sun Jun 23 05:38:20 2013 Se eliminó el archivo 'A borrar'.
-Sun Jun 23 05:38:20 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:40:02 2013 NOTIFIACIÓN: Nuevo archivo 'A borrar'.
-Sun Jun 23 05:40:02 2013 INSPECTOR: Inspeccionando existencia de archivo 'A borrar' en directorio local.
-Sun Jun 23 05:40:02 2013 Se solicitó archivo 'A borrar' al servidor.
-Sun Jun 23 05:40:02 2013 NOTIFICACIÓN: Arrivo de archivo 'A borrar'.
-Sun Jun 23 05:40:02 2013 Se agregó archivo nuevo 'A borrar'
-Sun Jun 23 05:40:02 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:40:07 2013 NOTIFICACIÓN: Archivo 'A borrar' ha sido eliminado.
-Sun Jun 23 05:40:07 2013 Se eliminó el archivo 'A borrar'.
-Sun Jun 23 05:40:07 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:45:35 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 05:45:35 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 05:45:35 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:46:10 2013 NOTIFICACIÓN: Archivo 'a2' ha sido eliminado.
-Sun Jun 23 05:46:10 2013 Se eliminó el archivo 'a2'.
-Sun Jun 23 05:46:10 2013 Se actualizó el registro de archivos.
-Sun Jun 23 05:46:20 2013 NOTIFIACIÓN: Nuevo archivo 'a2'.
-Sun Jun 23 05:46:20 2013 INSPECTOR: Inspeccionando existencia de archivo 'a2' en directorio local.
-Sun Jun 23 05:46:20 2013 Se solicitó archivo 'a2' al servidor.
-Sun Jun 23 05:46:20 2013 NOTIFICACIÓN: Arrivo de archivo 'a2'.
-Sun Jun 23 05:46:20 2013 Se agregó archivo nuevo 'a2'
-Sun Jun 23 05:46:20 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:05:51 2013 Conectando con 186.58.140.172 en el puerto 8000
-Sun Jun 23 06:05:51 2013 Conexión establecida con servidor.
-Sun Jun 23 06:05:51 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 06:05:51 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 06:05:51 2013 Actualizando directorio...
-Sun Jun 23 06:05:51 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 06:05:51 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 06:05:51 2013 Procesando lista de archivos...
-Sun Jun 23 06:05:51 2013 Actualizando registro de archivos locales...
-Sun Jun 23 06:05:51 2013 Finalizada la actualización de archivos.
-Sun Jun 23 06:06:26 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:06:26 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 06:06:26 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 06:06:26 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:06:26 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:06:56 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:06:56 2013 INSPECTOR: Archivo 'a10' fue eliminado.
-Sun Jun 23 06:06:56 2013 Se envió notificación de eliminar archivo 'a10' al servidor
-Sun Jun 23 06:06:56 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 06:06:56 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 06:06:56 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:07:26 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:07:26 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 06:07:26 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 06:07:26 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:07:26 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:07:41 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 06:07:41 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 06:07:41 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:08:52 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:08:52 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:08:52 2013 Se solicitó archivo 'a10' al servidor.
-Sun Jun 23 06:08:52 2013 NOTIFICACIÓN: Arrivo de archivo 'a10'.
-Sun Jun 23 06:08:52 2013 Se agregó archivo nuevo 'a10'
-Sun Jun 23 06:08:52 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:09:32 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 06:09:32 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 06:09:32 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:10:33 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:10:33 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:10:37 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:10:37 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 06:10:37 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 06:10:37 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:10:37 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:31:22 2013 Conectando con 186.58.140.172 en el puerto 8000
-Sun Jun 23 06:31:22 2013 Conexión establecida con servidor.
-Sun Jun 23 06:31:22 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 06:31:22 2013 Inicio de sesión exitoso con usuario 'belu'
-Sun Jun 23 06:31:22 2013 Actualizando directorio...
-Sun Jun 23 06:31:22 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 06:31:22 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 06:31:22 2013 Procesando lista de archivos...
-Sun Jun 23 06:31:22 2013 Actualizando registro de archivos locales...
-Sun Jun 23 06:31:22 2013 Finalizada la actualización de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Bob Esponja'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Bob Esponja' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Bob Esponja' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Bob Esponja'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Bob Esponja'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Cartas de colores'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Cartas de colores' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Cartas de colores' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Don Rodrigo Diaz de Carreras'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Don Rodrigo Diaz de Carreras' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Don Rodrigo Diaz de Carreras' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Homero Simpson'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Homero Simpson' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Homero Simpson' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Jack Johnson'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Jack Johnson' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Jack Johnson' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Lisa Simpson'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Lisa Simpson' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Lisa Simpson' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'Mastropiero'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'Mastropiero' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'Mastropiero' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'No estoy creativa para los nombres'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'No estoy creativa para los nombres' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'No estoy creativa para los nombres' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Cartas de colores'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Cartas de colores'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Don Rodrigo Diaz de Carreras'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Don Rodrigo Diaz de Carreras'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Homero Simpson'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Homero Simpson'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Jack Johnson'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Jack Johnson'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Lisa Simpson'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Lisa Simpson'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'Mastropiero'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'Mastropiero'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'No estoy creativa para los nombres'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'No estoy creativa para los nombres'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:31:30 2013 NOTIFIACIÓN: Nuevo archivo 'eventos_cliente.log'.
-Sun Jun 23 06:31:30 2013 INSPECTOR: Inspeccionando existencia de archivo 'eventos_cliente.log' en directorio local.
-Sun Jun 23 06:31:30 2013 Se solicitó archivo 'eventos_cliente.log' al servidor.
-Sun Jun 23 06:31:30 2013 NOTIFICACIÓN: Arrivo de archivo 'eventos_cliente.log'.
-Sun Jun 23 06:31:30 2013 Se agregó archivo nuevo 'eventos_cliente.log'
-Sun Jun 23 06:31:30 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Bob Esponja' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Bob Esponja' al servidor
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Cartas de colores' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Cartas de colores' al servidor
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Don Rodrigo Diaz de Carreras' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Don Rodrigo Diaz de Carreras' al servidor
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Homero Simpson' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Homero Simpson' al servidor
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Bob Esponja' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Jack Johnson' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Bob Esponja'.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Jack Johnson' al servidor
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Lisa Simpson' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Lisa Simpson' al servidor
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'Mastropiero' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Cartas de colores' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'Mastropiero' al servidor
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Cartas de colores'.
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'No estoy creativa para los nombres' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'No estoy creativa para los nombres' al servidor
-Sun Jun 23 06:32:03 2013 INSPECTOR: Archivo 'eventos_cliente.log' fue eliminado.
-Sun Jun 23 06:32:03 2013 Se envió notificación de eliminar archivo 'eventos_cliente.log' al servidor
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Don Rodrigo Diaz de Carreras' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Don Rodrigo Diaz de Carreras'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Homero Simpson' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Homero Simpson'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Jack Johnson' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Jack Johnson'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Lisa Simpson' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Lisa Simpson'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'Mastropiero' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'Mastropiero'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'No estoy creativa para los nombres' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'No estoy creativa para los nombres'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:32:03 2013 NOTIFICACIÓN: Archivo 'eventos_cliente.log' ha sido eliminado.
-Sun Jun 23 06:32:03 2013 Se eliminó el archivo 'eventos_cliente.log'.
-Sun Jun 23 06:32:03 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:33:08 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:33:08 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 06:33:08 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 06:33:08 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:33:08 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:33:10 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:33:10 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:34:48 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:34:48 2013 INSPECTOR: Archivo 'a10' fue eliminado.
-Sun Jun 23 06:34:48 2013 Se envió notificación de eliminar archivo 'a10' al servidor
-Sun Jun 23 06:34:48 2013 NOTIFICACIÓN: Archivo 'a10' ha sido eliminado.
-Sun Jun 23 06:34:48 2013 Se eliminó el archivo 'a10'.
-Sun Jun 23 06:34:48 2013 Se actualizó el registro de archivos.
-Sun Jun 23 06:37:14 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 06:37:14 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 06:37:14 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 06:37:14 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:37:14 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 06:37:16 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 06:37:16 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 11:56:24 2013 Conectando con 186.58.140.172 en el puerto 8000
-Sun Jun 23 11:56:24 2013 No se ha podido conectar con servidor.
-Sun Jun 23 11:56:24 2013 ERROR: No se pudo llevar a cabo la conexión.
-Sun Jun 23 11:56:44 2013 Conectando con 127.0.0.1 en el puerto 8000
-Sun Jun 23 11:56:44 2013 Conexión establecida con servidor.
-Sun Jun 23 11:56:44 2013 Emitiendo solicitud de LOGIN...
-Sun Jun 23 11:56:44 2013 Inicio de sesión exitoso con usuario 'Fiona'
-Sun Jun 23 11:56:44 2013 Actualizando directorio...
-Sun Jun 23 11:56:44 2013 Solicitando lista de archivos del servidor...
-Sun Jun 23 11:56:44 2013 Se recibió lista de archivos del servidor...
-Sun Jun 23 11:56:44 2013 Procesando lista de archivos...
-Sun Jun 23 11:56:44 2013 Actualizando registro de archivos locales...
-Sun Jun 23 11:56:45 2013 Finalizada la actualización de archivos.
-Sun Jun 23 11:56:50 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 11:56:50 2013 INSPECTOR: Archivo nuevo 'a10'
-Sun Jun 23 11:56:50 2013 Se envió archivo 'a10' al servidor.
-Sun Jun 23 11:56:50 2013 NOTIFIACIÓN: Nuevo archivo 'a10'.
-Sun Jun 23 11:56:50 2013 INSPECTOR: Inspeccionando existencia de archivo 'a10' en directorio local.
-Sun Jun 23 11:57:15 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 11:57:15 2013 INSPECTOR: Archivo nuevo 'copia de a10'
-Sun Jun 23 11:57:15 2013 Se envió archivo 'copia de a10' al servidor.
-Sun Jun 23 11:57:15 2013 INSPECTOR: Archivo nuevo 'otra copia de a10'
-Sun Jun 23 11:57:15 2013 Se envió archivo 'otra copia de a10' al servidor.
-Sun Jun 23 11:57:15 2013 NOTIFIACIÓN: Nuevo archivo 'copia de a10'.
-Sun Jun 23 11:57:15 2013 INSPECTOR: Inspeccionando existencia de archivo 'copia de a10' en directorio local.
-Sun Jun 23 11:57:15 2013 NOTIFIACIÓN: Nuevo archivo 'otra copia de a10'.
-Sun Jun 23 11:57:15 2013 INSPECTOR: Inspeccionando existencia de archivo 'otra copia de a10' en directorio local.
-Sun Jun 23 11:57:35 2013 INSPECTOR: Se detectaron cambios.
-Sun Jun 23 11:57:35 2013 INSPECTOR: Archivo 'a10' fue modificado.
-Sun Jun 23 11:57:35 2013 Se enviaron modificaciones hechas sobre el archivo 'a10' al servidor.
-Sun Jun 23 11:57:35 2013 NOTIFICACIÓN: Archivo 'a10' ha sido modificado.
-Sun Jun 23 11:57:35 2013 INSPECTOR: Inspeccionando archivo 'a10' en directorio local.
+Mon Jun 24 16:49:04 2013 Conectando con 127.0.0.1 en el puerto 8080
+Mon Jun 24 16:49:04 2013 Conexión establecida con servidor.
+Mon Jun 24 16:49:04 2013 Emitiendo solicitud de LOGIN...
+Mon Jun 24 16:49:04 2013 Inicio de sesión exitoso con usuario 'belu'
+Mon Jun 24 16:49:04 2013 Actualizando directorio...
+Mon Jun 24 16:49:04 2013 Solicitando lista de archivos del servidor...
+Mon Jun 24 16:49:06 2013 Se recibió lista de archivos del servidor...
+Mon Jun 24 16:49:06 2013 Procesando lista de archivos...
+Mon Jun 24 16:49:06 2013 Se solicitaron archivos y partes faltantes.
+Mon Jun 24 16:49:42 2013 Se recibieron archivos y partes faltantes.
+Mon Jun 24 16:49:43 2013 Se solicitaron archivos y partes faltantes.
+Mon Jun 24 16:49:43 2013 Se recibieron archivos y partes faltantes.
+Mon Jun 24 16:49:43 2013 Se solicitaron archivos y partes faltantes.
+Mon Jun 24 16:49:44 2013 Se recibieron archivos y partes faltantes.
+Mon Jun 24 16:49:44 2013 Se solicitaron archivos y partes faltantes.
+Mon Jun 24 16:49:44 2013 Se recibieron archivos y partes faltantes.
+Mon Jun 24 16:49:44 2013 Se solicitaron archivos y partes faltantes.
+Mon Jun 24 16:49:44 2013 Se recibieron archivos y partes faltantes.
+Mon Jun 24 16:49:44 2013 Actualizando registro de archivos locales...
+Mon Jun 24 16:49:47 2013 Finalizada la actualización de archivos.
+Mon Jun 24 16:56:15 2013 INSPECTOR: Se detectaron cambios.
+Mon Jun 24 16:56:23 2013 INSPECTOR: Archivo nuevo 'The Strokes - Is This It (2001).tar.gz'
+Mon Jun 24 16:56:23 2013 Se envió archivo 'The Strokes - Is This It (2001).tar.gz' al servidor.
+Mon Jun 24 16:57:34 2013 NOTIFIACIÓN: Nuevo archivo 'The Strokes - Is This It (2001).tar.gz'.
+Mon Jun 24 16:57:34 2013 INSPECTOR: Inspeccionando existencia de archivo 'The Strokes - Is This It (2001).tar.gz' en directorio local.
+Mon Jun 24 16:57:57 2013 INSPECTOR: Se detectaron cambios.
+Mon Jun 24 16:57:58 2013 INSPECTOR: Archivo nuevo 'Moby - Raining Again.mp3'
+Mon Jun 24 16:57:58 2013 Se envió archivo 'Moby - Raining Again.mp3' al servidor.
+Mon Jun 24 16:58:05 2013 NOTIFIACIÓN: Nuevo archivo 'Moby - Raining Again.mp3'.
+Mon Jun 24 16:58:16 2013 INSPECTOR: Inspeccionando existencia de archivo 'Moby - Raining Again.mp3' en directorio local.
+Mon Jun 24 17:11:23 2013 INSPECTOR: Se detectaron cambios.
+Mon Jun 24 17:11:23 2013 INSPECTOR: Archivo nuevo '.~lock.Untitled 1.odt#'
+Mon Jun 24 17:11:23 2013 Se envió archivo '.~lock.Untitled 1.odt#' al servidor.
+Mon Jun 24 17:11:23 2013 NOTIFIACIÓN: Nuevo archivo '.~lock.Untitled 1.odt#'.
+Mon Jun 24 17:11:23 2013 INSPECTOR: Archivo nuevo 'Untitled 1.odt'
+Mon Jun 24 17:11:23 2013 Se envió archivo 'Untitled 1.odt' al servidor.
+Mon Jun 24 17:11:23 2013 INSPECTOR: Inspeccionando existencia de archivo '.~lock.Untitled 1.odt#' en directorio local.
+Mon Jun 24 17:11:24 2013 NOTIFIACIÓN: Nuevo archivo 'Untitled 1.odt'.
+Mon Jun 24 17:11:24 2013 INSPECTOR: Inspeccionando existencia de archivo 'Untitled 1.odt' en directorio local.
+Mon Jun 24 17:12:19 2013 NOTIFIACIÓN: Nuevo archivo '.~lock.Untitled 1.odt#'.
+Mon Jun 24 17:12:23 2013 INSPECTOR: Inspeccionando existencia de archivo '.~lock.Untitled 1.odt#' en directorio local.

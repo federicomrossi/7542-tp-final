@@ -36,6 +36,19 @@ private:
 	Mutex m;							// Mutex
 	Logger *logger;						// Logger de eventos
 
+
+	
+	// Procesa dos hashes pertenecientes al contenido de un archivo y
+	// obtiene los bloques que han cambiado.
+	// PRE: 'hashViejo' y 'hashNuevo' son los hashes de los archivos a
+	// procesar; 'cantNuevaBloques' es la cantidad de bloques del archivo
+	// que es representado por 'hashNuevo'
+	// POST: se listan en 'listaBLoquesDiferentes' los numero de bloques
+	// que han cambiado; Se devuelve true si se encontraron diferencias o 
+	// false en caso contrario.
+	bool obtenerDiferencias(std::string& hashViejo, std::string& hashNuevo,
+		int& cantNuevaBloques, Lista<int> *listaBloquesDiferentes);
+
 	// Separa de una linea el nombre y el hash
 	void separarNombreYHash(const std::string &linea, std::string& nombre, std::string &hash);
 
@@ -140,17 +153,6 @@ public:
 	// previamente para no confundir el cero de error con el valor nulo de
 	// que puede poseer cierto archivo.
 	unsigned int obtenerCantBytes(const std::string &nombreArchivo);
-
-	// Procesa dos hashes pertenecientes al contenido de un archivo y
-	// obtiene los bloques que han cambiado.
-	// PRE: 'hashViejo' y 'hashNuevo' son los hashes de los archivos a
-	// procesar; 'cantNuevaBloques' es la cantidad de bloques del archivo
-	// que es representado por 'hashNuevo'
-	// POST: se listan en 'listaBLoquesDiferentes' los numero de bloques
-	// que han cambiado; Se devuelve true si se encontraron diferencias o 
-	// false en caso contrario.
-	bool obtenerDiferencias(std::string& hashViejo, std::string& hashNuevo,
-		int& cantNuevaBloques, Lista<int> *listaBloquesDiferentes);
 
 	// Crea un archivo de registro.
 	// PRE: 'nombreArchivo' es la ruta hacia el archivo junto a su nombre.

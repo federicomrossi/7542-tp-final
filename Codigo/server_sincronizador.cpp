@@ -285,14 +285,23 @@ void Sincronizador::run() {
 				listaArgumentos.eliminarPrimero();
 				std::string contenido = listaArgumentos.verPrimero();
 				listaArgumentos.eliminarPrimero();
-				
+
 				bloques.insertarUltimo(std::make_pair(bloque, contenido));
 				numBloques.insertarUltimo(bloque);
 			}
 
-			// Enviamos a modificar el archivo
-			this->manejadorDeArchivos->modificarArchivo(nombreArchivo, 
-				cantBytesTotal, bloques);
+			// Resguardamos la estabilidad del sincronizador ante archivos
+			// fantasmas de backup
+			try {
+				// Enviamos a modificar el archivo
+				this->manejadorDeArchivos->modificarArchivo(nombreArchivo, 
+					cantBytesTotal, bloques);
+			}
+			catch(char const * e) {
+				// Emitimos salida de log pero seguimos adelante
+				this->logger->emitirLog(e);
+			}
+
 
 			while(!numBloques.estaVacia()) {
 				int b = numBloques.verPrimero();

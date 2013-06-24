@@ -63,9 +63,6 @@ ManejadorDeArchivos::~ManejadorDeArchivos() { }
 // encuentran ubicados en el directorio administrado por el manejador.
 void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 	Lista<std::string>* listaArchivos) {
-	// Bloqueamos el mutex
-	Lock l(m);
-
 	// Variables auxiliares
 	DIR *dir;
 	struct dirent *entrada = 0;
@@ -536,9 +533,6 @@ unsigned int ManejadorDeArchivos::obtenerCantBytes(
 bool ManejadorDeArchivos::obtenerDiferencias(std::string& hashViejo,
 	std::string& hashNuevo, int& cantNuevaBloques,
 	Lista<int> *listaBloquesDiferentes) {
-	// Bloqueamos el mutex
-	Lock l(m);
-
 	// Si los hashes refieren a archivos vacios, devolvemos false
 	if(hashViejo == "" && hashNuevo == "") return false;
 
@@ -735,6 +729,9 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	Cola< std::pair< std::string, std::string > > *nuevos, 
 	Cola< std::pair< std::string, Lista<int> > > *modificados, 
 	Cola< std::string > *eliminados){
+	// Bloqueamos el mutex
+	Lock l(m);
+
 	// Variables auxiliares
 	std::ifstream registro;
 	std::ofstream registroTmp;
@@ -891,6 +888,9 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	Lista< std::string >& nuevosActualizables, 
 	Lista< std::string >& modificadosActualizables) {
+	// Bloqueamos el mutex
+	Lock l(m);
+	
  	// Variables auxiliares
 	std::ifstream registro;
 	std::ofstream registroTmp;
