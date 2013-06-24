@@ -40,6 +40,9 @@ namespace {
 
 	// Longitud de nombre del archivo temporal
 	const int LONGITUD_TEMP = 40;
+
+	// Caracter no permitido en los nombres de archivo
+	const char CHAR_PROHIBIDO = '~';
 }
 
 
@@ -81,7 +84,7 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 				continue;
 
 			// Si tiene el char ~ se saltea
-			if (strchr(entrada->d_name, '~'))
+			if (strchr(entrada->d_name, CHAR_PROHIBIDO))
 				continue;
 
 			// Insertamos el nombre de archivo en la lista
