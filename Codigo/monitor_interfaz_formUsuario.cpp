@@ -6,6 +6,7 @@
 #include "common_protocolo.h"
 #include "common_convertir.h"
 #include "monitor_interfaz_formUsuario.h"
+#include "common_hash.h"
 
 
 
@@ -81,7 +82,7 @@ void FormUsuario::on_buttonGuardar_clicked() {
 	res.append(" ");
 	res.append(user);
 	res.append(COMMON_DELIMITER);
-	res.append(pass);
+	res.append(Hash::funcionDeHash(pass));
 	this->monitor->usuarios.insertarUltimo(user);
 	this->monitor->getReceptor()->enviarMensaje(res);
 	this->main->hide();
