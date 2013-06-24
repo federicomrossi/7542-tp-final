@@ -10,6 +10,7 @@
 #include "common_convertir.h"
 #include "server_administrador_de_clientes.h"
 #include "server_conexion_cliente.h"
+#include "common_lista.h"
 
 
 
@@ -25,9 +26,9 @@
 // número de cliente que se le ha sido asignado por el servidor; 'serv' es
 // una referencia al servidor al que pertenece la conexión.
 ConexionCliente::ConexionCliente(Socket *s,
-	AdministradorDeClientes *adm, Verificador *v, Logger *logger) : socket(s), 
-	nombreUsuario(""), admClientes(adm), verificador(v), pathCarpeta(""), 
-	habilitarRecepcion(false), logger(logger) { }
+	AdministradorDeClientes *adm, AdministradorDeCuentas *ac, Logger *logger) : 
+	socket(s), nombreUsuario(""), admClientes(adm), admCuentas(ac), 
+	pathCarpeta(""), habilitarRecepcion(false), logger(logger) { }
 
 
 // Destructor
@@ -99,7 +100,7 @@ void ConexionCliente::run() {
 			this->receptor->ingresarMensajeDeEntrada(this->id(), mensaje);
 		}
 	}
-
+	
 	// Avisamos al administrador que la conexión debe darse de baja y ser
 	// destruida
 	this->admClientes->darDeBajaCliente(this->nombreUsuario, this);
@@ -116,7 +117,7 @@ void ConexionCliente::run() {
 void ConexionCliente::detener() {
 	// Detenemos hilo
 	this->stop();
-
+	
 	// Forzamos el cierre del socket y destrabamos espera de recepcion de datos
 	try {
 		this->socket->cerrar();
@@ -182,7 +183,7 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 	// Variables de procesamiento
 	std::string instruccion;
 	std::string args;
-
+	
 	// Se recibe la instruccion
 	if(comunicador.recibir(instruccion, args) == -1) 
 		return -1;
@@ -190,7 +191,7 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 	// Se debe crear nuevo usuario
 	if (instruccion == C_LOGIN_REQUEST) {
 		// Caso en que la verificación es correcta
-		if (verificador->verificarCliente(args, this->nombreUsuario, 
+		if (admCuentas->verificarCliente(args, this->nombreUsuario, 
 			this->pathCarpeta) == 1) {  
 			comunicador.emitir(S_LOGIN_OK);
 			return 1;
@@ -228,28 +229,31 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		int bytesAlmacenados = Recolector::cantidadBytesAlmacenados();
 		respuesta.append(Convertir::itos(bytesAlmacenados));
 
+		// Emitimos respuesta
+		com->emitir(respuesta);
+	}
+	else if (instruccion == M_SERVER_USER_LIST_REQUEST) {
+		// Se pide a admin cuentas que devuelva la lista de clientes
+		AdministradorDeCuentas admin;
+		Lista<std::string> listaUsuarios;
+		admin.obtenerListaUsuarios(listaUsuarios);
+
+		// Se prepara el mensaje
+		size_t i, tam = listaUsuarios.tamanio();
+		std::string respuesta = S_SERVER_USER_LIST + " ";
+
+		for (i = 0; i < tam - 1; i++)
+			respuesta.append(listaUsuarios[i] + COMMON_DELIMITER);
+		// Se agrega el ultimo parametro
+		respuesta.append(listaUsuarios[i]);
 
 		// Emitimos respuesta
 		com->emitir(respuesta);
 	}
-	if (instruccion == M_SERVER_USER_LIST_REQUEST) {
-
-		// LISTA DE PRUEBA PARA SEGUIR EJECUCION
-		std::string respuesta;
-		respuesta.append(S_SERVER_USER_LIST);
-		respuesta.append(" ");
-		respuesta.append("Belu");
-		respuesta.append(COMMON_DELIMITER);
-		respuesta.append("Fede");
-		respuesta.append(COMMON_DELIMITER);
-		respuesta.append("Fio");
-		com->emitir(respuesta);
-	}
-	if (instruccion == M_SERVER_NEW_USER_INFO) {
+	else if (instruccion == M_SERVER_NEW_USER_INFO) {
 		std::cout<<"voy a agregar a un usuario"<<std::endl;
 	}
-
-	if (instruccion == M_SERVER_DELETE_USER) {
+	else if (instruccion == M_SERVER_DELETE_USER) {
 		std::cout<< "se da de baja un usuario"<<std::endl;
 	}
 }
