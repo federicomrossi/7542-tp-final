@@ -72,7 +72,7 @@ void ConexionCliente::run() {
 
 	// Nos autoregistramos en el administrador de clientes
 	this->admClientes->ingresarCliente(this->nombreUsuario, this, 
-		this->pathCarpeta);
+		this->pathCarpeta, this->clave);
 
 	// Si se conectó una aplicación monitor, derivamos hacia allí
 	if(this->nombreUsuario == MONITOR_USER) {
@@ -192,7 +192,7 @@ int ConexionCliente::inicioSesion(Comunicador& comunicador) {
 	if (instruccion == C_LOGIN_REQUEST) {
 		// Caso en que la verificación es correcta
 		if (admCuentas->verificarCliente(args, this->nombreUsuario, 
-			this->pathCarpeta) == 1) {  
+			this->pathCarpeta, this->clave) == 1) {  
 			comunicador.emitir(S_LOGIN_OK);
 			return 1;
 		}

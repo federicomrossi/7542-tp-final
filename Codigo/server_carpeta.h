@@ -41,7 +41,8 @@ private:
 public:
 
 	// Constructor
-	Carpeta(const std::string &pathCarpeta, Logger *logger);
+	Carpeta(const std::string &pathCarpeta, Logger *logger, const 
+		std::string &clave);
 
 	// Destructor
 	~Carpeta();

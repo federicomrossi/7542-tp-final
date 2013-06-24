@@ -48,6 +48,7 @@ private:
 	bool habilitarRecepcion;					// Traba para evitar recepción
 												// hasta que se indique.
 	Logger *logger;								// Logger de eventos
+	std::string clave;		// Clave utilizada para firmar mensajes
 
 	// Espera inicio sesion
 	int inicioSesion(Comunicador& comunicador);

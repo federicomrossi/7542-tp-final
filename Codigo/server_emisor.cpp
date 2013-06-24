@@ -21,8 +21,9 @@ namespace {
 
 
 // Constructor
-Emisor::Emisor(Lista< ConexionCliente* > *listaConexiones, Logger *logger) : 
-	listaConexiones(listaConexiones), logger(logger) { }
+Emisor::Emisor(Lista< ConexionCliente* > *listaConexiones, Logger *logger,
+	const std::string &clave) : 
+	listaConexiones(listaConexiones), logger(logger), clave(clave) { }
 
 
 // Destructor
@@ -64,6 +65,9 @@ void Emisor::ingresarMensajeDeSalida(int id, std::string msg) {
 // Define tareas a ejecutar en el hilo.
 // Se encarga de emitir lo que se encuentre en la cola de salida.
 void Emisor::run() {
+	// Variables auxiliares
+	std::string mensajeFirmado;
+
 	// Emitimos lo que vaya siendo insertado en la cola de salida. Ante una
 	// detención del thread, se seguirá emitiendo hasta vaciar la cola de 
 	// salida.
@@ -74,11 +78,15 @@ void Emisor::run() {
 		// Corroboramos si no se ha desencolado el mensaje que marca el fin
 		if(mensaje.second == COLA_SALIDA_FIN) return;
 
+		// Se firma el mensaje
+		mensajeFirmado = Seguridad::obtenerFirma(mensaje.second, this->clave) +
+			COMMON_DELIMITER + mensaje.second;
+
 		// Caso en que se debe enviar el mismo mensaje a todos los clientes
 		if(mensaje.first == 0) {
 			// Iteramos sobre la lista y enviamos el mensaje uno a uno
 			for(size_t i = 0; i < this->listaConexiones->tamanio(); i++)
-				(*this->listaConexiones)[i]->enviarMensaje(mensaje.second);
+				(*this->listaConexiones)[i]->enviarMensaje(mensajeFirmado);
 		}
 		// Caso en que se debe enviar el mensaje a un único cliente
 		else {
@@ -88,7 +96,7 @@ void Emisor::run() {
 				
 				// Comparamos identificadores para ver si es el cliente deseado
 				if(cc->id() == mensaje.first){
-					cc->enviarMensaje(mensaje.second);
+					cc->enviarMensaje(mensajeFirmado);
 					break;
 				}
 			}

@@ -13,7 +13,7 @@
 #include "common_socket.h"
 #include "common_comunicador.h"
 #include "common_logger.h"
-
+#include "common_seguridad.h"
 
 
 
@@ -30,11 +30,12 @@ private:
 	Cola< std::string > salida;				// Cola de salida
 	Comunicador com;						// Comunicador del emisor
 	Logger *logger;							// Logger de eventos
+	std::string clave;		// Clave utilizada para firmar mensajes
 
 public:
 
 	// Constructor
-	Emisor(Socket *socket, Logger *logger);
+	Emisor(Socket *socket, Logger *logger, const std::string &clave);
 
 	// Destructor
 	~Emisor();

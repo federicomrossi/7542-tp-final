@@ -5,6 +5,7 @@
 
 
 #include "server_receptor.h"
+#include "common_protocolo.h"
 
 
 
@@ -15,7 +16,8 @@
 
 
 // Constructor
-Receptor::Receptor(Logger *logger) : logger(logger) { }
+Receptor::Receptor(Logger *logger, const std::string &clave) : logger(logger),
+	clave(clave) { }
 
 
 // Destructor
@@ -28,6 +30,11 @@ Receptor::~Receptor() { }
 void Receptor::ingresarMensajeDeEntrada(int id, std::string msg) {
 	// Bloqueamos mutex de entrada
 	Lock l(this->me);
+
+	// Verifico firma antes de insertar
+	int delim = msg.find(COMMON_DELIMITER);
+	std::string firma = msg.substr(0, delim);
+	msg = msg.substr(delim + 1);
 
 	// Insertamos mensaje en la cola
 	this->entrada.push(std::make_pair(id, msg));

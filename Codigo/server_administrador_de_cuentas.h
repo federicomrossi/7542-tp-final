@@ -53,7 +53,7 @@ public:
 	// POST: si la verificación es exitosa, se almacena en 'nombreUsuario' el
 	// nombre de usuario del cliente.
 	int verificarCliente(std::string &args, std::string& nombreUsuario, 
-		std::string &pathCarpeta);
+		std::string &pathCarpeta, std::string &clave);
 
 	// Agrega un cliente a la lista
 	void agregarCliente(const std::string &nombre, const std::string 

@@ -17,6 +17,7 @@
 #include "common_lock.h"
 #include "common_logger.h"
 #include "server_conexion_cliente.h"
+#include "common_seguridad.h"
 
 
 
@@ -34,13 +35,15 @@ private:
 	Lista< ConexionCliente* > *listaConexiones;			// Conexiones
 	Mutex m;											// Mutex
 	Logger *logger;										// Logger de eventos
+	std::string clave;			// Clave utilizada para firmar mensajes
 
 public:
 
 	// Constructor
 	// PRE: 'listaConexiones' es la lista de conexiones de clientes sobre las
 	// que se realizan las emisiones.
-	Emisor(Lista< ConexionCliente* > *listaConexiones, Logger *logger);
+	Emisor(Lista< ConexionCliente* > *listaConexiones, Logger *logger, 
+		const std::string &clave);
 
 	// Destructor
 	~Emisor();

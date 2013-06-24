@@ -55,7 +55,8 @@ void AdministradorDeCuentas::obtenerListaUsuarios(Lista<std::string>
 // POST: si la verificación es exitosa, se almacena en 'nombreUsuario' el
 // nombre de usuario del cliente.
 int AdministradorDeCuentas::verificarCliente(std::string &args, 
-	std::string& nombreUsuario, std::string &pathCarpeta) {
+	std::string& nombreUsuario, std::string &pathCarpeta,
+	std::string &contrasenia) {
 	// Variables auxiliares
 	std::string usuario, clave, carpeta;
 	int delim;
@@ -84,6 +85,7 @@ int AdministradorDeCuentas::verificarCliente(std::string &args,
 	if(existe) {
 		nombreUsuario = usuario;
 		pathCarpeta = carpeta;
+		contrasenia = clave;
 	}
 
 	return existe;

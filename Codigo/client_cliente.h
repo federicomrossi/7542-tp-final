@@ -39,6 +39,7 @@ private:
 	bool estadoConexion;			// Censa si se encuentra conectado
 	bool actualizando;				// Censa si se encuentra actualizando
 									// el directorio.
+	std::string clave;		// Clave con la que firman los mensajes
 
 	//Atributos de módulos
 	Emisor *emisor;

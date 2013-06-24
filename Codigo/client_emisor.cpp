@@ -26,8 +26,8 @@ namespace {
 
 
 // Constructor
-Emisor::Emisor(Socket *socket, Logger *logger) : socket(socket), 
-	com(socket), logger(logger) { }
+Emisor::Emisor(Socket *socket, Logger *logger, const std::string &clave) : 
+	socket(socket), com(socket), logger(logger), clave(clave) { }
 
 
 // Destructor
@@ -72,6 +72,10 @@ void Emisor::run() {
 
 		// Corroboramos si no se ha desencolado el mensaje que marca el fin
 		if(mensaje == COLA_SALIDA_FIN) return;
+
+		// Se firma el mensaje
+		mensaje = Seguridad::obtenerFirma(mensaje, this->clave) + 
+			COMMON_DELIMITER + mensaje;
 
 		// Enviamos mensaje
 		if(this->com.emitir(mensaje) == -1) {

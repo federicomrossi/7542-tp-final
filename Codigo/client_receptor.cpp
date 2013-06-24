@@ -23,8 +23,8 @@ namespace {
 
 
 // Constructor
-Receptor::Receptor(Socket *socket, Logger *logger) : socket(socket), 
-	com(socket), logger(logger) { }
+Receptor::Receptor(Socket *socket, Logger *logger, const std::string &clave) :
+	socket(socket), com(socket), logger(logger), clave(clave) { }
 
 
 // Destructor
@@ -61,6 +61,10 @@ std::string Receptor::obtenerMensajeDeEntrada() {
 // Define tareas a ejecutar en el hilo.
 // Se encarga de emitir lo que se encuentre en la cola de salida.
 void Receptor::run() {
+	// Variables auxiliares
+	std::string firma;
+	int delim;
+
 	// Nos ponemos a la espera de mensajes de entrada
 	while(this->isActive()) {
 		// Esperamos recepción de mensaje
@@ -75,7 +79,21 @@ void Receptor::run() {
 
 			break;
 		}
-		// Encolamos el mensaje en cola de entrada
-		this->entrada.push(mensaje);
+		// Se separa la firma del mensaje
+		delim = mensaje.find(COMMON_DELIMITER);
+		firma = mensaje.substr(0, delim);
+		mensaje = mensaje.substr(delim + 1);
+
+		// Se comprueba la validez de la firma
+		if (Seguridad::firmaValida(mensaje, this->clave, firma)) {
+			// Encolamos el mensaje en cola de entrada
+			this->entrada.push(mensaje);
+		}
+		else {
+			// Enviar mensaje de desconexion
+
+			// Detener ejecucion
+			this->detener();
+		}
 	}
 }
