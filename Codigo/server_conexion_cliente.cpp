@@ -265,7 +265,7 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		// Se obtiene nombre y clave
 		Parser::dividirCadena(args, &listaArgs, COMMON_DELIMITER[0]);
 
-		// Se agrega cliente
+		// Se agrega cliente al archivo
 		admin.agregarCliente(listaArgs[0], listaArgs[1]);
 	}
 	else if (instruccion == M_SERVER_DELETE_USER) {

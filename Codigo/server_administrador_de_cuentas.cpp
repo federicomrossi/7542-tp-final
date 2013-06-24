@@ -44,7 +44,7 @@ void AdministradorDeCuentas::obtenerListaUsuarios(Lista<std::string>
 		while (getline(archivo, linea)) {
 			nombre = linea.substr(0, linea.find( 
 				COMMON_DELIMITER));
-			// Si no es el monitor, se guarda
+			// Si es el monitor, se saltea de la lista
 			if (nombre != NOMBRE_MONITOR)
 				listaUsuarios.insertarUltimo(nombre);
 		}
