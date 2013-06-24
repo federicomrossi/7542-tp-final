@@ -3,6 +3,7 @@
 #include "monitor_interfaz_usuarios.h"
 #include "monitor_interfaz_formUsuario.h"
 #include "monitor_interfaz_eliminarUsuario.h"
+#include "monitor_interfaz_modificarUsuario.h"
 #include "common_convertir.h"
 
 #include <iostream>
@@ -53,8 +54,9 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
   	 	row[m_Columns.m_col_name] =  this->monitor->usuarios[i];
   	 }
 
-	// Establacemos el titulo de a columna a mostrar
-  	this->tree.append_column("Usuario      ", m_Columns.m_col_name); 
+  	//Establacemos el titulo de a columna a mostrar
+  	this->tree.append_column("Usuario             |", m_Columns.m_col_name); 
+  	
 
 	// Acciones
 	// Acciones -> Bontones
@@ -84,30 +86,59 @@ void MenuUsuarios::on_buttonNuevo_clicked() {
 	this->main->set_sensitive(true);
 	size_t pos = this->monitor->usuarios.tamanio();
 	Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
-	row[m_Columns.m_col_name] = this->monitor->usuarios[pos-1];
+	row[m_Columns.m_col_name] = this->monitor->usuarios[pos-1]; // ingreso el ultimo agregado a la vista
 
 }
 
 
 void MenuUsuarios::on_buttonEliminar_clicked() {
+	
+	this->main->set_sensitive(false);
 	Gtk::TreeModel::iterator store_iter = this->seleccionado->get_selected();
 	string aBorrar;
 	if(store_iter) {
+
 		Gtk::TreeModel::Row row = *store_iter;
   		
   		aBorrar = row[m_Columns.m_col_name];
   		
 	}
-
+	
 	FormConfirmacion ventanaConfirmacion(this->monitor, aBorrar);
 	ventanaConfirmacion.correr();
 	this->listaUsuarios->erase(store_iter);    
 	this->monitor->usuarios.eliminar(aBorrar);
+	this->main->set_sensitive(true);
+
+
 }
 
 
 void MenuUsuarios::on_buttonModificar_clicked() {
 	
+
+	Gtk::TreeModel::iterator store_iter = this->seleccionado->get_selected();
+	string aModificar;
+	if(store_iter) {
+
+		Gtk::TreeModel::Row row = *store_iter;
+  		
+  		aModificar = row[m_Columns.m_col_name];
+  		
+	}
+	this->main->set_sensitive(false);
+
+	ModificarUsuario ventanaModificacion(this->monitor, aModificar);
+	ventanaModificacion.correr();
+	this->main->set_sensitive(true);
+
+	// Borramos e ingresamos al nuevo al modelo
+	this->listaUsuarios->erase(store_iter);
+	// ingreso el ultimo agregado a la vista
+	size_t pos = this->monitor->usuarios.tamanio();
+	Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
+	row[m_Columns.m_col_name] = this->monitor->usuarios[pos-1]; 
+
 
 
 

@@ -38,6 +38,7 @@ protected:
   
     Gtk::TreeModelColumn<std::string> m_col_name;
     
+    
   };
   
   Gtk::Grid *grid;
