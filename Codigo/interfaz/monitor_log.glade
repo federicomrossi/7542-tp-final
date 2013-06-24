@@ -44,7 +44,7 @@
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkButton" id="btn_actualizar">
+              <object class="GtkButton" id="btn_iniciar">
                 <property name="label" translatable="yes">Detener </property>
                 <property name="width_request">130</property>
                 <property name="visible">True</property>
