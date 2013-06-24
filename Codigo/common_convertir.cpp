@@ -28,18 +28,14 @@ int Convertir::htoi(char a) {
 
 // Convierte un unsigned int a un string de contenido hexadecimal
 std::string Convertir::uitoh(uint8_t *a, size_t size) {
-	std::string hexa;
+	std::stringstream stream;
 
 	for(unsigned int i = 0; i < size; i++) {
-		std::stringstream stream;
 		stream << std::uppercase << std::setfill('0') << std::setw(2) << 
 			std::hex << int(a[i]);
-		std::string result(stream.str());
-
-		hexa.append(result);
 	}
 
-	return hexa;
+	return stream.str();
 }
 
 

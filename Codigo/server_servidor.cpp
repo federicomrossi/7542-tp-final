@@ -32,8 +32,8 @@ Servidor::Servidor() : activo(false) {
 	this->admClientes = new AdministradorDeClientes(this->logger);
 	this->admClientes->iniciar();
 
-	// Se crea un verificador de usuario y contrasenia
-	this->verificador = new Verificador;	
+	// Se crea un administrador de usuario y contrasenia
+	this->admCuentas = new AdministradorDeCuentas;	
 }
 
 
@@ -43,7 +43,7 @@ Servidor::~Servidor() {
 	this->admClientes->detener();
 	this->admClientes->join();
 	delete this->admClientes;
-	delete this->verificador;
+	delete this->admCuentas;
 	delete this->logger;
 }
 
@@ -67,7 +67,7 @@ void Servidor::run() {
 		
 		// Generamos una nueva conexión para escuchate
 		ConexionCliente *conexionCLI = new ConexionCliente(socketCLI,
-				this->admClientes, this->verificador, this->logger);
+				this->admClientes, this->admCuentas, this->logger);
 
 		// Damos la orden de que comience a ejecutarse el hilo del cliente.
 		conexionCLI->start();
