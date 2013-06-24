@@ -17,39 +17,25 @@ Monitor::Monitor(Receptor* receptor) {
 	this->carpetasActivas = 0;
 	this->clientesConectados = 0;
 	this->receptor = receptor;
-	this->estado = 0;
+
 }
 
 Receptor* Monitor::getReceptor(){
 	return receptor;
 }
 
-string* Monitor::getBufferLog() {
-	string* cadena = new string();
-	this->archivoLog = new ArchivoTexto("log",0);
-	this->archivoLog->leerLinea(*cadena, this->posLecturaLog);
-	cout<< "cadena leida  "<< *cadena <<endl;
-	delete(this->archivoLog);
-	int aux = 0;
-	aux = (int) cadena->size() + 1 + this->posLecturaLog;
-	//analizo si estoy en fin de archivo, sino avanzo en la lectura
-	if (this->posLecturaLog + 2 != aux) { 
-		this->posLecturaLog = (int) cadena->size() + 1 + this->posLecturaLog;
-	}
-	return cadena;
-
-}
 
 void Monitor::actualizarValores() {
 	Lista<std::string> nuevos = this->receptor->getValores();
-	if ((this->receptor->getEstadoConexion()) == 1) {
+	if ((this->receptor->getEstadoConexion()) == true) {
 		this->estado = true;
+		this->clientesConectados = Convertir::stoi(nuevos[0]); 
+		this->carpetasActivas = Convertir::stoi(nuevos[1]);
+		this->bytesOcupados = Convertir::stoi(nuevos[2]);
 	} else {
-	 this->estado = false;
+	 	this->estado = false;
 	}
-	this->clientesConectados = Convertir::stoi(nuevos[0]); 
-	this->carpetasActivas = Convertir::stoi(nuevos[1]);
-	this->bytesOcupados = Convertir::stoi(nuevos[2]);
+	
 }
 
 bool Monitor::getEstadoConexion(){

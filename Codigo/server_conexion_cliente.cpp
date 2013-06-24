@@ -250,10 +250,32 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		// Emitimos respuesta
 		com->emitir(respuesta);
 	}
+	else if (instruccion == M_SERVER_MODIFY_USER_REQUEST) {
+	// Deberia tomar el usuario y retornar a clave	
+		std::string respuesta;
+		respuesta += S_SERVER_USER_PASS + " ";
+		respuesta.append("9090123");
+		com->emitir(respuesta);
+
+	}
+
 	else if (instruccion == M_SERVER_NEW_USER_INFO) {
 		std::cout<<"voy a agregar a un usuario"<<std::endl;
 	}
 	else if (instruccion == M_SERVER_DELETE_USER) {
 		std::cout<< "se da de baja un usuario"<<std::endl;
 	}
+	else if (instruccion == M_SERVER_LOG_REQUEST) {
+		// Q HACEMO?
+		std::string respuesta;
+		respuesta += S_SERVER_LOG + " ";
+		respuesta.append("mensaje de log    ");
+		com->emitir(respuesta);
+	}
+	else if (instruccion == M_SERVER_MODIFY_USER) {
+		// se te envia usuario viejo/usuario nuevo/clave
+		// buscas por el viejo y modificas la clave siempre..pisas todo
+		std::cout<<"info para modificar usuario"<<std::endl;
+		std::cout<<mensaje<<std::endl;
+	}	
 }

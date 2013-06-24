@@ -22,15 +22,19 @@ private:
 	Gtk::Window *main;				 // Ventana Conexion
 	Gtk::Button *botonLimpiar;		 // Limpia la interfaz
 	Gtk::Button *botonVolver;
-	Gtk::Button *botonActualizar;
+	Gtk::Button *botonIniciar;
 	Gtk::TextView *hojaLog;
 	Glib::RefPtr<Gtk::TextBuffer> buffer;
+
+	Gtk::SpinButton* botonVelocidad;
+	Glib::RefPtr<Gtk:: Adjustment > ajuste;	
 	
 	
 	// Atributos del modelo
 
 	Monitor *monitor;
 	bool encendido;
+	int velocidad;
 		
 public:
 
@@ -51,7 +55,7 @@ protected:
 	
 	void on_buttonLimpiar_clicked();
 	void on_buttonVolver_clicked();
-	void on_buttonActualizar_clicked();
+	void on_buttonIniciar_clicked();
 	
 };
 

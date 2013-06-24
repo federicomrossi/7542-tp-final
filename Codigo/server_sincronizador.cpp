@@ -285,7 +285,7 @@ void Sincronizador::run() {
 				listaArgumentos.eliminarPrimero();
 				std::string contenido = listaArgumentos.verPrimero();
 				listaArgumentos.eliminarPrimero();
-
+				
 				bloques.insertarUltimo(std::make_pair(bloque, contenido));
 				numBloques.insertarUltimo(bloque);
 			}

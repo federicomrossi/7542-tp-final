@@ -93,7 +93,6 @@ void MenuPrincipal::on_menuConfiguracion_activate() {
 void MenuPrincipal::on_menuAdminUsers_activate() {
 	
 	this->main->set_sensitive(false);
-
 	MenuUsuarios ventanaUsuarios(this->monitor);
 	ventanaUsuarios.correr();
 	this->main->set_sensitive(true);
@@ -137,18 +136,21 @@ void MenuPrincipal::correr(){
 
 void MenuPrincipal::run() {
 	this->monitor->actualizarValores();
-	while(monitor->getEstadoConexion()) { 
+	while(this->isActive()) { 
 		this->monitor->actualizarValores();
-		this->estado->set_text("Conectado");
-		this->clientesConectados->set_text(monitor->getClientesConectados());
-		this->carpetasActivas->set_text(monitor->getCarpetasActivas());
-	
+		if (this->monitor->getEstadoConexion() == true) {
+			this->estado->set_text("Conectado");
+			this->clientesConectados->set_text(monitor->getClientesConectados());
+			this->carpetasActivas->set_text(monitor->getCarpetasActivas());
+		} 
+		if ((this->monitor->getEstadoConexion()) == false) {
+
+			this->estado->set_text("Desconectado");
+			this->clientesConectados->set_text("-");
+			this->carpetasActivas->set_text("-");
+		}	
 		this->sleep(2);  
 	}
-	this->estado->set_text("Desconectado");
-	this->clientesConectados->set_text("-");
-	this->carpetasActivas->set_text("-");
-
 }
 
 
