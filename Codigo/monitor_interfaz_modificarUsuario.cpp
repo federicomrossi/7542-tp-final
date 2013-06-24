@@ -42,7 +42,7 @@ ModificarUsuario::ModificarUsuario(Monitor *monitor, string aModificar) {
 	string msg;
 	msg.append(M_SERVER_MODIFY_USER_REQUEST);
 	msg.append(" ");
-	msg.append(this->modificar);
+	msg.append(aModificar);
 	this->monitor->getReceptor()->enviarMensaje(msg);
 	msg.clear();
 	this->monitor->getReceptor()->recibirMensaje(msg);
@@ -55,7 +55,7 @@ ModificarUsuario::ModificarUsuario(Monitor *monitor, string aModificar) {
 	this->passActualTxt->set_sensitive(false);
 	this->passNuevaTxt->set_text(aux[0]);
 
-	this-> userOriginal = this->usuarioTxt->get_text();
+	this->userOriginal = this->usuarioTxt->get_text();
 	
 	main->show_all_children();
 
@@ -66,17 +66,16 @@ void ModificarUsuario::on_buttonGuardar_clicked() {
 	
 	string msg; 
 	string res;
-
 	string user;
 	string pass;
+
 	pass = this->passNuevaTxt->get_text();
 	user = this->usuarioTxt->get_text();
+
 	this->monitor->usuarios.eliminar(userOriginal);
 
 
 	
-	// recorro la lista de usuarios y comparo si hay alguno igual a lo guardado en el textbox
-	// si hay uno igual..cambio el estado de una label
 	
 	this->labelError->set_visible(false);
 	int flag = 0;
@@ -108,12 +107,15 @@ void ModificarUsuario::on_buttonGuardar_clicked() {
 
 	res.append(M_SERVER_MODIFY_USER);
 	res.append(" ");
+	res.append(this->modificar);
+	res.append(COMMON_DELIMITER);
 	res.append(user);
 	res.append(COMMON_DELIMITER);
 	res.append(pass);
 	this->monitor->usuarios.insertarUltimo(user);
 	this->monitor->getReceptor()->enviarMensaje(res);
 	this->main->hide();
+
 }
 
 

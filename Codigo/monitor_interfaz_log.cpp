@@ -9,8 +9,7 @@ MenuLog::MenuLog(Monitor *monitor) : monitor(monitor) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 
-	this->monitor->getReceptor()->stop();
-	this->encendido = true;
+	
 
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/monitor_log.glade");
@@ -34,7 +33,7 @@ MenuLog::MenuLog(Monitor *monitor) : monitor(monitor) {
 	this->botonVolver->signal_clicked().connect(sigc::mem_fun(*this, &MenuLog::on_buttonVolver_clicked));
 	this->botonIniciar->signal_clicked().connect(sigc::mem_fun(*this, &MenuLog::on_buttonIniciar_clicked));
 	this->buffer = this->hojaLog->get_buffer();
-	this->ajuste = this->boton
+	
 	main->show_all_children();
 
 	
@@ -51,17 +50,11 @@ void MenuLog::on_buttonLimpiar_clicked() {
 }
 
 void MenuLog::on_buttonIniciar_clicked() {
-	
-		this->encendido = true;
-		this->start();
-		
-		this->botonIniciar->set_sensitive(false);
-	}
-
-
-	
-	
-
+	this->monitor->getReceptor()->stop();
+	this->encendido = true;
+	this->start();
+	this->botonIniciar->set_sensitive(false);
+}
 
 void MenuLog::run() {
 	this->velocidad = 3;
@@ -75,19 +68,25 @@ void MenuLog::run() {
 	while (this->encendido && this->isActive()) {
 		
 		string msg;
-		msg.append(M_SERVER_GET_LOG);
+		msg.append(M_SERVER_LOG_REQUEST);
 		this->monitor->getReceptor()->enviarMensaje(msg);
-		this->monitor->getReceptor()->recibirMensaje(msg);
+		msg.clear();
+		if (this->monitor->getReceptor()->recibirMensaje(msg) != -1) {
 	 	
-	 	Parser::parserInstruccion(msg, instruccion, args);
-		Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
-		std::cout << aux[0]<<std::endl;
-		*muestro += aux[0];
+		 	Parser::parserInstruccion(msg, instruccion, args);
+			Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
+			std::cout << aux[0]<<std::endl;
+			*muestro += aux[0];
 
 
-		this->buffer->insert_at_cursor(*muestro);
-		muestro->clear();
-
+			this->buffer->insert_at_cursor(*muestro);
+			muestro->clear();
+		} else {
+			*muestro = "La conexion con el servidor se ha perdido ";	
+			this->buffer->insert_at_cursor(*muestro);
+			muestro->clear();
+			break;
+		}
 	
 		sleep(this->velocidad);		
 	}
@@ -99,9 +98,10 @@ void MenuLog::run() {
 // Acciones del menu
 void MenuLog::on_buttonVolver_clicked() {
 	this->encendido = false;
+	this->botonVolver->set_sensitive(false);
 	this->join();
-	this->main->hide();
 	this->monitor->getReceptor()->start();
+	this->main->hide();
 }
 
 

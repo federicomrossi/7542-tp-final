@@ -25,7 +25,7 @@ private:
 	int carpetasActivas;
 	int clientesConectados;
 	int bytesOcupados;
-	int estado;
+	bool estado;
 	Receptor* receptor;
 	
 

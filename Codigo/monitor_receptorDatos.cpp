@@ -124,10 +124,10 @@ void Receptor::run() {
 	std::string mensaje;
 	std::string instruccion;
 	std::string args;
-	
+	this->estadoConexion = true;
 	int r = 0;
 	while ((r == 0 ) && (this->isActive())) {
-	
+		
 		mensaje = M_SERVER_INFO_REQUEST;
 		
 		enviarMensaje(mensaje);
@@ -138,14 +138,17 @@ void Receptor::run() {
 		args.clear();
 		r = comunicador.recibir(mensaje);
 		if (r != -1 ) {
-		std::cout << "salida del recv "<< r <<std::endl;	
-		Parser::parserInstruccion(mensaje, instruccion, args);
-		std::cout << "imprimo argumentos del mensaje "<< args <<std::endl;
-		Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
-		this->valores = aux;
-		std::cout<< "Receptor actualizando valores  "<< mensaje <<std::endl;
-		mensaje.clear();
+		
+			Parser::parserInstruccion(mensaje, instruccion, args);
+			std::cout << "imprimo argumentos del mensaje "<< args <<std::endl;
+			Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
+			this->valores = aux;
+			std::cout<< "Receptor actualizando valores  "<< mensaje <<std::endl;
+			mensaje.clear();
+		} else {
+			this->estadoConexion = false;
 		}
+
 		this->sleep(this->timer);
 	}
 	this->estadoConexion = false;
@@ -156,9 +159,10 @@ void Receptor::run() {
 // POST: lanza una excepción si el socket no se encuentra activo.
 void Receptor::enviarMensaje(std::string& mensaje) {
 	// Corroboramos que el socket esté activo
-	if(!this->socket->estaActivo())
+	if(!this->socket->estaActivo()) {
 		throw "ERROR: No se pudo emitir mensaje al servidor.";
-
+		this->estadoConexion = false;
+	}	
 	// Creamos el comunicador para enviar mensajes
 	Comunicador comunicador(this->socket);
 
@@ -171,7 +175,7 @@ int Receptor::recibirMensaje(std::string& mensaje){
 	Comunicador comunicador(this->socket);
 
 	int ret = comunicador.recibir(mensaje);
-	this->start();
+	
 	return ret;  
 } 
 
@@ -194,10 +198,6 @@ void Receptor::desconectar() {
 }
 
 
-/*
- * IMPLEMENTACIÓN DE MÉTODOS PRIVADOS DE LA CLASE
- */
- // 
 
 // Inicia sesion con Admin existente
 int Receptor::iniciarSesion(std::string usuario, std::string clave) {
