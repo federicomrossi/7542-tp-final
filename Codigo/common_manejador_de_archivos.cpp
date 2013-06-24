@@ -10,6 +10,7 @@
 #include "common_hash.h"
 #include "common_utilidades.h"
 #include <stdlib.h>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "dirent.h"
@@ -35,10 +36,13 @@ namespace {
 	const int TAMANIO_BLOQUE = 2097152;			// 1Mb por bloque
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
-	const int TAMANIO_BLOQUE_HASH = 64;
+	const int TAMANIO_BLOQUE_HASH = 40;
 
 	// Longitud de nombre del archivo temporal
 	const int LONGITUD_TEMP = 40;
+
+	// Caracter no permitido en los nombres de archivo
+	const char CHAR_PROHIBIDO = '~';
 }
 
 
@@ -77,6 +81,10 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 		while ((entrada = readdir (dir)) != NULL) {
 			// Salteamos directorios
 			if (entrada->d_type == esDirectorio)
+				continue;
+
+			// Si tiene el char ~ se saltea
+			if (strchr(entrada->d_name, CHAR_PROHIBIDO))
 				continue;
 
 			// Insertamos el nombre de archivo en la lista
@@ -324,6 +332,14 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 	for(int i = 1; i <= cantBloques; i++) {
 		// Obtenemos el bloque i del contenido
 		std::string bloque = this->obtenerContenido(nombreArchivo, i);
+
+		if(i == cantBloques) {
+			unsigned int bytes = this->obtenerCantBytes(nombreArchivo);
+			
+			// Quiltamos el relleno
+			bloque = bloque.substr(0, (bytes * 2) - (TAMANIO_BLOQUE * 
+				(i - 1)));
+		}
 
 		// Concatenamos el hash del bloque
 		hashArchivo.append(Hash::funcionDeHash(bloque));
@@ -810,6 +826,11 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 				registroTmp << reg_archivoNombre << DELIMITADOR << 
 					hash_aux << std::endl;
 
+
+				// DEBUG
+				std::cout << "HASH: " << hash_aux << std::endl;
+				// END DEBUG
+
 				// Insertamos archivo en cola de modificados
 				modificados->push(make_pair(reg_archivoNombre, 
 					listaDiferencias));
@@ -1175,6 +1196,11 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 
 				// Comparamos la igualdad de hashes
 				if(hashBloque == hash) coincide = true;
+
+				// DEBUG
+				std::cout << hashBloque << std::endl;
+				std::cout << hash << std::endl;
+				// END DEBUG
 			}
 
 			// Cerramos archivos

@@ -29,7 +29,7 @@ std::string Seguridad::obtenerFirma(const std::string &mensaje, const std::strin
 	primerHash += mensaje;
 
 	// Hash (primerHash) -> primerHash
-	primerHash = Hash::funcionDeHashBin(primerHash);
+	primerHash = Hash::funcionDeHash(primerHash);
 
 	// Se unen segundoHash + primerHash
 	segundoHash.append(primerHash);	

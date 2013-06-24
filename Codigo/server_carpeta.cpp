@@ -20,13 +20,15 @@
 
 
 // Constructor
-Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger) : 
+Carpeta::Carpeta(const std::string &pathCarpeta, Logger *logger, 
+	const std::string &clave) : 
 	logger(logger) {
 	// Creamos el receptor que recibirá los mensajes entrantes
-	this->receptor = new Receptor(this->logger);
+	this->receptor = new Receptor(this->logger, clave);
 
 	// Creamos el emisor que enviará mensajes a los clientes
-	this->emisor = new Emisor(&this->listaConexiones, this->logger);
+	this->emisor = new Emisor(&this->listaConexiones, this->logger,
+		clave);
 
 	// Si no existe carpeta fisica se crea. 
 	// Si no lo logra, lanza excepcion

@@ -70,6 +70,10 @@ void Actualizador::ejecutarActualizacion() {
 	Lista< std::pair< std::string, std::pair< std::string, int > > >
 		listaServidor;
 
+	//DEBUG
+	std::cout << "Estoy armando lista server" << std::endl;
+	//END DEBUG
+
 	for(int i = 0; i < cantidadArchivos; i++) {
 		// Tomamos nombre de archivo
 		std::string nombreArchivo = listaArgumentos_1.verPrimero();
@@ -97,6 +101,10 @@ void Actualizador::ejecutarActualizacion() {
 	Lista< std::pair< std::string, Lista< int > > > listaFaltantes;
 	Lista< std::string > listaSobrantes;
 
+	//DEBUG
+	std::cout << "termine con lista, voy a pedir lista actualizacion" << std::endl;
+	//DEBUG
+
 	this->manejadorDeArchivos->obtenerListaDeActualizacion(&listaServidor,
 		&listaFaltantes, &listaSobrantes);
 
@@ -106,6 +114,9 @@ void Actualizador::ejecutarActualizacion() {
 		std::string archivo = listaSobrantes[i];
 		this->manejadorDeArchivos->eliminarArchivo(archivo);
 	}
+	//DEBUG
+	std::cout << "Termine de eliminar sobrantes" << std::endl;
+	//DEBUG
 
 	// Se crea una lista de nuevos archivos y otra de modificados
 	// en el server

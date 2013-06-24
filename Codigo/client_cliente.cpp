@@ -134,8 +134,8 @@ void Cliente::iniciarSincronizacion(int intervaloPolling) {
 	this->actualizando = true;
 
 	// Creamos los módulos primarios
-	this->emisor = new Emisor(this->socket, this->logger);
-	this->receptor = new Receptor(this->socket, this->logger);
+	this->emisor = new Emisor(this->socket, this->logger, this->clave);
+	this->receptor = new Receptor(this->socket, this->logger, this->clave);
 	this->manejadorDeArchivos = new ManejadorDeArchivos(this->directorio,
 		this->logger);
 	
@@ -236,9 +236,14 @@ int Cliente::iniciarSesion(std::string usuario, std::string clave) {
 	this->logger->emitirLog("Emitiendo solicitud de LOGIN...");
 	
 	// Se preparan los argumentos
-	std::string mensaje = usuario + COMMON_DELIMITER + clave;	
+	std::string hashClave = Hash::funcionDeHash(clave);
+	std::string mensaje = usuario + COMMON_DELIMITER + hashClave;	
 
-	// Enviamos petición de inicio de sesion
+	//DEBUG
+	std::cout << "Hash clave: " << hashClave << std::endl;
+	//END DEBUG
+
+	// Enviamos petición de inicio de sesion.
 	if(com.emitir(C_LOGIN_REQUEST, mensaje) == -1) return -1;
 
 	// Se obtiene respuesta del servidor
@@ -249,6 +254,9 @@ int Cliente::iniciarSesion(std::string usuario, std::string clave) {
 		// Mensaje de log
 		this->logger->emitirLog("Inicio de sesión exitoso con usuario '" +
 			usuario + "'");
+
+		// Se guarda la clave para enviar mensajes con firma
+		this->clave = hashClave;
 
 		return 1;
 	}

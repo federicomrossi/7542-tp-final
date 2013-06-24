@@ -14,7 +14,7 @@
 #include "common_mutex.h"
 #include "common_lock.h"
 #include "common_logger.h"
-
+#include "common_seguridad.h"
 
 
 
@@ -30,11 +30,12 @@ private:
 	Mutex me;												// Mutex de entrada
 	Mutex ms;												// Mutex de salida
 	Logger *logger;											// Logger de eventos
+	std::string clave;				// Clave para firmar mensajes
 
 public:
 
 	// Constructor
-	Receptor(Logger *logger);
+	Receptor(Logger *logger, const std::string &clave);
 
 	// Destructor
 	~Receptor();
