@@ -42,9 +42,6 @@ std::string Seguridad::obtenerFirma(const std::string &mensaje, const std::strin
 
 // Se compara la firma pasada por parametros con la firma que se calcula sobre el mensaje original
 bool Seguridad::firmaValida(const std::string &mensaje, const std::string &clave, const std::string &firmaRecibida) {
-	//DEBUG
-	std::cout << "mensaje: " << mensaje << std::endl;
-	//END DEBUG
 	if (obtenerFirma(mensaje, clave) == firmaRecibida)
 		return true;
 	return false;
