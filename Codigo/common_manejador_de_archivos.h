@@ -33,11 +33,12 @@ class ManejadorDeArchivos {
 private:
 
 	std::string directorio;				// Directorio sobre el cual se trabaja
-	Mutex m;							// Mutex
+	Mutex mArc;							// Mutex para accesos fisicos
+	Mutex mReg;							// Mutex para accesos sobre registros
 	Logger *logger;						// Logger de eventos
 
 
-	
+
 	// Procesa dos hashes pertenecientes al contenido de un archivo y
 	// obtiene los bloques que han cambiado.
 	// PRE: 'hashViejo' y 'hashNuevo' son los hashes de los archivos a
