@@ -13,7 +13,7 @@
 #include "common_lista.h"
 #include "common_socket.h"
 #include "common_protocolo.h"
-#include "common_H"
+
 class Comunicador;
 
 

@@ -1,0 +1,19 @@
+Mon Jun 24 18:30:14 2013 Iniciando servidor AU...
+Mon Jun 24 18:30:14 2013 Se ha iniciado el servidor.
+Mon Jun 24 18:30:25 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 18:30:25 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 18:30:25 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 18:30:25 2013 Se ha desconectado al cliente.
+Mon Jun 24 18:30:31 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 18:30:31 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 18:30:31 2013 LOGIN: Falló inicio de sesión de cliente.
+Mon Jun 24 18:30:31 2013 Se ha desconectado al cliente.
+Mon Jun 24 18:30:44 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 18:30:44 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 18:30:44 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 18:31:16 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 18:31:32 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Mon Jun 24 18:31:32 2013 LOGIN: Esperando datos de login del cliente...
+Mon Jun 24 18:31:32 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Mon Jun 24 18:31:45 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Mon Jun 24 18:34:58 2013 Se ha detenido el servidor.
