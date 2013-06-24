@@ -165,9 +165,9 @@ public:
 	// POST: se devuelve 'false' si se produjeron cambios en el registro o
 	// 'true' en su defecto; esto evita tener que revisar las colas para
 	// comprobar cambios.
-	bool actualizarRegistroDeArchivos(Cola< std::string > *nuevos, 
-		Cola< std::pair< std::string, Lista<int> > > *modificados, 
-		Cola< std::string > *eliminados);
+	bool actualizarRegistroDeArchivos(Cola< std::pair< std::string, 
+		std::string > > *nuevos, Cola< std::pair< std::string, Lista<int> > > 
+		*modificados, Cola< std::string > *eliminados);
 
 	// Actualiza el registro local de archivos.
 	// PRE: las listas corresponden a que archivos nuevos o modificados deben

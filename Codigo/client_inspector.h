@@ -30,6 +30,7 @@ private:
 	unsigned int intervalo;							// Intervalo de inspección
 													// en segundos
 	Logger *logger;									// Logger de eventos
+	Mutex m;										// Mutex
 
 	// Bloquea actividades hasta que haya transcurrido el intervalo de polling
 	void alarmaDeInspeccion();

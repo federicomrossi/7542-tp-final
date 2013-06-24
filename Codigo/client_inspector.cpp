@@ -69,8 +69,11 @@ void Inspector::run() {
 		// Si se detuvo al inspector, salimos
 		if(!this->isActive()) return;
 
+		// Bloqueamos el mutex
+		Lock l(m);
+
 		// Realizamos la inspección
-		Cola< std::string > nuevos;
+		Cola< std::pair< std::string, std::string > > nuevos;
 		Cola< std::pair< std::string, Lista< int > > > modificados;
 		Cola< std::string > eliminados;
 
@@ -86,21 +89,23 @@ void Inspector::run() {
 
 			while(!nuevos.vacia()) {
 				// Tomamos nuevo
-				std::string nuevo = nuevos.pop_bloqueante();
+				std::pair< std::string, std::string > nuevo;
+				nuevo = nuevos.pop_bloqueante();
+				
 				std::string contenido;
-				contenido = this->manejadorDeArchivos->obtenerContenido(nuevo);
-				std::string hash;
-				this->manejadorDeArchivos->obtenerHash(nuevo, hash);
+				contenido = this->manejadorDeArchivos->obtenerContenido(
+					nuevo.first);
 
 				// Mensaje de log
 				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
-					nuevo + "'");
+					nuevo.first + "'");
 
 				// Enviamos al sincronizador
-				this->sincronizador->enviarArchivo(nuevo, contenido, hash);
+				this->sincronizador->enviarArchivo(nuevo.first, contenido,
+					nuevo.second);
 				
 				// DEBUG
-				std::cout << "Nuevo: " << nuevo << std::endl;
+				std::cout << "Nuevo: " << nuevo.first << std::endl;
 				// END DEBUG
 			}
 
@@ -175,6 +180,9 @@ void Inspector::run() {
 // de bloque a verificar.
 void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 		cantBytesTotal, Lista< std::pair< int, std::string > > bloques) {
+	// Bloqueamos el mutex
+	Lock l(m);
+
 	// Mensaje de log
 	this->logger->emitirLog("INSPECTOR: Inspeccionando archivo '" +
 		nombreArchivo + "' en directorio local.");
@@ -229,6 +237,9 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 // se encarga de indicar que debe ser solicitado al servidor.
 void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo,
 	std::string hashArchivo) {
+	// Bloqueamos el mutex
+	Lock l(m);
+	
 	// Mensaje de log
 	this->logger->emitirLog("INSPECTOR: Inspeccionando existencia de archivo '"
 		+ nombreArchivo + "' en directorio local.");

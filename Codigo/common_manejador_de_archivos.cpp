@@ -30,8 +30,9 @@ namespace {
 	// Constante que define el tamaño de los bloques de archivos en cantidad
 	// de caracteres hexadecimales (ej: si se quiere un tamaño de bloque de
 	// 10 Bytes, se debe insertar el valor 20).
-	const int TAMANIO_BLOQUE = 20;
-	// const int TAMANIO_BLOQUE = 2097152;		// 1Mb por bloque
+	// const int TAMANIO_BLOQUE = 20;			// 10 bytes por bloque
+	// const int TAMANIO_BLOQUE = 524288;		// 256K por bloque
+	const int TAMANIO_BLOQUE = 2097152;			// 1Mb por bloque
 
 	// Constante que define el tamaño de los bloques de hash de archivos.
 	const int TAMANIO_BLOQUE_HASH = 64;
@@ -317,16 +318,12 @@ int ManejadorDeArchivos::obtenerHash(const std::string& nombreArchivo,
 	// Limpiamos el argumento en donde se depositará el hash del contenido
 	hashArchivo.clear();
 
-	// Obtenemos el contenido del archivo
-	std::string contenido = this->obtenerContenido(nombreArchivo);
-
 	// Obtenemos la cantidad de bloques del archivo
 	int cantBloques = this->obtenerCantBloques(nombreArchivo);
 
-	for(int i = 0; i < cantBloques; i++) {
+	for(int i = 1; i <= cantBloques; i++) {
 		// Obtenemos el bloque i del contenido
-		std::string bloque = contenido.substr(i * TAMANIO_BLOQUE,
-			TAMANIO_BLOQUE);
+		std::string bloque = this->obtenerContenido(nombreArchivo, i);
 
 		// Concatenamos el hash del bloque
 		hashArchivo.append(Hash::funcionDeHash(bloque));
@@ -440,7 +437,7 @@ std::string ManejadorDeArchivos::obtenerContenido(
 		// Convertimos el contenido a hexadecimal
 		std::string contenidoHex(Convertir::uitoh((uint8_t*)contenidoTemp, (size_t)(fin - inicio)));
 
-		// se devuelve el contenido
+		// Se devuelve el contenido
 		delete[] contenidoTemp;
 		return contenidoHex;
 	}
@@ -727,7 +724,7 @@ bool ManejadorDeArchivos::crearRegistroDeArchivos() {
 // 'true' en su defecto; esto evita tener que revisar las colas para
 // comprobar cambios.
 bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
-	Cola< std::string > *nuevos, 
+	Cola< std::pair< std::string, std::string > > *nuevos, 
 	Cola< std::pair< std::string, Lista<int> > > *modificados, 
 	Cola< std::string > *eliminados){
 	// Variables auxiliares
@@ -777,7 +774,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
 
 			// Insertamos archivo en cola de nuevos
-			nuevos->push(ld[i]);
+			nuevos->push(std::make_pair(ld[i], hashNuevo));
 
 			huboCambio = true;
 			continue;
@@ -840,7 +837,7 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
 
 			// Insertamos archivo en cola de nuevos
-			nuevos->push(ld[i]);
+			nuevos->push(std::make_pair(ld[i], hashNuevo));
 
 			huboCambio = true;
 		}
