@@ -28,6 +28,8 @@ private:
 
 	Gtk::SpinButton* botonVelocidad;
 	Glib::RefPtr<Gtk:: Adjustment > ajuste;	
+	Gtk::VScrollbar scroll;
+	
 	
 	
 	// Atributos del modelo
@@ -35,6 +37,7 @@ private:
 	Monitor *monitor;
 	bool encendido;
 	int velocidad;
+	
 		
 public:
 
