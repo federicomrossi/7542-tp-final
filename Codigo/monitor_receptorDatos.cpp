@@ -10,6 +10,7 @@
 #include "common_parser.h"
 #include "common_convertir.h"
 #include "monitor_receptorDatos.h"
+#include "common_hash.h"
 
 /* ****************************************************************************
  * DEFINICIÓN DE LA CLASE
@@ -209,8 +210,11 @@ int Receptor::iniciarSesion(std::string usuario, std::string clave) {
     std::cout.flush();
 	
 	// Se preparan los argumentos
-	std::string mensaje = usuario + COMMON_DELIMITER + clave;	
-
+	std::string claveHash; 
+	claveHash = Hash::funcionDeHash(clave);
+	std::string mensaje = usuario + COMMON_DELIMITER + claveHash;
+	std::cout<<claveHash<<std::endl;
+	
 	// Enviamos petición de inicio de sesion
 	if(com.emitir(C_LOGIN_REQUEST, mensaje) == -1) {
 		return -1;

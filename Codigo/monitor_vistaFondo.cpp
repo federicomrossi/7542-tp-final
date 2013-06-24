@@ -12,12 +12,11 @@ VistaFondo::~VistaFondo() {
 }
 
 void VistaFondo::draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation) {
-	//nst int height = allocation.get_height();
+	
 	cr->save(); 
 
 	Gdk::Cairo::set_source_pixbuf(cr, this->imagen, 0, 0);
 
-	std::cout<<" vistaFondo set_source_pixbuf"<<std::endl;
 	cr->fill();	
 	cr->paint();
 	cr->restore();
