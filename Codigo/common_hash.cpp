@@ -9,8 +9,8 @@
 #include "common_hash.h"
 
 namespace {
-	#define TAM_HASH 32
-	#define TAM_HEXA 64
+	#define TAM_HASH 20
+	#define TAM_HEXA 42
 }
 
 
@@ -26,45 +26,61 @@ int Hash::longHash() {
 
 // Aplica la función de hash al string entrante
 std::string Hash::funcionDeHash(std::string cadena) {
-	// Se obtiene el hash 
-	std::string hash = funcionDeHashBin(cadena);
+	// Variables auxiliares
+	unsigned char hash[TAM_HASH];
+	char hex_hash[TAM_HEXA];
+	std::string aux;
 
-	return hash;
+	// Se inicializan
+	memset(hash, 0, TAM_HASH);
+	memset(hex_hash, 0, TAM_HEXA);
+
+	// Se calcula
+	sha1::calc(cadena.c_str(), cadena.length(), hash);
+
+	// Se transforma a hexa
+	sha1::toHexString(hash, hex_hash);
+	
+	aux = hex_hash;
+
+	return aux;
 }
 
 // Aplica la función de hash al string entrante
 std::string Hash::funcionDeHashBin(std::string cadena) {
 	// Variables auxiliares
-	sha256_context ctx;
-	uint8 hash[TAM_HASH];
+	unsigned char hash[TAM_HASH];
+	std::string aux;
 
-	// Se inicia el algoritmo
-	sha256_starts(&ctx);
+	// Se inicializan
+	memset(hash, 0, TAM_HASH);
 
-	uint8 *input = Convertir::htoui(cadena);
-	uint32 input_length = cadena.size() / 2;
+	// Se calcula
+	sha1::calc(cadena.c_str(), cadena.length(), hash);
 
-	// Se le pasa la cadena a calcular el hash
-	sha256_update(&ctx, input, input_length);
-
-	// Se devuelve el hash
-	sha256_finish(&ctx, hash);
-
-	// Se guarda el char* en un string
-	std::string hash_string(Convertir::uitoh(hash, TAM_HASH));
+	aux = (char*)hash;
 	
-	return hash_string;
+	return aux;
 }
 
 // Aplica la función de hash al char* entrante
 std::string Hash::funcionDeHash(const char* cadena, int longitud) {
-	// Se guarda la informacion en un string
-	std::string s_cadena;
-	s_cadena.append(cadena, longitud);
+	// Variables auxiliares
+	unsigned char hash[TAM_HASH];
+	char hex_hash[TAM_HEXA];
+	std::string aux;
 
-	// Se obtiene el hash 
-	std::string hash = funcionDeHashBin(s_cadena);
+	// Se inicializan
+	memset(hash, 0, TAM_HASH);
+	memset(hex_hash, 0, TAM_HEXA);
+
+	// Se calcula
+	sha1::calc(cadena, longitud, hash);
+
+	// Se transforma a hexa
+	sha1::toHexString(hash, hex_hash);
+
+	aux = hex_hash;
 	
-	// Se transforma el hash a una cadena en hexadecimal
-	return(Convertir::uitoh((uint8_t*)hash.c_str(), (size_t)TAM_HASH));
+	return aux;
 }
