@@ -189,6 +189,10 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 
 	// Si no existe, lo solicitamos al servidor
 	if(!this->manejadorDeArchivos->existeArchivo(nombreArchivo)) {
+		// DEBUG
+		std::cout << "ENTRO EN 1" << std::endl;
+		// END DEBUG
+
 		this->sincronizador->solicitarArchivoNuevo(nombreArchivo);
 		return;
 	}
@@ -217,6 +221,13 @@ void Inspector::inspeccionarArchivo(std::string nombreArchivo, unsigned int&
 		solicitar = !this->manejadorDeArchivos->compararBloque(nombreArchivo,
 			bloques.verPrimero().first, bloques.verPrimero().second);
 
+		// DEBUG
+		std::cout << "ENTRO EN 3" << std::endl;
+		std::cout << bloques.verPrimero().first << std::endl;
+		std::cout << bloques.verPrimero().second << std::endl;
+		// END DEBUG
+
+
 		// Si se requiere el1 bloque, lo listamos para solicitarlo
 		if(solicitar) 
 			bloquesASolicitar.insertarUltimo(bloques.verPrimero().first);
@@ -239,7 +250,7 @@ void Inspector::inspeccionarExisteArchivo(std::string& nombreArchivo,
 	std::string hashArchivo) {
 	// Bloqueamos el mutex
 	Lock l(m);
-	
+
 	// Mensaje de log
 	this->logger->emitirLog("INSPECTOR: Inspeccionando existencia de archivo '"
 		+ nombreArchivo + "' en directorio local.");
