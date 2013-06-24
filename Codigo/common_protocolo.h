@@ -41,6 +41,7 @@ const std::string S_CORRUPT_MESSAGE = "CORRUPT-MESSAGE";
 const std::string S_SERVER_INFO = "SERVER-INFO";
 const std::string S_SERVER_USER_LIST = "SERVER-USER-LIST";
 const std::string S_SERVER_USER_PASS = "SERVER-USER-PASS";
+const std::string S_SERVER_LOG = "SERVER-LOG";
 
 
 // Constates para los identificadores de instrucciones enviadas por el monitor

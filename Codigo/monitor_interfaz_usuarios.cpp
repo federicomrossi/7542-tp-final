@@ -55,7 +55,7 @@ MenuUsuarios::MenuUsuarios(Monitor *monitor) : monitor(monitor) {
   	 }
 
   	//Establacemos el titulo de a columna a mostrar
-  	this->tree.append_column("Usuario             |", m_Columns.m_col_name); 
+  	this->tree.append_column("Usuario                |", m_Columns.m_col_name); 
   	
 
 	// Acciones
