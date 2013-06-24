@@ -36,8 +36,8 @@ protected:
     ModelColumns()
     { add(m_col_name);}
   
-    Gtk::TreeModelColumn<Glib::ustring> m_col_name;
-
+    Gtk::TreeModelColumn<std::string> m_col_name;
+    
     
   };
   

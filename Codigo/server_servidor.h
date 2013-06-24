@@ -14,7 +14,7 @@
 #include "common_logger.h"
 #include "server_conexion_cliente.h"
 #include "server_administrador_de_clientes.h"
-#include "server_verificador.h"
+#include "server_administrador_de_cuentas.h"
 
 
 
@@ -33,8 +33,8 @@ private:
 												// servidor.
 	bool activo;								// Estado del seridor
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
-	Verificador *verificador;					// Chequea el login de los
-												// usuarios
+	AdministradorDeCuentas *admCuentas;					// Administra las cuentas
+										// de los clientes
 	Logger *logger;								// Logger de eventos
 
 public:

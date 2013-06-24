@@ -6,7 +6,9 @@ MenuLog::MenuLog(Monitor *monitor) : monitor(monitor) {
 	// Cargamos la ventana
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 
-	
+	this->monitor->getReceptor()->stop();
+	this->encendido = true;
+
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/monitor_log.glade");
 	refBuilder->get_widget("main", this->main); // linkeo el form
@@ -52,6 +54,22 @@ void MenuLog::on_buttonActualizar_clicked() {
 
 }
 
+void MenuLog::run() {
+
+	/*while (this->encendido) {
+		string msg;
+		msg.append(M_SERVER_GET_LOG);
+		this->monitor->getReceptor()->enviarMensaje(msg);
+		msg.clear();
+		this->monitor->getReceptor()->recibirMensaje(msg);
+	
+		sleep(this->velocidad);		
+
+
+	*/
+}
+
+
 // Acciones del menu
 void MenuLog::on_buttonVolver_clicked() {
 	this->main->hide();
@@ -65,4 +83,5 @@ void MenuLog::correr(){
 
 }
 
-MenuLog::~MenuLog() { }
+MenuLog::~MenuLog() { 
+}

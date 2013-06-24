@@ -11,10 +11,11 @@
 #include "gtkmm.h"
 #include "monitor_monitor.h"
 #include "monitor_configuracion.h"
+#include "monitor_interfaz_log.h"
 
 
 
-class MenuLog : public Gtk::Window {
+class MenuLog : public Thread  {
 private:
 
 	// Atributos de la interfaz
@@ -29,6 +30,7 @@ private:
 	// Atributos del modelo
 
 	Monitor *monitor;
+	bool encendido;
 		
 public:
 
@@ -40,6 +42,9 @@ public:
 
 	// Inicia la ejecución de la ventana
 	void correr();
+	// Define las tareas a ejecutar del hilo
+
+	void run();
 
 protected:
 	// Acciones de botones

@@ -13,9 +13,9 @@
 #include "common_socket.h"
 #include "common_comunicador.h"
 #include "common_logger.h"
-#include "server_verificador.h"
 #include "server_receptor.h"
 #include "server_recolector_de_informacion.h"
+#include "server_administrador_de_cuentas.h"
 class AdministradorDeClientes;
 
 
@@ -40,7 +40,7 @@ private:
 	Socket *socket;								// Socket de comunicación
 	std::string nombreUsuario;					// Nombre de usuario de cliente
 	AdministradorDeClientes *admClientes;		// Administrador de clientes
-	Verificador* verificador;					// Verificador de loggin
+	AdministradorDeCuentas* admCuentas;					// Administrador cuentas de cliente
 	Receptor *receptor;							// Receptor a donde se envian
 	std::string pathCarpeta;					// Path donde se encuentran
 												// los archivos del cliente
@@ -61,7 +61,7 @@ public:
 	// PRE: 's' es un socket para la comunicación con el cliente; 'id' es 
 	// número de cliente que se le ha sido asignado por el servidor; 'serv' es
 	// una referencia al servidor al que pertenece la conexión.
-	ConexionCliente(Socket *s, AdministradorDeClientes *adm, Verificador *v,
+	ConexionCliente(Socket *s, AdministradorDeClientes *adm, AdministradorDeCuentas *ac,
 		Logger *logger);
 
 	// Destructor

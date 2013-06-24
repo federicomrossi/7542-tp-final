@@ -1,10 +1,9 @@
 #include <iostream>
 #include <string>
 #include "monitor_interfaz_principal.h"
-#include "monitor_interfaz_configuracion.h"
+
 #include "monitor_interfaz_usuarios.h"
-#include "monitor_interfaz_log.h"
-#include "monitor_interfaz_estadisticas.h"
+#include "common_protocolo.h"
 #include "common_convertir.h"
 #include "monitor_interfaz_formUsuario.h"
 
@@ -78,18 +77,15 @@ void FormUsuario::on_buttonGuardar_clicked() {
 	}
 	if (flag == 1) return;
 
+	res.append(M_SERVER_NEW_USER_INFO);
+	res.append(" ");
 	res.append(user);
+	res.append(COMMON_DELIMITER);
 	res.append(pass);
-	std::cout<<res << std::endl;
+	this->monitor->usuarios.insertarUltimo(user);
+	this->monitor->getReceptor()->enviarMensaje(res);
 	this->main->hide();
-	}
-	
-	
-	// sino... 
-	//mando mensaje al sever
-	//  y retorno el string del text box para que actualice la lsita del modelo
-
-
+}
 
 
 
