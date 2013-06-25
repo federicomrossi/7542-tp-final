@@ -25,14 +25,12 @@ private:
 	Gtk::Button *botonCancelar;
 	Gtk::Label  *labelError;
 
-
 	Gtk::Entry  *usuarioTxt;		// Textbox de nombre de usuario
-	Gtk::Entry  *passNuevaTxt;		// Textbox de la contraseña de usuario
-	Gtk::Entry  *passActualTxt;
+	Gtk::Entry  *passTxt;		// Textbox de la contraseña de usuario
 
 	Monitor *monitor;
 	string modificar;
-	string userOriginal;
+
 
 	
 public:

@@ -35,7 +35,7 @@ private:
 public:
 
 	// Constructor
-	FormUsuario(Monitor *monitor);
+	FormUsuario(Monitor *monitorm);
 
 	// Destructor
 	virtual ~FormUsuario();

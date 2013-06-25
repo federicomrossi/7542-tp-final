@@ -27,6 +27,8 @@ FormUsuario::FormUsuario(Monitor *monitor) {
 	refBuilder->get_widget("txt_contrasenia", this->passTextBox);	
 	refBuilder->get_widget("txt_usuario",  this->usuarioTextBox);
 
+	
+
 	// Acciones
 	// Acciones -> Bontones
 	 

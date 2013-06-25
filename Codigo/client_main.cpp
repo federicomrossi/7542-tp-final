@@ -23,7 +23,7 @@
 #include <iostream>
 #include "client_interfaz_conexion.h"
 #include "client_cliente.h"
-#include "client_interfaz_trayIcon.h"
+
 
 
 

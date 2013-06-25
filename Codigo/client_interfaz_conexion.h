@@ -10,11 +10,12 @@
 
 #include "gtkmm.h"
 #include "client_cliente.h"
+#include "common_thread.h"
 #include "client_interfaz_configuracion.h"
 
 
 
-class Conexion : public Gtk::Window {
+class Conexion : public Gtk::Window , Thread {
 private:
 
 	// Atributos de la interfaz
@@ -58,6 +59,7 @@ protected:
 	void on_buttonSalir_clicked();
 	void on_menuPref_activate();
 	void on_menuSalir_activate();
+	void run();
 
 };
 

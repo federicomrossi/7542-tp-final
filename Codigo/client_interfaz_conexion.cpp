@@ -13,9 +13,7 @@ Conexion::Conexion(Cliente *cliente, Configuracion* clienteConfig) : cliente(cli
 	
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/client_conexion.glade");
-	//this->icono = gtk_status_icon_new_from_icon_nGtkImageMenuItemame("trayIcon");
-	//gtk_status_icon_set_from_file(this->icono,"logo_au.png");
-	
+
 
 	refBuilder->get_widget("conexion", this->main); // linkeo el form
 		
@@ -70,6 +68,7 @@ void Conexion::on_buttonConectar_clicked() {
 		// ventanaActualizacion.stop();
 		// ventanaActualizacion.join();
 
+		this->start();
 		// Habilitamos ventana luego de la actualización
 		this->main->set_sensitive(true);
 	}
@@ -105,6 +104,7 @@ void Conexion::on_buttonSalir_clicked() {
 void Conexion::on_menuPref_activate() {
 	IConfiguracion ventanaSettings(this->clienteConfig, this->estadoConexion);
 	ventanaSettings.correr();
+
 	this->main->set_sensitive(true);
 }
 
@@ -114,8 +114,25 @@ void Conexion::on_menuSalir_activate() {
 
 }
 
+void Conexion::run() {
+
+	while(this->cliente->estaSincronizando() == true){
+		this->lblError->set_text("Conectado al servidor");
+		sleep(2);
+	}	
+
+	this->usuarioTextBox->set_sensitive(true);
+	this->passTextBox->set_sensitive(true);
+
+	this->botonConectar->set_sensitive(true);
+	this->estadoConexion = 0;
+	this->join();
+	std::cout<< "salgo del run"<<std::endl;
+	
+}
 
 void Conexion::correr(){
+	std::cout<<"entro a correr"<<std::endl;
 	Gtk::Main::run(*main);
 }
 

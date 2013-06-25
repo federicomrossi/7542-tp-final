@@ -6,6 +6,7 @@
 #include "monitor_interfaz_usuarios.h"
 #include "common_protocolo.h"
 #include "common_convertir.h"
+#include "common_hash.h"
 #include "monitor_interfaz_modificarUsuario.h"
 
 
@@ -26,8 +27,8 @@ ModificarUsuario::ModificarUsuario(Monitor *monitor, string aModificar) {
 	refBuilder->get_widget("lbl_error", this->labelError);	
 	refBuilder->get_widget("btn_guardar", this->botonGuardar);
 	refBuilder->get_widget("btn_cancelar", this->botonCancelar);
-	refBuilder->get_widget("txt_contraseniaActual", this->passActualTxt);	
-	refBuilder->get_widget("txt_contraseniaNueva", this->passNuevaTxt);	
+		
+	refBuilder->get_widget("txt_contrasenia", this->passTxt);	
 	refBuilder->get_widget("txt_usuario",  this->usuarioTxt);
 
 	// Acciones
@@ -37,26 +38,9 @@ ModificarUsuario::ModificarUsuario(Monitor *monitor, string aModificar) {
 	this->botonCancelar->signal_clicked().connect(sigc::mem_fun(*this, &ModificarUsuario::on_buttonCancelar_clicked));
 	
 	this->usuarioTxt->set_text(modificar);
+	this->usuarioTxt->set_sensitive(false);
 
 
-	string msg;
-	msg.append(M_SERVER_MODIFY_USER_REQUEST);
-	msg.append(" ");
-	msg.append(aModificar);
-	this->monitor->getReceptor()->enviarMensaje(msg);
-	msg.clear();
-	this->monitor->getReceptor()->recibirMensaje(msg);
-	Lista <std::string> aux;
- 	string instruccion; 
- 	string args;
- 	Parser::parserInstruccion(msg, instruccion, args);
-	Parser::dividirCadena(args, &aux, COMMON_DELIMITER[0]);
-	this->passActualTxt->set_text(aux[0]);
-	this->passActualTxt->set_sensitive(false);
-	this->passNuevaTxt->set_text(aux[0]);
-
-	this->userOriginal = this->usuarioTxt->get_text();
-	
 	main->show_all_children();
 
 }
@@ -69,22 +53,18 @@ void ModificarUsuario::on_buttonGuardar_clicked() {
 	string user;
 	string pass;
 
-	pass = this->passNuevaTxt->get_text();
+	pass = this->passTxt->get_text();
 	user = this->usuarioTxt->get_text();
 
-	this->monitor->usuarios.eliminar(userOriginal);
-
-
-	
 	
 	this->labelError->set_visible(false);
-	int flag = 0;
 	
-	if ((user.compare("") == 0) ||  (user.compare(" ") == 0) || (pass.compare("") == 0)) {
+	
+	if ((pass.compare("") == 0)) {
 
 		this->labelError->set_visible(false);
 		msg.clear();
-		msg = "usuario/contraseña inválido";
+		msg = "contraseña inválida";
 		this->labelError->set_text(msg);
 		this->labelError->set_visible(true);
 		return;
@@ -93,26 +73,13 @@ void ModificarUsuario::on_buttonGuardar_clicked() {
 
 	this->labelError->set_visible(false);
 	
-	for (size_t i = 0; i < (this->monitor->usuarios.tamanio()); i++) {	
-		if (user.compare(this->monitor->usuarios[i]) == 0) {
-			msg = "El usuario ingresado ya existe";
-			this->labelError->set_text(msg);
-			this->labelError->set_visible(true);
-			flag = 1;
-			break;
-		} 
-
-	}
-	if (flag == 1) return;
-
-	res.append(M_SERVER_MODIFY_USER);
+	res.append(M_SERVER_MODIFY_USER_REQUEST);
 	res.append(" ");
-	res.append(this->modificar);
-	res.append(COMMON_DELIMITER);
+	
 	res.append(user);
 	res.append(COMMON_DELIMITER);
-	res.append(pass);
-	this->monitor->usuarios.insertarUltimo(user);
+	res.append(Hash::funcionDeHash(pass));
+	
 	this->monitor->getReceptor()->enviarMensaje(res);
 	this->main->hide();
 

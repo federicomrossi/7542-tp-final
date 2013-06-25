@@ -134,12 +134,8 @@ void MenuUsuarios::on_buttonModificar_clicked() {
 	ventanaModificacion.correr();
 	this->main->set_sensitive(true);
 
-	// Borramos e ingresamos al nuevo al modelo
-	this->listaUsuarios->erase(store_iter);
-	// ingreso el ultimo agregado a la vista
-	size_t pos = this->monitor->usuarios.tamanio();
-	Gtk::TreeModel::Row row  = *(this->listaUsuarios->append());
-	row[m_Columns.m_col_name] = this->monitor->usuarios[pos-1]; 
+	
+	
 
 }
 
