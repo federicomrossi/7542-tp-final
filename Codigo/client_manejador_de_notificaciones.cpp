@@ -109,7 +109,7 @@ void ManejadorDeNotificaciones::run() {
 			Parser::dividirCadena(args, &listaArgumentos, COMMON_DELIMITER[0]);
 
 			// Mensaje de log
-			this->logger->emitirLog("NOTIFICACIÓN: Arrivo de archivo '" +
+			this->logger->emitirLog("NOTIFICACIÓN: Arribo de archivo '" +
 				listaArgumentos[0] + "'.");
 
 			// Derivamos al receptor de archivos
@@ -134,7 +134,7 @@ void ManejadorDeNotificaciones::run() {
 			listaArgumentos.eliminarPrimero();
 
 			// Mensaje de log
-			std::string log = "NOTIFICACIÓN: Arrivo de partes del archivo '";
+			std::string log = "NOTIFICACIÓN: Arribo de partes del archivo '";
 			log += archivoEntrante + "'.";
 			this->logger->emitirLog(log);
 
