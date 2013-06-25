@@ -251,11 +251,14 @@ void ConexionCliente::atenderAMonitor(std::string& mensaje, Comunicador *com) {
 		com->emitir(respuesta);
 	}
 	else if (instruccion == M_SERVER_MODIFY_USER_REQUEST) {
-	// Deberia tomar el usuario y retornar a clave	
-		std::string respuesta;
-		respuesta += S_SERVER_USER_PASS + " ";
-		respuesta.append("9090123");
-		com->emitir(respuesta);
+		// Variables aux
+		Lista<std::string> listaArgs;
+
+		// Se obtiene nombre y clave
+		Parser::dividirCadena(args, &listaArgs, COMMON_DELIMITER[0]);
+
+		// Se modifica la clave
+		admin.modificarCliente(listaArgs[0], listaArgs[1], false);
 	}
 
 	else if (instruccion == M_SERVER_NEW_USER_INFO) {
