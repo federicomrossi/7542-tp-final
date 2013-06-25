@@ -116,7 +116,7 @@ void Sincronizador::run() {
 			//END DEBUG
 			
 			// Se envia la respuesta al cliente
-			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta, 0);
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Lista de archivos enviada.";
@@ -177,7 +177,7 @@ void Sincronizador::run() {
 			//END DEBUG
 
 			// Se envia la respuesta al cliente
-			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta, 0);
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Partes de archivo enviadas.";
@@ -210,7 +210,7 @@ void Sincronizador::run() {
 			}
 
 			// Enviamos mensaje al cliente que realizó solicitud
-			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta);
+			this->emisor->ingresarMensajeDeSalida(mensaje.first, respuesta, 0);
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Archivo enviado.";
@@ -239,7 +239,7 @@ void Sincronizador::run() {
 			respuesta.append(listaArgumentos[2]);
 
 			// Se envia la notificación de nuevo archivo a los clientes
-			this->emisor->ingresarMensajeDeSalida(0, respuesta);
+			this->emisor->ingresarMensajeDeSalida(0, respuesta, mensaje.first);
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Se realizó notificación a ";
@@ -317,7 +317,7 @@ void Sincronizador::run() {
 			}
 
 			// Se envia la notificación de modificación a los clientes
-			this->emisor->ingresarMensajeDeSalida(0, respuesta);
+			this->emisor->ingresarMensajeDeSalida(0, respuesta, mensaje.first);
 
 			// DEBUG
 			// std::cout << "RESPUESTA GENERADA: " << respuesta << std::endl;
@@ -349,7 +349,7 @@ void Sincronizador::run() {
 			respuesta.append(listaArgumentos[0]);
 
 			// Se envia la notificación dela eliminación archivo
-			this->emisor->ingresarMensajeDeSalida(0, respuesta);
+			this->emisor->ingresarMensajeDeSalida(0, respuesta, mensaje.first);
 
 			// Mensaje de log
 			std::string ee = "SINCRONIZADOR: Envío de orden de eliminación";

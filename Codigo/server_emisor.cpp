@@ -45,20 +45,22 @@ void Emisor::detener() {
 	while(!this->salida.vacia());
 
 	// Destrabamos la cola encolando un mensaje de finalización detectable
-	this->salida.push(std::make_pair(0, COLA_SALIDA_FIN));
+	this->salida.push(std::make_pair(COLA_SALIDA_FIN, std::make_pair(0,0)));
 }
 
 
 // Ingresa un mensaje de entrada en el receptor
-// PRE: 'id' es el identificador de quien ingresa el mensaje. Si se desea
-// enviar un mensaje a todas las conexiones, el id debe ser 0 (cero); 'msg' es
-// la cadena que contiene el mensaje de entrada.
-void Emisor::ingresarMensajeDeSalida(int id, std::string msg) {
+// PRE: 'id' es el identificador de a quien se envía el mensaje; 'msg' es 
+// la cadena que contiene el mensaje de entrada; 'idExclusion' es el id
+// de quien debe excluirse del envío. Este último es útil cuando el id=0
+// ya que permite obviar el envio de una de todas las conexiones.
+void Emisor::ingresarMensajeDeSalida(int id, std::string msg, 
+	int idExclusion) {
 	// Bloqueamos mutex
 	Lock l(this->m);
 
 	// Insertamos mensaje en la cola
-	this->salida.push(std::make_pair(id, msg));
+	this->salida.push(std::make_pair(msg, std::make_pair(id, idExclusion)));
 }
 
 
@@ -73,20 +75,29 @@ void Emisor::run() {
 	// salida.
 	while(this->isActive() || !this->salida.vacia()) {
 		// Tomamos un mensaje de salida
-		std::pair < int, std::string > mensaje = this->salida.pop_bloqueante();
+		std::pair< std::string, std::pair< int, int > > mensaje;
+		mensaje = this->salida.pop_bloqueante();
 
 		// Corroboramos si no se ha desencolado el mensaje que marca el fin
-		if(mensaje.second == COLA_SALIDA_FIN) return;
+		if(mensaje.first == COLA_SALIDA_FIN) return;
 
 		// Se firma el mensaje
-		mensajeFirmado = Seguridad::obtenerFirma(mensaje.second, this->clave) +
-			COMMON_DELIMITER + mensaje.second;
+		mensajeFirmado = Seguridad::obtenerFirma(mensaje.first, this->clave) +
+			COMMON_DELIMITER + mensaje.first;
 
 		// Caso en que se debe enviar el mismo mensaje a todos los clientes
-		if(mensaje.first == 0) {
+		if(mensaje.second.first == 0) {
 			// Iteramos sobre la lista y enviamos el mensaje uno a uno
-			for(size_t i = 0; i < this->listaConexiones->tamanio(); i++)
-				(*this->listaConexiones)[i]->enviarMensaje(mensajeFirmado);
+			for(size_t i = 0; i < this->listaConexiones->tamanio(); i++) {
+				ConexionCliente *cc = (*this->listaConexiones)[i];
+
+				// Si es el excluido, salteamos
+				if(cc->id() == mensaje.second.second)
+					continue;				
+
+				// Enviamos
+				cc->enviarMensaje(mensajeFirmado);
+			}
 		}
 		// Caso en que se debe enviar el mensaje a un único cliente
 		else {
@@ -95,7 +106,7 @@ void Emisor::run() {
 				ConexionCliente *cc = (*this->listaConexiones)[i];
 				
 				// Comparamos identificadores para ver si es el cliente deseado
-				if(cc->id() == mensaje.first){
+				if(cc->id() == mensaje.second.first){
 					cc->enviarMensaje(mensajeFirmado);
 					break;
 				}

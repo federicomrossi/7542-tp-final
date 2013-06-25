@@ -692,8 +692,19 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	registroTmp.open(regTmpNombre.c_str(), std::ios::app);
 
 	// Verificamos si la apertura fue exitosa
-	if(!registro.is_open() || !registroTmp.is_open()) 
-		throw "ERROR: El registro no pudo ser abierto.";
+	if(!registro.is_open() || !registroTmp.is_open()) {
+		// Creamos registros de archivos que pueden faltar por eliminación
+		// manual
+		this->crearRegistroDeArchivos();
+
+		// Intentamos abrir nuevamente el registro original y el 
+		// registro temporal
+		registro.open(regNombre.c_str(), std::ios::in);
+		registroTmp.open(regTmpNombre.c_str(), std::ios::app);
+
+		if(!registro.is_open() || !registroTmp.is_open())
+			throw "ERROR: El registro no pudo ser abierto.";
+	}
 
 	// Relevamos los nombres de archivos ubicados actualmente en el directorio
 	Lista< std::string > ld;
@@ -1057,9 +1068,6 @@ void ManejadorDeArchivos::borrarDeRegistroDeArchivos(
 // Comprueba si existe el registro de archivos.
 // POST: devuelve true si existe o false en su defecto.
 bool ManejadorDeArchivos::existeRegistroDeArchivos() {
-	// Bloqueamos el mutex
-	Lock l(mReg);
-
 	// Armamos ruta del registro
 	std::string registro = this->directorio + DIR_AU + "/" 
 		+ ARCHIVO_REG_ARCHIVOS;

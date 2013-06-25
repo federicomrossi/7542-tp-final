@@ -27,7 +27,8 @@ namespace {
 
 // Constructor
 Emisor::Emisor(Socket *socket, Logger *logger, const std::string &clave) : 
-	socket(socket), com(socket), logger(logger), clave(clave) { }
+	socket(socket), com(socket), logger(logger), clave(clave), 
+	activa(false) { }
 
 
 // Destructor
@@ -36,7 +37,11 @@ Emisor::~Emisor() { }
 
 // Inicia la emisión
 void Emisor::iniciar() {
+	// Iniciamos el hilo
 	this->start();
+
+	// Habilitamos flag de recepción
+	this->activa = true;
 }
 
 
@@ -81,7 +86,19 @@ void Emisor::run() {
 		if(this->com.emitir(mensaje) == -1) {
 			// Mensaje de log
 			this->logger->emitirLog("ERROR: Emisor no pudo emitir mensaje.");
-			throw "ERROR: No pudo emitirse el mensaje";
+			
+			// Deshabilitamos flag de emisión
+			this->activa = false;
 		}
 	}
+}
+
+
+// Comprueba si la emisión se encuentra activa. Se encontrará activa
+// mientras el socket permanezca activo, lo cual se considera desde que se
+// inicia el objeto con el metodo iniciar(). En caso de cerrarse el socket
+// se devolverá false, mientras que al estar activa la recepción se
+// retornará true.
+bool Emisor::emisionActiva() {
+	return this->activa;
 }

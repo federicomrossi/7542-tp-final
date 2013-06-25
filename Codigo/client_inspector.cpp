@@ -87,14 +87,23 @@ void Inspector::run() {
 			std::cout.flush();
 			// END
 
+
 			while(!nuevos.vacia()) {
 				// Tomamos nuevo
 				std::pair< std::string, std::string > nuevo;
 				nuevo = nuevos.pop_bloqueante();
-				
 				std::string contenido;
-				contenido = this->manejadorDeArchivos->obtenerContenido(
-					nuevo.first);
+				
+				try {
+					contenido = this->manejadorDeArchivos->obtenerContenido(
+						nuevo.first);
+				}
+				catch(char const * e) {
+					// Si no es posible abrir el archivo, dejamos que la
+					// próxima inspección se encarge de detectar que debe
+					// hacer con este.
+					continue;
+				}
 
 				// Mensaje de log
 				this->logger->emitirLog("INSPECTOR: Archivo nuevo '" + 
@@ -123,8 +132,17 @@ void Inspector::run() {
 					int bloque = mod.second.verPrimero();
 					mod.second.eliminarPrimero();
 					std::string contenido;
-					contenido = this->manejadorDeArchivos->obtenerContenido(
-						mod.first, bloque);
+
+					try {
+						contenido = this->manejadorDeArchivos->obtenerContenido
+							(mod.first, bloque);
+					}
+					catch(char const * e) {
+						// Si no es posible abrir el archivo, dejamos que la
+						// próxima inspección se encarge de detectar que debe
+						// hacer con este.
+						continue;
+					}
 
 					// Insertamos par de bloques con sus contenidos en lista
 					bloques.insertarUltimo(std::make_pair(bloque, contenido));

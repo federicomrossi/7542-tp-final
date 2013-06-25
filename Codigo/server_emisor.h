@@ -30,8 +30,10 @@
 
 class Emisor : public Thread {
 private:
-
-	Cola< std::pair < int, std::string > > salida;		// Cola de salida
+	
+	// Cola de salida
+	Cola< std::pair< std::string, std::pair< int, int > > > salida;	
+		
 	Lista< ConexionCliente* > *listaConexiones;			// Conexiones
 	Mutex m;											// Mutex
 	Logger *logger;										// Logger de eventos
@@ -55,9 +57,11 @@ public:
 	void detener();
 
 	// Ingresa un mensaje de entrada en el receptor
-	// PRE: 'id' es el identificador de quien ingresa el mensaje; 'msg' es la 
-	// cadena que contiene el mensaje de entrada.
-	void ingresarMensajeDeSalida(int id, std::string msg);
+	// PRE: 'id' es el identificador de a quien se envía el mensaje; 'msg' es 
+	// la cadena que contiene el mensaje de entrada; 'idExclusion' es el id
+	// de quien debe excluirse del envío. Este último es útil cuando el id=0
+	// ya que permite obviar el envio de una de todas las conexiones.
+	void ingresarMensajeDeSalida(int id, std::string msg, int idExclusion);
 
 	// Define tareas a ejecutar en el hilo.
 	// Se encarga de emitir lo que se encuentre en la cola de salida.
