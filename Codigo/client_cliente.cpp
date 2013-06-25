@@ -225,12 +225,17 @@ bool Cliente::estaActualizando() {
 // POST: devuelve true si se encuentra activo o false en su defecto.
 bool Cliente::estaSincronizando() {
 	try{
-		return this->receptor->recepcionActiva();
+		bool e = this->emisor->emisionActiva();
+		bool r = this->receptor->recepcionActiva();
+
+		if(e || r) return true;
+		else return false;
 	}
 	catch(...) {
 		return false;
 	}
 }
+
 
 
 

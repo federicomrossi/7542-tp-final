@@ -9,9 +9,6 @@
 #include "common_comunicador.h"
 #include <sstream>
 
-// DEBUG
-#include <iostream>
-// END DEBUG
 
 
 

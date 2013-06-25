@@ -6,9 +6,6 @@
  
 #include "client_receptor.h"
 
-// DEBUG
-#include <iostream>
-// END DEBUG
 
 namespace {
 	const std::string COLA_SALIDA_FIN = "COLA-SALIDA-FIN";

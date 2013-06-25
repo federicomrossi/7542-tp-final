@@ -10,7 +10,7 @@
 class Seguridad {
 private:
 	// Se realiza clave XOR cadena
-	static std::string XOR(const std::string &clave, const std::string &cadena);
+	static std::string XOR(const std::string &clave, const char* cadena);
 
 public:
 	// Se obtiene la firma del mensaje a ser enviado con la clave pasada por parametros

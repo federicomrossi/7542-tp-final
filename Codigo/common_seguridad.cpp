@@ -51,7 +51,7 @@ bool Seguridad::firmaValida(const std::string &mensaje, const std::string &clave
 /* Implementacion de metodos privados */
 
 // Devuelve clave XOR cadena
-std::string Seguridad::XOR(const std::string &clave, const std::string &cadena) {
+std::string Seguridad::XOR(const std::string &clave, const char* cadena) {
 	int i;
 	std::string aux;
 	for (i = 0; i < 64; i++)
