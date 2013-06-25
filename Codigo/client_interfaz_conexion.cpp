@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "client_configuracion.h"
-#include "client_interfaz_actualizacion.h"
+
 #include "client_interfaz_conexion.h"
 
 
@@ -64,10 +64,9 @@ void Conexion::on_buttonConectar_clicked() {
 
 		 this->lblError->set_text("Sincronizando datos");
 		
-		this->start();
 		this->cliente->iniciarSincronizacion(
 			this->clienteConfig->obtenerIntervaloDePolling());
-
+		this->start();
 		
 		 
 			// Habilitamos ventana luego de la actualización
@@ -129,21 +128,11 @@ void Conexion::on_menuSalir_activate() {
 
 void Conexion::run() {
 
-	sleep(1);
-	IActualizacion ventanaActualizacion(this->cliente);
-	ventanaActualizacion.start();	
-	sleep(1);
-	while(this->cliente->estaActualizando() == true) {
-
-		sleep(1);
-	}
-	ventanaActualizacion.detener();
 	
-
-	while(this->cliente->estaSincronizando() == true && this->estadoConexion == 1 ){
+while(this->cliente->estaSincronizando() == true && this->estadoConexion == 1 ){
 		this->lblError->set_text("Conectado al servidor");
 		sleep(1);
-	}	
+}	
 
 	this->usuarioTextBox->set_sensitive(true);
 	this->passTextBox->set_sensitive(true);
@@ -152,7 +141,7 @@ void Conexion::run() {
 	this->estadoConexion = 0;
 	this->cliente->detenerSincronizacion();
 
-	//this->join();
+
 	
 }
 

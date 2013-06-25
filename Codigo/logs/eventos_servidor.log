@@ -416,3 +416,21 @@ Tue Jun 25 11:14:34 2013 SINCRONIZADOR: Partes de archivo enviadas.
 Tue Jun 25 11:16:54 2013 Usuario 'Fiona'  se ha desconectado.
 Tue Jun 25 11:17:36 2013 Iniciando servidor AU...
 Tue Jun 25 11:17:36 2013 Se ha iniciado el servidor.
+Tue Jun 25 12:11:55 2013 Iniciando servidor AU...
+Tue Jun 25 12:11:55 2013 Se ha iniciado el servidor.
+Tue Jun 25 12:14:56 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Tue Jun 25 12:14:56 2013 LOGIN: Esperando datos de login del cliente...
+Tue Jun 25 12:14:56 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Tue Jun 25 12:14:56 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Tue Jun 25 12:14:59 2013 SINCRONIZADOR: Lista de archivos enviada.
+Tue Jun 25 12:17:13 2013 Usuario 'Fiona'  se ha desconectado.
+Tue Jun 25 12:17:26 2013 Se ha detenido el servidor.
+Tue Jun 25 13:01:11 2013 Iniciando servidor AU...
+Tue Jun 25 13:01:11 2013 Se ha iniciado el servidor.
+Tue Jun 25 13:01:20 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Tue Jun 25 13:01:20 2013 LOGIN: Esperando datos de login del cliente...
+Tue Jun 25 13:01:20 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Tue Jun 25 13:01:20 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Tue Jun 25 13:01:23 2013 SINCRONIZADOR: Lista de archivos enviada.
+Tue Jun 25 13:02:14 2013 Usuario 'Fiona'  se ha desconectado.
+Tue Jun 25 13:05:31 2013 Se ha detenido el servidor.

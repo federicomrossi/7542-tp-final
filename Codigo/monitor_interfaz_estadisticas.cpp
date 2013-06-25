@@ -5,7 +5,7 @@
 
 
 MenuEstadisticas::MenuEstadisticas(Monitor *monitor) {
-	// Cargamos la ventana pr
+	
 	Glib::RefPtr<Gtk::Builder> refBuilder = Gtk::Builder::create();
 
 	

@@ -42,6 +42,7 @@ void Receptor::especificarPuerto(int puerto) {
 void Receptor::especificarTiempo(int timer){
 	this->timer = timer;
 }
+
 //no hayy deja de buscar recibir xq no hay pera q lo agarro de un lugar q creo q esta hecho...
 // Realiza la conexión inicial con el servidor.
 // PRE: 'usuario' y 'clave' son el nombre de usuario y contraseña con el 
@@ -97,8 +98,7 @@ int Receptor::conectar(std::string usuario, std::string clave) {
 	return 0;
 }
 
-// Detiene la conexión con el monitor. No debe utilizarse el método stop()
-// para detener.
+
 
 void Receptor::detener() {
 	// Detenemos hilo

@@ -18,7 +18,7 @@ void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	
 	cr->save();
 
-	// dividimos por cuatro porque 1024 / 4 = 256 que es la altura del form (logramos q los resultados sean representables)
+	// dividimos por cuatro -> 1024 / 4 = 256 que es la altura del form (logramos q los resultados sean representables)
 	
 	// ahora haces si la escala q viene *100  es menor a yini y la escala q viene *100 es menor yfin entonces
 	
