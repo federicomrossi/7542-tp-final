@@ -15,17 +15,19 @@ VistaIndicador::~VistaIndicador() {
 
 void VistaIndicador::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	// se selecciona formato (font, tamaño y color)
-	// El objeto Font es la fuente, el formato del texto
+	// El objeto Font es la fuente
 	cr->save();
 	Pango::FontDescription font;
 	font.set_family("Monospace");
 	font.set_weight(Pango::WEIGHT_BOLD);
 	font.set_absolute_size(20*Pango::SCALE);
 	// Instanciamos el Layout, dandole un texto y un font
-	Glib::ustring asdf = Convertir::itos(monitor->getBytesOcupados()/escala(monitor->getBytesOcupados())) + escalaStr(monitor->getBytesOcupados()); // bien bien 
+	// calculamos el numero de bytes / escala + rotulo de escala
+	Glib::ustring aux = Convertir::itos(monitor->getBytesOcupados()/escala(monitor->getBytesOcupados())) + escalaStr(monitor->getBytesOcupados());
+	 
 	Gtk::DrawingArea win;
-	Glib::RefPtr<Pango::Layout> layout = win.create_pango_layout(asdf);
-	//ponemos el layout (label) en la drawing y ya
+	Glib::RefPtr<Pango::Layout> layout = win.create_pango_layout(aux);
+	//ponemos el layout (label) en la drawing.
 	layout->set_font_description(font);
 	
 	cr->move_to(5,5);
@@ -34,8 +36,7 @@ void VistaIndicador::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	
 }
 int VistaIndicador::escala(int bytes) {
-	// en q escala esta imprimiendo ...?¿?¿?¿?¿?¿ nunca guardamos antes de que compiles xD
-	//hasta 100 mb, sale en mb, mas de 100, sale en mb100 mmmmmmmmmmmmmm q esta mal aca a ver
+
 	if (bytes < KB) return B;
 	if (bytes < MB) return KB;
 	return MB;

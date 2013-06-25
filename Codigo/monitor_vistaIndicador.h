@@ -12,6 +12,7 @@
 
 #include "monitor_vista.h"
 #include "monitor_monitor.h"
+
 class VistaIndicador : public Vista {  
 private:
 	Monitor* monitor;

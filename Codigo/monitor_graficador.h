@@ -7,7 +7,6 @@
 #include <iostream>
 #include <map>
 #include <sigc++/signal.h>
-//bueno desde donde explico? Todo y no borres xq dsp lo voy a leer 10 veces seguidas y lo voy a copiar
 
 #include "monitor_vista.h"
 #include "common_thread.h"

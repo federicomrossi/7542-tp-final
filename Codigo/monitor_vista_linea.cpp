@@ -18,9 +18,22 @@ void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	
 	cr->save();
 
-	if (escala == 1048576 && yini < (escala*100) && yfin < (escala*100)) {
+	// dividimos por cuatro porque 1024 / 4 = 256 que es la altura del form (logramos q los resultados sean representables)
+	
+	// ahora haces si la escala q viene *100  es menor a yini y la escala q viene *100 es menor yfin entonces
+	
+	//GRAFICAR A ESCALA
+	//CASO A) cualquier representacion menos ( 0 a 100mb) 
+	// se toma el valor se lo divide por la escala y por 4 para que entre en el grafico
+	// y luego con el indicador, se muestra en que escala  se trabaja
 
-	cr->move_to (xini, 256 - ((yini/escala)*10)/4);
+	//CASO B) Representar 1 a 100mb
+	//entro en el if	
+
+	if (escala == 1048576 && yini < (escala*100) && yfin < (escala*100)) {
+        // para que las lineas se desparramen mejor en el grafico de 256 bytes,
+		//ya que no vamos a distribuir de 1 a 1024 valores sino que de 1 a 100, multiplico x 10
+	cr->move_to (xini, 256 - ((yini/escala)*10)/4); 
     cr->line_to (xfin, 256 - ((yfin/escala)*10)/4);
 	
 	}else {

@@ -16,7 +16,7 @@ void VistaFondo::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	cr->save(); 
  // destino a donde se vuelca la imagen de fondo
 	Gdk::Cairo::set_source_pixbuf(cr, this->imagen, 0, 0);
-// ale esto?
+
 	cr->fill();	
 	cr->paint();
 	cr->restore();
