@@ -274,6 +274,7 @@
 
 	La clase principal en cliente es \textit{Cliente}, que es la que se encarga de ser el puente entre la interfaz y el modelo, además de oquestrar el cambio del proceso de actualización al proceso de inspección. 
 	\par
+
 	Para realizar las sincronizaciones de archivos y controlar el manejo de información que fluye entre el cliente y el servidor, se hace uso de las clases \textit{Emisor} y \textit{Receptor}. Ambas contienen una cola de salida/entrada respectivamente de mensajes a ser intercambiados entre el servidor y el cliente. 
 	\par
 	Para el manejo de altas, bajas y modificaciones de archivos se hace uso de la clase \textit{Manejador de Archivos}, que se encarga de proveer una interfaz para las modificaciones de los archivos físicos en disco y provee además un mecanismo de detección de cambios en el directorio. Es la encargada de tratar a los archivos de a bloques, de comparar los hash correspondientes y de actualizar el \textit{.reg_archivos} cuando sea necesario. 
