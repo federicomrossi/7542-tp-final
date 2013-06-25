@@ -224,7 +224,12 @@ bool Cliente::estaActualizando() {
 // encuentra sincronizando.
 // POST: devuelve true si se encuentra activo o false en su defecto.
 bool Cliente::estaSincronizando() {
-	return this->socket->estaActivo();
+	try{
+		return this->receptor->recepcionActiva();
+	}
+	catch(...) {
+		return false;
+	}
 }
 
 

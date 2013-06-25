@@ -24,7 +24,8 @@ namespace {
 
 // Constructor
 Receptor::Receptor(Socket *socket, Logger *logger, const std::string &clave) :
-	socket(socket), com(socket), logger(logger), clave(clave) { }
+	socket(socket), com(socket), logger(logger), clave(clave), 
+	activa(false) { }
 
 
 // Destructor
@@ -35,6 +36,9 @@ Receptor::~Receptor() { }
 void Receptor::iniciar() {
 	// Iniciamos el hilo
 	this->start();
+
+	// Habilitamos flag de recepción
+	this->activa = true;
 }
 
 
@@ -73,9 +77,8 @@ void Receptor::run() {
 			// Mensaje de log
 			this->logger->emitirLog("RECEPTOR: Se desconectó el servidor.");
 			
-			// DEBUG
-			std::cout << "SE DESCONECTO EL SERVIDOR" << std::endl;
-			// END DEGUG
+			// Deshabilitamos flag de recepción
+			this->activa = false;
 
 			break;
 		}
@@ -96,4 +99,14 @@ void Receptor::run() {
 			this->detener();
 		}
 	}
+}
+
+
+// Comprueba si la recepción se encuentra activa. Se encontrará activa
+// mientras el socket permanezca activo, lo cual se considera desde que se
+// inicia el objeto con el metodo iniciar(). En caso de cerrarse el socket
+// se devolverá false, mientras que al estar activa la recepción se
+// retornará true.
+bool Receptor::recepcionActiva() {
+	return this->activa;
 }
