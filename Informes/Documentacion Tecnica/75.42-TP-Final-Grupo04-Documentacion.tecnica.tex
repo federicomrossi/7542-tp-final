@@ -194,9 +194,16 @@
 
 		\item \textit{Servidor}: es la encargada de estar a la escucha de nuevas conexiones y de derivarlas a ConexionCliente;
 
-		\item \textit{ConexionCliente}: primeramente se ocupa de que el usuario se identifique mediante el inicio de sesión. De ser válidado correctamente este último, se deriva al objeto de ConexionCliente pertenenciente a dicha comunicación hacia el AdministradorDeClientes. En caso de no ser válido el inicio de sesión, la conexión se auto destruye.
+		\item \textit{ConexionCliente}: primeramente se ocupa de que el usuario se identifique mediante el inicio de sesión. De ser válidado correctamente este último, se deriva al objeto de ConexionCliente pertenenciente a dicha comunicación hacia el AdministradorDeClientes. En caso de no ser válido el inicio de sesión, la conexión se auto destruye;
+
+		\item \textit{AdministradorDeClientes}: su tarea se limita a derivar a los clientes a sus respectivas carpetas lógicas, como así también es quien recibe las ordenes de dar de baja a un cliente de una carpeta y destruirlo;
+
+		\item \textit{Validador}: es quien se encarga de validar los datos que envía el usuario para iniciar sesión en su carpeta;
+
+		\item \textit{Carpeta}: los objetos de esta clase son administrados por AdministradorDeClientes. Estas representan la carpeta a nivel lógico de cada usuario. El Administrador se encarga de crear una sola de estas carpetas para un grupo de conexiones que se han loggeado con el mismo nombre de usuario. Cada carpeta posee asociado un conjunto de modulos con los cuales realizará emisiones y recepciones hacia los distintos objetos ConexionCliente de la carpeta, sincronizará y procesará mensajes entrantes y salientes y realizará el manejo de los archivos fisicos de la carpeta sobre el servidor. Las clases que representan estos módulos son: \textit{Actualizador}, \textit{Receptor}, \textit{Emisor}, \textit{Sincronizador} y \textit{ManejadorDeArchivos}.
 
 	\end{itemize}
+
 \bigskip
 
 
@@ -204,7 +211,7 @@
 % APLICACIÓN SERVIDOR - Diagramas UML
 \subsection{Diagramas UML}
 
-	
+	En la \textit{Figura 1} se muestra un diagrama de clases del corazón del servidor. En este se pueden notar las relaciones que hacen posible la derivación de un cliente hacia una carpeta una vez iniciada la sesión.
 	
 % Figura 1
 \begin{figure}[h]
