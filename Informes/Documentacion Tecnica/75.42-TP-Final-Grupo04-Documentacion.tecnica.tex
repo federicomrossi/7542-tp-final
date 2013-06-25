@@ -250,7 +250,14 @@
 % APLICACIÓN CLIENTE
 \section{Aplicación \textit{Cliente}}
 
-	[ Colocar texto aquí (descripción general)]
+	La aplicación cliente, consta de dos partes fundamentales: una que es desde el inicio de sesión hasta el proceso de actualización inicial, y la segunda es desde esa actualización inicial hasta el proceso de inspección general que se repite. 
+	\par
+	En la parte de actualización, las clases involucradas son Cliente, Receptor, Emisor, Manejador de Archivos y Actualizador. Lo primero que se realiza es la comparación entre lo que se encuentra en el registro de archivos \textit{.reg_archivos} con la lista de archivos que proviene del server. Se compara archivo por archivo en ManejadorDeArchivos y orquestrado por Actualizador, detectando bajas y modificaciones, y pidiendo uno a uno hasta que la información del servidor sea igual a la que se tiene en cliente. Los archivos nuevos que el cliente haya agregado offline, no serán tomados en cuenta en esta parte del proceso, pero sí lo serán los modificados offline, y se revertiran los cambios dejando como válida la copia que se encuentra en el servidor.
+	\par
+	Luego, finalizando la actualización, se inicia el proceso de inspección, en el cual se detectan los cambios que hayan en el directorio a partir de la base inicial que se estableció en el proceso anterior. Para esta parte, se hace uso de la clases Inspector y Sincronizador, que son las principales encargadas, junto con la ayuda de ManejadorDeArchivos, de lograr la sincronización correcta entre el cliente y el servidor. 
+	Inspector se encarga de, como su nombre lo indica, ir comparando el registro \textit{.reg_archivos} (que es una copia fiel de la información que se encuentra actualmente en el servidor), con la lista de archivos que realmente se encuentra en el directorio a ser sincronizado por el cliente. Se realiza una inspección cada cierto intervalo de tiempo, en busca de cambios. Si encuentra alguno, se envian al servidor los bloques modificados (en el caso de que se trate de una modificación de un archivo existente), se envian los archivos nuevos detectados (en caso de tratarse de una alta) o se envia una notificación de eliminación de los archivos en el server (en caso de tratarse de una baja). 
+	\par
+	En ambos procesos, puede ocurrir que haya algún otro cliente conectado, que realice algún cambio sobre los archivos en el servidor. En tal caso, las modificaciones de este otro cliente, generan un mensaje que es enviado a los demás clientes conectados con la misma cuenta para que comparen su archivo actual con el que que se recibió, así pueden pedir las actualizaciones. Como puede que ocurran cambios de este estilo durante la actualización, se optó por analizar estos mensajes enviados a todos los clientes en este proceso de actualización también.
 \bigskip
 
 
@@ -258,7 +265,17 @@
 % APLICACIÓN CLIENTE - Clases
 \subsection{Clases}
 
-	[ Colocar texto aquí ]
+	La clase principal en cliente es \textit{Cliente}, que es la que se encarga de ser el puente entre la interfaz y el modelo, además de oquestrar el cambio del proceso de actualización al proceso de inspección. 
+	\par
+	Para realizar las sincronizaciones de archivos y controlar el manejo de información que fluye entre el cliente y el servidor, se hace uso de las clases \textit{Emisor} y \textit{Receptor}. Ambas contienen una cola de salida/entrada respectivamente de mensajes a ser intercambiados entre el servidor y el cliente. 
+	\par
+	Para el manejo de altas, bajas y modificaciones de archivos se hace uso de la clase \textit{Manejador de Archivos}, que se encarga de proveer una interfaz para las modificaciones de los archivos físicos en disco y provee además un mecanismo de detección de cambios en el directorio. Es la encargada de tratar a los archivos de a bloques, de comparar los hash correspondientes y de actualizar el \textit{.reg_archivos} cuando sea necesario. 
+	\par
+	La clase \textit{Manejador de notificaciones} es la que obtiene los mensajes desde el \textit{Receptor} y decide si es una notificacion para ser enviada directamente a \textit{Inspector} o si es un archivo, que debe ser procesado por \textit{Receptor de Archivos}. 
+	\par
+	La clase \textit{Inspector}, que ya fue explicada más arriba, es la encargada de procesar los cambios que hay en el directorio local contra la lista de archivos que se encuentran en el servidor. Esta es la que contiene la lógica para realizar la sincronización entre el servidor y el cliente. Utiliza a la clase \textit{Sincronizaddor}, que se ocupa de implementar los métodos necesarios, utilizando el protocolo establecido para intercambio de archivos.
+	\par
+	La clase \textit{Actualizador}, también explicada mas arriba y que solamente tiene vida durante el proceso de actualización, se encarga de dejar una copia estable de lo que se encuentra en el servidor, localmente. Los cambios offline, se tratan como casos especiales. 
 \bigskip
 
 
