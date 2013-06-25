@@ -200,7 +200,7 @@
 	Sólo se requiere sincronizar el usuario actualmente logueado en la computadora (y se puede asumir que será solo uno). No se requiere almacenar subdirectorios en forma recursiva (puede asumirse que todos los archivos se encontrarán a nivel del directorio de au), aunque es un agregado opcional que puede implementarse (podría utilizarse el path completo como nombre del archivo en las comunicaciones e índices).
 	\par
 	El grupo deberá proponer el modo de ejecución de la aplicación cliente. En caso de decidir opcionalmente la generación de un daemon (para por ejemplo iniciar automáticamente el cliente junto con el sistema), debe darse la opción alternativa de ejecución manual a fines de facilitar que los ayudantes correctores eviten alterar las configuraciones de sus computadoras de prueba.
-\bigskip
+\bigskip\medskip
 
 
 
@@ -209,25 +209,32 @@
 \section{División de tareas}
 
 	El proyecto se dividió en tres partes: Interfaz, seguridad y modelo de sincronización. La división de tareas se realizó de la siguiente forma:
+\smallskip
+
+
 \begin{itemize}
 \item Fiona: Encargada de interfaz.
 \item Federico: Encargado de modelo de sincronización.
 \item Belén: Encargada de seguridad y modelo de sincronización.
 \end{itemize}
-\bigskip
+\bigskip\smallskip
 
 
 
 
 % EVOLUCIÓN DEL PROYECTO
 \section{Evolución del proyecto}
-
+\smallskip
+	
 \subsection{Inicio}
 \smallskip
 
 	En los inicios del proyecto, se realizó un diagrama PERT tentativo que mostraba la secuencia posible de pasos para realizar el proyecto. A continuación se ve la figura de este:
 FIGURA
 	Al poco tiempo, este diagrama fue descartado, ya que era demasiado lineal y no presentaba suficientes etapas de desarrollo en paralelo que permitieran alcanzar el objetivo del proyecto en 8 semanas. Se debió optar por un esquema de solución con más ramas en paralelo y que considere realizar la interfaz gráfica al mismo tiempo que el modelo.
+\bigskip
+
+
 
 \subsection{Primera Etapa}
 \smallskip
@@ -248,6 +255,10 @@ FIGURA
 	Se detectó que la clase manejador de archivos sería necesaria tanto para el cliente como para el servidor y se hizo común a ambos.
 	\par
 	Se avanzó sobre el envió y recepción de archivos.
+\bigskip
+
+
+
 
 \subsection{Segunda Etapa}
 \smallskip
@@ -257,6 +268,8 @@ FIGURA
 	Se comenzó con el diseño de la aplicación monitor, en un primer momento integrada a la aplicación server y con posibilidad de trabajar únicamente de manera local.
 	\par
 	Se realizaron pruebas para trabajar con interfaz gráfica con varios hilos e interacción del usuario.
+\bigskip
+
 
 \subsection{Última Etapa}
 \smallskip
@@ -264,8 +277,7 @@ FIGURA
 	Se modificó la aplicación monitor, para que esta sea lo más remota posible y pueda ser iniciada por separado del servidor. Se le agregó la funcionalidad de contener un gráfico con las estadísticas de “cantidad de bytes almacenados” vs. “tiempo”.
 	\par
 	Se continuó con más pruebas de los casos especiales de sincronización entre servidor y cliente, detectandose posibles errores. 
-
-\bigskip
+\bigskip\medskip
 
 
 
@@ -281,7 +293,6 @@ FIGURA
 \item Un inconveniente no menor que tuvimos, fue el de analizar los casos posibles de interacción entre usuarios y servidor. Se pudieron detectar casos simples y se logró adaptar el programa para que actúe de forma consistente en cada uno, pero luego surgieron muchos casos especiales no considerados de antemano. Y se volvió una tarea difícil lograr que actúe de forma predecible y estable en cada uno de estos casos.
 \item Otro problema, fue el de considerar enviar los archivos en formato hexadecimal. Así, se está duplicando el tamaño del archivo, y resulta completamente ineficiente a usos prácticos. Derivaron otros problemas a partir de este, ya que la conversión a hexadecimal es muy lenta y generaba conflictos en la detección de modificaciones en el directorio.
 \end{itemize}
-
 \bigskip
 
 
@@ -347,8 +358,8 @@ FIGURA
 	\par
 
 	Es necesario obligarse a poner metas intermedias y a intentar cumplirlas dentro del plazo establecido, o dentro de un rango razonable de tiempo. Además se debe ir avanzando en la implementación de a una funcionalidad por vez, dando así lugar a la realización de pruebas incrementales que permitan avanzar con pasos firmes. 
+\bigskip\bigskip\bigskip
 
-\bigskip
 
 
 

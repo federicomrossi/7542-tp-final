@@ -156,7 +156,9 @@
 % DESCRIPCIÓN GENERAL
 \section{Descripción general}
 
-	[ Colocar texto aquí ]
+	El proyecto se encuentra dividido en tres aplicaciones principales: \textit{cliente}, \textit{servidor} y \textit{monitor}. El corazón central del servicio se encuentra establecido sobre el servidor, ya que las demás aplicaciones tienen como tarea mantenerse en contacto con este. Tal comunicación se realiza a travéz de sockets, permitiéndose así la ejecución remota de los programas, instanciados en distintos equipos.
+	\par
+	Para lograr tal fin, se han identificado ciertos módulos que dotarán de distintos tipos de funcionalidades a nuestras aplicaciones. Además de ello, y no menos importante, se establecerá la existencia de un protocolo conocido por los tres entes, de manera de poder entenderse entre si. Cabe señalar que la aplicación monitor no es capaz de interactuar con la aplicación cliente, sino que simplemente todas interactuan con el servidor.
 \bigskip
 
 
@@ -165,7 +167,19 @@
 % APLICACIÓN SERVIDOR
 \section{Aplicación \textit{Servidor}}
 
-	[ Colocar texto aquí (descripción general)]
+	Al ser la parte central y motor del servicio, el servidor deberá constar de un conjunto de módulos los cuales permitirán dividir las distintas ocupaciones y eventos que deben atenderse en este.
+	\par
+	Como avance de lo que será la explicación detallada del propósito a cumplir por cada clase, veamos los tipos de eventos y como son manejados a grandes razgos por el servidor.
+	\par
+	En primer lugar, el servidor atenderá conexiones entrantes. Estas últimas son derivadas a un ente que se encargará de mantener una interacción con el cliente que se encuentra al otro lado del canal de comunicación. El primer paso que se realiza con este usuario es el inicio de sesión. Esto le permitirá identificarse y ser derivado de acuerdo a la credencial (nombre de usuario) presentada. 
+	\par
+	Cada usuario se encuentra vinculado a un ente que denomiaremos \textit{carpeta}. Al producirse una conexión entrante, cada usuario es derivado a la carpeta que le corresponde, agrupándose así en cada uno de los directorios las conexiones vinculadas a un mismo nombre de usuario.
+	\par
+	Llegado a este paso, es decir, una vez que una conexión es derivada a la carpeta correspondiente, se inicia la sincronización con el host de dicha comunicación. Esto se logra a través del intercamboo de mensajes los cuales llegan a cada ente que representa una conexion, y los cuales son todos depositados en un ente \textit{receptor}.
+	\par
+	Cada carpeta posee un módulo \textit{sincronizador} el cual se ocupa de tomar uno a uno los mensajes provenientes del receptor, los procesa y da la orden de realizar una acción en base a esto último. Entre estas acciones se encuentran: recibir un archivo, recibir una notificación de archivo eliminado, recibir partes correspondientes a un archivo modificado, etc.
+	\par
+	Al llegar un mensaje que solicita agregar un archivo, modificarlo o eliminarlo, se deriva con dicha notificación en el módulo \textit{manejador de archivos}, quien se encarga de lidiar con los archivos físicos.
 \bigskip
 
 
@@ -173,7 +187,16 @@
 % APLICACIÓN SERVIDOR - Clases
 \subsection{Clases}
 
-	[ Colocar texto aquí ]
+	Pasaremos ahora a detallar las clases que conforman el conjunto de módulos de la aplicación servidor. Se recomienda al lector que a medida que avance en cada descripción, visualice en los diagramas de clases mostrados posteriormente ya que esto sumará en el entendimiento de como es que se relacionan entre sí los entes.
+
+	\begin{itemize}
+	\itemsep=5pt \topsep=0pt \partopsep=0pt \parskip=0pt \parsep=0pt
+
+		\item \textit{Servidor}: es la encargada de estar a la escucha de nuevas conexiones y de derivarlas a ConexionCliente;
+
+		\item \textit{ConexionCliente}: primeramente se ocupa de que el usuario se identifique mediante el inicio de sesión. De ser válidado correctamente este último, se deriva al objeto de ConexionCliente pertenenciente a dicha comunicación hacia el AdministradorDeClientes. En caso de no ser válido el inicio de sesión, la conexión se auto destruye.
+
+	\end{itemize}
 \bigskip
 
 
@@ -181,7 +204,8 @@
 % APLICACIÓN SERVIDOR - Diagramas UML
 \subsection{Diagramas UML}
 
-
+	
+	
 % Figura 1
 \begin{figure}[h]
 	\centering
@@ -277,6 +301,45 @@
 
 	[ Colocar texto aquí ]
 \bigskip
+
+
+
+
+
+
+% APLICACIÓN CLIENTE
+\section{Aplicación \textit{Monitor}}
+
+	[ Colocar texto aquí (descripción general)]
+\bigskip
+
+
+
+% APLICACIÓN CLIENTE - Clases
+\subsection{Clases}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+% APLICACIÓN CLIENTE - Diagramas UML
+\subsection{Diagramas UML}
+
+
+
+
+% APLICACIÓN CLIENTE - Descripción de archivos  protocolos
+\subsection{Descripción de archivos  protocolos}
+
+	[ Colocar texto aquí ]
+\bigskip
+
+
+
+
+
+
 
 
 
