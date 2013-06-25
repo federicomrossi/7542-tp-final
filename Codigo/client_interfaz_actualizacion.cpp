@@ -28,21 +28,26 @@ IActualizacion::~IActualizacion() { }
 
 // Define tareas a ejecutar en el hilo.
 void IActualizacion::run() {
-	
-	std::cout<<"Entro a run del IActualizacion"<<std::endl;
+	this->main->show();
+
 	// Esperamos a que se termine de actualizar el directorio
-	while(this->cliente->estaActualizando() && this->isActive()) {
-		// INSERTAR CONTADOR PARA TIMEOUT Y APERTURA DE
-		// VENTANA DE CIERRE POR TIMEOUT
-		sleep(1);
+	while(this->isActive()) {
+		sleep(2);
 	}
-	std::cout<<"salgo del run del IA"<<std::endl;
+
 	
 	this->main->hide();
-	this->join();
+	this->stop();
 }
 
 void IActualizacion::correr() {
-	this->start();
 	Gtk::Main::run(*main);
+	
+
+}
+
+void IActualizacion::detener() {
+
+	this->stop();
+	
 }

@@ -31,7 +31,8 @@ public:
 
 	// Define tareas a ejecutar en el hilo.
 	virtual void run();
-
+	void detener();
+	
 	void correr();
 };
 

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword template="false" xmlns:ct="http://www.abisource.com/changetracking.dtd" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:math="http://www.w3.org/1998/Math/MathML" xid-max="166" xmlns:dc="http://purl.org/dc/elements/1.1/" fileformat="1.1" xmlns:svg="http://www.w3.org/2000/svg" xmlns:awml="http://www.abisource.com/awml.dtd" xmlns="http://www.abisource.com/awml.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" version="2.9.2" xml:space="preserve" props="dom-dir:ltr; document-footnote-restart-section:0; document-endnote-type:numeric; document-endnote-place-enddoc:1; document-endnote-initial:1; lang:es-AR; document-endnote-restart-section:0; document-footnote-restart-page:0; document-footnote-type:numeric; document-footnote-initial:1; document-endnote-place-endsection:0">
+<!-- ======================================================================== -->
+<!-- This file is an AbiWord document.                                        -->
+<!-- AbiWord is a free, Open Source word processor.                           -->
+<!-- More information about AbiWord is available at http://www.abisource.com/ -->
+<!-- You should not edit this file by hand.                                   -->
+<!-- ======================================================================== -->
+
+<metadata>
+<m key="abiword.date_last_changed">2012-12-01T03:43:00Z</m>
+<m key="abiword.generator">AbiWord</m>
+<m key="dc.creator">Federico Rodriguez</m>
+<m key="dc.date">2012-10-08T19:36:00Z</m>
+<m key="dc.format">application/x-abiword</m>
+</metadata>
+<rdf>
+</rdf>
+<history version="1" edit-time="9645" last-saved="1372155435" uid="f36882c8-dd69-11e2-94ec-b0cd371862b1">
+<version id="1" started="1372155435" uid="68ccdb0c-dd80-11e2-94ec-b0cd371862b1" auto="0" top-xid="166"/>
+</history>
+<styles>
+<s type="P" name="Normal" followedby="Normal" props="text-indent:0in; orphans:0; margin-top:0pt; margin-left:0pt; font-stretch:normal; line-height:1.0; text-align:left; bgcolor:transparent; lang:es-AR; dom-dir:ltr; margin-bottom:0pt; font-weight:normal; text-decoration:none; font-variant:normal; color:000000; text-position:normal; font-size:12pt; margin-right:0pt; font-style:normal; widows:0; font-family:Liberation Serif"/>
+<s type="P" name="TOC Heading" basedon="Heading 1" followedby="Normal" props="font-family:Cambria; dom-dir:ltr; font-weight:bold; lang:es-AR; margin-top:24pt; text-align:left; keep-with-next:yes; keep-together:yes; color:008080; line-height:1.1; font-size:14pt"/>
+<s type="P" name="Heading 1" basedon="Normal" followedby="Normal" props="font-family:Cambria; dom-dir:ltr; font-weight:bold; lang:es-AR; margin-top:12pt; text-align:left; orphans:0; keep-with-next:yes; widows:0; margin-bottom:3pt; line-height:1.0; font-size:16pt"/>
+<s type="P" name="Contents 1" basedon="Normal" followedby="Normal" props="font-family:Liberation Serif; dom-dir:ltr; list-decimal:.; margin-left:0.500000in; lang:es-AR; text-indent:-0.300000in; text-align:left; orphans:0; list-delim:%L.; widows:0; list-style:Numbered List; line-height:1.0; field-color:transparent; font-size:12pt; start-value:1; field-font:NULL"/>
+<s type="P" name="Header" basedon="Normal" followedby="Header" props="font-family:Liberation Serif; font-size:12pt; tabstops:3.0688in/C,6.1375in/C; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Footer" basedon="Normal" followedby="Footer" props="font-family:Liberation Serif; font-size:12pt; tabstops:3.0688in/C,6.1375in/C; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Contents 6" basedon="Index" followedby="Numbered List" props="font-family:Liberation Serif; font-size:12pt; tabstops:5.9424in/R; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Contents 7" basedon="Index" followedby="Contents 7" props="font-family:Liberation Serif; font-size:12pt; tabstops:5.7458in/R; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Contents 8" basedon="Index" followedby="Contents 8" props="font-family:Liberation Serif; font-size:12pt; tabstops:5.5493in/R; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Heading" basedon="Normal" followedby="Text body" props="font-family:Liberation Sans; dom-dir:ltr; margin-top:12pt; lang:es-AR; text-align:left; orphans:0; keep-with-next:yes; widows:0; margin-bottom:6pt; line-height:1.0; font-size:14pt"/>
+<s type="P" name="Contents 9" basedon="Index" followedby="Contents 9" props="font-family:Liberation Serif; font-size:12pt; tabstops:5.3528in/R; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Contents 10" basedon="Index" followedby="Contents 10" props="font-family:Liberation Serif; font-size:12pt; tabstops:5.1562in/R; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="List" basedon="Text body" followedby="List" props="font-family:Liberation Serif; font-size:12pt; dom-dir:ltr; margin-bottom:6pt; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Caption" basedon="Normal" followedby="Footnote Reference" props="font-family:Liberation Serif; dom-dir:ltr; font-style:italic; margin-top:6pt; lang:es-AR; text-align:left; orphans:0; widows:0; margin-bottom:6pt; line-height:1.0; font-size:12pt"/>
+<s type="P" name="Index" basedon="Normal" followedby="Index" props="font-family:Liberation Serif; font-size:12pt; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Balloon Text" basedon="Normal" followedby="Endnote Reference" props="font-family:Tahoma; font-size:8pt; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Text body" basedon="Normal" followedby="Text body" props="font-family:Liberation Serif; font-size:12pt; dom-dir:ltr; margin-bottom:6pt; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Contents 5" basedon="Index" followedby="Bulleted List" props="font-family:Liberation Serif; font-size:12pt; tabstops:6.1389in/R; dom-dir:ltr; lang:es-AR; line-height:1.0; orphans:0; text-align:left; widows:0"/>
+<s type="P" name="Contents 2" basedon="Index" followedby="Contents 2" props="font-family:Liberation Serif; dom-dir:ltr; list-decimal:.; margin-left:1.000000in; lang:es-AR; text-indent:-0.300000in; text-align:left; orphans:0; list-delim:%L.; widows:0; tabstops:6.7285in/R; list-style:Numbered List; line-height:1.0; field-color:transparent; font-size:12pt; start-value:1; field-font:NULL"/>
+<s type="P" name="Contents 3" basedon="Index" followedby="Contents 3" props="font-family:Liberation Serif; dom-dir:ltr; list-decimal:.; margin-left:1.500000in; lang:es-AR; text-indent:-0.300000in; text-align:left; orphans:0; list-delim:%L.; widows:0; tabstops:6.5319in/R; list-style:Numbered List; line-height:1.0; field-color:transparent; font-size:12pt; start-value:1; field-font:NULL"/>
+<s type="P" name="Contents 4" basedon="Index" followedby="Contents 4" props="font-family:Liberation Serif; dom-dir:ltr; list-decimal:.; margin-left:2.000000in; lang:es-AR; text-indent:-0.300000in; text-align:left; orphans:0; list-delim:%L.; widows:0; tabstops:6.3354in/R; list-style:Numbered List; line-height:1.0; field-color:transparent; font-size:12pt; start-value:1; field-font:NULL"/>
+</styles>
+<lists>
+<l id="1000" parentid="0" type="5" start-value="1" list-delim="%L" list-decimal="."/>
+<l id="1001" parentid="0" type="5" start-value="1" list-delim="%L" list-decimal="."/>
+<l id="1002" parentid="0" type="5" start-value="1" list-delim="%L" list-decimal="."/>
+<l id="1003" parentid="0" type="5" start-value="1" list-delim="%L" list-decimal="."/>
+</lists>
+<pagesize pagetype="Letter" orientation="portrait" width="8.500000" height="11.000000" units="in" page-scale="1.000000"/>
+<section footer="9" header="7" xid="1" props="page-margin-right:0.7875in; section-restart-value:1; page-margin-left:0.7875in; dom-dir:ltr; section-space-after:0.0000in; page-margin-header:0.5000in; page-margin-footer:0.2875in; page-margin-top:0.8972in; page-margin-bottom:1.0535in">
+<p style="Normal" xid="2" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="3" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="4" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:16pt; font-family:Arial Black">Taller de programación I</c></p>
+<p style="Normal" xid="5" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:16pt; font-family:Arial Black">Trabajo práctico final:</c></p>
+<p style="Normal" xid="6" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:20pt; font-family:Arial Black">Cerditos Furiosos</c></p>
+<p style="Normal" xid="7" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="8" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="9" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:16pt; font-family:Arial Black">Alejandro Olivera</c></p>
+<p style="Normal" xid="10" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:16pt; font-family:Arial Black">Federico Rodriguez Ramos</c></p>
+<p style="Normal" xid="11" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="12" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="13" props="text-align:center; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:16pt; font-family:Arial; text-decoration:underline">Manual del proyecto</c></p>
+<p style="Normal" xid="14" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="TOC Heading" xid="15" props="text-align:left; line-height:1.1; margin-top:24pt; keep-with-next:yes; keep-together:yes; dom-dir:ltr"><bookmark type="start" name="__RefHeading__1_1555399855" xid="16"/><bookmark type="end" name="__RefHeading__1_1555399855" xid="17"/><c props="lang:es-AR; font-weight:bold; font-size:14pt; font-family:Cambria; color:008080">Contenidos</c></p>
+<p xid="18"></p>
+</section>
+<section footer="15" header="13" xid="19" props="page-margin-right:0.7875in; section-restart-value:1; dom-dir:ltr; section-space-after:0.0000in; page-margin-footer:0.2875in; page-margin-header:0.5000in; page-margin-left:0.7875in; page-margin-top:0.7875in; page-margin-bottom:0.7875in">
+<p xid="20"></p>
+<p style="Contents 1" xid="21" props="text-align:left; tabstops:6.9250in/R; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><a xlink:href="#__RefHeading__6_873677954" xid="22"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Integrantes (*)	2</c></a></p>
+<p style="Contents 1" xid="24" props="text-align:left; tabstops:6.9250in/R; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><a xlink:href="#__RefHeading__8_873677954" xid="25"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">División de tareas (*)	2</c></a></p>
+<p style="Contents 1" xid="27" props="text-align:left; tabstops:6.9250in/R; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><a xlink:href="#__RefHeading__10_873677954" xid="28"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Conclusiones	3</c></a></p>
+<p style="Contents 1" xid="30" props="text-align:left; tabstops:6.9250in/R; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><a xlink:href="#__RefHeading__12_873677954" xid="31"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Enunciado	4</c></a></p>
+<p xid="33"></p>
+</section>
+<section footer="21" header="19" xid="34" props="page-margin-right:0.7875in; section-restart-value:1; page-margin-left:0.7875in; dom-dir:ltr; section-space-after:0.0000in; page-margin-header:0.5000in; page-margin-footer:0.2875in; page-margin-top:0.8972in; page-margin-bottom:1.0535in">
+<p xid="35"></p>
+<p style="Normal" xid="36" props="text-align:left; tabstops:6.9181in/R; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p xid="37"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold"><pbr/></c></p>
+<p style="Heading 1" xid="38" props="margin-top:12pt; orphans:0; tabstops:0.0000in/L; dom-dir:ltr; margin-bottom:3pt; line-height:1.0; text-align:left; widows:0; keep-with-next:yes"><bookmark type="start" name="__RefHeading__6_873677954" xid="39"/><bookmark type="start" name="__RefHeading__3_1555399855" xid="40"/><bookmark type="end" name="__RefHeading__6_873677954" xid="41"/><bookmark type="end" name="__RefHeading__3_1555399855" xid="42"/><c props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Integrantes (*)</c></p>
+<p style="Normal" xid="43" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="44" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Alejandro Olivera – Padrón 92253</c></p>
+<p style="Normal" xid="45" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Federico Rodriguez Ramos – Padrón 85260</c></p>
+<p style="Heading 1" xid="46" props="margin-top:12pt; orphans:0; tabstops:0.0000in/L; dom-dir:ltr; margin-bottom:3pt; line-height:1.0; text-align:left; widows:0; keep-with-next:yes"><bookmark type="start" name="__RefHeading__8_873677954" xid="47"/><bookmark type="start" name="__RefHeading__7_1555399855" xid="48"/><bookmark type="end" name="__RefHeading__8_873677954" xid="49"/><bookmark type="end" name="__RefHeading__7_1555399855" xid="50"/><c props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">División de tareas (*)</c></p>
+<p style="Normal" xid="51" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="52" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Alejandro:</c></p>
+<p level="1" listid="1000" parentid="0" style="Normal" xid="53" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.4903in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="54" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Diseño de las aplicaciones</c></p>
+<p level="1" listid="1000" parentid="0" style="Normal" xid="55" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.4903in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="56" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Desarrollo del modelo de juego</c></p>
+<p level="1" listid="1000" parentid="0" style="Normal" xid="57" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.4903in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="58" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Desarrollo del módulo cliente / servidor</c></p>
+<p level="1" listid="1000" parentid="0" style="Normal" xid="59" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.4903in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="60" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Documentación</c></p>
+<p style="Normal" xid="61" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="62" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Federico:</c></p>
+<p level="1" listid="1001" parentid="0" style="Normal" xid="63" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.5000in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="64" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Diseño de las aplicaciones</c></p>
+<p level="1" listid="1001" parentid="0" style="Normal" xid="65" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.5000in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="66" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Desarrollo de interfaz gráfica </c></p>
+<p level="1" listid="1001" parentid="0" style="Normal" xid="67" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.5000in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="68" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Desarrollo de parser XML</c></p>
+<p level="1" listid="1001" parentid="0" style="Normal" xid="69" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.5000in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="70" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Desarrollo de clase Administrador de niveles y niveles</c></p>
+<p level="1" listid="1001" parentid="0" style="Normal" xid="71" props="widows:0; list-style:Bullet List; orphans:0; tabstops:0.5000in/L; dom-dir:ltr; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="72" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Documentación</c></p>
+<p style="Normal" xid="73" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="74" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"><c style="Heading 1 Char" props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Evolución del proyecto<br/></c><c props="lang:es-AR; font-size:12pt; font-family:Times New Roman">Cronograma propuesto y cronograma real</c></p>
+<p style="Normal" xid="75" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"><c style="Heading 1 Char" props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Inconvenientes encontrados (*)<br/></c></p>
+<p style="Normal" xid="76" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Problema 1</c><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">:  el principal problema que tuvimos fue que al comienzo del trabajo (segunda semana) un integrante del equipo dejó la materia, por lo que tuvimos que continuar el trabajo entre dos personas. Esto repercutió principalmente en la falta de tiempo, llevándonos a no poder desarrollar la aplicación diseñadora de niveles. </c></p>
+<p style="Normal" xid="77" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="78" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Problema 2</c><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">: no pudimos desarrollar un Makefile acorde a las necesidades. En su lugar desarrollamos un shell script que, utilizando un Makefile sencillo, se encarga de compilar y enlazar el programa. </c></p>
+<p style="Normal" xid="79" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="80" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Problema 3</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">: nos resultó difícil comprender la librería cairomm y lograr dibujar cosas con ella. </c></p>
+<p style="Normal" xid="81" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="82" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Problema 4</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">: problemas en los protocolos de comunicación de los sockets. Primero intentamos utilizar un protocolo donde los mensajes se separaban por caracteres '\n'. esto nos trajo el problema de que los números binarios pueden contener el carácter '00' (que representa el '\n') como parte del mensaje. Para solucionar esto cambiamos el protocolo para enviar y recibir longitudes fijas (ver especificación del protocolo en la sección correspondiente del manual técnico).</c></p>
+<p style="Normal" xid="83" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="84" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Problema 5</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">:  en principio intentamos utilizar la biblioteca libxml++ para el manejo de archivos XML. Esta biblioteca posee varias ventajas, como por ejemplo que es parte del proyecto Gnome, lo que la hace un poco más estándar en sistemas GNU/Linux, sin la necesidad de descargar y distribuir bibliotecas externas. El uso de libxml++ se complicó ya que hace uso de archivos de definición de XML (.dtd) y requería más tiempo de investigación. Optamos entonces por utilizar una biblioteca menos estándar llamada TinyXML, que es más sencilla de aprender y utilizar, pero que también es menos robusta y necesita que se incluyan los fuentes junto con la distribución del sistema. </c></p>
+<p style="Normal" xid="85" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="86" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c style="Heading 1 Char" props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Análisis de puntos pendientes<br/></c></p>
+<p style="Normal" xid="87" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Diseñador</c><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">. Como se comentó en el apartado anterior, no hemos podido desarrollar esta aplicación. </c></p>
+<p style="Normal" xid="88" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="89" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Presentación del puntaje al finalizar la partida en modo multijugador</c><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">. Si bien se presentan los puntos al finalizar la partida en modo “un jugador”, en modo multijugador tuvimos problemas para instanciar la ventana correspondiente del lado de los clientes. </c></p>
+<p style="Normal" xid="90" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="91" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Inestabilidad de la vista durante el juego</c><c style="Heading 1 Char" props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">. Ocasionalmente la vista deja de refrescarse durante el juego, y queda congelada. Sin embargo el juego sigue corriendo, por lo que después de transcurrido el tiempo de partida la ventana de juego desaparecerá, mostrándose la ventana de puntos con el resultado. No hemos podido encontrar el origen de este problema.</c></p>
+<p style="Normal" xid="92" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="93" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif; font-weight:bold">Existencia de múltiples mundos</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">. No llegamos a desarrollar esta funcionalidad. No sería difícil de implementar, ya que el Administrador de niveles lee un archivo donde se encuentran todos los niveles. Para que se permitan distintos mundos bastaría con parametrizar que archivo de niveles procesa el Administrador, siendo cada uno de estos archivos un mundo distinto.</c></p>
+<p style="Normal" xid="94" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="95" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"><c style="Heading 1 Char" props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Herramientas (*)<br/></c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Herramientas auxiliares que utilizaron para hacer el proyecto, como editor de interfaz gráfica, control de versiones, herramienta para generar documentación, herramientas para debug, etcétera.</c></p>
+<p style="Normal" xid="96" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Utilizamos las siguientes herramientas a lo largo del desarrollo:</c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="97" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="98" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Repositorio subversion hosteado en code.google.com, con svn y Tortoise SVN.</c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="99" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="100" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Depurador GDB.</c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="101" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="102" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Editor de texto Geany para escribir el código fuente.</c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="103" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="104" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Glade para diseño de interfaces gráficas. </c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="105" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="106" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Gimp para edición de imágenes.</c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="107" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="108" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Enterprise Architect para la generación de diagramas UML.</c></p>
+<p level="1" listid="1002" parentid="0" style="Normal" xid="109" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="110" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">LibreOffice Writer/MS-Word para la generación de la documentación.</c></p>
+<p style="Heading 1" xid="111" props="margin-top:12pt; orphans:0; tabstops:0.0000in/L; dom-dir:ltr; margin-bottom:3pt; line-height:1.0; text-align:left; widows:0; keep-with-next:yes"><bookmark type="start" name="__RefHeading__10_873677954" xid="112"/><bookmark type="start" name="__RefHeading__9_1555399855" xid="113"/><bookmark type="end" name="__RefHeading__10_873677954" xid="114"/><bookmark type="end" name="__RefHeading__9_1555399855" xid="115"/><c props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Conclusiones</c></p>
+<p style="Normal" xid="116" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="117" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">A lo largo del desarrollo del trabajo aprendimos varias cosas:</c></p>
+<p level="1" listid="1003" parentid="0" style="Normal" xid="118" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="119" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">La importancia de trabajar ordenadamente y siguiendo una planificación</c></p>
+<p level="1" listid="1003" parentid="0" style="Normal" xid="120" props="margin-top:5pt; list-style:Bullet List; tabstops:0.5000in/L; dom-dir:ltr; margin-bottom:5pt; start-value:1; line-height:1.0; text-align:left; field-font:Symbol"><field type="list_label" xid="121" props="text-decoration:none"></field><c props="text-decoration:none">	</c><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Lo difícil que es hacer un buen uso de sockets y threads</c></p>
+<p style="Normal" xid="122" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">A modo de comentario hacia la cátedra, hubiera sido sido de gran ayuda haber tenido un TP individual previo para practicar GTK, Cairo y Glade como para estar mas preparados en este último TP. Por ejemplo el TP de sockets y threads fue de mucha ayuda en el presente trabajo.</c></p>
+<p style="Normal" xid="123" props="text-align:left; margin-top:5pt; line-height:1.0; margin-bottom:5pt; dom-dir:ltr"></p>
+<p style="Heading 1" xid="124" props="margin-top:12pt; orphans:0; tabstops:0.0000in/L; dom-dir:ltr; margin-bottom:3pt; line-height:1.0; text-align:left; widows:0; keep-with-next:yes"><bookmark type="start" name="__RefHeading__12_873677954" xid="125"/><bookmark type="start" name="__RefHeading__11_1555399855" xid="126"/><bookmark type="end" name="__RefHeading__12_873677954" xid="127"/><bookmark type="end" name="__RefHeading__11_1555399855" xid="128"/><c props="lang:es-AR; font-size:16pt; font-family:Cambria; font-weight:bold">Enunciado</c></p>
+<p xid="129"></p>
+</section>
+<section footer="27" header="25" xid="130" props="page-margin-right:0.7875in; section-restart-value:1; dom-dir:ltr; section-space-after:0.0000in; page-margin-footer:0.2875in; page-margin-header:0.5000in; page-margin-left:0.7875in; page-margin-top:0.7875in; page-margin-bottom:0.7875in">
+<p xid="131"></p>
+<p xid="132"></p>
+</section>
+<section type="header" id="7" xid="133">
+<p style="Header" xid="134" props="text-align:left; tabstops:3.4625in/C,6.9250in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="135" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+</section>
+<section type="header" id="13" xid="136">
+<p style="Header" xid="137" props="text-align:left; tabstops:3.4625in/C,6.9250in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="138" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+</section>
+<section type="header" id="19" xid="139">
+<p style="Header" xid="140" props="text-align:left; tabstops:3.4625in/C,6.9250in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="141" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+</section>
+<section type="header" id="25" xid="142">
+<p style="Header" xid="143" props="text-align:left; tabstops:3.4625in/C,6.9250in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif">Manual del proyecto		Cerditos furiosos</c></p>
+<p style="Normal" xid="144" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p xid="145"></p>
+</section>
+<section type="footer" id="9" xid="146">
+<p style="Normal" xid="147" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="148" props="text-align:right; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="149" props="text-align:left; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="150" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+</section>
+<section type="footer" id="15" xid="151">
+<p style="Normal" xid="152" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="153" props="text-align:right; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="154" props="text-align:left; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="155" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+</section>
+<section type="footer" id="21" xid="156">
+<p style="Normal" xid="157" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="158" props="text-align:right; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="159" props="text-align:left; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="160" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+</section>
+<section type="footer" id="27" xid="161">
+<p style="Normal" xid="162" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Footer" xid="163" props="text-align:right; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"><c props="lang:es-AR; font-size:12pt; font-family:Liberation Serif"> PAGE 4</c></p>
+<p style="Footer" xid="164" props="text-align:left; tabstops:3.0688in/C,6.1375in/C; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p style="Normal" xid="165" props="text-align:left; line-height:1.0; dom-dir:ltr; orphans:0; widows:0"></p>
+<p xid="166"></p>
+</section>
+</abiword>
