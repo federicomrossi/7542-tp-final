@@ -16,6 +16,7 @@ NEW-FILE [nombre_archivo],[hash_archivo]
 NO-SUCH-FILE [nombre_archivo]
 CORRUPT-MESSAGE
 SERVER-INFO [clientes_conectados],[carpetas_activas],[bytes_almacenados]
+S_SERVER_USER_LIST [nomb_cliente1],[nomb_cliente2],...,[nomb_cliente_N]
 
 # Constates para los identificadores de instrucciones enviadas por el monitor
 SERVER-INFO-REQUEST
@@ -26,6 +27,13 @@ SEND-FILE [nombre_archivo],[contenido]
 DELETE-FILE [nombre_archivo]
 FILE-PARTS [nombre_archivo],[cant_bytes_del_archivo],[num_bloque_i],[contenido_i],[num_bloque_i+1],[contenido_i+1],...,[num_bloque_N],[contenido_N]
 ,
+
+# Constates para los identificadores de instrucciones enviadas por el monitor
+M_SERVER_INFO_REQUEST 
+M_SERVER_USER_LIST_REQUEST 
+M_SERVER_NEW_USER_INFO [nombre_usuario],[contrasenia]
+M_SERVER_DELETE_USER [nombre_usuario]
+M_SERVER_MODIFY_USER [nombre_usuario],[contrasenia]
 
 # Constante para caracter de fin de instrucción
 \n
