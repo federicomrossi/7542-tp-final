@@ -29,7 +29,9 @@ private:
 	Cola< std::string > entrada;			// Cola de entrada
 	Comunicador com;						// Comunicador del receptor
 	Logger *logger;							// Logger de eventos
-	std::string clave;			// Clave utilizada para firmar mensajes
+	std::string clave;						// Clave utilizada para firmar7
+											// mensajes
+	bool activa;							// Flag de recepción activa
 
 public:
 
@@ -52,6 +54,13 @@ public:
 	// Define tareas a ejecutar en el hilo.
 	// Se encarga de recibir y guardar en la cola de entrada.
 	virtual void run();
+
+	// Comprueba si la recepción se encuentra activa. Se encontrará activa
+	// mientras el socket permanezca activo, lo cual se considera desde que se
+	// inicia el objeto con el metodo iniciar(). En caso de cerrarse el socket
+	// se devolverá false, mientras que al estar activa la recepción se
+	// retornará true.
+	bool recepcionActiva();
 };
 
 #endif
