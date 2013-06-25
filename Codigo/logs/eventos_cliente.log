@@ -1,0 +1,24 @@
+Mon Jun 24 22:08:44 2013 Conectando con 127.0.0.1 en el puerto 8080
+Mon Jun 24 22:08:44 2013 Conexión establecida con servidor.
+Mon Jun 24 22:08:44 2013 Emitiendo solicitud de LOGIN...
+Mon Jun 24 22:08:44 2013 Inicio de sesión exitoso con usuario 'belu'
+Mon Jun 24 22:08:44 2013 Actualizando directorio...
+Mon Jun 24 22:08:44 2013 Solicitando lista de archivos del servidor...
+Mon Jun 24 22:08:45 2013 Se recibió lista de archivos del servidor...
+Mon Jun 24 22:08:45 2013 Procesando lista de archivos...
+Mon Jun 24 22:08:45 2013 Se solicitaron archivos y partes faltantes.
+Mon Jun 24 22:08:45 2013 Se recibieron archivos y partes faltantes.
+Mon Jun 24 22:08:45 2013 Actualizando registro de archivos locales...
+Mon Jun 24 22:08:45 2013 Finalizada la actualización de archivos.
+Mon Jun 24 22:11:32 2013 INSPECTOR: Se detectaron cambios.
+Mon Jun 24 22:11:36 2013 INSPECTOR: Archivo nuevo 'Ares.tar.gz'
+Mon Jun 24 22:11:36 2013 Se envió archivo 'Ares.tar.gz' al servidor.
+Mon Jun 24 22:12:21 2013 NOTIFIACIÓN: Nuevo archivo 'Ares.tar.gz'.
+Mon Jun 24 22:12:21 2013 INSPECTOR: Inspeccionando existencia de archivo 'Ares.tar.gz' en directorio local.
+Mon Jun 24 22:14:38 2013 INSPECTOR: Se detectaron cambios.
+Mon Jun 24 22:14:41 2013 INSPECTOR: Archivo 'Ares.tar.gz' fue modificado.
+Mon Jun 24 22:14:41 2013 Se enviaron modificaciones hechas sobre el archivo 'Ares.tar.gz' al servidor.
+Mon Jun 24 22:15:22 2013 NOTIFICACIÓN: Archivo 'Ares.tar.gz' ha sido modificado.
+Mon Jun 24 22:15:25 2013 INSPECTOR: Inspeccionando archivo 'Ares.tar.gz' en directorio local.
+Mon Jun 24 22:16:56 2013 NOTIFICACIÓN: Archivo 'Ares.tar.gz' ha sido modificado.
+Mon Jun 24 22:16:56 2013 INSPECTOR: Inspeccionando archivo 'Ares.tar.gz' en directorio local.

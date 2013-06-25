@@ -220,6 +220,13 @@ bool Cliente::estaActualizando() {
 }
 
 
+// Comprueba si se encuentra activa la conexión con el servidor y si se
+// encuentra sincronizando.
+// POST: devuelve true si se encuentra activo o false en su defecto.
+bool Cliente::estaSincronizando() {
+	return this->socket->estaActivo();
+}
+
 
 
 /*

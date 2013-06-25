@@ -108,6 +108,11 @@ public:
 	// POST: devuelve true si se encuentra actualizando o false en
 	// caso contrario.
 	bool estaActualizando();
+
+	// Comprueba si se encuentra activa la conexión con el servidor y si se
+	// encuentra sincronizando.
+	// POST: devuelve true si se encuentra activo o false en su defecto.
+	bool estaSincronizando();
 };
 
 #endif

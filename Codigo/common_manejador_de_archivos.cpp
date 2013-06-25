@@ -43,6 +43,7 @@ namespace {
 
 	// Caracter no permitido en los nombres de archivo
 	const char CHAR_PROHIBIDO = '~';
+	const std::string PREF_ARCHIVO_PROHIBIDO = ".fuse_hidden" ;
 }
 
 
@@ -81,8 +82,11 @@ void ManejadorDeArchivos::obtenerArchivosDeDirectorio(
 				continue;
 
 			// Si tiene el char ~ se saltea
-			if (strchr(entrada->d_name, CHAR_PROHIBIDO))
+			if(strchr(entrada->d_name, CHAR_PROHIBIDO))
 				continue;
+
+			std::string s(entrada->d_name);
+			if(std::string::npos != s.find(PREF_ARCHIVO_PROHIBIDO)) continue;
 
 			// Insertamos el nombre de archivo en la lista
 			listaArchivos->insertarUltimo(entrada->d_name);
@@ -708,9 +712,17 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 	for(size_t i = 0; i < ld.tamanio(); i++) {
 		// Caso en el que no hay mas registros y se han agregado archivos
 		if(eof) {
-			// Calculamos el hash del archivo nuevo
+			
 			std::string hashNuevo;
-			this->obtenerHash(ld[i], hashNuevo);
+			
+			// Si se lanza un error por la no existencia de archivo seguimos
+			try {
+				// Calculamos el hash del archivo nuevo
+				this->obtenerHash(ld[i], hashNuevo);
+			}
+			catch(...){
+				continue;
+			}
 
 			// Registramos archivo nuevo
 			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
@@ -740,7 +752,15 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		if(ld[i] == reg_archivoNombre) {
 			// Corroboramos si ha sido modificado
 			std::string hash_aux;
-			this->obtenerHash(reg_archivoNombre, hash_aux);
+
+			// Si se lanza un error por la no existencia de archivo seguimos
+			try {
+				this->obtenerHash(reg_archivoNombre, hash_aux);
+			}
+			catch(...) {
+				continue;
+			}
+
 			int cantBloques_aux = this->obtenerCantBloques(reg_archivoNombre);
 			Lista<int> listaDiferencias;
 
@@ -751,11 +771,6 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 				// Actualizamos el hash del archivo
 				registroTmp << reg_archivoNombre << DELIMITADOR << 
 					hash_aux << std::endl;
-
-
-				// DEBUG
-				std::cout << "HASH: " << hash_aux << std::endl;
-				// END DEBUG
 
 				// Insertamos archivo en cola de modificados
 				modificados->push(make_pair(reg_archivoNombre, 
@@ -779,7 +794,15 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		else if(ld[i] < reg_archivoNombre || eof) {
 			// Calculamos el hash del archivo nuevo
 			std::string hashNuevo;
-			this->obtenerHash(ld[i], hashNuevo);
+
+			// Si se lanza un error por la no existencia de archivo seguimos
+			try {
+				this->obtenerHash(ld[i], hashNuevo);
+			}
+			catch(...) {
+				continue;
+			}
+
 			// Registramos archivo nuevo
 			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
 
@@ -873,7 +896,14 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 
 			// Calculamos el hash del archivo nuevo
 			std::string hashNuevo;
-			this->obtenerHash(ld[i], hashNuevo);
+
+			// Si se lanza un error por la no existencia de archivo seguimos
+			try {
+				this->obtenerHash(ld[i], hashNuevo);
+			}
+			catch(...) {
+				continue;
+			}
 
 			// Registramos archivo nuevo
 			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
@@ -897,7 +927,15 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 		if(ld[i] == reg_archivoNombre) {
 			// Corroboramos si ha sido modificado
 			std::string hash_aux;
-			this->obtenerHash(reg_archivoNombre, hash_aux);
+
+			// Si se lanza un error por la no existencia de archivo seguimos
+			try {
+				this->obtenerHash(reg_archivoNombre, hash_aux);
+			}
+			catch(...) {
+				continue;
+			}
+
 			int cantBloques_aux = this->obtenerCantBloques(reg_archivoNombre);
 			Lista<int> listaDiferencias;
 
@@ -931,7 +969,15 @@ bool ManejadorDeArchivos::actualizarRegistroDeArchivos(
 
 			// Calculamos el hash del archivo nuevo
 			std::string hashNuevo;
-			this->obtenerHash(ld[i], hashNuevo);
+
+			// Si se lanza un error por la no existencia de archivo seguimos
+			try {
+				this->obtenerHash(ld[i], hashNuevo);
+			}
+			catch(...) {
+				continue;
+			}
+
 			// Registramos archivo nuevo
 			registroTmp << ld[i] << DELIMITADOR << hashNuevo << std::endl;
 
@@ -1128,11 +1174,6 @@ bool ManejadorDeArchivos::compararBloque(const std::string& nombreArchivo,
 
 				// Comparamos la igualdad de hashes
 				if(hashBloque == hash) coincide = true;
-
-				// DEBUG
-				std::cout << hashBloque << std::endl;
-				std::cout << hash << std::endl;
-				// END DEBUG
 			}
 
 			// Cerramos archivos
