@@ -150,6 +150,13 @@
 
 		\item \textit{Sistemas operativos}: GNU/Linux (x86 y x86-64, distribuciones Linux basadas en RPM y DEB);
 
+		\item \textit{Librerias externas}: \begin{enumerate}
+							\item gtkmm 3.0
+							\item cairomm 1.0
+							\item Biblioteca socket.h standard de c++
+							\item Biblioteca pthread.h standard de c++
+							\end{enumerate}
+
 		\item \textit{Compilador}: g++ (\url{http://gcc.gnu.org/});
 
 		\item \textit{Herramientas}: Make (\url{http://www.gnu.org/software/make/}).
@@ -178,7 +185,7 @@
 % INSTALACION - Proceso de Instalación
 \subsection{Proceso de Instalación}
 	
-	[ Colocar texto aquí ]
+	Para instalar la aplicación bastará con descomprimir cada
 \bigskip
 
 
@@ -196,7 +203,72 @@
 % FORMA DE USO
 \section{Forma de uso}
 	
-	[ Colocar texto aquí ]
+	Para ejecutar el programa, se deberá correr por consola \textit{./server} si se quiere iniciar el server, \textit{./monitor} para iniciar la aplicación monitor o \textit{./client} para iniciar la aplicación cliente. También se puede iniciar cada aplicación realizando un doble click sobre los archivos \textit{server}, \textit{monitor} o \textit{client}.
+
+\subsection{Aplicación Servidor}
+\smallskip 
+	Al ejecutar la aplicacion servidor, se observara una consola como la siguiente, en la que corre la aplicación. Para terminar la ejecución de la aplicación, se deben seguir las instrucciones en pantalla (Presionar la letra 'q').	
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{Server.png}
+	\bigskip
+       \caption{Consola del server.}
+	\end{figure}
+
+\subsection{Aplicación Monitor}
+\smallskip
+	Al ejecutar la aplicación monitor, se observa una pantalla de inicio de sesión en la que se debe ingresar el nombre ADMMONITOR y la clave 'admin1234'. Alli, se inicia la comunicación entre el servidor (que debe estar corriendo) y el monitor.
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{InicioMonitor.png}
+	\bigskip
+       \caption{Inicio de sesion del monitor.}
+	\end{figure}
+	Luego de iniciar sesión correctamente, se accede a una pantalla como la siguiente, donde se pueden observar los siguientes menu de opciones: 
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{MonitorPPal.png}
+	\bigskip
+       \caption{Vista inicial del monitor.}
+	\end{figure}
+	Desde la opción \textit{Administrar Usuarios}, se pueden administrar las cuentas de todos los usuarios registrados o por registar. Se pueden ingresar nuevos clientes, utilizando el boton \textit{Agregar Usuario}. De aquí, se pasa a una ventana en donde se debe ingresar 'Nombre de usuario' y 'Contraseña'. Para guardar los cambios, presionar 'Guardar'.
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{NuevoUsuario.png}
+	\bigskip
+       \caption{Interfaz de nuevo usuario.}
+	\end{figure}
+	Para modificar usuarios existentes, se debe seleccionar uno de la lista y presionar el boton \textit{Modificar Usuario}. Solamente se podrá modificar la clave asociada al usuario que se seleccionó.
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{ModifUsuario.png}
+	\bigskip
+       \caption{Interfaz de modificar usuario.}
+	\end{figure}
+	Luego, se podrá eliminar un usuario existente, seleccionandolo de la lista y presionando el boton \textit{Eliminar Usuario}. Se abre una ventana preguntando si realmente desea eliminarlo.
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{EliminarUsuario.png}
+	\bigskip
+       \caption{Eliminar Usuario.}
+	\end{figure}
+
+\subsection{Aplicación Cliente}
+\smallskip
+	Al ejecutar la aplicación cliente, se observara una pantalla de inicio de sesión en la que se debe ingresar el nombre de usuario y contraseña. 
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{InicioSesionCli.png}
+	\bigskip
+       \caption{Inicio de sesion de cliente.}
+	\end{figure}
+	Luego, al entrar en el proceso de sincronización, se puede ver la pantalla de esta forma:
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{Sincronizando.png}
+	\bigskip
+       \caption{Sincronizacion.}
+	\end{figure}
 \bigskip
 
 
