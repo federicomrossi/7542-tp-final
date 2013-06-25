@@ -60,13 +60,7 @@ MenuPrincipal::MenuPrincipal(Monitor *monitor, Configuracion *config) : monitor(
 
 
 void MenuPrincipal::on_buttonSalir_clicked() {
-	// Damos orden de detener servidor 
 	
-		std::cout << "Monitoreo detenido"<< std::endl;
-		// END DEBUG
-	
-
-	// Cerramos ventana
 	Gtk::Main::quit();
 }
 
@@ -106,10 +100,8 @@ void MenuPrincipal::on_menuEstadisticas_activate(){
 void MenuPrincipal::on_menuManualUsuario_activate(){}
 
 void MenuPrincipal::on_menuSalir_activate() {
-		// DEBUG
-		std::cout << "Monitoreo detenido"<< std::endl;
-		// END DEBUG
-	// Cerramos ventana
+		
+	std::cout << "Monitoreo detenido"<< std::endl;
 	Gtk::Main::quit();
 }
 
@@ -127,11 +119,14 @@ void MenuPrincipal::run() {
 		this->monitor->actualizarValores();
 		if (this->monitor->getEstadoConexion() == true) {
 			this->estado->set_text("Conectado");
+			this->menuEstadisticas->set_sensitive(true);
+			this->menuAdminUsers->set_sensitive(true);
 			this->clientesConectados->set_text(monitor->getClientesConectados());
 			this->carpetasActivas->set_text(monitor->getCarpetasActivas());
 		} 
 		if ((this->monitor->getEstadoConexion()) == false) {
-
+			this->menuEstadisticas->set_sensitive(false);
+			this->menuAdminUsers->set_sensitive(false);
 			this->estado->set_text("Desconectado");
 			this->clientesConectados->set_text("-");
 			this->carpetasActivas->set_text("-");

@@ -59,20 +59,18 @@ void Conexion::on_buttonConectar_clicked() {
 	if(this->estadoConexion == 1) {
 		// Abrimos ventana de actualización
 		this->main->set_sensitive(false);
-		// IActualizacion ventanaActualizacion(this->cliente);
-		// ventanaActualizacion.start();
+		this->lblError->set_text("");
 
+
+		 this->lblError->set_text("Sincronizando datos");
+		
+		this->start();
 		this->cliente->iniciarSincronizacion(
 			this->clienteConfig->obtenerIntervaloDePolling());
-		this->lblError->set_text("Sincronizando datos");
 
-		// ventanaActualizacion.stop();
-
-
-		// ventanaActualizacion.join();
-
-		this->start();
-		// Habilitamos ventana luego de la actualización
+		
+		 
+			// Habilitamos ventana luego de la actualización
 		this->main->set_sensitive(true);
 	}
 	else if(this->estadoConexion == 0) {
@@ -87,6 +85,7 @@ void Conexion::on_buttonConectar_clicked() {
 		this->botonConectar->set_sensitive(true);
 		this->usuarioTextBox->set_sensitive(true);
 		this->passTextBox->set_sensitive(true);
+
 	}
 	else if(this->estadoConexion == -1) {
 		// Mostramos mensaje de error en ventana
@@ -103,6 +102,10 @@ void Conexion::on_buttonConectar_clicked() {
 }
 
 void Conexion::on_buttonSalir_clicked() {
+	this->estadoConexion = 0;
+	this->join();
+	this->cliente->desconectar();
+	
 	Gtk::Main::quit();
 }
 
@@ -116,14 +119,28 @@ void Conexion::on_menuPref_activate() {
 }
 
 void Conexion::on_menuSalir_activate() {
-
+	this->estadoConexion = 0;
+	this->join();
+	this->cliente->desconectar();
+	
 	Gtk::Main::quit();
 
 }
 
 void Conexion::run() {
 
-	while(this->cliente->estaSincronizando() == true){
+	sleep(1);
+	IActualizacion ventanaActualizacion(this->cliente);
+	ventanaActualizacion.start();	
+	sleep(1);
+	while(this->cliente->estaActualizando() == true) {
+
+		sleep(1);
+	}
+	ventanaActualizacion.detener();
+	
+
+	while(this->cliente->estaSincronizando() == true && this->estadoConexion == 1 ){
 		this->lblError->set_text("Conectado al servidor");
 		sleep(1);
 	}	
@@ -135,7 +152,7 @@ void Conexion::run() {
 	this->estadoConexion = 0;
 	this->cliente->detenerSincronizacion();
 
-	this->join();
+	//this->join();
 	
 }
 

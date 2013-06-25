@@ -18,19 +18,22 @@ class IActualizacion : public Gtk::Window, public Thread {
 private:
 
 	// Atributos de la interfaz
-	Gtk::Window* ventana;			// Ventana
+	Gtk::Window* main;			// Ventana
 	Cliente *cliente;				// Cliente que se actualiza	
 	
 public:
 
 	// Constructor
-	IActualizacion(Cliente *cliente); 
+	IActualizacion (Cliente *cliente); 
 
 	// Destructor
 	virtual ~IActualizacion();
 
 	// Define tareas a ejecutar en el hilo.
 	virtual void run();
+	void detener();
+	
+	void correr();
 };
 
 #endif
