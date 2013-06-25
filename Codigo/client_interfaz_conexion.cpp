@@ -42,6 +42,7 @@ void Conexion::on_buttonConectar_clicked() {
 	this->botonConectar->set_sensitive(false);
 	this->usuarioTextBox->set_sensitive(false);
 	this->passTextBox->set_sensitive(false);
+	this->lblError->set_text("");
 	
 	// Obtenemos la configuracion actual del cliente
 
@@ -63,9 +64,11 @@ void Conexion::on_buttonConectar_clicked() {
 
 		this->cliente->iniciarSincronizacion(
 			this->clienteConfig->obtenerIntervaloDePolling());
-		this->lblError->set_text("");
+		this->lblError->set_text("Sincronizando datos");
 
 		// ventanaActualizacion.stop();
+
+
 		// ventanaActualizacion.join();
 
 		this->start();
@@ -89,11 +92,13 @@ void Conexion::on_buttonConectar_clicked() {
 		// Mostramos mensaje de error en ventana
 		this->lblError->set_text("Falló la conexión con el servidor.");
 		this->lblError->set_visible(true);
-
+	
+	
 		// Habilitamos objetos de la ventana
 		this->botonConectar->set_sensitive(true);
 		this->usuarioTextBox->set_sensitive(true);
 		this->passTextBox->set_sensitive(true);
+	
 	}
 }
 
@@ -102,6 +107,8 @@ void Conexion::on_buttonSalir_clicked() {
 }
 
 void Conexion::on_menuPref_activate() {
+
+
 	IConfiguracion ventanaSettings(this->clienteConfig, this->estadoConexion);
 	ventanaSettings.correr();
 
@@ -118,21 +125,22 @@ void Conexion::run() {
 
 	while(this->cliente->estaSincronizando() == true){
 		this->lblError->set_text("Conectado al servidor");
-		sleep(2);
+		sleep(1);
 	}	
 
 	this->usuarioTextBox->set_sensitive(true);
 	this->passTextBox->set_sensitive(true);
-
+	this->lblError->set_text("Se cayó la conexion, ingrese para sincronizar");
 	this->botonConectar->set_sensitive(true);
 	this->estadoConexion = 0;
+	this->cliente->detenerSincronizacion();
+
 	this->join();
-	std::cout<< "salgo del run"<<std::endl;
 	
 }
 
 void Conexion::correr(){
-	std::cout<<"entro a correr"<<std::endl;
+	
 	Gtk::Main::run(*main);
 }
 
