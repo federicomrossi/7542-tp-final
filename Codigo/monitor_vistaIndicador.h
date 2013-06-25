@@ -20,7 +20,7 @@ private:
 public:
 	VistaIndicador(Monitor* monitor);
 	virtual ~VistaIndicador();
-	void draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation);
+	void draw(const Cairo::RefPtr<Cairo::Context>& cr);
 };
 
-#endif /*PISO_H_*/
+#endif /*VISTAINDICADOR_H_*/

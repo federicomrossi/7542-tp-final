@@ -22,7 +22,7 @@ public:
 	VistaLinea(int xini, int yini, int xfin, int yfin);
 	virtual ~VistaLinea();
 	void correrIzquierda(int x);
-	void draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation);
+	void draw(const Cairo::RefPtr<Cairo::Context>& cr);
 };
 
 #endif

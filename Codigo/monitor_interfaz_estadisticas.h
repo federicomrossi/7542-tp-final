@@ -9,7 +9,7 @@
 
 
 #include "gtkmm.h"
-#include "monitor_canvas.h"
+#include "monitor_graficador.h"
 #include "monitor_monitor.h"
 #include "monitor_configuracion.h"
 
@@ -22,7 +22,7 @@ private:
 	
 
 	// Atributos del modelo
-	Canvas c;
+	Graficador c;
 	Monitor *monitor;
 	
 public:

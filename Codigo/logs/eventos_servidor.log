@@ -395,3 +395,24 @@ Tue Jun 25 09:03:26 2013 LOGIN: Esperando datos de login del cliente...
 Tue Jun 25 09:03:26 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
 Tue Jun 25 09:03:49 2013 Usuario 'ADMMONITOR'  se ha desconectado.
 Tue Jun 25 09:11:10 2013 Se ha detenido el servidor.
+Tue Jun 25 11:07:15 2013 Iniciando servidor AU...
+Tue Jun 25 11:07:15 2013 Se ha iniciado el servidor.
+Tue Jun 25 11:07:29 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Tue Jun 25 11:07:29 2013 LOGIN: Esperando datos de login del cliente...
+Tue Jun 25 11:07:29 2013 LOGIN: Usuario 'ADMMONITOR' ha iniciado sesión.
+Tue Jun 25 11:07:42 2013 Usuario 'ADMMONITOR'  se ha desconectado.
+Tue Jun 25 11:07:53 2013 Se ha detenido el servidor.
+Tue Jun 25 11:14:17 2013 Iniciando servidor AU...
+Tue Jun 25 11:14:17 2013 Se ha iniciado el servidor.
+Tue Jun 25 11:14:29 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Tue Jun 25 11:14:29 2013 LOGIN: Esperando datos de login del cliente...
+Tue Jun 25 11:14:29 2013 LOGIN: Usuario 'Fiona' ha iniciado sesión.
+Tue Jun 25 11:14:29 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Tue Jun 25 11:14:31 2013 SINCRONIZADOR: Lista de archivos enviada.
+Tue Jun 25 11:14:33 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Tue Jun 25 11:14:33 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Tue Jun 25 11:14:33 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Tue Jun 25 11:14:34 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Tue Jun 25 11:16:54 2013 Usuario 'Fiona'  se ha desconectado.
+Tue Jun 25 11:17:36 2013 Iniciando servidor AU...
+Tue Jun 25 11:17:36 2013 Se ha iniciado el servidor.

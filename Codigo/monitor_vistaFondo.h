@@ -19,7 +19,7 @@ private:
 public:
 	VistaFondo();
 	virtual ~VistaFondo();
-	void draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation);
+	void draw(const Cairo::RefPtr<Cairo::Context>& cr);
 	
 };
 

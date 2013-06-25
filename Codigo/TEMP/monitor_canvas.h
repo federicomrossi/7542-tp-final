@@ -1,5 +1,5 @@
-#ifndef CANVAS_H_
-#define CANVAS_H_
+#ifndef GRAFICADOR_H_
+#define GRAFICADOR_H_
 
 #include <gtkmm.h>
 #include <gtkmm/drawingarea.h>
@@ -7,7 +7,7 @@
 #include <iostream>
 #include <map>
 #include <sigc++/signal.h>
-
+//bueno desde donde explico? Todo y no borres xq dsp lo voy a leer 10 veces seguidas y lo voy a copiar
 
 #include "monitor_vista.h"
 #include "common_thread.h"
@@ -17,7 +17,7 @@
 #include "monitor_monitor.h"
 #include "monitor_vistaIndicador.h"
 using namespace std;
-class Canvas : public Gtk::DrawingArea , Thread {
+class Graficador : public Gtk::DrawingArea , Thread {
 private:
 	list<Vista*> vistasLinea;
 	Vista* fondo;
@@ -27,8 +27,8 @@ protected:
 	virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
 
 public:
-	Canvas();
-	virtual ~Canvas();
+	Graficador();
+	virtual ~Graficador();
 	void agregarVista(Vista* v);
 	void quitarVistas();
 	int escalaRequerida(int bytes);
@@ -38,4 +38,4 @@ public:
 	Monitor *monitor;
 };
 
-#endif /*CANVAS_H_*/
+#endif /*GRAFICADOR_H_*/

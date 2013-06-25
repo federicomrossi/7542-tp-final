@@ -14,7 +14,7 @@ void VistaLinea::correrIzquierda(int x){
 	xfin = xfin - x;
 }
 
-void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation) {
+void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	
 	cr->save();
 
@@ -29,12 +29,12 @@ void VistaLinea::draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& 
     cr->line_to (xfin, 256 - (yfin/escala)/4);
 	}
 	cr->set_source_rgb(255.0, 204.0, 53.0);
-    //cr->paint();
+
     cr->stroke();
 	cr->restore();  // back to opaque black
 
 
-
-	// re bien..ahora lo de naranja te lo debo jajajajaj bueeeno xD se ve bien igual ta re lindo...demasiado lindo bueno ahora
+// El evento on_draw de graficador llama a los eventos draw de todas las vistas que se quieren mostrar, 
+// pasandole el objeto cr, en el cual se dibuja
 	
 }

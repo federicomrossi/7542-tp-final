@@ -13,19 +13,19 @@ VistaIndicador::VistaIndicador(Monitor* monitor) {
 VistaIndicador::~VistaIndicador() {
 }
 
-void VistaIndicador::draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation) {
-	
+void VistaIndicador::draw(const Cairo::RefPtr<Cairo::Context>& cr) {
+	// se selecciona formato (font, tamaño y color)
+	// El objeto Font es la fuente, el formato del texto
 	cr->save();
 	Pango::FontDescription font;
 	font.set_family("Monospace");
 	font.set_weight(Pango::WEIGHT_BOLD);
 	font.set_absolute_size(20*Pango::SCALE);
-
-
-
+	// Instanciamos el Layout, dandole un texto y un font
 	Glib::ustring asdf = Convertir::itos(monitor->getBytesOcupados()/escala(monitor->getBytesOcupados())) + escalaStr(monitor->getBytesOcupados()); // bien bien 
 	Gtk::DrawingArea win;
 	Glib::RefPtr<Pango::Layout> layout = win.create_pango_layout(asdf);
+	//ponemos el layout (label) en la drawing y ya
 	layout->set_font_description(font);
 	
 	cr->move_to(5,5);

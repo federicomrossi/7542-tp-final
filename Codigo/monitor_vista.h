@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+
 #include <gtkmm.h>
 #include <gtkmm/drawingarea.h>
 
@@ -11,17 +12,17 @@
 #include <cairomm/refptr.h>
 
 
-class Canvas;
+class Graficador;
 
 class Vista {	
 protected:
-	Canvas* canvas;
+	Graficador* graficador;
 
 public:
 	Vista();
 	virtual ~Vista();
-	virtual void draw(const Cairo::RefPtr<Cairo::Context>& cr, Gtk::Allocation& allocation)=0;
-	void setCanvas(Canvas* canvas);
+	virtual void draw(const Cairo::RefPtr<Cairo::Context>& cr)=0;
+	void setGraficador(Graficador* graficador);
 };
 
 #endif /*VISTA_H_*/
