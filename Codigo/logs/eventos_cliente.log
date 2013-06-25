@@ -22,3 +22,41 @@ Tue Jun 25 02:08:24 2013 Finalizada la actualización de archivos.
 Tue Jun 25 02:08:27 2013 RECEPTOR: Se desconectó el servidor.
 Tue Jun 25 02:08:28 2013 Se ha cerrado la conexión con el servidor.
 Tue Jun 25 02:08:28 2013 Se ha cerrado la conexión con el servidor.
+Tue Jun 25 02:12:15 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:12:15 2013 No se ha podido conectar con servidor.
+Tue Jun 25 02:12:15 2013 ERROR: No se pudo llevar a cabo la conexión.
+Tue Jun 25 02:12:21 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:12:21 2013 No se ha podido conectar con servidor.
+Tue Jun 25 02:12:21 2013 ERROR: No se pudo llevar a cabo la conexión.
+Tue Jun 25 02:12:22 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:12:22 2013 No se ha podido conectar con servidor.
+Tue Jun 25 02:12:22 2013 ERROR: No se pudo llevar a cabo la conexión.
+Tue Jun 25 02:17:08 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:17:08 2013 No se ha podido conectar con servidor.
+Tue Jun 25 02:17:08 2013 ERROR: No se pudo llevar a cabo la conexión.
+Tue Jun 25 02:17:24 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:17:24 2013 Conexión establecida con servidor.
+Tue Jun 25 02:17:24 2013 Emitiendo solicitud de LOGIN...
+Tue Jun 25 02:17:24 2013 Inicio de sesión exitoso con usuario 'Fiona'
+Tue Jun 25 02:17:24 2013 Actualizando directorio...
+Tue Jun 25 02:17:24 2013 Solicitando lista de archivos del servidor...
+Tue Jun 25 02:17:25 2013 Se recibió lista de archivos del servidor...
+Tue Jun 25 02:17:25 2013 Procesando lista de archivos...
+Tue Jun 25 02:17:26 2013 Actualizando registro de archivos locales...
+Tue Jun 25 02:17:27 2013 Finalizada la actualización de archivos.
+Tue Jun 25 02:17:31 2013 RECEPTOR: Se desconectó el servidor.
+Tue Jun 25 02:17:33 2013 Se ha cerrado la conexión con el servidor.
+Tue Jun 25 02:17:33 2013 Se ha cerrado la conexión con el servidor.
+Tue Jun 25 02:24:52 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:24:52 2013 No se ha podido conectar con servidor.
+Tue Jun 25 02:24:52 2013 ERROR: No se pudo llevar a cabo la conexión.
+Tue Jun 25 02:25:12 2013 Conectando con 127.0.0.1 en el puerto 8080
+Tue Jun 25 02:25:12 2013 Conexión establecida con servidor.
+Tue Jun 25 02:25:12 2013 Emitiendo solicitud de LOGIN...
+Tue Jun 25 02:25:12 2013 Inicio de sesión exitoso con usuario 'Fiona'
+Tue Jun 25 02:25:12 2013 Actualizando directorio...
+Tue Jun 25 02:25:12 2013 Solicitando lista de archivos del servidor...
+Tue Jun 25 02:25:13 2013 Se recibió lista de archivos del servidor...
+Tue Jun 25 02:25:13 2013 Procesando lista de archivos...
+Tue Jun 25 02:25:14 2013 Actualizando registro de archivos locales...
+Tue Jun 25 02:25:15 2013 Finalizada la actualización de archivos.

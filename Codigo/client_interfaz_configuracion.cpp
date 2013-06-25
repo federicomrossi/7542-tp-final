@@ -73,6 +73,7 @@ void IConfiguracion::correr() {
 		this->host->set_sensitive(false);
 		this->puerto->set_sensitive(false);
 		this->iPolling->set_sensitive(false);
+		this->directorio->set_sensitive(false);
 	}
 	//Muestro configuracion actual
 	Gtk::Main::run(*main);
