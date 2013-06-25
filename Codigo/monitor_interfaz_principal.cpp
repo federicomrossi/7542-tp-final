@@ -119,11 +119,14 @@ void MenuPrincipal::run() {
 		this->monitor->actualizarValores();
 		if (this->monitor->getEstadoConexion() == true) {
 			this->estado->set_text("Conectado");
+			this->menuEstadisticas->set_sensitive(true);
+			this->menuAdminUsers->set_sensitive(true);
 			this->clientesConectados->set_text(monitor->getClientesConectados());
 			this->carpetasActivas->set_text(monitor->getCarpetasActivas());
 		} 
 		if ((this->monitor->getEstadoConexion()) == false) {
-
+			this->menuEstadisticas->set_sensitive(false);
+			this->menuAdminUsers->set_sensitive(false);
 			this->estado->set_text("Desconectado");
 			this->clientesConectados->set_text("-");
 			this->carpetasActivas->set_text("-");
