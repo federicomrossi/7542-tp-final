@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.13 (TeX Live 2013/dev) (format=pdflatex 2013.3.27)  25 JUN 2013 12:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.13 (TeX Live 2013/dev) (format=pdflatex 2013.3.27)  25 JUN 2013 15:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -780,76 +780,61 @@ File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
 (Font)              scaled to size 8.99994pt on input line 144.
-
-<images/Diagrama-modelo-servidor-parte1.png, id=18, 677.53125pt x 452.69125pt>
+ [1]
+<images/Diagrama-modelo-servidor-parte1.png, id=28, 677.53125pt x 452.69125pt>
 File: images/Diagrama-modelo-servidor-parte1.png Graphic file (type png)
 
 <use images/Diagrama-modelo-servidor-parte1.png>
 Package pdftex.def Info: images/Diagrama-modelo-servidor-parte1.png used on inp
-ut line 202.
+ut line 219.
 (pdftex.def)             Requested size: 411.14528pt x 274.7114pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[1]
-<images/Diagrama-modelo-servidor-parte2.png, id=29, 568.1225pt x 444.66125pt>
+ [2 <./images/Diagrama-modelo-servidor-parte1.png (PNG copy)>]
+<images/Diagrama-modelo-servidor-parte2.png, id=32, 568.1225pt x 444.66125pt>
 File: images/Diagrama-modelo-servidor-parte2.png Graphic file (type png)
 
 <use images/Diagrama-modelo-servidor-parte2.png>
 Package pdftex.def Info: images/Diagrama-modelo-servidor-parte2.png used on inp
-ut line 212.
+ut line 229.
 (pdftex.def)             Requested size: 348.26233pt x 272.58638pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/Diagrama-modelo-servidor-parte3.png, id=30, 1175.39125pt x 469.755pt>
+<images/Diagrama-modelo-servidor-parte3.png, id=33, 1175.39125pt x 469.755pt>
 File: images/Diagrama-modelo-servidor-parte3.png Graphic file (type png)
 
 <use images/Diagrama-modelo-servidor-parte3.png>
 Package pdftex.def Info: images/Diagrama-modelo-servidor-parte3.png used on inp
-ut line 221.
+ut line 238.
 (pdftex.def)             Requested size: 483.69687pt x 193.31041pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/Diagrama-modelo-cliente-threads.png, id=31, 706.64pt x 349.305pt>
+ [3 <./images/Diagrama-modelo-servidor-parte2.png (PNG copy)> <./images/Diagram
+a-modelo-servidor-parte3.png (PNG copy)>]
+<images/Diagrama-modelo-cliente-threads.png, id=37, 706.64pt x 349.305pt>
 File: images/Diagrama-modelo-cliente-threads.png Graphic file (type png)
 
 <use images/Diagrama-modelo-cliente-threads.png>
 Package pdftex.def Info: images/Diagrama-modelo-cliente-threads.png used on inp
-ut line 263.
+ut line 280.
 (pdftex.def)             Requested size: 411.14528pt x 203.23663pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-<images/Diagrama-modelo-cliente-actualizacion.png, id=32, 888.31876pt x 325.215
+<images/Diagrama-modelo-cliente-actualizacion.png, id=38, 888.31876pt x 325.215
 pt>
 File: images/Diagrama-modelo-cliente-actualizacion.png Graphic file (type png)
  <use images/Diagrama-modelo-cliente-actualizacion.png>
 Package pdftex.def Info: images/Diagrama-modelo-cliente-actualizacion.png used 
-on input line 272.
+on input line 289.
 (pdftex.def)             Requested size: 483.69687pt x 177.08234pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<images/Diagrama-modelo-cliente.png, id=33, 1098.1025pt x 509.905pt>
+<images/Diagrama-modelo-cliente.png, id=39, 1098.1025pt x 509.905pt>
 File: images/Diagrama-modelo-cliente.png Graphic file (type png)
 
 <use images/Diagrama-modelo-cliente.png>
 Package pdftex.def Info: images/Diagrama-modelo-cliente.png used on input line 
-282.
+299.
 (pdftex.def)             Requested size: 483.69687pt x 224.60008pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[2 <./images/Diagrama-modelo-servidor-parte1.png (PNG copy)>]
+[4 <./images/Diagrama-modelo-cliente-threads.png (PNG copy)> <./images/Diagrama
+-modelo-cliente-actualizacion.png (PNG copy)>]
 
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 50.
 See the caption package documentation for explanation.
@@ -858,10 +843,7 @@ See the caption package documentation for explanation.
 Package caption Warning: Unused \captionsetup[table] on input line 84.
 See the caption package documentation for explanation.
 
-[3 <./images/Diagrama-modelo-servidor-parte2.png (PNG copy)>] [4 <./images/Diag
-rama-modelo-servidor-parte3.png (PNG copy)> <./images/Diagrama-modelo-cliente-t
-hreads.png (PNG copy)> <./images/Diagrama-modelo-cliente-actualizacion.png (PNG
- copy)>] [5 <./images/Diagrama-modelo-cliente.png (PNG copy)>]
+[5 <./images/Diagrama-modelo-cliente.png (PNG copy)>]
 (./75.42-TP-Final-Grupo04-Documentacion.tecnica.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
@@ -869,11 +851,11 @@ LaTeX Info: Redefining \% on input line 6.
 Here is how much of TeX's memory you used:
  7145 strings out of 493499
  101496 string characters out of 3143791
- 185011 words of memory out of 3000000
+ 186011 words of memory out of 3000000
  10288 multiletter control sequences out of 15000+200000
  23008 words of font info for 58 fonts, out of 3000000 for 9000
  953 hyphenation exceptions out of 8191
- 37i,8n,40p,500b,325s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,8n,40p,829b,323s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/us
 r/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texm
 f-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist
@@ -892,7 +874,7 @@ ts/type1/public/cm-super/sfrm1440.pfb></usr/share/texlive/texmf-dist/fonts/type
 c/cm-super/sfti1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-su
 per/sfti2074.pfb>
 Output written on 75.42-TP-Final-Grupo04-Documentacion.tecnica.pdf (7 pages, 40
-0955 bytes).
+5546 bytes).
 PDF statistics:
  99 PDF objects out of 1000 (max. 8388607)
  68 compressed objects within 1 object stream
