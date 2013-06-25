@@ -20,7 +20,7 @@ ModificarUsuario::ModificarUsuario(Monitor *monitor, string aModificar) {
 	this->modificar = aModificar;
 
 	// Cargamos elementos
-	refBuilder->add_from_file("./interfaz/monitor_formUsuarioModificacion.glade");
+	refBuilder->add_from_file("./interfaz/monitor_formUsuario.glade");
 	refBuilder->get_widget("main", this->main); // linkeo el form
 
 	
