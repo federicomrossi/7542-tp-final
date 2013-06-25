@@ -208,7 +208,12 @@
 % DIVISION DE TAREAS
 \section{División de tareas}
 
-	[ Colocar texto aquí ]
+	El proyecto se dividió en tres partes: Interfaz, seguridad y modelo de sincronización. La división de tareas se realizó de la siguiente forma:
+\begin{itemize}
+\item Fiona: Encargada de interfaz.
+\item Federico: Encargado de modelo de sincronización.
+\item Belén: Encargada de seguridad y modelo de sincronización.
+\end{itemize}
 \bigskip
 
 
@@ -217,7 +222,49 @@
 % EVOLUCIÓN DEL PROYECTO
 \section{Evolución del proyecto}
 
-	[ Colocar texto aquí ]
+\subsection{Inicio}
+\smallskip
+
+	En los inicios del proyecto, se realizó un diagrama PERT tentativo que mostraba la secuencia posible de pasos para realizar el proyecto. A continuación se ve la figura de este:
+FIGURA
+	Al poco tiempo, este diagrama fue descartado, ya que era demasiado lineal y no presentaba suficientes etapas de desarrollo en paralelo que permitieran alcanzar el objetivo del proyecto en 8 semanas. Se debió optar por un esquema de solución con más ramas en paralelo y que considere realizar la interfaz gráfica al mismo tiempo que el modelo.
+
+\subsection{Primera Etapa}
+\smallskip
+	Se usó como esqueleto base para el proyecto la aplicación cliente-servidor generada en el trabajo práctico Nº4.
+	\par
+	Como primeros pasos para la resolución del problema se obtuvo la lista de archivos presentes en el directorio del cliente. Se logró obtener una lista que refleje solamente los nombres de los archivos presentes, evitando los directorios. Luego se diseñó un esquema del cliente con las posibles clases necesarias y las interrelaciones entre estas (este esquema fue acomodándose a las necesidades que iban surgiendo a medida que el proyecto tomaba forma). También se agregó soporte de contraseñas para inicio de sesión básico (sin un nivel de seguridad correcto).
+	\par
+	En lo sucesivo se realizaron mejoras en el loggin, el nivel de seguridad, y el estado de conexión del cliente con el servidor.
+	\par
+	En cuanto al desarrollo de interfaz gráfica, se realizó la instalación de la librería gtkmm 3.0 y del programa de desarrollo Glade, se modificaron los archivos Makefile para soporte de la librería y se realizaron las primeras pruebas de interfaz básica para el cliente.
+	\par
+	Se desarrolló un prototipo de interfaz de loggin con posibilidad de establecer configuración sobre el cliente.
+	\par
+	Se diseñó un esquema para el servidor, primero armando un diagrama tentativo de la posible disposición de clases y se implementó un template sin consideración de archivos y con un manejo total sobre memoria, para realizar pruebas de transmisión de datos. Con esta base establecida, se fueron agregando de a poco funcionalidades al servidor. 
+
+	Se decidió separar la actualización inicial del cliente, en la cual se conecta al servidor y sincroniza todos los archivos de la de inspección general, regulada por un intervalo de polling. Se decidió que si ocurren modificaciones de algún archivo del cliente offline, se revierten los cambios volviendo a la versión que contiene el server.
+	\par
+	Se detectó que la clase manejador de archivos sería necesaria tanto para el cliente como para el servidor y se hizo común a ambos.
+	\par
+	Se avanzó sobre el envió y recepción de archivos.
+
+\subsection{Segunda Etapa}
+\smallskip
+
+	Se investigó y realizaron las primeras pruebas sobre HMAC para la verificación de usuarios y el almacenamiento de claves.
+	\par
+	Se comenzó con el diseño de la aplicación monitor, en un primer momento integrada a la aplicación server y con posibilidad de trabajar únicamente de manera local.
+	\par
+	Se realizaron pruebas para trabajar con interfaz gráfica con varios hilos e interacción del usuario.
+
+\subsection{Última Etapa}
+\smallskip
+
+	Se modificó la aplicación monitor, para que esta sea lo más remota posible y pueda ser iniciada por separado del servidor. Se le agregó la funcionalidad de contener un gráfico con las estadísticas de “cantidad de bytes almacenados” vs. “tiempo”.
+	\par
+	Se continuó con más pruebas de los casos especiales de sincronización entre servidor y cliente, detectandose posibles errores. 
+
 \bigskip
 
 
@@ -226,7 +273,15 @@
 % INCONVENIENTES ENCONTRADOS
 \section{Inconvenientes encontrados}
 
-	[ Colocar texto aquí ]
+	En la puesta en ejecución de este proyecto, nos hemos encontrado con varios problemas o inconvenientes. A continuación se da una lista con una breve descripción de estos:
+
+\begin{itemize}
+\item Uno de los problemas con los que nos encontramos fue el de no tomar en consideración la sincronización por bloques de los archivos al comienzo. Se decidió dejar para más adelante, pensando que sería de fácil adaptación, pero luego no lo fue. Se tuvieron que realizar muchas modificaciones para lograr incorporar la sincronización de a bloques.
+\item Otro problema que enfrentamos fue el de no considerar la fecha de modificación como otra verificación sobre los cambios en los archivos, antes de realizar el hash de cada contenido y comparar con los hash viejos. De haber considerado la fecha de modificación, sería más eficiente el uso de recursos.
+\item Un inconveniente no menor que tuvimos, fue el de analizar los casos posibles de interacción entre usuarios y servidor. Se pudieron detectar casos simples y se logró adaptar el programa para que actúe de forma consistente en cada uno, pero luego surgieron muchos casos especiales no considerados de antemano. Y se volvió una tarea difícil lograr que actúe de forma predecible y estable en cada uno de estos casos.
+\item Otro problema, fue el de considerar enviar los archivos en formato hexadecimal. Así, se está duplicando el tamaño del archivo, y resulta completamente ineficiente a usos prácticos. Derivaron otros problemas a partir de este, ya que la conversión a hexadecimal es muy lenta y generaba conflictos en la detección de modificaciones en el directorio.
+\end{itemize}
+
 \bigskip
 
 
@@ -235,7 +290,21 @@
 % ANALISIS DE PUNTOS PENDIENTES
 \section{Análisis de puntos pendientes}
 
-	[ Colocar texto aquí ]
+	En esta sección se quiere analizar qué puntos se pueden ampliar y mejorar de este proyecto. A continuación, se da una lista detallando qué aspectos se mejorarían y cuales se incluirían en el proyecto, de tener la posibilidad en el futuro:
+
+\begin{itemize}
+\item Una optimización que debería realizarse es la de enviar los archivos en binario sin previa conversión a hexadecimal. Se están consumiendo recursos innecesariamente para realizar esta acción, por lo que debería ser descartada esta implementación. Para realizar esto, se debería analizar la posibilidad de envío de mensajes en paquetes de datos con la longitud fija o con un argumento que simbolice la longitud del paquete.
+\item Otra mejora de eficiencia sería la de considerar el caso en que se renombra un archivo como tal, y no como si fuese una baja seguida de una alta de archivo. Aquí se están perdiendo muchos recursos, ya que se deben enviar los cambios al servidor de dos archivos, y no de uno sólo, en cuyo caso no debería enviarse el contenido del archivo, sino solamente su nombre.
+\item Una posible mejora podría ser la de la inclusión de la fecha de modificación en la detección de cambios del directorio. En este momento, se están calculando los hash de los archivos y se están comparando con los que se tienen en el servidor. Este método no es tan práctico, como antes comparar la fecha de modificación, y si esta es diferente, ahí sí realizar la comparación de los hash.
+\item Una mejora en cuanto a la robustez de la aplicación, sería agregarle métodos extras de seguridad. Actualmente se está implementando un algoritmo que permite comprobar autenticidad e integridad de los datos (hmac). Se está utilizando la clave del usuario para la creación de la firma que se envía adjunta al mensaje, y esto no es muy seguro, ya que cualquiera puede interceptar el mensaje de inicio de sesión y obtener la clave. Podría incluirse un protocolo, para el envío de información más segura y el encriptado de los mensajes. Hay muchas opciones viables de seguridad que pueden ser consideradas.
+\item Podría considerarse el agregado de funcionalidades tales como el inicio de la aplicación con el sistema operativo y que esta corra de fondo.
+\item Un agregado interesante sería el de aceptar directorios anidados en las carpetas que se sincronizan. Actualmente se saltean los directorios dentro de directorios y se envían solamente los archivos que están a un nivel de profundidad. Este es un caso muy particular, y sería bueno considerar incluir estos cambios a futuro.
+\item Un adicional de funcionalidad que podría implementarse, es el de permitir la configuración del el ancho de banda que se quiere que el programa utilice. Esta opción es implementada por la aplicación tomada como referencia (Dropbox) y puede mejorar el rendimiento de la aplicación.
+\item Una funcionalidad que debería ser agregada es la de aplicar seguridad fuerte a la comunicación entre las aplicaciones monitor y servidor, ya que en este momento no poseen.
+\item Una mejora a realizar en la aplicación monitor es permitir que la misma pueda consultar en permanente el estado del servidor. Actualmente si el servidor se da de baja, la aplicacion lo muestra pero si luego este se da de alta, la aplicacion no lo detecta.
+\item Otra funcionalidad que puede agregarse sería la de poder ver el archivo de log en forma remota, desde la aplicación monitor.
+\end{itemize}
+
 \bigskip
 
 
@@ -274,7 +343,10 @@
 % CONCLUSIONES
 \section{Conclusiones}
 
-	[ Colocar texto aquí ]
+	A lo largo del desarrollo de este proyecto aprendimos la importancia del establecimiento de buenos diseños de base, considerando las posibles modificaciones que se pueden tener en el futuro. Además, es importante la implementación de prototipos, que permitan analizar incrementalmente las funcionalidades que se van agregando a la aplicación. También resulta importante definir un protocolo que permita un desarrollo continuo e integrable.
+	\par
+	Es necesario obligarse a poner metas intermedias y a intentar cumplirlas dentro del plazo establecido, o dentro de un rango razonable de tiempo. Además se debe ir avanzando en la implementación de a una funcionalidad por vez, dando así lugar a la realización de pruebas incrementales que permitan avanzar con pasos firmes. 
+
 \bigskip
 
 
