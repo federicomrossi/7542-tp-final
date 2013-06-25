@@ -17,28 +17,32 @@ IActualizacion::IActualizacion(Cliente *cliente) : cliente(cliente) {
 	// Cargamos elementos
 	refBuilder->add_from_file("./interfaz/client_actualizacion.glade");
 
-	refBuilder->get_widget("ventanaActualizacion", this->ventana);
-	this->ventana->show_all_children();
+	refBuilder->get_widget("ventanaActualizacion", this->main);
+	this->main->show_all_children();
 }
 
 
-// Destructor
-IActualizacion::~IActualizacion() { }
 
+IActualizacion::~IActualizacion() { }
 
 
 // Define tareas a ejecutar en el hilo.
 void IActualizacion::run() {
-	//Muestro configuracion actual
-	Gtk::Main::run(*this->ventana);
-
+	
+	std::cout<<"Entro a run del IActualizacion"<<std::endl;
 	// Esperamos a que se termine de actualizar el directorio
 	while(this->cliente->estaActualizando() && this->isActive()) {
 		// INSERTAR CONTADOR PARA TIMEOUT Y APERTURA DE
 		// VENTANA DE CIERRE POR TIMEOUT
-		std::cout << "actualizando" << std::endl;
+		sleep(1);
 	}
+	std::cout<<"salgo del run del IA"<<std::endl;
+	
+	this->main->hide();
+	this->join();
+}
 
-	// Cerramos la ventana
-	Gtk::Main::quit();
+void IActualizacion::correr() {
+	this->start();
+	Gtk::Main::run(*main);
 }

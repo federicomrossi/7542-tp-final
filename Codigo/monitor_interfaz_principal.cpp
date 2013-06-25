@@ -60,13 +60,7 @@ MenuPrincipal::MenuPrincipal(Monitor *monitor, Configuracion *config) : monitor(
 
 
 void MenuPrincipal::on_buttonSalir_clicked() {
-	// Damos orden de detener servidor 
 	
-		std::cout << "Monitoreo detenido"<< std::endl;
-		// END DEBUG
-	
-
-	// Cerramos ventana
 	Gtk::Main::quit();
 }
 
@@ -106,10 +100,8 @@ void MenuPrincipal::on_menuEstadisticas_activate(){
 void MenuPrincipal::on_menuManualUsuario_activate(){}
 
 void MenuPrincipal::on_menuSalir_activate() {
-		// DEBUG
-		std::cout << "Monitoreo detenido"<< std::endl;
-		// END DEBUG
-	// Cerramos ventana
+		
+	std::cout << "Monitoreo detenido"<< std::endl;
 	Gtk::Main::quit();
 }
 

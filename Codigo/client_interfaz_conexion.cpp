@@ -59,17 +59,19 @@ void Conexion::on_buttonConectar_clicked() {
 	if(this->estadoConexion == 1) {
 		// Abrimos ventana de actualización
 		this->main->set_sensitive(false);
-		// IActualizacion ventanaActualizacion(this->cliente);
-		// ventanaActualizacion.start();
+		
+		 IActualizacion ventanaActualizacion(this->cliente);
+		 ventanaActualizacion.correr();
 
+		 this->lblError->set_text("Sincronizando datos");
 		this->cliente->iniciarSincronizacion(
 			this->clienteConfig->obtenerIntervaloDePolling());
-		this->lblError->set_text("Sincronizando datos");
+		
+		ventanaActualizacion.join();
+		ventanaActualizacion.stop();
 
-		// ventanaActualizacion.stop();
 
-
-		// ventanaActualizacion.join();
+		
 
 		this->start();
 		// Habilitamos ventana luego de la actualización
