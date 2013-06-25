@@ -21,11 +21,6 @@
     <property name="can_focus">False</property>
     <property name="icon_name">baobab</property>
   </object>
-  <object class="GtkImage" id="image5">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">drakmenustyle</property>
-  </object>
   <object class="GtkImage" id="image6">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -125,15 +120,6 @@
                         <property name="use_stock">False</property>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="mi_log">
-                        <property name="label">Ver log</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="image">image5</property>
-                        <property name="use_stock">False</property>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -155,15 +141,6 @@
                         <property name="can_focus">False</property>
                         <property name="image">image6</property>
                         <property name="use_stock">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="mi_ayuda">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                       </object>
                     </child>
                   </object>
@@ -189,6 +166,7 @@
             <attributes>
               <attribute name="font-desc" value="&lt;Introducir valor&gt; 15"/>
               <attribute name="weight" value="ultrabold"/>
+              <attribute name="foreground" value="#201f4a4a8787"/>
             </attributes>
           </object>
           <packing>
@@ -369,8 +347,12 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">&lt;b&gt;Servidor&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Servidor</property>
+                <attributes>
+                  <attribute name="font-desc" value="&lt;Introducir valor&gt; 12"/>
+                  <attribute name="weight" value="light"/>
+                  <attribute name="foreground" value="#201f4a4a8787"/>
+                </attributes>
               </object>
             </child>
           </object>

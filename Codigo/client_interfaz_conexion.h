@@ -33,9 +33,6 @@ private:
 
 
 
-	//Glib::RefPtr<Gtk::StatusIcon> icono;		// IconTray de programa
-	//GtkStatusIcon *icono;
-
 
 	// Atributos del modelo
 	Cliente *cliente;					// Cliente a través del cual se conecta

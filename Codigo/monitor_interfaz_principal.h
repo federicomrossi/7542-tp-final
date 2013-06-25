@@ -36,10 +36,10 @@ private:
 	//Opciones
 	Gtk::ImageMenuItem *menuAdminUsers;
 	Gtk::ImageMenuItem *menuEstadisticas;
-	Gtk::ImageMenuItem *menuLog;
+	
 	//Ayuda
 	Gtk::ImageMenuItem *menuManualUsuario;
-	Gtk::ImageMenuItem *menuAyuda;
+
 
 
 	// Atributos del modelo
@@ -73,9 +73,9 @@ protected:
 	void on_menuSalir_activate();
 	void on_menuAdminUsers_activate();
 	void on_menuEstadisticas_activate();
-	void on_menuLog_activate();
+
 	void on_menuManualUsuario_activate();
-	void on_menuAyuda_activate();
+
 };
 
 #endif /* MENUPRINCIPAL_H_ */

@@ -3,7 +3,6 @@
 #include "monitor_interfaz_principal.h"
 #include "monitor_interfaz_configuracion.h"
 #include "monitor_interfaz_usuarios.h"
-#include "monitor_interfaz_log.h"
 #include "monitor_interfaz_estadisticas.h"
 #include "common_convertir.h"
 
@@ -37,9 +36,9 @@ MenuPrincipal::MenuPrincipal(Monitor *monitor, Configuracion *config) : monitor(
 	refBuilder->get_widget("mi_estadisticas", this->menuEstadisticas);
 
 
-	refBuilder->get_widget("mi_log", this->menuLog);
+
 	refBuilder->get_widget("mi_manual", this->menuManualUsuario);
-	refBuilder->get_widget("mi_ayuda", this->menuAyuda);
+	
 
 	// Acciones
 	// Acciones -> Bontones
@@ -53,10 +52,7 @@ MenuPrincipal::MenuPrincipal(Monitor *monitor, Configuracion *config) : monitor(
 	this->menuSalir->signal_activate().connect(sigc::mem_fun(*this, &MenuPrincipal::on_menuSalir_activate));
 	this->menuAdminUsers->signal_activate().connect(sigc::mem_fun(*this, &MenuPrincipal::on_menuAdminUsers_activate));
 	this->menuEstadisticas->signal_activate().connect(sigc::mem_fun(*this, &MenuPrincipal::on_menuEstadisticas_activate));
-	this->menuLog->signal_activate().connect(sigc::mem_fun(*this, &MenuPrincipal::on_menuLog_activate));
 	this->menuManualUsuario->signal_activate().connect(sigc::mem_fun(*this, &MenuPrincipal::on_menuManualUsuario_activate));
-	this->menuAyuda->signal_activate().connect(sigc::mem_fun(*this, &MenuPrincipal::on_menuAyuda_activate));
-
 	
 	main->show_all_children();
 
@@ -107,16 +103,7 @@ void MenuPrincipal::on_menuEstadisticas_activate(){
 }
 
 
-void MenuPrincipal::on_menuLog_activate() {
-	this->main->set_sensitive(false);
-	MenuLog ventanaLog(this->monitor);
-	ventanaLog.correr();
-	this->main->set_sensitive(true);
-}
-
-
 void MenuPrincipal::on_menuManualUsuario_activate(){}
-void MenuPrincipal::on_menuAyuda_activate(){}
 
 void MenuPrincipal::on_menuSalir_activate() {
 		// DEBUG
