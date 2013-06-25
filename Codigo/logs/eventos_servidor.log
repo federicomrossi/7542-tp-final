@@ -434,3 +434,25 @@ Tue Jun 25 13:01:20 2013 SINCRONIZADOR: Solicitud de lista de archivos.
 Tue Jun 25 13:01:23 2013 SINCRONIZADOR: Lista de archivos enviada.
 Tue Jun 25 13:02:14 2013 Usuario 'Fiona'  se ha desconectado.
 Tue Jun 25 13:05:31 2013 Se ha detenido el servidor.
+Tue Jun 25 13:17:18 2013 Iniciando servidor AU...
+Tue Jun 25 13:17:18 2013 Se ha iniciado el servidor.
+Tue Jun 25 13:17:28 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Tue Jun 25 13:17:28 2013 LOGIN: Esperando datos de login del cliente...
+Tue Jun 25 13:17:28 2013 LOGIN: Usuario 'belu' ha iniciado sesión.
+Tue Jun 25 13:17:28 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Tue Jun 25 13:17:28 2013 SINCRONIZADOR: Lista de archivos enviada.
+Tue Jun 25 13:18:08 2013 SINCRONIZADOR: Recepción de archivo nuevo.
+Tue Jun 25 13:18:08 2013 SINCRONIZADOR: Se realizó notificación a clientes de la existencia de un nuevo archivo.
+Tue Jun 25 13:18:21 2013 Usuario 'belu'  se ha desconectado.
+Tue Jun 25 13:36:48 2013 Se ha detenido el servidor.
+Tue Jun 25 13:38:47 2013 Iniciando servidor AU...
+Tue Jun 25 13:38:47 2013 Se ha iniciado el servidor.
+Tue Jun 25 13:38:53 2013 Se ha conectado un cliente (IP = 0.0.0.0).
+Tue Jun 25 13:38:53 2013 LOGIN: Esperando datos de login del cliente...
+Tue Jun 25 13:38:53 2013 LOGIN: Usuario 'belu' ha iniciado sesión.
+Tue Jun 25 13:38:53 2013 SINCRONIZADOR: Solicitud de lista de archivos.
+Tue Jun 25 13:38:54 2013 SINCRONIZADOR: Lista de archivos enviada.
+Tue Jun 25 13:38:54 2013 SINCRONIZADOR: Solicitud de partes de archivo.
+Tue Jun 25 13:38:55 2013 SINCRONIZADOR: Partes de archivo enviadas.
+Tue Jun 25 13:39:06 2013 Usuario 'belu'  se ha desconectado.
+Tue Jun 25 13:39:21 2013 Se ha detenido el servidor.
