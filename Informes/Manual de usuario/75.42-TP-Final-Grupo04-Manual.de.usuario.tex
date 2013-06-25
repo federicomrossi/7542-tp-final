@@ -198,13 +198,13 @@
 % CONFIGURACION
 \section{Configuración de la Aplicación servidor}
 	
-	La aplicación requiere que se acceda al directorio "config/server.properties" y se segun lo crea necesario el usuario 
-	los siguientes argumentos
-
-			#SETTINGS SERVER
-			HOSTNAME=127.0.0.1
-			PUERTO=8080
-			PATH=carpetas/---> directorio donde se guardara la información en el servidor
+	La aplicación requiere que se acceda al directorio "config/server.properties" y según lo crea necesario el usuario modificar los siguientes argumentos:
+\begin{itemize}
+		\item	#SETTINGS SERVER
+		\item	HOSTNAME=127.0.0.1
+		\item	PUERTO=8080
+		\item	PATH=carpetas/---> directorio donde se guardara la información en el servidor
+\end{itemize}
 \bigskip
 
 
@@ -234,7 +234,7 @@
 	\bigskip
        \caption{Inicio de sesion del monitor.}
 	\end{figure}
-	Luego de iniciar sesión correctamente, se accede a una pantalla como la siguiente, donde se pueden observar los siguientes menu de opciones: 
+	Luego de iniciar sesión correctamente, se accede a una pantalla donde se pueden observar menu de opciones.
 	\begin{figure}[h]
        \centering
        \includegraphics[width=0.85\textwidth]{MonitorPPal.png}
@@ -262,6 +262,13 @@
 	\bigskip
        \caption{Eliminar Usuario.}
 	\end{figure}
+	Finalmente, se puede acceder a una sección de configuración del Monitor, donde se puede especificar por ejemplo, el puerto utilizado.
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{configuracionMonitor.png}
+	\bigskip
+       \caption{Configuración del monitor.}
+	\end{figure}
 
 \subsection{Aplicación Cliente}
 \smallskip
@@ -272,7 +279,19 @@
 	\bigskip
        \caption{Inicio de sesion de cliente.}
 	\end{figure}
-	Luego, al entrar en el proceso de sincronización, se puede ver la pantalla de esta forma:
+	Se pueden modificar las opciones en la aplicación, obteniendo una ventana de Preferencias. Aquí, se pueden modificar el directorio que se quiere sincronizar, la IP del servidor al cual se quiere conectar y además el puerto (de estar loggeado, no se podrán modificar ninguna de estas dos últimas).
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{configuracionCliente.png}
+	\bigskip
+       \caption{Configuración de cliente antes de log in.}
+	\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.85\textwidth]{configuracionCliente2.png}
+	\bigskip
+       \caption{Configuración de cliente luego de log in.}
+	\end{figure}
+	Luego, al entrar en el proceso de sincronización, se entra en una pantalla de sincronización.
 	\begin{figure}[h]
        \centering
        \includegraphics[width=0.85\textwidth]{Sincronizando.png}
@@ -287,7 +306,29 @@
 % APENDICE DE ERRORES
 \section{Apéndice de errores}
 	
-	[ Colocar texto aquí ]
+	A continuación se provee una lista de posibles errores que pueden obtenerse durante la ejecución de la aplicación:
+	\par
+Errores en conexión:
+\begin{itemize}
+\item "ERROR: No se ha podido cerrar el socket." : Se obtiene este error si no se logro cerrar correctamente el socket.
+\item "ERROR: No se ha podido crear el socket." : Se obtiene este error si no logra crearse el socket correctamente.
+\item "ERROR: No se pudo llevar a cabo la conexión." : No se logró conectar el cliente al socket destino.
+\item "ERROR: No se pudo comenzar a escuchar." : El socket del servidor no logro crearse correctamente.
+\item "ERROR: No se pudo aceptar la conexión" : El socket del servidor no logró aceptar una nueva conexión.
+\item "ERROR: Antes de enlazar, no se pudo reutilizar socket." : Si cayó la conexión inesperadamente y no se pudo reestablecer la conexión en el mismo puerto, se obtiene este error.
+\item "ERROR: No se pudo llevar a cabo el enlace." : El servidor no se pudo enlazar correctamente a un puerto. Puede ser que este puerto ya esté en uso por alguna otra aplicación.
+\end{itemize}
+
+	\par
+Errores en manejo de archivos:
+\begin{itemize}
+\item "ERROR: Archivo de entrada inválido." : Este error se obtiene cuando se está intentando acceder a un archivo que no pudo ser abierto. Puede ser que ya no exista en disco o que esté en uso por otra aplicación.
+\item "ERROR: El archivo no pudo ser abierto." : idem anterior.
+\item "ERROR: El registro no pudo ser abierto." : Este error se puede obtener cuando el archivo \textit{.reg_archivos} no logró ser abierto correctamente.
+\item "ERROR: No se ha podido abrir el directorio." : Este error se puede dar cuando el directorio está protegido o no existe la ruta de directorio especificada.
+\item "ERROR: Archivo nuevo no pudo ser creado." : Este error se obtiene cuando no se pudo crear un archivo nuevo. Puede suceder, por ejemplo, que no se tiene más espacio en disco. 
+
+\end{itemize}
 \bigskip
 
 
